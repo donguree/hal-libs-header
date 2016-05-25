@@ -51,32 +51,32 @@ extern "C"
 ******************************************************************************/
 typedef enum
 {
-	/* TERRESTRIAL */
-	HAL_DEMOD_TRANS_SYS_VSB		= 0x00,			/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_DVBT,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_DVBT2,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_DTMB,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_ISDBT,						/* 5 bit : Don't exceed */
-
-	/* CABLE */
-	HAL_DEMOD_TRANS_SYS_DVBC,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_DVBC2,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_QAM,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_ISDBC,						/* 5 bit : Don't exceed */
-
-	/* SATELLITE */
-	HAL_DEMOD_TRANS_SYS_DVBS,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_DVBS2,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_BS,						/* 4 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_CS,						/* 5 bit : Don't exceed */
-
-	/* ANALOG */
-	HAL_DEMOD_TRANS_SYS_NTSC,						/* 5 bit : Don't exceed */
-	HAL_DEMOD_TRANS_SYS_PAL,						/* 5 bit : Don't exceed */
-
-	HAL_DEMOD_TRANS_SYS_END,						/* 5 bit : Don't exceed */
-
-	HAL_DEMOD_TRANS_SYS_UNKNOWN	= 0x1F,			/* 5 bit : Don't exceed */
+    /* TERRESTRIAL */
+    HAL_DEMOD_TRANS_SYS_VSB    = 0x00,              /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_DVBT,                       /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_DVBT2,                      /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_DTMB,                       /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_ISDBT,                      /* 5 bit : Don't exceed */
+    
+    /* CABLE */
+    HAL_DEMOD_TRANS_SYS_DVBC,                       /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_DVBC2,                      /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_QAM,                        /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_ISDBC,                      /* 5 bit : Don't exceed */
+    
+    /* SATELLITE */
+    HAL_DEMOD_TRANS_SYS_DVBS,                       /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_DVBS2,                      /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_BS,                         /* 4 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_CS,                         /* 5 bit : Don't exceed */
+    
+    /* ANALOG */
+    HAL_DEMOD_TRANS_SYS_NTSC,                       /* 5 bit : Don't exceed */
+    HAL_DEMOD_TRANS_SYS_PAL,                        /* 5 bit : Don't exceed */
+    
+    HAL_DEMOD_TRANS_SYS_END,                        /* 5 bit : Don't exceed */
+    
+    HAL_DEMOD_TRANS_SYS_UNKNOWN	= 0x1F,             /* 5 bit : Don't exceed */
 }HAL_DEMOD_TRANS_SYSTEM_T;
 
 /**
@@ -263,13 +263,13 @@ typedef enum
 
 typedef enum
 {
-	HAL_DEMOD_AUDIO_SIF_SYSTEM_BG		= 0x00,
-	HAL_DEMOD_AUDIO_SIF_SYSTEM_I,
-	HAL_DEMOD_AUDIO_SIF_SYSTEM_DK,
-	HAL_DEMOD_AUDIO_SIF_SYSTEM_L,
-	HAL_DEMOD_AUDIO_SIF_SYSTEM_MN,
-	HAL_DEMOD_AUDIO_SIF_SYSTEM_LP,
-	HAL_DEMOD_AUDIO_SIF_SYSTEM_END,
+	HAL_DEMOD_AUDIO_SIF_SYSTEM_BG		= 0x00,	
+	HAL_DEMOD_AUDIO_SIF_SYSTEM_I,				
+	HAL_DEMOD_AUDIO_SIF_SYSTEM_DK,			
+	HAL_DEMOD_AUDIO_SIF_SYSTEM_L,				
+	HAL_DEMOD_AUDIO_SIF_SYSTEM_MN,			
+	HAL_DEMOD_AUDIO_SIF_SYSTEM_LP,			
+	HAL_DEMOD_AUDIO_SIF_SYSTEM_END,			
  	HAL_DEMOD_AUDIO_SIF_SYSTEM_UNKNOWN = 0xf0
 } HAL_DEMOD_AUDIO_SIF_SOUNDSYSTEM_T;
 
@@ -279,35 +279,41 @@ typedef enum
  */
 typedef struct
 {
-	BOOLEAN bSignalValid;		/*	1 bit */
-	UINT8 	unSQI;
-	UINT32	packetError;
-	UINT32	unBER;			/* unit : e-10 */
-	UINT32	unAGC;
-	UINT32	unSNR;
+    BOOLEAN bSignalValid;   /*	1 bit */
+    UINT8   strength;
+    UINT8   quality;
+    UINT8   unSQI;
+    UINT32  packetError;
+    UINT32  unBER;          /* unit : e-10 */
+    UINT32  unAGC;
+    UINT32  unSNR;
 } HAL_DEMOD_SIGNAL_STATE_T;
 
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
-	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;
+	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;	
 	HAL_DEMOD_CHANNEL_BW_T			eChannelBW;
 	BOOLEAN							bSpectrumInv;
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_ATSC_SET_PARAM_T;
 
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
-	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;
+	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;	
 	HAL_DEMOD_CHANNEL_BW_T			eChannelBW;
 	BOOLEAN							bSpectrumInv;
+	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;
+	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;
+	HAL_DEMOD_TPS_CODERATE_T		codeRate;
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_ISDBT_SET_PARAM_T;
 
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
-	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;
+	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;	
 	HAL_DEMOD_CHANNEL_BW_T			eChannelBW;
 	BOOLEAN							bSpectrumInv;
 	BOOLEAN							bProfileHP;
@@ -315,19 +321,68 @@ typedef struct
 	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;
 	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;
 	HAL_DEMOD_TPS_CODERATE_T		codeRate;
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_DVBT_SET_PARAM_T;
 
 typedef struct
 {
+    HAL_DEMOD_TUNE_MODE_T                tuneMode;
+    HAL_DEMOD_TRANS_SYSTEM_T             transSystem;
+    HAL_DEMOD_CHANNEL_BW_T               eChannelBW;
+    BOOLEAN                              bSpectrumInv;
+    HAL_DEMOD_TPS_CARRIER_MODE_T         carrierMode;
+    HAL_DEMOD_TPS_GUARD_INTERVAL_T       guardInterval;
+    HAL_DEMOD_TPS_CODERATE_T             codeRate;
+    HAL_DEMOD_TPS_CONSTELLATION_T        constellation;
+    UINT8                                unPLP;
+} HAL_DEMOD_DVBT2_SET_PARAM_T;
+
+typedef struct
+{
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
-	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;
+	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;	
 	HAL_DEMOD_CHANNEL_BW_T			eChannelBW;
 	UINT32							frequency;
 	UINT16 							symbolRate;
 	BOOLEAN							bSpectrumInv;
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_DVBC_SET_PARAM_T;
+
+typedef struct
+{
+    HAL_DEMOD_TUNE_MODE_T           tuneMode;
+    HAL_DEMOD_TRANS_SYSTEM_T        transSystem;
+    BOOLEAN                         bSpectrumInv;
+    UINT32                          symbolRate;
+    HAL_DEMOD_TPS_CODERATE_T        codeRate;
+    HAL_DEMOD_TPS_CONSTELLATION_T   constellation;
+    UINT32                          freqKHz;
+    BOOLEAN                         bIsBlind_search;
+} HAL_DEMOD_DVBS_SET_PARAM_T;
+
+typedef struct
+{
+    HAL_DEMOD_TUNE_MODE_T           tuneMode;
+    HAL_DEMOD_TRANS_SYSTEM_T        transSystem;
+    BOOLEAN                         bSpectrumInv;
+    UINT32                          symbolRate;
+    HAL_DEMOD_TPS_CODERATE_T        codeRate;
+    HAL_DEMOD_TPS_CONSTELLATION_T   constellation;
+    UINT32                          freqKHz;
+    BOOLEAN                         bIsBlind_search;
+} HAL_DEMOD_DVBS2_SET_PARAM_T;
+
+typedef struct
+{
+	HAL_DEMOD_TUNE_MODE_T			tuneMode;
+	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;	
+	HAL_DEMOD_CHANNEL_BW_T			eChannelBW;
+	BOOLEAN                         bM720;   	//interleave 
+	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode ;
+	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;
+	HAL_DEMOD_TPS_CODERATE_T		codeRate ;
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
+} HAL_DEMOD_DTMB_SET_PARAM_T;
 
 /**
 *ANALOG
@@ -358,25 +413,33 @@ typedef struct
 } HAL_DEMOD_SPECDATA_DVBT_T;
 
 /**
- * Special data : ISDB-T.
+ * Special data : DTMB.
  */
 typedef struct
 {
-	BOOLEAN							bSpectrumInv;		/* 1 bit */
-	BOOLEAN							bProfileHP;		/* 1 bit */
-	HAL_DEMOD_TPS_HIERARCHY_T		hierarchy;		/* 3 bit */
-
+	
+	BOOLEAN							bM720;		/* 1 bit */
+	
 	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;		/* 4 bit */
 	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;		/* 4 bit */
 
 	HAL_DEMOD_TPS_CODERATE_T		codeRate;		/* 4 bit */
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;		/* 4 bit */
+} HAL_DEMOD_SPECDATA_DTMB_T;
 
-} HAL_DEMOD_SPECDATA_ISDBT_T;
-
-
-
-
+/**
+ * Special data : DVB-T2.
+ */
+typedef struct
+{
+    BOOLEAN  bSpectrumInv; 
+    HAL_DEMOD_TPS_CARRIER_MODE_T    carrierMode;
+    HAL_DEMOD_TPS_GUARD_INTERVAL_T  guardInterval;	
+    
+    HAL_DEMOD_TPS_CODERATE_T        codeRate;
+    HAL_DEMOD_TPS_CONSTELLATION_T   constellation;
+    UINT8  unPLP;      ///< For DVBT2 - PLP ID
+} HAL_DEMOD_SPECDATA_DVBT2_T;
 
 /**
  * Special data : DVB-T2.
@@ -384,11 +447,11 @@ typedef struct
 typedef struct
 {
 	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;
-	HAL_DEMOD_TPS_GUARD_INTERVAL_T 	guardInterval;
+	HAL_DEMOD_TPS_GUARD_INTERVAL_T 	guardInterval;	
 
-	HAL_DEMOD_TPS_CODERATE_T		codeRate;
+	HAL_DEMOD_TPS_CODERATE_T	codeRate;
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
-} HAL_DEMOD_SPECDATA_DVBT2_T;
+} HAL_DEMOD_SPECDATA_ISDBT_T;
 
 /**
  * Special data : VSB.
@@ -407,8 +470,32 @@ typedef struct
 {
 	BOOLEAN							bSpectrumInv;
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
-	UINT16							symbolRate;
+	UINT16							symbolRate; 
 } HAL_DEMOD_SPECDATA_DVBC_T;
+
+/**
+ * Special data : DVB-S.
+ */
+typedef struct
+{
+    BOOLEAN                         bIsDVBS2;        /* 1 bit */
+    BOOLEAN                         bSpectrumInv;    /* 1 bit */
+    UINT32                          symbolRate;
+    HAL_DEMOD_TPS_CODERATE_T        codeRate;
+    HAL_DEMOD_TPS_CONSTELLATION_T   constellation;
+} HAL_DEMOD_SPECDATA_DVBS_T;
+
+/**
+ * Special data : DVB-S2.
+ */
+typedef struct
+{
+    BOOLEAN                         bIsDVBS2;        /* 1 bit */
+    BOOLEAN                         bSpectrumInv;    /* 1 bit */
+    UINT32                          symbolRate;
+    HAL_DEMOD_TPS_CODERATE_T        codeRate;
+    HAL_DEMOD_TPS_CONSTELLATION_T   constellation;
+} HAL_DEMOD_SPECDATA_DVBS2_T;
 
 /**
  * Special data : QAM.
@@ -420,19 +507,27 @@ typedef struct
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
 } HAL_DEMOD_SPECDATA_QAM_T;
 
+/**
+ * DVBT2 : PLP.
+ */
+typedef struct
+{
+    UINT8   PLPCount;                   /* count of multiple TS*/
+    UINT8   paPLPID[256];               /* arrary of PLP ID */
+} HAL_MULTI_TS_INFO_T;
 
 /**
 *ANALOG
 */
 typedef struct
 {
-	UINT32								centerFreq;
+	UINT32								centerFreq;						
 	UINT32								tunedFreq;
 	BOOLEAN								bSpectrmInv;
-	HAL_DEMOD_TRANS_SYSTEM_T			transSystem;
-	HAL_DEMOD_TUNE_MODE_T				tuneMode;
-	HAL_DEMOD_CHANNEL_BW_T 				channelBW;
-	HAL_DEMOD_AUDIO_SIF_SOUNDSYSTEM_T	audioSystem;
+	HAL_DEMOD_TRANS_SYSTEM_T			transSystem;					
+	HAL_DEMOD_TUNE_MODE_T				tuneMode;						
+	HAL_DEMOD_CHANNEL_BW_T 				channelBW;						
+	HAL_DEMOD_AUDIO_SIF_SOUNDSYSTEM_T	audioSystem;						
 
 } HAL_DEMOD_ANALOG_CONFIG_T;
 
