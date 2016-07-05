@@ -97,7 +97,7 @@ Function Name
 
 Function Description
     write Netflix ESN(ESN ID + Kpe + Kph) into secure storage for provisioning
-    
+
 Requirement
     1. check if identifier is "idfile". other id is on failure.
     2. verify CRC32 integrity
@@ -246,21 +246,21 @@ Remarks
     /*
     typedef enum
     {
-        nfTOB_UNDEFINED = 0,    
+        nfTOB_UNDEFINED = 0,
         /*
          * Some messages are for TEE (or VM) management. Those start at offset 0
          *
-        nfTOB_TEE_MGMT = 1,    
+        nfTOB_TEE_MGMT = 1,
         /*
          * We're not implementing REE/TEE session management in the first revision, but we'll
          * need it later, so let's allocate a slot for that.
          *
-        nfTOB_TEE_SESSION = 2048,    
+        nfTOB_TEE_SESSION = 2048,
         /*
          * The first TA we'll implement is the crypto agent. This agent is used for all
          * webcrypto/msl operations, and also can provide secure store crypto services.
          *
-        nfTOB_CRYPTO_AGENT = 4096,    
+        nfTOB_CRYPTO_AGENT = 4096,
         /*
          * PlayReady integration is a stretch goal for the first revision, so let's
          * allocate a slot for it.
@@ -792,7 +792,7 @@ DTV_STATUS_T HAL_CRYPTO_VUDU_SVP_Release(void);
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszMode, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform TEE AES decryption.
@@ -810,7 +810,7 @@ DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszMode, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA encryption.
@@ -827,7 +827,7 @@ DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszKeyType, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA decryption.
@@ -842,7 +842,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @param   pKey             [IN]      SecureData of cipher key
  *  @param   nKeySize         [IN]      Size of pKey data
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszKeyType, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA Signing in TEE
@@ -857,7 +857,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
 */
-DTV_STATUS_T HAL_CRYPTO_RSA_Sign (uint32_t nDataSize, uint8_t *pData, uint32_t *pSigLen, uint8_t *pSig, char *pszKeyType, uint8_t *pKey, uint32_t nKeyLen);
+DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeyLen);
 
 /*
  * Perform RSA signature verification in TEE
@@ -872,7 +872,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Sign (uint32_t nDataSize, uint8_t *pData, uint32_t *
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
 */
-DTV_STATUS_T HAL_CRYPTO_RSA_Verify (uint32_t nDataSize, uint8_t *pData, uint32_t nSigLen, uint8_t *pSig, char *pszKeyType, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 #endif		//_HAL_CRYPTO_H_
 

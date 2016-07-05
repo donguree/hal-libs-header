@@ -12,13 +12,13 @@
  *
  *  This source file defines the HAL functions related to webOS Secure Store
  *
- *  @author	    Seonho Park (seonho.park@lge.com)
+ *  @author
  *  @version	1.0
  *  @date		2016.05.16
  *  @note
  *  @see
  *
- *  webOS Secure Store (Platform Layer Secure Store)
+ *  TEE crypto functions for webOS Secure Store (Platform Layer Secure Store)
  *
  */
 
@@ -49,6 +49,16 @@
 /******************************************************************************
     Type Definitions
 ******************************************************************************/
+typedef enum {
+	HAL_SSTR_R_OK				= 0,	/**< OK */
+	HAL_SSTR_R_GENERAL_ERROR	= -1,	/**< unspecified error */
+	HAL_SSTR_R_TEE_FAILURE		= -2,	/**< TEE Problem */
+	HAL_SSTR_R_INVALID_BUFSIZE	= -3,	/**< Given buffer size is not enough */
+	HAL_SSTR_R_INVALID_KEY		= -4,	/**< pKey is not a type of "Protected SDHK" */
+	HAL_SSTR_R_NOT_MATCH		= -5,	/**< HMAC value is not matched */
+} HAL_SSTR_R_T;
+
+
 
 /**
  *  Terminologies
@@ -90,7 +100,7 @@
  *   @param   pszDataType     [IN]      data type. "general", "sedata", or key ID such as "tee_bgroupcert.dat", "vudu_m2m".
  *
  */
-DTV_STATUS_T HAL_SSTR_MakeSecureData(uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszDataType);
+HAL_SSTR_R_T HAL_SSTR_MakeSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszDataType);
 
 /**
  *  Decrypt SecureData that is made by HAL_SSTR_MakeSecureData.
@@ -101,7 +111,7 @@ DTV_STATUS_T HAL_SSTR_MakeSecureData(uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *   @param   pDstLen         [OUT]     sizeof pDstData
  *   @param   pDstData        [OUT]     buffer to store SecureData
  */
-DTV_STATUS_T HAL_SSTR_GetDataFromSecureData (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData);
+HAL_SSTR_R_T HAL_SSTR_GetDataFromSecureData (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData);
 
 /**
  *  Given a pData of which the size is nDataSize, calculate HMAC and return it with the Protected SDHK. The SDHK is randomly generated for each API calls and its size is 32 bytes.
@@ -112,7 +122,7 @@ DTV_STATUS_T HAL_SSTR_GetDataFromSecureData (uint32_t nSrcLen, uint8_t *pSrcData
  *   @param   pKey         [OUT]     sizeof pDstData
  *   @param   pHMAC        [OUT]     buffer to store SecureData
  */
-DTV_STATUS_T HAL_SSTR_GetHMAC (uint32_t nDataSize, uint8_t *pData, uint8_t *pKey, uint8_t *pHMAC);
+HAL_SSTR_R_T HAL_SSTR_GetHMAC (UINT32 nDataSize, UINT8 *pData, UINT8 *pKey, UINT8 *pHMAC);
 
 /*
  *  Verify the data pData of which the size is nDataSize with the HMAC value pHMAC. The key data pKey is a protected SDHK that is provided by HAL_SSTR_GetHMAC API.
@@ -123,7 +133,7 @@ DTV_STATUS_T HAL_SSTR_GetHMAC (uint32_t nDataSize, uint8_t *pData, uint8_t *pKey
  *   @param   pKey         [IN]         sizeof pDstData
  *   @param   pHMAC        [IN]         buffer to store SecureData
  */
-DTV_STATUS_T HAL_SSTR_VerifyHMAC (uint32_t nDataSize, uint8_t *pData, uint8_t *pKey, uint8_t *pHMAC);
+HAL_SSTR_R_T HAL_SSTR_VerifyHMAC (UINT32 nDataSize, UINT8 *pData, UINT8 *pKey, UINT8 *pHMAC);
 
 /*
  * Generate a random data of which the size is nSize and transform it to SecureData, and copy it to the buffer pointed by pKey.
@@ -131,6 +141,6 @@ DTV_STATUS_T HAL_SSTR_VerifyHMAC (uint32_t nDataSize, uint8_t *pData, uint8_t *p
  *  @param   nSize    [IN]         Size of key to be generated
  *  @param   pKey     [OUT]         Buffer to store the generated key
  */
-DTV_STATUS_T HAL_SSTR_GenAESKey (uint32_t nSize, uint8_t *pKey);
+HAL_SSTR_R_T HAL_SSTR_GenAESKey (UINT32 nSize, UINT8 *pKey);
 
 #endif		//_HAL_SSTR_H_
