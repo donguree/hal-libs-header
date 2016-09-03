@@ -573,6 +573,15 @@ typedef enum {
 } VSC_SUB_MODE_T;
 
 typedef enum {
+   VSC_SUB_PURPOSE_NONE =0,   // in case PBP enter/exit or PIP(live zoom or magnifier) exit.
+   VSC_SUB_PURPOSE_LIVE_ZOOM, // in case live zoom enter
+   VSC_SUB_PURPOSE_MAGNIFIER, // in case magnifier enter
+   VSC_SUB_PURPOSE_MAX = VSC_SUB_PURPOSE_MAGNIFIER,
+   VSC_SUB_PURPOSE_MAXN
+} VSC_SUB_PURPOSE_T;
+
+
+typedef enum {
 	VSC_MGF_TYPE_CIRCLE = 0,
 	VSC_MGF_TYPE_RECTANGLE,
 	VSC_MGF_TYPE_MAX = VSC_MGF_TYPE_RECTANGLE,
@@ -626,8 +635,9 @@ DTV_STATUS_T	HAL_VSC_GetVideoDelayedTime (VIDEO_WID_T eWinId, UINT16 *pDelayedTi
 DTV_STATUS_T 	HAL_VSC_SetAdaptiveStream(BOOLEAN bOnOff);
 
 DTV_STATUS_T    HAL_VSC_SetDelayBuffer(VIDEO_WID_T wId, UINT8 ubuffer);
-DTV_STATUS_T    HAL_VSC_SetSubWinMode(VSC_SUB_MODE_T mode); // m16
-DTV_STATUS_T    HAL_VSC_SetSubWinShape(VSC_SUB_SHAPE_T shape, VIDEO_RECT_T rect);
+DTV_STATUS_T    HAL_VSC_SetSubWinMode(VSC_SUB_MODE_T mode); // m16, rtk
+DTV_STATUS_T	HAL_VSC_SetSubWinPurpose(VSC_SUB_PURPOSE_T purpose); // m16, rtk
+DTV_STATUS_T    HAL_VSC_SetSubWinShape(VSC_SUB_SHAPE_T shape, VIDEO_RECT_T rect); // m16, rtk
 DTV_STATUS_T    HAL_VSC_SetZorder(VSC_ZORDER_T *zOrder, UINT8 uWindowNo);
 DTV_STATUS_T    HAL_VSC_SetDualMode(BOOLEAN bOnOff); // m16
 DTV_STATUS_T    HAL_VSC_SetTwinZoom(BOOLEAN bOnOff); // m16
