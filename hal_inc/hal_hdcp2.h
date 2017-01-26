@@ -115,6 +115,23 @@ int HAL_HDCP2_GetRootPublicKey(unsigned char *pRootPublicKey,
 			       unsigned char *src_file_path);
 
 /**
+ * HAL_HDCP2_UseTestVector
+ * @argc: [in] arguments count for the argv param.
+ * @argv: [in]
+ *  argv[0] = LC128 value (16bytes)
+ *  argv[1] = Km value (16bytes)
+ *  argv[2] = Ks value (16bytes)
+ * Returns: Zero(0) if the function success, non-Zero otherwise.
+ *
+ * If the argc param is not 0, some HAL_HDCP2* functions should not make the values
+ * received from the argv argument. Set the argv[*] values to the Secure DRAM
+ * in order to use it at the HDCP2 authentication.
+ * If it's 0, do not use test vector. Clear Secure DRAM values and
+ * HAL_HDCP2* functions are operated as the Production(=user) mode.
+ */
+int HAL_HDCP2_UseTestVector(unsigned int argc, void **argv);
+
+/**
  * HAL_HDCP2_GetCertInfo has been deprecated and should not be used in
  *	newly-written code. Just use HAL_HDCP2_GetCertInfo2().
  */
