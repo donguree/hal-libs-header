@@ -97,7 +97,7 @@ Function Name
 
 Function Description
     write Netflix ESN(ESN ID + Kpe + Kph) into secure storage for provisioning
-    
+
 Requirement
     1. check if identifier is "idfile". other id is on failure.
     2. verify CRC32 integrity
@@ -186,8 +186,8 @@ Function Description
     Write App Data to Secure Store
 
 Function Parameters
-    void *pDataId		[IN]			Data Identifier
-    UINT8 *pData		[IN]			Data
+    char *pDataId	    [IN]			Data Identifier
+    UINT8 *pData		[IN]			Data to be encrypted
     int	length		    [IN]			Data length
 
 Return Value
@@ -207,8 +207,8 @@ Function Description
     Read App Data to Secure Store.
 
 Function Parameters
-    void *pDataId		[IN]			Data Identifier
-    UINT8 *pData		[IN]			Data
+    char *pDataId 		[IN]			Data Identifier
+    UINT8 *pData		[IN/OUT]		Decrypted data
     int	length		    [IN]			Data length
 
 Return Value
@@ -246,21 +246,21 @@ Remarks
     /*
     typedef enum
     {
-        nfTOB_UNDEFINED = 0,    
+        nfTOB_UNDEFINED = 0,
         /*
          * Some messages are for TEE (or VM) management. Those start at offset 0
          *
-        nfTOB_TEE_MGMT = 1,    
+        nfTOB_TEE_MGMT = 1,
         /*
          * We're not implementing REE/TEE session management in the first revision, but we'll
          * need it later, so let's allocate a slot for that.
          *
-        nfTOB_TEE_SESSION = 2048,    
+        nfTOB_TEE_SESSION = 2048,
         /*
          * The first TA we'll implement is the crypto agent. This agent is used for all
          * webcrypto/msl operations, and also can provide secure store crypto services.
          *
-        nfTOB_CRYPTO_AGENT = 4096,    
+        nfTOB_CRYPTO_AGENT = 4096,
         /*
          * PlayReady integration is a stretch goal for the first revision, so let's
          * allocate a slot for it.
@@ -321,6 +321,63 @@ Remarks
 ******************************************************************************/
 DTV_STATUS_T HAL_CRYPTO_NF_Operate(HAL_CRYPTO_ARG_T *tCommon);
 
+/******************************************************************************
+Function Name
+    HAL_CRYPTO_NF_Init
+
+Function Description
+    Init Netflix Crypto
+    Before using WebCrypto, Initialize something here. If there is nothing to initialize, please return OK
+
+Function Parameters
+    void
+
+Return Value
+    If the function succeeds, the return value is OK.
+    If the function fails, the return value is NOT_OK.
+
+Remarks
+    Some of platforms use this function.
+******************************************************************************/
+DTV_STATUS_T HAL_CRYPTO_NF_Init(void);
+
+/******************************************************************************
+Function Name
+    HAL_CRYPTO_NF_CleanUp
+
+Function Description
+    To clean up Netflix webCrypto and SoC TEE operation
+
+Function Parameters
+    void
+
+Return Value
+    If the function succeeds, the return value is OK.
+    If the function fails, the return value is NOT_OK.
+
+Remarks
+    Some of platforms use this function.
+******************************************************************************/
+DTV_STATUS_T HAL_CRYPTO_NF_CleanUp(void);
+
+/******************************************************************************
+Function Name
+    HAL_CRYPTO_NF_DestroyContext
+
+Function Description
+    Destroy context
+
+Function Parameters
+    void *pContext [IN]
+
+Return Value
+    If the function succeeds, the return value is OK.
+    If the function fails, the return value is NOT_OK.
+
+Remarks
+    Some of platforms use this function.
+******************************************************************************/
+DTV_STATUS_T HAL_CRYPTO_NF_DestroyContext(void *pContext);
 
 /* NYX */
 DTV_STATUS_T HAL_CRYPTO_NYX_AES_GenerateSecureKey(unsigned char *pSecureKey, int keyLength);
