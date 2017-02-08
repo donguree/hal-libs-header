@@ -92,7 +92,6 @@ typedef enum
 {
 	AVD_SRC_TYPE_ATV	   ,
 	AVD_SRC_TYPE_AV 	   ,
-	AVD_SRC_TYPE_SCART ,
 	AVD_SRC_TYPE_MAX	   ,
 } VFE_AVD_SRC_TYPE_T;
 
@@ -219,18 +218,6 @@ typedef enum
 	VFE_AVD_PSP_ON_4LINE_SPLIT_BURST_ON,
 } VFE_AVD_PHYSICAL_COPY_PROTECT;
 	
-typedef enum
-{
-	VIDEO_DDI_SCART_AR_16_9,	/**< scart aspect ratio [5 ~ 8V] */
-	VIDEO_DDI_SCART_AR_4_3, 	/**< scart aspect ratio [9.5 ~ 12V] */
-	VIDEO_DDI_SCART_AR_INVALID
-}VFE_AVD_SCART_AR_T;
-	
-typedef enum
-{
-	VIDEO_DDI_FB_STATUS_CVBS,		/**< scart RF status info*/
-	VIDEO_DDI_FB_STATUS_RGB,		/**< scart RF status info*/
-}VFE_AVD_SCART_FB_STATUS_T;
 
 typedef enum
 {
@@ -272,11 +259,9 @@ typedef struct {
 /*-----------------------------------------------------------------------------
 	Extern Variables & Function Prototype Declarations
 ------------------------------------------------------------------------------*/
-DTV_STATUS_T 		HAL_AVD_InitializeVBIModule(VFE_AVD_CC_TTX_STATUS_T supportingVBI);
-
 extern DTV_STATUS_T HAL_VFE_AVD_VBI_SetMessageIDOfACC(OSA_MSGQ_T qid4ACCTx, UINT32 oddMsgID, UINT32 evenMsgID,UINT32 mainSrcID, UINT32 subSrcID);
 
-DTV_STATUS_T 		HAL_VFE_AVD_Initialize(void);
+DTV_STATUS_T 		HAL_VFE_AVD_Initialize(VFE_AVD_CC_TTX_STATUS_T supportingVBI);
 DTV_STATUS_T 		HAL_VFE_AVD_Uninitialize(void);
 DTV_STATUS_T  		HAL_VFE_AVD_Open(void);
 DTV_STATUS_T  		HAL_VFE_AVD_Close(void);
@@ -307,14 +292,10 @@ DTV_STATUS_T  		HAL_VFE_AVD_Get576iWSS14Bits(UINT16 * pWss);
 DTV_STATUS_T 		HAL_VFE_AVD_GetPhysicalSignalStatusOfCopyProtect(VFE_AVD_PHYSICAL_COPY_PROTECT *pPhysical_Copy);
 
 extern DTV_STATUS_T HAL_VFE_AVD_FlushVBIData(VFE_AVD_VBI_TYPE_T type);
-DTV_STATUS_T 		HAL_VFE_AVD_GetScartID(VFE_AVD_SCART_AR_T *pScartAr);
-DTV_STATUS_T 		HAL_VFE_AVD_GetScartFastBlankingStatus(VFE_AVD_SCART_FB_STATUS_T *pStatus);
 
 extern void 		HAL_VFE_AVD_SendCCData(unsigned char *buf, UINT32 len);	// 2013.02.19 yongsu.yoo Reconstructing Source Code for WebOS
 
 DTV_STATUS_T HAL_AVD_SetDemodType (VFE_AVD_DEMOD_TYPE demodType);
-
-DTV_STATUS_T HAL_VFE_AVD_Resume(void);
 
 DTV_STATUS_T HAL_VFE_AVD_GetCCData(VFE_AVD_CC_DATA_T *pCCdata);
 
@@ -324,6 +305,9 @@ DTV_STATUS_T HAL_VFE_AVD_GetWSSData(VFE_AVD_WSS_DATA_T *pwss_data);
 
 DTV_STATUS_T HAL_VFE_AVD_EnableVPS(BOOLEAN bEnable);
 DTV_STATUS_T HAL_VFE_AVD_SupportVBICB(BOOLEAN *bSupport);
+
+DTV_STATUS_T HAL_VFE_AVD_SetChannelChange(void);
+
 /*-----------------------------------------------------------------------------
 	Local Constant Definitions
 ------------------------------------------------------------------------------*/
