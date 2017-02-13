@@ -1,6 +1,6 @@
 /******************************************************************************
  *   LCD TV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 2011 by LG Electronics Inc.
+ *   Copyright(c) 2011 - 2017 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -13,7 +13,7 @@
  *  Video Output (VO) Abstraction Layer header
  *
  *  @note This file is a prototype to provide each chip vender (MTK, MStar, SIC).
- *  @date 2016.05.25.
+ *  @date 2017.02.13.
  **/
 
 #ifndef _HAL_VO_H_
@@ -23,20 +23,7 @@
 extern "C" {
 #endif
 
-
-/**
- * @brief This enumeration describes the VO API return types.
- **/
-typedef enum {
-    HAL_VO_STATE_OK = 0, /* from OK */
-    HAL_VO_STATE_ERROR,  /* from ERROR */
-    HAL_VO_STATE_INVALID_PARAM,  /* from PARAMETER ERROR */
-    HAL_VO_STATE_NOT_AVAILABLE,  /* from NOT ENOUGH RESOURCE */
-    HAL_VO_STATE_NOT_CALLABLE,   /* from NOT SUPPORTED */
-    HAL_VO_STATE_ERR_LENGTH, /* from NOT PERMITTED */
-    HAL_VO_STATE_TIMEOUT,    /* from TIMEOUT */
-    HAL_VO_STATE_OBJ_DELETED,    /* from OBJECT DELETED */
-} HAL_VO_STATE_T;
+#include "hal_common.h"
 
 /**
  * @brief This enumeration describes the supported pixel formats.
@@ -127,6 +114,17 @@ typedef enum {
 } HAL_VO_SUPPORT_PANEL_TYPE_T;
 
 /**
+ * @brief This enumeration describes a framebuffer property flags for the video output (VO).
+ **/
+typedef enum {
+    HAL_VO_FB_FRAMEBUFFER_PROPERTY_FLAGS_NONE = 0x00000000,
+    HAL_VO_FB_FRAMEBUFFER_PROPERTY_FLAGS_COLORSPACE = 0x00000001,
+    HAL_VO_FB_FRAMEBUFFER_PROPERTY_FLAGS_ALPHABLENDING = 0x00000002,
+    HAL_VO_FB_FRAMEBUFFER_PROPERTY_FLAGS_INPUTRECT = 0x00000004,
+    HAL_VO_FB_FRAMEBUFFER_PROPERTY_FLAGS_OUTPUTRECT = 0x00000008,
+} HAL_VO_FB_FRAMEBUFFER_PROPERTY_FLAGS_T;
+
+/**
  * @brief This structure describes a rectangle specified by a point and a dimension.
  **/
 typedef struct {
@@ -173,6 +171,7 @@ typedef struct {
     HAL_VO_SUPPORT_PANEL_TYPE_T support_panel_type;     /* supported panel type */
     HAL_VO_SUPPORT_PIXEL_FORMAT_T support_pixel_format; /* supported pixel format */
     unsigned char is_seperated_vo_port;                 /* whether to be seperated vo port */
+    unsigned char is_changeable_cs_dynamically;         /* whether to be able to change color space dynamically */
     unsigned int vo_port_nb;                            /* the number of vo ports */
     unsigned int framebuffer_length;                    /* the length of framebuffer */
     HAL_VO_RECT_T framebuffer_rect;                     /* the rect of framebuffer */
@@ -182,89 +181,107 @@ typedef struct {
  * @brief This structure describes a framebuffer for the video output (VO).
  **/
 typedef struct {
-    unsigned char* buf;					/* buffer pointer of the framebuffer */
-    unsigned int buf_length;			/* the length of buffer */
-    unsigned int stride;				/* stride size of the framebuffer */
-    HAL_VO_RECT_T resolution;			/* resolution of the framebuffer */
-    HAL_VO_PIXEL_FORMAT_T pixel_format;	/* pixel format of the framebuffer */
-} HAL_VO_FRAMEBUFFER_T;
+    unsigned char* buf;                 /* buffer pointer of the framebuffer */
+    unsigned int buf_length;            /* the length of buffer */
+    unsigned int stride;                /* stride size of the framebuffer */
+    HAL_VO_RECT_T resolution;           /* resolution of the framebuffer */
+    HAL_VO_PIXEL_FORMAT pixel_format;   /* pixel format of the framebuffer */
+} HAL_VO_FB_FRAMEBUFFER_T;
 
+/**
+ * @brief This structure describes a framebuffer property for the video output (VO).
+ **/
+typedef struct {
+    HAL_VO_FB_FRAMEBUFFER_PROPERTY_FLAGS_T flags;	/* framebuffer property flags */
+    HAL_VO_PIXEL_FORMAT pixel_format;               /* pixel format of the framebuffer */
+    unsigned int alpha;                             /* value for the alpha blending */
+    HAL_VO_RECT_T input;                            /* input rect of source */
+    HAL_VO_RECT_T output;                           /* output rect of source */
+} HAL_VO_FB_FRAMEBUFFER_PROPERTY_T;
 
 /**
  * @brief Open the video output module.
  * @param   ch  [in]    channel port number to connect with display engine
  * @param   def [in]    video panel type
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @return if success OK, else one of error in DTV_STATUS_T.
  **/
-HAL_VO_STATE_T HAL_VO_Open(unsigned int ch, HAL_VO_PANEL_TYPE def);
+DTV_STATUS_T HAL_VO_Open(unsigned int ch, HAL_VO_PANEL_TYPE def);
 
 /**
  * @brief Configure the video output
  * @param   ch  [in]    channel port number to connect with display engine
  * @param   cfg [in]    configuration to set video output
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @return if success OK, else one of error in DTV_STATUS_T.
  **/
-HAL_VO_STATE_T HAL_VO_Config(unsigned int ch, HAL_VO_CFG_T *cfg);
+DTV_STATUS_T HAL_VO_Config(unsigned int ch, HAL_VO_CFG_T *cfg);
 
 /**
  * @brief display intput image
  * @param   ch  [in]    channel port number to connect with display engine
  * @param   image   [in]    image to display at video
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @return if success OK, else one of error in DTV_STATUS_T.
  **/
-HAL_VO_STATE_T HAL_VO_DisplayPicture(unsigned int ch, HAL_VO_IMAGE_T *image);
+DTV_STATUS_T HAL_VO_DisplayPicture(unsigned int ch, HAL_VO_IMAGE_T *image);
 
 /**
  * @brief re-flush video output
  * @param   ch  [in]    channel port number to connect with display engine
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @return if success OK, else one of error in DTV_STATUS_T.
  **/
-HAL_VO_STATE_T HAL_VO_RedrawPicture(unsigned int ch);
+DTV_STATUS_T HAL_VO_RedrawPicture(unsigned int ch);
 
 /**
  * @brief Close the video output module.
  * @param   ch  [in]    channel port number to connect with display engine
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @return if success OK, else one of error in DTV_STATUS_T.
  **/
-HAL_VO_STATE_T HAL_VO_Close(unsigned int ch);
+DTV_STATUS_T HAL_VO_Close(unsigned int ch);
 
 /**
- * @brief Get a video output (VO) capability of device.
- * @param capability [in] pointer of the device capability instance.
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @brief Get a video output (VO) capability of device
+ * @param capability [in] pointer of the device capability instance
+ * @return if success OK, else one of error in DTV_STATUS_T
  **/
-HAL_VO_STATE_T HAL_VO_GetDeviceCapability(HAL_VO_DEVICE_CAPABILITY_T* capability);
+DTV_STATUS_T HAL_VO_GetDeviceCapability(HAL_VO_DEVICE_CAPABILITY_T* capability);
 
 /**
- * @brief Set a alpha blending value for the framebuffer.
- * @param framebuffer [in] pointer of the target framebuffer instance.
- * @param alpha [in] value for the alpha blending.
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @brief Initialize framebuffer to render the photo
+ * @param ch [in] channel port number to connect with display engine
+ * @return if success OK, else one of error in DTV_STATUS_T
  **/
-HAL_VO_STATE_T HAL_VO_SetAlphaBlending(const HAL_VO_FRAMEBUFFER_T *framebuffer, const unsigned int alpha);
+DTV_STATUS_T HAL_VO_FB_Initialize(unsigned int ch);
 
 /**
- * @brief Set a input / output display region for the framebuffer.
- * @param framebuffer [in] pointer of the target framebuffer instance.
- * @param in [in] input display region.
- * @param out [in] output display region.
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @brief Finalize the framebuffer
+ * @param ch [in] channel port number to connect with display engine
+ * @return if success OK, else one of error in DTV_STATUS_T
  **/
-HAL_VO_STATE_T HAL_VO_SetInOutDisplayRegion(const HAL_VO_FRAMEBUFFER_T* framebuffer, const HAL_VO_RECT_T in, const HAL_VO_RECT_T out);
+DTV_STATUS_T HAL_VO_FB_Finalize(unsigned int ch);
 
 /**
- * @brief Get a target framebuffer to draw the picture.
- * @param framebuffer [in] pointer of the target framebuffer instance.
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @brief Get a target framebuffer to draw a photo
+ * @param ch [in] channel port number to connect with display engine
+ * @param framebuffer [in] framebuffer instance pointer to update the photo
+ * @return if success OK, else one of error in DTV_STATUS_T
  **/
-HAL_VO_STATE_T HAL_VO_GetTargetFrameBuffer(HAL_VO_FRAMEBUFFER_T* framebuffer);
+DTV_STATUS_T HAL_VO_FB_GetTargetFrameBuffer(const unsigned int ch, HAL_VO_FB_FRAMEBUFFER_T* framebuffer);
 
 /**
- * @brief Update the framebuffer to flush though the port.
- * @param framebuffer [in] pointer of the framebuffer instance.
- * @return if success HAL_VO_STATE_OK, else one of error in HAL_VO_STATE_T.
+ * @brief Update the framebuffer including the new photo
+ * @param ch [in] channel port number to connect with display engine
+ * @param framebuffer [in] framebuffer instance pointer to update the photo
+ * @return if success OK, else one of error in DTV_STATUS_T
  **/
-HAL_VO_STATE_T HAL_VO_UpdateFrameBuffer(const HAL_VO_FRAMEBUFFER_T* framebuffer);
+DTV_STATUS_T HAL_VO_FB_UpdateFrameBuffer(const unsigned int ch, const HAL_VO_FB_FRAMEBUFFER_T* framebuffer);
+
+/**
+ * @brief Update the property of the framebuffer
+ * @param ch [in] channel port number to connect with display engine
+ * @param framebuffer [in] framebuffer instance pointer to update the photo
+ * @param property [in] framebuffer property information to set the parameters such as alpha and input / output region
+ * @return if success OK, else one of error in DTV_STATUS_T
+ **/
+DTV_STATUS_T HAL_VO_FB_UpdateFrameBufferProperty(const unsigned int ch, const HAL_VO_FB_FRAMEBUFFER_T* framebuffer, const HAL_VO_FB_FRAMEBUFFER_PROPERTY_T* property);
 
 #ifdef __cplusplus
 }
