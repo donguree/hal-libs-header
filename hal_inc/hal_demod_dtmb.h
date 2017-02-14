@@ -7,15 +7,14 @@
  *   permission of LG Electronics Inc.
  *****************************************************************************/
 
-/** @file demod_lg115x_vq.h
+/** @file hal_demod_dtmb.h
  *
- *  Brief description.
- *  Detailed description starts here.
+ *  HAL for DTMB
  *
- *  @author		jeongpil.yun(jeongpil.yun@lge.com)
- *  @version	0.1
- *  @date		2010.01.13
- *  @note
+ *	@author		Mundeok Heo(mundeok.heo@lge.com)
+ *  @version	1.0
+ *  @date		2017.02.07
+ *  @note		HAL Intergration
  *  @see
  */
 
@@ -25,21 +24,18 @@
 #ifndef _HAL_DEMOD_DTMB_H_
 #define	_HAL_DEMOD_DTMB_H_
 
-#include "hal_demod_common.h"
-
-
-
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 /******************************************************************************
 	Control Constants
 ******************************************************************************/
 
-
 /******************************************************************************
 	File Inclusions
 ******************************************************************************/
-
-
-
+#include "hal_demod_common.h"
 
 /******************************************************************************
  	Constant Definitions
@@ -48,13 +44,12 @@
 /******************************************************************************
 	Macro Definitions
 ******************************************************************************/
-
 #define	__F__		__FUNCTION__
 #define	__L__		__LINE__
+
 /******************************************************************************
 	Type Definitions
 ******************************************************************************/
-
 
 /******************************************************************************
 	Function Declaration
@@ -71,12 +66,15 @@ extern	int 	HAL_DEMOD_VQI_DTMB_CheckFrequencyOffset(SINT32 *pFreqOffset);
 extern 	int 	HAL_DEMOD_VQI_DTMB_ControlTSMode(BOOLEAN bIsSerial);
 extern	int		HAL_DEMOD_VQI_DTMB_ControlOutput(BOOLEAN bEnableOutput);
 extern  int     HAL_DEMOD_VQI_DTMB_GetFWVersion(UINT32 *pFWVersion);
+
+extern	int		HAL_DEMOD_DTMB_GetSQI(UINT8 *pSQI); 
+extern	int		HAL_DEMOD_DTMB_GetPacketError(UINT32 *pPacketError);
+extern	int		HAL_DEMOD_DTMB_GetBER(UINT32 *pBER);
+extern	int		HAL_DEMOD_DTMB_GetAGC(UINT32 *pAGC);
+extern	int		HAL_DEMOD_DTMB_GetSNR(UINT32 *pSNR);
 extern 	int 	HAL_DEMOD_DTMB_DebugMenu(void);
 
-extern TU_RETURN_VALUE_T HAL_DEMOD_DTMB_GetSQI(UINT8 *pSQI); 
-extern TU_RETURN_VALUE_T HAL_DEMOD_DTMB_GetPacketError(UINT32 *pPacketError);
-extern TU_RETURN_VALUE_T HAL_DEMOD_DTMB_GetBER(UINT32 *pBER);
-extern TU_RETURN_VALUE_T HAL_DEMOD_DTMB_GetAGC(UINT32 *pAGC);
-extern TU_RETURN_VALUE_T HAL_DEMOD_DTMB_GetSNR (UINT32 *pSNR );
-
-#endif /* End of _DEMOD_LG115X_ISDB_H_ */
+#ifdef __cplusplus
+}
+#endif
+#endif /* End of _HAL_DEMOD_DTMB_H_ */

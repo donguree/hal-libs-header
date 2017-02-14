@@ -7,16 +7,14 @@
  *   permission of LG Electronics Inc.
  *****************************************************************************/
 
-/** @file hal_demod.h
+/** @file hal_demod_common.h
  *
- *  HAL 함수 header 파일.
+ *  HAL common
  *
- *
- *  @author	Harrison(hyungkyu.noh@lge.com)
- *  @reviser
- *  @version	1.1
- *  @date		2013.05.27
- *  @note
+ *	@author		Mundeok Heo(mundeok.heo@lge.com)
+ *  @version	1.0
+ *  @date		2017.02.07
+ *  @note		HAL Intergration
  *  @see
  */
 
@@ -26,29 +24,34 @@
 #ifndef _HAL_DEMOD_COMMON_H_
 #define _HAL_DEMOD_COMMON_H_
 
-/******************************************************************************
- #include 파일들 (File Inclusions)
-******************************************************************************/
-#include "hal_common.h"
-
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
 /******************************************************************************
- 	상수 정의(Constant Definitions)
-******************************************************************************/
-#define HAL_DEMOD_IF_FREQ_05_000_KHZ			5000
-#define HAL_DEMOD_IF_FREQ_06_000_KHZ			6000
-
-/******************************************************************************
-    매크로 함수 정의 (Macro Definitions)
+	Control Constants
 ******************************************************************************/
 
 /******************************************************************************
-	형 정의 (Type Definitions)
+	File Inclusions
 ******************************************************************************/
+#include "hal_common.h"
+
+/******************************************************************************
+	Constant Definitions
+******************************************************************************/
+
+/******************************************************************************
+	Macro Definitions
+******************************************************************************/
+
+/******************************************************************************
+	Type Definitions
+******************************************************************************/
+/*1. Enumeration*/
+/**
+ * trans system.
+ */
 typedef enum
 {
     /* TERRESTRIAL */
@@ -88,24 +91,21 @@ typedef enum
 
 	HAL_DEMOD_TUNE_MANUAL					= 0X20,
 
-	/*	---------- SCAN 	---------------------	*/
-	HAL_DEMOD_TUNE_SCAN					= 0x30,		/* 0010 XXXX */
+	/*---------- SCAN 		---------------------*/
+	HAL_DEMOD_TUNE_SCAN						= 0x30,		/* 0010 XXXX */
+		HAL_DEMOD_TUNE_SCAN_START,						/* ATV : Full Scan */
 
-		HAL_DEMOD_TUNE_SCAN_START,				/* ATV : Full Scan */
-
-	/*	---------- SPECIFIC 	---------------------	*/
+	/*---------- SPECIFIC 	---------------------*/
 	HAL_DEMOD_TUNE_SPECIFIC					= 0x40,		/* 0100 XXXX */
-		HAL_DEMOD_TUNE_SPEC_DVBT_HMLP,			/* DVBT : Hierarchy Mode */
-		HAL_DEMOD_TUNE_SPEC_DVBC_FIXED_DATA,	/* DVBC : Use Fixed NIT data */
+		HAL_DEMOD_TUNE_SPEC_DVBT_HMLP,					/* DVBT : Hierarchy Mode */
+		HAL_DEMOD_TUNE_SPEC_DVBC_FIXED_DATA,			/* DVBC : Use Fixed NIT data */
 
 
-	/*	---------- UNKNOWN 	---------------------	*/
+	/*---------- UNKNOWN 	---------------------*/
 	HAL_DEMOD_TUNE_UNKNOWN					= 0x80,		/* 1000 XXXX */
 
-	/*	---------- MASK 	---------------------	*/
-	HAL_DEMOD_TUNE_MODE_MASK					= 0xF0,		/* 1111 XXXX */
-
-
+	/*---------- MASK 		---------------------*/
+	HAL_DEMOD_TUNE_MODE_MASK				= 0xF0,		/* 1111 XXXX */
 } HAL_DEMOD_TUNE_MODE_T;
 
 /**
@@ -117,11 +117,11 @@ typedef enum
 	HAL_DEMOD_LOCK_FAIL,
 	HAL_DEMOD_LOCK_UNSTABLE,
 
-	HAL_DEMOD_LOCK_WEAK		= 0x10,
+	HAL_DEMOD_LOCK_WEAK			= 0x10,
 	HAL_DEMOD_LOCK_POOR,
 	HAL_DEMOD_LOCK_ATV_PROGRESS,		/* used in auto search */
 
-	HAL_DEMOD_LOCK_UNKNOWN 	= 0x80
+	HAL_DEMOD_LOCK_UNKNOWN 		= 0x80
 } HAL_DEMOD_LOCK_STATE_T;
 
 /**
@@ -242,25 +242,8 @@ typedef enum 	/* 3 bit */
 } HAL_DEMOD_TPS_HIERARCHY_T;
 
 /**
- * polarization
- */
-typedef enum
-{
-	HAL_DEMOD_TPS_POLARIZATION_HORIZONTAL	= 0x00,
-	HAL_DEMOD_TPS_POLARIZATION_VERTICAL,
-
-	HAL_DEMOD_TPS_POLARIZATION_LEFT,
-	HAL_DEMOD_TPS_POLARIZATION_RIGHT,
-
-	HAL_DEMOD_TPS_POLARIZATION_MAX,
-
-	HAL_DEMOD_TPS_POLARIZATION_ALL
-}HAL_DEMOD_TPS_POLARIZATION_T;
-
-/**
  * Audio
  */
-
 typedef enum
 {
 	HAL_DEMOD_AUDIO_SIF_SYSTEM_BG		= 0x00,	
@@ -270,10 +253,10 @@ typedef enum
 	HAL_DEMOD_AUDIO_SIF_SYSTEM_MN,			
 	HAL_DEMOD_AUDIO_SIF_SYSTEM_LP,			
 	HAL_DEMOD_AUDIO_SIF_SYSTEM_END,			
- 	HAL_DEMOD_AUDIO_SIF_SYSTEM_UNKNOWN = 0xf0
+ 	HAL_DEMOD_AUDIO_SIF_SYSTEM_UNKNOWN	= 0xf0
 } HAL_DEMOD_AUDIO_SIF_SOUNDSYSTEM_T;
 
-
+/*2. Structure*/
 /**
  * signal state.
  */
@@ -284,11 +267,14 @@ typedef struct
     UINT8   quality;
     UINT8   unSQI;
     UINT32  packetError;
-    UINT32  unBER;          /* unit : e-10 */
+    UINT32  unBER;
     UINT32  unAGC;
     UINT32  unSNR;
 } HAL_DEMOD_SIGNAL_STATE_T;
 
+/**
+ * Set Parameter : ATSC.
+ */
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
@@ -298,6 +284,9 @@ typedef struct
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_ATSC_SET_PARAM_T;
 
+/**
+ * Set Parameter : ISDB.
+ */
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
@@ -310,6 +299,9 @@ typedef struct
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_ISDBT_SET_PARAM_T;
 
+/**
+ * Set Parameter : DVB-T.
+ */
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
@@ -324,6 +316,9 @@ typedef struct
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_DVBT_SET_PARAM_T;
 
+/**
+ * Set Parameter : DVB-T2.
+ */
 typedef struct
 {
     HAL_DEMOD_TUNE_MODE_T                tuneMode;
@@ -337,6 +332,9 @@ typedef struct
     UINT8                                unPLP;
 } HAL_DEMOD_DVBT2_SET_PARAM_T;
 
+/**
+ * Set Parameter : DVB-C.
+ */
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
@@ -348,6 +346,9 @@ typedef struct
 	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	
 } HAL_DEMOD_DVBC_SET_PARAM_T;
 
+/**
+ * Set Parameter : DVB-S.
+ */
 typedef struct
 {
     HAL_DEMOD_TUNE_MODE_T           tuneMode;
@@ -360,6 +361,9 @@ typedef struct
     BOOLEAN                         bIsBlind_search;
 } HAL_DEMOD_DVBS_SET_PARAM_T;
 
+/**
+ * Set Parameter : DVB-S2.
+ */
 typedef struct
 {
     HAL_DEMOD_TUNE_MODE_T           tuneMode;
@@ -372,12 +376,15 @@ typedef struct
     BOOLEAN                         bIsBlind_search;
 } HAL_DEMOD_DVBS2_SET_PARAM_T;
 
+/**
+ * Set Parameter : DTMB.
+ */
 typedef struct
 {
 	HAL_DEMOD_TUNE_MODE_T			tuneMode;
 	HAL_DEMOD_TRANS_SYSTEM_T		transSystem;	
 	HAL_DEMOD_CHANNEL_BW_T			eChannelBW;
-	BOOLEAN                         bM720;   	//interleave 
+	BOOLEAN                         bM720;			//interleave
 	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode ;
 	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;
 	HAL_DEMOD_TPS_CODERATE_T		codeRate ;
@@ -385,47 +392,64 @@ typedef struct
 } HAL_DEMOD_DTMB_SET_PARAM_T;
 
 /**
-*ANALOG
+* Set Parameter : ANALOG.
 */
 typedef struct
 {
-	HAL_DEMOD_TRANS_SYSTEM_T 			transSystem;
-	BOOLEAN								bSpectrmInv;
-	UINT32								ifFrq;
-
+	HAL_DEMOD_TRANS_SYSTEM_T 		transSystem;
+	BOOLEAN							bSpectrmInv;
+	UINT32							ifFrq;
 } HAL_DEMOD_ANALOG_SET_PARAM_T;
 
+/**
+ * Special data : VSB.
+ */
+typedef struct
+{
+	BOOLEAN							bCoChannel;		/* 1 bit */
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	/* 4 bit */
+} HAL_DEMOD_SPECDATA_VSB_T;
+
+/**
+ * Special data : QAM.
+ */
+typedef struct
+{
+	BOOLEAN							bSpectrumInv;
+	UINT8							cableBand;
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
+} HAL_DEMOD_SPECDATA_QAM_T;
+
+/**
+ * Special data : ISDB.
+ */
+typedef struct
+{
+	BOOLEAN							bSpectrumInv;	/* 1 bit */
+	BOOLEAN							bProfileHP;		/* 1 bit */
+	HAL_DEMOD_TPS_HIERARCHY_T		hierarchy;		/* 3 bit */
+	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;
+	HAL_DEMOD_TPS_GUARD_INTERVAL_T 	guardInterval;
+
+	HAL_DEMOD_TPS_CODERATE_T		codeRate;
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
+} HAL_DEMOD_SPECDATA_ISDBT_T;
 
 /**
  * Special data : DVB-T.
  */
 typedef struct
 {
-	BOOLEAN							bSpectrumInv;		/* 1 bit */
+	BOOLEAN							bSpectrumInv;	/* 1 bit */
 	BOOLEAN							bProfileHP;		/* 1 bit */
 	HAL_DEMOD_TPS_HIERARCHY_T		hierarchy;		/* 3 bit */
 
-	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;		/* 4 bit */
-	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;		/* 4 bit */
+	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;	/* 4 bit */
+	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;	/* 4 bit */
 
 	HAL_DEMOD_TPS_CODERATE_T		codeRate;		/* 4 bit */
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;		/* 4 bit */
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	/* 4 bit */
 } HAL_DEMOD_SPECDATA_DVBT_T;
-
-/**
- * Special data : DTMB.
- */
-typedef struct
-{
-	
-	BOOLEAN							bM720;		/* 1 bit */
-	
-	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;		/* 4 bit */
-	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;		/* 4 bit */
-
-	HAL_DEMOD_TPS_CODERATE_T		codeRate;		/* 4 bit */
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;		/* 4 bit */
-} HAL_DEMOD_SPECDATA_DTMB_T;
 
 /**
  * Special data : DVB-T2.
@@ -438,30 +462,8 @@ typedef struct
     
     HAL_DEMOD_TPS_CODERATE_T        codeRate;
     HAL_DEMOD_TPS_CONSTELLATION_T   constellation;
-    UINT8  unPLP;      ///< For DVBT2 - PLP ID
+    UINT8  unPLP;      // For DVBT2 - PLP ID
 } HAL_DEMOD_SPECDATA_DVBT2_T;
-
-/**
- * Special data : DVB-T2.
- */
-typedef struct
-{
-	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;
-	HAL_DEMOD_TPS_GUARD_INTERVAL_T 	guardInterval;	
-
-	HAL_DEMOD_TPS_CODERATE_T	codeRate;
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
-} HAL_DEMOD_SPECDATA_ISDBT_T;
-
-/**
- * Special data : VSB.
- */
-typedef struct
-{
-	BOOLEAN							bCoChannel;		/* 1 bit */
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;		/* 4 bit */
-} HAL_DEMOD_SPECDATA_VSB_T;
-
 
 /**
  * Special data : DVB-C.
@@ -498,14 +500,16 @@ typedef struct
 } HAL_DEMOD_SPECDATA_DVBS2_T;
 
 /**
- * Special data : QAM.
+ * Special data : DTMB.
  */
 typedef struct
-{
-	BOOLEAN							bSpectrumInv;
-	UINT8							cableBand;
-	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;
-} HAL_DEMOD_SPECDATA_QAM_T;
+{	
+	BOOLEAN							bM720;			/* 1 bit */
+	HAL_DEMOD_TPS_CARRIER_MODE_T	carrierMode;	/* 4 bit */
+	HAL_DEMOD_TPS_GUARD_INTERVAL_T	guardInterval;	/* 4 bit */
+	HAL_DEMOD_TPS_CODERATE_T		codeRate;		/* 4 bit */
+	HAL_DEMOD_TPS_CONSTELLATION_T	constellation;	/* 4 bit */
+} HAL_DEMOD_SPECDATA_DTMB_T;
 
 /**
  * DVBT2 : PLP.
@@ -531,6 +535,9 @@ typedef struct
 
 } HAL_DEMOD_ANALOG_CONFIG_T;
 
+/******************************************************************************
+	Function Declaration
+******************************************************************************/
 
 #ifdef __cplusplus
 }
