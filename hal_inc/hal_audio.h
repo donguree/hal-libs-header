@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	1.7
- *  @date		2016.06.04
+ *  @version	2.4
+ *  @date		2017.02.09
  *  @note
  *  @see
  */
@@ -44,6 +44,14 @@ extern "C"
  */
 #define HAL_AUDIO_LGSE_SMARTSOUND_CB_LENGTH		7
 
+/**
+ * HAL AUDIO DAP count of bands (UINT8).
+ *
+ */
+#define HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT		20
+#define HAL_AUDIO_LGSE_DAP_MAX_CHANNEL_COUNT	8
+
+
 /******************************************************************************
     매크로 함수 정의 (Macro Definitions)
 ******************************************************************************/
@@ -51,6 +59,18 @@ extern "C"
 /******************************************************************************
 	형 정의 (Type Definitions)
 ******************************************************************************/
+/**
+ * HAL AUDIO MS12 Version.
+ *
+ */
+typedef  enum
+{
+	HAL_AUDIO_MS12_1_3		= 0, /*MS12 v1.3 Dose not support TVATMOS, AC4*//*Default value*/
+	HAL_AUDIO_MS12_2_0		= 1, /*MS12 v2.0 Support TVATMOS, AC4*/
+	HAL_AUDIO_MS12_MAX	= HAL_AUDIO_MS12_2_0,
+} HAL_AUDIO_MS12_VERSION_T;
+
+
 /**
  * HAL AUDIO Decoder Index.
  *
@@ -61,6 +81,26 @@ typedef  enum
 	HAL_AUDIO_ADEC1		= 1,
 	HAL_AUDIO_ADEC_MAX	= HAL_AUDIO_ADEC1,
 } HAL_AUDIO_ADEC_INDEX_T;
+
+/**
+ * HAL AUDIO Index.
+ *
+ */
+typedef  enum
+{
+	HAL_AUDIO_INDEX0	= 0, /*Audio Decoder Input 0*/
+	HAL_AUDIO_INDEX1	= 1, /*Audio Decoder Input 1*/
+	HAL_AUDIO_INDEX2	= 2, /*Audio Mixer Input 0*/
+	HAL_AUDIO_INDEX3	= 3, /*Audio Mixer Input 1*/
+	HAL_AUDIO_INDEX4	= 4, /*Audio Mixer Input 2*/
+	HAL_AUDIO_INDEX5	= 5, /*Audio Mixer Input 3*/
+	HAL_AUDIO_INDEX6	= 6, /*Audio Mixer Input 4*/
+	HAL_AUDIO_INDEX7	= 7, /*Audio Mixer Input 5*/
+	HAL_AUDIO_INDEX8	= 8, /*Audio Mixer Input 6*/
+	HAL_AUDIO_INDEX9	= 9, /*Audio Mixer Input 7*/
+	HAL_AUDIO_INDEX_MAX	= HAL_AUDIO_INDEX9,
+} HAL_AUDIO_INDEX_T;
+
 
 /**
  * HAL AUDIO Mixer Index.
@@ -205,6 +245,8 @@ typedef  enum
 	HAL_AUDIO_SRC_TYPE_AC4          = 19,
 	HAL_AUDIO_SRC_TYPE_AC4_ATMOS	= 20,
 	HAL_AUDIO_SRC_TYPE_MPEG_H		= 21,
+	HAL_AUDIO_SRC_TYPE_MAT		    = 22,
+	HAL_AUDIO_SRC_TYPE_MAT_ATMOS    = 23,
 } HAL_AUDIO_SRC_TYPE_T;
 
 /**
@@ -248,7 +290,7 @@ typedef  enum
 	HAL_AUDIO_SPDIF_AUTO_AAC		= 3,
 	HAL_AUDIO_SPDIF_HALF_AUTO		= 4,
 	HAL_AUDIO_SPDIF_HALF_AUTO_AAC	= 5,
-} HAL_AUDIO_SPDIF_MODE_T ;
+} HAL_AUDIO_SPDIF_MODE_T;
 
 /**
  * HAL AUDIO ARC Type. 2016/06/04 by ykwang.kim
@@ -262,12 +304,11 @@ typedef  enum
 	HAL_AUDIO_ARC_AUTO_AAC				= 3,
 	HAL_AUDIO_ARC_AUTO_EAC3				= 4,
 	HAL_AUDIO_ARC_AUTO_EAC3_AAC 		= 5,
-	HAL_AUDIO_ARC_HALF_AUTO			= 6,
-	HAL_AUDIO_ARC_HALF_AUTO_AAC		= 7,
+	HAL_AUDIO_ARC_HALF_AUTO				= 6,
+	HAL_AUDIO_ARC_HALF_AUTO_AAC			= 7,
 	HAL_AUDIO_ARC_HALF_AUTO_EAC3		= 8,
 	HAL_AUDIO_ARC_HALF_AUTO_EAC3_AAC	= 9,
-} HAL_AUDIO_ARC_MODE_T ;
-
+} HAL_AUDIO_ARC_MODE_T;
 
 /**
  * HAL AUDIO HDMI Format Type.
@@ -287,6 +328,9 @@ typedef enum
 	HAL_AUDIO_HDMI_DTS_EXPRESS	= 12,
 	HAL_AUDIO_HDMI_DTS_CD		= 13,
 	HAL_AUDIO_HDMI_EAC3			= 14,
+	HAL_AUDIO_HDMI_EAC3_ATMOS	= 15,
+	HAL_AUDIO_HDMI_MAT		    = 16,
+	HAL_AUDIO_HDMI_MAT_ATMOS    = 17,
 } HAL_AUDIO_HDMI_TYPE_T;
 
 /**
@@ -760,6 +804,88 @@ typedef  enum
 } HAL_AUDIO_INOUT_I2S_T;
 
 /**
+ * HAL AUDIO PostProcess Mode Definition
+ *
+*/
+typedef enum HAL_AUDIO_POSTPROC_MODE
+{
+	HAL_AUDIO_POSTPROC_LGSE_MODE 		= 0, 	/* Use LGSE for Audio post processing */
+	HAL_AUDIO_POSTPROC_DAP_LGSE_MODE	= 1, 	/* Use both LGSE and DAP for Audio post processing */
+	HAL_AUDIO_POSTPROC_DAP_MODE			= 2, 	/* Use DAP for audio post processing and volume and upsampling function with LGSE processing. */
+}HAL_AUDIO_POSTPROC_MODE_T;
+
+/**
+ * HAL AUDIO DAP Surround Virtualizer Mode Definition
+ *
+*/
+typedef enum HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_MODE
+{
+	HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_OFF		= 0,     /* Virtualizer off(defalut) : process mode-DAP_CPDP_PROCESS_2 and mix_matrix-NULL*/
+	HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_ON		= 1,     /* Virtualizer on: When input content is stereo,              process mode-DAP_CPDP_PROCESS_5_1_SPEAKER and mix_matrix-speaker_5_1_2_to_2_0_mix_matrix
+																When input content is 5.1 or 5.1.2(ATMOS), process mode-DAP_CPDP_PROCESS_5_1_2_SPEAKER and mix_matrix-speaker_5_1_2_to_2_0_mix_matrix */
+	HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_AUTO	= 2,     /* Virtualizer Auto: When input content is 5.1.2(ATMOS),  process mode-DAP_CPDP_PROCESS_5_1_2_SPEAKER and mix_matrix-speaker_5_1_2_to_2_0_mix_matrix
+																When input content is Non ATMOS, process mode-DAP_CPDP_PROCESS_2 and mix_matrix-NULL */
+}HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_MODE_T;
+
+/**
+ * HAL AUDIO DAP Audio Regulator System Parameter Definition
+ *
+*/
+typedef enum HAL_AUDIO_LGSE_DAP_REGULATOR_MODE
+{
+	HAL_AUDIO_LGSE_DAP_VIRTUALBASS_MODE_PEAK_PROTECTION	 			= 0, 	/* 0 : Peak Protection mode: The Audio Regulator has the same operating characteristics for each bank */
+	HAL_AUDIO_LGSE_DAP_SYSPARAM_VIRTUALBASS_MODE_SPEAKER_DISTOTION	= 1, 	/* !0: Speaker Distortion mode: The tuning configuration supplied bydap_cpdp_regulator_tuning_configure and dap_cpdp_regulator_overdrive_set is used to give the Audio Regulator per-band operating characteristics */
+} HAL_AUDIO_LGSE_DAP_REGULATOR_MODE_T;
+
+/**
+ * HAL AUDIO DAP Height Filter Mode Definition
+ *
+*/
+typedef enum HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER_MODE
+{
+	HAL_AUDIO_LGSE_DAP_HEIGHT_FILTER_DISABLED 		= 0, 	/* Height filter is disabled */
+	HAL_AUDIO_LGSE_DAP_HEIGHT_FILTER_FRONT_FIRING	= 1, 	/* Height filter configured for front firing speakers */
+	HAL_AUDIO_LGSE_DAP_HEIGHT_FILTER_UP_FIRING 		= 2, 	/* Height filter configured for up firing speakers */
+}HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER_MODE_T;
+
+/**
+ * HAL AUDIO DAP Virtual Bass Mode.
+ *
+*/
+typedef enum HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_MODE
+{
+	HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_MODE_DELAYONLY	 				= 0, 	/* 0: Delay only */
+	HAL_AUDIO_LGSE_DAP_SYS_PARAM_VIRTUAL_BASS_MODE_2ND_ORDER 		= 1, 	/* Second-order harmonics */
+	HAL_AUDIO_LGSE_DAP_SYS_PARAM_VIRTUAL_BASS_MODE_3RD_ORDER		= 2, 	/* Second- and third-order harmonics */
+	HAL_AUDIO_LGSE_DAP_SYS_PARAM_VIRTUAL_BASS_MODE_4TH_ORDER		= 3, 	/* Second-, third-, and fourth-order  harmonics */
+} HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_MODE_T;
+
+/**
+* HAL AUDIO Language Code Type.
+*
+*/
+typedef  enum
+{
+	HAL_AUDIO_LANG_CODE_ISO639_1	= 0, 	/* 2bytes example : 'e''n'00   */
+	HAL_AUDIO_LANG_CODE_ISO639_2	= 1, 	/* 3bytes example : 'e''n''g'0 */
+} HAL_AUDIO_LANG_CODE_TYPE_T;
+
+/**
+* HAL AUDIO AC4 AD Type.
+*
+*/
+typedef enum HAL_AUDIO_AC4_AD_TYPE
+{
+	HAL_AUDIO_AC4_AD_TYPE_NONE	= 0, 	/* None */
+	HAL_AUDIO_AC4_AD_TYPE_VI	= 1, 	/* Visually Impaired (VI) - Default */
+	HAL_AUDIO_AC4_AD_TYPE_HI	= 2, 	/* Hearing Impaired (HI) */
+	HAL_AUDIO_AC4_AD_TYPE_C		= 3, 	/* Commentary (C) */
+	HAL_AUDIO_AC4_AD_TYPE_E		= 4, 	/* Emergency (E) */
+	HAL_AUDIO_AC4_AD_TYPE_VO	= 5, 	/* Voice Over (VO) */
+} HAL_AUDIO_AC4_AD_TYPE_T;
+
+
+/**
  * HAL AUDIO AC3 ES Info
  *
  * @see
@@ -1026,10 +1152,316 @@ typedef struct HAL_AUDIO_COMMON_INFO
 	HAL_AUDIO_SB_SET_CMD_T		curSoundBarCommand;
 } HAL_AUDIO_COMMON_INFO_T;
 
+/**
+ * HAL AUDIO DAP suppported auido type Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_SUPPORTED_AUDIO_TYPE
+{
+	BOOLEAN		bEnableAll;			/* All audiotype should be processed by DAP */
+	BOOLEAN		bEnableATMOS; 		/* ATMOS should be processed by DAP, regardless of AC4, eAC3, AC3 and AAC */
+	BOOLEAN		bEnableAC4; 		/* AC4 should be processed by DAP */
+	BOOLEAN		bEnableEAC3; 		/* EAC3 should be processed by DAP */
+	BOOLEAN		bEnableAC3; 		/* AC3 should be processed by DAP */
+	BOOLEAN		bEnableAAC;			/* AAC should be processed by DAP */
+	BOOLEAN		bEnableMPEGH;		/* MPEGH should be processed by DAP */
+	BOOLEAN		bEnableMPEG; 		/* MPEG should be processed by DAP */
+	BOOLEAN		bEnableDTS;			/* DTS should be processed by DAP */
+} HAL_AUDIO_LGSE_DAP_SUPPORTED_AUDIO_TYPE_T;
+
+/*******************************************Dolby ATMOS DAP User Parameter**********************************************/
+/**
+ * HAL AUDIO DAP Dialogue Enhancer Definition
+ *
+ */
+typedef struct HAL_AUDIO_LGSE_DAP_DIALOGUE_ENHANCER
+{
+	BOOLEAN 	bIsDialogueEnhancerEnable;	/* Enables or disables the Dialogue Enhancer feature 0(disabled), !0(enabled) */
+	UINT32 		dialogueEnhancerAmount;		/* Determines the strength of the Dialogue Enhancer effect for inputs other than Dolby AC-4	0 to 16 */
+	UINT32		ducking;					/* When dialog is detected, Dialog Enhancer also supports attenuating channels which are not the source of the dialog 0 to 16*/
+} HAL_AUDIO_LGSE_DAP_DIALOGUE_ENHANCER_T;
+
+/**
+ * HAL AUDIO DAP Volume Leveler Definition
+ *
+ */
+typedef struct HAL_AUDIO_LGSE_DAP_VOLUME_LEVELER
+{
+	BOOLEAN 	bIsVolumeLevelerEnable;		/* Enables or disables the Volume Leveler 0(off), 1(on) */
+	UINT32 		volumeLevelerAmount;		/* Specifies how aggressive the leveler is in attempting to reach the output target level	0 to 10 */
+	SINT32		inputTargetLevel;			/* Specifies the average loudness level of the incoming audio specified according to a K loudness weighting -640 to 0*/
+	SINT32		outputTargetLevel;			/* Specifies the average loudness level which the audio should be moved to. -640 to 0*/
+} HAL_AUDIO_LGSE_DAP_VOLUME_LEVELER_T;
+
+/*******************************************Dolby ATMOS DAP System Parameter**********************************************/
+/**
+ * HAL AUDIO DAP Bands Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_BANDS
+{
+	UINT32 		bandCount;	/* Band count: 1-20 */
+	UINT32 		freqs[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT];
+	SINT32		gains[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT];
+} HAL_AUDIO_LGSE_DAP_BANDS_T;
+
+/**
+ * HAL AUDIO OPTIMIZER DAP Bands Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_OPTIMIZER_BANDS
+{
+	UINT32 		bandCount;	/* Band count: 1-20 */
+	UINT32 		freqs[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT];
+	SINT32		gains[HAL_AUDIO_LGSE_DAP_MAX_CHANNEL_COUNT][HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT];
+} HAL_AUDIO_LGSE_DAP_OPTIMIZER_BANDS_T;
+
+/**
+ * HAL AUDIO DAP Volume Modeler Definition
+ *
+ */
+typedef struct HAL_AUDIO_LGSE_DAP_VOLUME_MODELER
+{
+	BOOLEAN		bEnable;					/* Enables or disables the Volume Modeler 0(off), 1(on) */
+	SINT32		calibration; 				/* Used to fine-tune the manufacturer calibrated reference level to the listening environment -320 to 320 */
+} HAL_AUDIO_LGSE_DAP_VOLUME_MODELER_T;
+
+/**
+ * HAL AUDIO DAP Volume Maximizer Definition
+ *
+ */
+typedef struct HAL_AUDIO_LGSE_DAP_VOLUME_MAXIMIZER
+{
+	UINT32 		boost;						/* Controls the amount of gain applied by the Volume Maximizer while the Volume Leveler is enabled. 0 to 192 */
+} HAL_AUDIO_LGSE_DAP_VOLUME_MAXIMIZER_T;
+
+/**
+ * HAL AUDIO DAP Audio Optimizer System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_OPTIMIZER
+{
+	BOOLEAN 								bIsEnable;		/* Enables or disables the Audio Optimizer 0 (disabled), !0 (enabled) */
+	HAL_AUDIO_LGSE_DAP_OPTIMIZER_BANDS_T 	stBands;		/* Sets the parameters for the Audio Optimizer bands, including number of bands,
+															   frequencies for each band supplied as integral values in Hz, and corresponding gains for each band and each channel
+															   Band Count: 1-20
+															   Band Frequencies: 20-20,000 Hz
+															   Band Gains: -30 to +30 dB */
+} HAL_AUDIO_LGSE_DAP_OPTIMIZER_T;
+
+/**
+ * HAL AUDIO DAP Process Optimizer System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_PROCESS_OPTIMIZER
+{
+	BOOLEAN 								bIsEnableProcess;	/* Enables or disables the Audio Optimizer 0 (disabled), !0 (enabled) */
+	HAL_AUDIO_LGSE_DAP_OPTIMIZER_BANDS_T 	stBandsProcess;		/* Sets the parameters for the Process Optimizer bands, including number of bands,
+																   frequencies for each band supplied as integral values in Hz, and corresponding gains for each band and each channel
+																   Band Count: 1-20
+																   Band Frequencies: 20-20,000 Hz
+																   Band Gains: -30 to +30 dB */
+} HAL_AUDIO_LGSE_DAP_PROCESS_OPTIMIZER_T;
+
+/**
+ * HAL AUDIO DAP Surround Decoder Definition
+ *
+ */
+typedef struct HAL_AUDIO_LGSE_DAP_SURROUND_DECODER
+{
+	BOOLEAN 	bEnable;					/* Enables or disables the Surround Decoder 0(off), 1(on) */
+} HAL_AUDIO_LGSE_DAP_SURROUND_DECODER_T;
+
+/**
+ * HAL AUDIO DAP Surround Compressor Definition
+ *
+ */
+typedef struct HAL_AUDIO_LGSE_DAP_SURROUND_COMPRESSOR
+{
+	UINT32 		boost;						/* The maximum amount of gain which can be applied to a surround channel by the Surround Compressor feature 0 to 96*/
+} HAL_AUDIO_LGSE_DAP_SURROUND_COMPRESSOR_T;
+
+/**
+ * HAL AUDIO DAP Virtualizer Speaker Angle System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_VIRTUALIZER_SPEAKER_ANGLE
+{
+	UINT32		frontSpeakerAngle;			/* Virtualization parameters for the left and right channels 1 to 30 */
+	UINT32		surroundSpeakerAngle;		/* Virtualization parameters for the left and right surround channels 1 to 30*/
+	UINT32		heightSpeakerAngle;			/* Virtualization parameters for the left and right height channels 1 to 30 */
+} HAL_AUDIO_LGSE_DAP_VIRTUALIZER_SPEAKER_ANGLE_T;
+
+/**
+ * HAL AUDIO DAP Audio Intelligence EQ Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_INTELLIGENCE_EQ
+{
+	BOOLEAN 					bIsEnable;					/* Enables or disables the Audio Optimizer 0 (disabled), !0 (enabled) */
+	HAL_AUDIO_LGSE_DAP_BANDS_T 	stIntelligentEQBands; 		/* Sets parameters for the Intelligent Equalizer bands, including number of bands,
+															   frequencies for each band supplied as integral values in Hz, and corresponding target gains for each band
+															   Band count: 1-20
+															   Band frequencies: 20-20,000 Hz
+															   Band gains: -30 to +30 dB */
+	UINT32						strength;					/* Determines how aggressive the feature is at attempting to match the target timbre curve 0 to 16*/
+} HAL_AUDIO_LGSE_DAP_INTELLIGENCE_EQ_T;
+
+/**
+ * HAL AUDIO DAP Intelligence System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_MEDIA_INTELLIGENCE
+{
+	BOOLEAN 	bIsEnable; 									/* Enables or disables the Media Intelligence settings 0(disabled), !0(enabled) */
+	BOOLEAN 	bIsEqualizerEnable; 						/* If this parameter is enabled, Intelligent Equalizer uses information from Media Intelligence to improve the quality of the processing. 0(disabled), !0 (enabled) */
+	BOOLEAN 	bIsVolumeLevelerEnable;						/* If this parameter is enabled, Volume Leveler uses information from Media Intelligence to improve the quality of the processing. 0(disabled), !0 (enabled) */
+	BOOLEAN 	bIsDialogueEnhancerEnable; 					/* If this parameter is enabled, Dialogue Enhancer uses information from Media Intelligence to improve the quality of the processing. 0(disabled), !0(enabled) */
+	BOOLEAN 	bIsSurroundCompressorEnable;				/* The Surround Compressor is used only when the headphone or speaker virtualizer is enabled. If this parameter is enabled, Surround Compressor will use information from Media Intelligence to improve the quality of the processing. 0(disabled), !0(enabled) */
+} HAL_AUDIO_LGSE_DAP_MEDIA_INTELLIGENCE_T;
+
+/**
+ * HAL AUDIO DAP Graphic Equalizer System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_GRAPHICAL_EQ
+{
+	BOOLEAN 					bIsEnable;			/* Enables or disables the Graphical Equalizer 0 (disabled), !0 (enabled)*/
+	HAL_AUDIO_LGSE_DAP_BANDS_T 	stBands;			/* Sets parameters for the Graphical Equalizer bands, including number of bands, frequencies for each band supplied as integral values in Hz, and corresponding target gains for each band
+													   Band count: 1-20
+													   Band frequencies: 20-20,000 Hz
+													   Band gains: -36 to 36 dB */
+} HAL_AUDIO_LGSE_DAP_GRAPHICAL_EQ_T;
+
+/**
+ * HAL AUDIO DAP Perceptual Height Filter Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER
+{
+	HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER_MODE_T	mode;	/* Set the mode of operation of the perceptual height filter */
+
+} HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER_T;
+
+/**
+ * HAL AUDIO DAP Bass Enhancer System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_BASS_ENHANCER
+{
+	BOOLEAN 	bIsEnable;					/* Enables or disables the Bass Enhancer 0(disabled), !0(enabled) */
+	UINT32 		boost; 						/* Sets the amount of bass boost applied by the Bass Enhancer	0-24 dB */
+	UINT32 		cutoffFreq;					/* Sets the cutoff frequency used by the Bass Enhancer 20-2,000 Hz */
+	UINT32 		width; 						/* Sets the width of the bass enhancement boost curve used by the Bass Enhancer, in units of octaves below the cutoff frequency	0.125-4 octaves*/
+} HAL_AUDIO_LGSE_DAP_BASS_ENHANCER_T;
+
+/**
+ * HAL AUDIO DAP Bass Extraction System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_BASS_EXTRACTION
+{
+	BOOLEAN 	bIsEnable;					/* Enables or disables the Bass Extraction 0(disabled), !0(enabled) */
+	UINT32 		cutoffFreq;					/* Specifies the filter cutoff frequency used for Bass Extraction 45(u)-200(u) Hz */
+} HAL_AUDIO_LGSE_DAP_BASS_EXTRACTION_T;
+
+/**
+ * HAL AUDIO Virtual Bass Bands Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_VIRTUAL_BASS_BANDS
+{
+	UINT32 		num;											/* default: 3 */
+	SINT32		subgains[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT]; 	/* -480 to 0 */
+} HAL_AUDIO_LGSE_VIRTUAL_BASS_BANDS_T;
+
+/**
+ * HAL AUDIO DAP Virtual Bass System Parameter Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS
+{
+	HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_MODE_T 	enMode;						/* Determines the harmonics for Virtual Bass processing
+																		   0 : Delay only
+																		   1 : Second-order harmonics
+																		   2 : Second- and third-order harmonics
+																		   3 : Second-, third-, and fourth-order  harmonics */
+	UINT32 									lowSrcFreqRange; 			/* Defines the lowest frequency of the source to be transposed 30-90 Hz (default 35 Hz) */
+	UINT32 									highSrcFreqRange;			/* Defines the highest frequency of the source to be transposed	90-270 Hz (default 160 Hz) */
+	SINT32 									overallGain;				/* Defines the overall gain applied to the output of the Virtual Bass transposer -480 to 0 (-30 to 0 dB) (default 0) */
+	SINT32 									slopeGain;					/* used to adjust the envelope of the transposer output -3 to 0 (-3 to 0 dB) (default 0) */
+	HAL_AUDIO_LGSE_VIRTUAL_BASS_BANDS_T		stSubGains;					/* Defines the gains applied to individual harmonics at the output of the Virtual Bass transposer -480 to 0 (-30 to 0 dB) (default 0) for the 2nd, 3rd and 4th harmonic respectively */
+	UINT32 									lowMixedFreqBoundaries; 	/* Defines the lower boundary of the frequency range in which transposed harmonics are mixed 0-375 Hz */
+	UINT32 									highMixedFreqBoundaries;	/* Defines the upper boundary of the frequency range in which transposed harmonics are mixed 281-938 Hz */
+} HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_T;
+
+/**
+ * HAL AUDIO DAP Regulator Tuning Thresholds Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_REGULATOR_TUNING_THRESHOLDS
+{
+	UINT32		bands;													/* nb_bands: 1-20 */
+	UINT32 		bandCenters[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT];			/* p_band_centers: 20-20,000 Hz */
+	SINT32		lowThresholds[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT];		/* p_low_thresholds: -130 to 0 dB */
+	SINT32		highThresholds[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT]; 		/* p_high_thresholds: -130 to 0 */
+	BOOLEAN		bBandIsolateFlag[HAL_AUDIO_LGSE_DAP_MAX_BAND_COUNT];	/* Band isolation flag: 0(band is not isolated), 1(band is isolated) */
+} HAL_AUDIO_LGSE_DAP_REGULATOR_TUNING_THRESHOLDS_T;
+
+/**
+ * HAL AUDIO DAP Regulator Definition
+ *
+*/
+typedef struct HAL_AUDIO_LGSE_DAP_REGULATOR
+{
+	BOOLEAN 											bIsEnable;			/* Enables or disables the Audio Regulator 0 (disabled), !0 (enabled)*/
+	HAL_AUDIO_LGSE_DAP_REGULATOR_TUNING_THRESHOLDS_T 	stTuningthresholds;	/* Provides the Audio Regulator with tuning coefficients. These coefficients are only used when the Audio Regulator is operating in Speaker Distortion mode.
+																			   nb_bands : 1-20
+																			   p_band_centers : 20-20,000 Hz
+																			   p_low_thresholds : -130 to 0 dB
+																			   p_high_thresholds : -130 to 0 dB*/
+	UINT32 												overdrive;						/* Sets the boost to be applied to all of the tuned low and high thresholds (as set by dap_cpdp_regulator_tuning_configure) when the Audio Regulator is operating in speaker distortion mode 0-12 dB */
+	UINT32 												timbrePreservationSetter;		/* Sets the timbre preservation amount for the Audio Regulator, in both operating modes Values close to zero maximize loudness; values close to one maximize the preservation of signal tonality. 0.0-1.0 */
+	UINT32 												distortionRelaxationAmount; 	/* Sets the Audio Regulator distortion relaxation amount 0-9 dB*/
+	HAL_AUDIO_LGSE_DAP_REGULATOR_MODE_T 				enOperatingMode;	/* Sets the operating mode of the Audio Regulator:
+																			 - Peak Protection mode: The Audio Regulator has the same operating characteristics for each band.
+																			 - Speaker Distortion mode: The tuning configuration supplied by
+																			   dap_cpdp_regulator_tuning_configure and dap_cpdp_regulator_overdrive_set is used to
+																			   give the Audio Regulator per-band operating characteristics.
+																			   0  : Peak Protection mode
+																			   !0 : Speaker Distortion mode*/
+} HAL_AUDIO_LGSE_DAP_REGULATOR_T;
+
+/**
+ * HAL AUDIO DAP System parameter Definition
+ *
+ */
+typedef struct HAL_AUDIO_LGSE_DAP_SYS_PARAM								/* Set All DAP system param*/
+{
+	HAL_AUDIO_LGSE_DAP_DIALOGUE_ENHANCER_T			stDialogueEnhancer;			/* Set Dialogue Enhancer parameters */
+	HAL_AUDIO_LGSE_DAP_VOLUME_LEVELER_T				stVolumeLeveler;			/* Set Volume Leveler */
+	HAL_AUDIO_LGSE_DAP_VOLUME_MODELER_T				stVolumeModeler;			/* Set Volume Modeler */
+	HAL_AUDIO_LGSE_DAP_VOLUME_MAXIMIZER_T			stVolumeMaximizer;			/* Set Volume Maximizer */
+	HAL_AUDIO_LGSE_DAP_OPTIMIZER_T 					stOptimizer;				/* Set Optimizer parameters */
+	HAL_AUDIO_LGSE_DAP_PROCESS_OPTIMIZER_T 			stProcessOptimizer;			/* Set Process Optimizer parameters */
+	HAL_AUDIO_LGSE_DAP_SURROUND_DECODER_T			stSurroundDecoder;			/* Set Surround Decoder */
+	HAL_AUDIO_LGSE_DAP_SURROUND_COMPRESSOR_T		stSurroundCompressor;		/* Set Surround Compressor */
+	HAL_AUDIO_LGSE_DAP_VIRTUALIZER_SPEAKER_ANGLE_T	stVirtualizerSpeakerAngle;	/* Set Virtualizer Speaker Angle parameters */
+	HAL_AUDIO_LGSE_DAP_INTELLIGENCE_EQ_T			stIntelligenceEQ;			/* Set Intelligence EQ parameters */
+	HAL_AUDIO_LGSE_DAP_MEDIA_INTELLIGENCE_T			stMediaIntelligence;		/* Set Media Intelligence parameters */
+	HAL_AUDIO_LGSE_DAP_GRAPHICAL_EQ_T 				stGraphicalEQ;				/* Set Graphical EQ parameters */
+	HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER_T	stPerceptualHeightFilter;	/* Set Perceptual Height Filter */
+	HAL_AUDIO_LGSE_DAP_BASS_ENHANCER_T 				stBassEnhancer;				/* Set Bass Enhanser parameters */
+	HAL_AUDIO_LGSE_DAP_BASS_EXTRACTION_T 			stBassExtraction;			/* Set Bass Extraction parameters */
+	HAL_AUDIO_LGSE_DAP_REGULATOR_T 					stRegulator;				/* Set Regulator parameters */
+	HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_T				stVirtualBass;				/* Set Virtual Bass parameters */
+} HAL_AUDIO_LGSE_DAP_SYS_PARAM_T;
+
 
 /******************************************************************************
 	함수 선언 (Function Declaration)
 ******************************************************************************/
+DTV_STATUS_T HAL_AUDIO_SetMS12Version(HAL_AUDIO_MS12_VERSION_T eMS12Version);
 DTV_STATUS_T HAL_AUDIO_InitializeModule(HAL_AUDIO_SIF_TYPE_T eSifType);
 DTV_STATUS_T HAL_AUDIO_SetSPKOutput(UINT8 i2sNumber, HAL_AUDIO_SAMPLING_FREQ_T samplingFreq);
 DTV_STATUS_T HAL_AUDIO_RegWarningCallback(pfnADECWarning pfnCallBack);
@@ -1084,6 +1516,8 @@ DTV_STATUS_T HAL_AUDIO_SNDOUT_Disconnect(HAL_AUDIO_RESOURCE_T currentConnect, HA
 DTV_STATUS_T HAL_AUDIO_StartDecoding(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_SRC_TYPE_T audioType);
 DTV_STATUS_T HAL_AUDIO_StopDecoding(HAL_AUDIO_ADEC_INDEX_T adecIndex);
 DTV_STATUS_T HAL_AUDIO_SetMainDecoderOutput(HAL_AUDIO_ADEC_INDEX_T adecIndex);
+DTV_STATUS_T HAL_AUDIO_SetMainAudioOutput(HAL_AUDIO_INDEX_T audioIndex);
+
 
 /* HDMI */
 DTV_STATUS_T HAL_AUDIO_HDMI_GetAudioMode(HAL_AUDIO_HDMI_TYPE_T *pHDMIMode);
@@ -1111,6 +1545,29 @@ DTV_STATUS_T HAL_AUDIO_TP_SetAVSyncVdecBasedMode(HAL_AUDIO_ADEC_INDEX_T adecInde
 DTV_STATUS_T HAL_AUDIO_TP_SetAVSyncAdecBasedMode(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bOnOff, UINT32 offset); //Comercial TV function body is empty
 DTV_STATUS_T HAL_AUDIO_TP_GetBufferStatus(HAL_AUDIO_ADEC_INDEX_T adecIndex, UINT32 *pMaxSize, UINT32 *pFreeSize);
 
+/* AC-4 decoder */
+/* AC-4 Auto Presenetation Selection. Refer to "Selection using system-level preferences" of "Dolby MS12 Multistream Decoder Implementation integration manual" */
+/* When Auto Presentation selection is set during decoding,
+   if setting value is identical with the value already set, audio should be decoded without disconnecting and noise.
+   if setting value is different with the value already set, audio can be disconnected withtout noise. */
+/* ISO 639-1 or ISO 639-2 can be used as Language Code type. */
+/* Language Code type is decided by enCodetype(HAL_AUDIO_LANG_CODE_TYPE_T) */
+/* ISO 639-1 code is defined upper 2byte of UINT32 and rest 2byte includes 0 example : 'e''n'00 */
+/* ISO 639-2 code is defined upper 3byte of UINT32 and rest 1byte includes 0 example : 'e''n''g'0 */
+DTV_STATUS_T HAL_AUDIO_AC4_SetAutoPresentationFirstLanguage(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_LANG_CODE_TYPE_T enCodeType, UINT32 firstLang); 	// default : none
+DTV_STATUS_T HAL_AUDIO_AC4_SetAutoPresentationSecondLanguage(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_LANG_CODE_TYPE_T enCodeType, UINT32 secondLang); 	// default : none
+DTV_STATUS_T HAL_AUDIO_AC4_SetAutoPresentationADMixing(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bIsEnable);				// default: FALSE
+DTV_STATUS_T HAL_AUDIO_AC4_SetAutoPresentationADType(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_AC4_AD_TYPE_T enADType); 	// default : 'VI'
+DTV_STATUS_T HAL_AUDIO_AC4_SetAutoPresentationPrioritizeADType(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bIsEnable); 		// default : FALSE
+
+/* AC-4 Dialogue Enhancement */
+/* This Enhancement Gain just affect to AC-4 codec and DAP Enhancement amount does not affect AC-4 codec.
+   When AC-4 Dialog Enhancement Gain is set during decoding,
+   if setting value is identical with the value already set, audio should be decoded without disconnecting and noise.
+   if setting value is different with the value already set, audio should be decoded without disconnecting and noise. */
+DTV_STATUS_T HAL_AUDIO_AC4_SetDialogueEnhancementGain(HAL_AUDIO_ADEC_INDEX_T adecIndex, UINT8 dialEnhanceGain);	//Gain should be 0~12 in dB, default : 0
+
+
 /* Clip Play */
 /* Clip Play for Decoder : 2 Decoder support. */
 DTV_STATUS_T HAL_AUDIO_PlayClipDecoder(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_CLIP_DEC_PARAM_T clipInfo, UINT32 bufSize, void *pBufClip, pfnAdecoderClipDone pfnCallBack);
@@ -1133,8 +1590,10 @@ DTV_STATUS_T HAL_AUDIO_SetSPKOutVolume(HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetSPDIFOutVolume(HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetHPOutVolume(HAL_AUDIO_VOLUME_T volume, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_SetSCARTOutVolume(HAL_AUDIO_VOLUME_T volume, BOOLEAN bForced);
+DTV_STATUS_T HAL_AUDIO_SetDecoderEaseVolume(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetAudioDescriptionVolume(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetDecoderInputMute(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bOnOff);
+DTV_STATUS_T HAL_AUDIO_SetDecoderInputEaseMute(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bOnOff, UINT32 easeTime);
 DTV_STATUS_T HAL_AUDIO_SetDecoderInputESMute(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bOnOff);
 DTV_STATUS_T HAL_AUDIO_SetMixerInputMute(HAL_AUDIO_MIXER_INDEX_T mixerIndex, BOOLEAN bOnOff);
 DTV_STATUS_T HAL_AUDIO_SetSPKOutMute(BOOLEAN bOnOff);
@@ -1153,10 +1612,8 @@ DTV_STATUS_T HAL_AUDIO_SetHPOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_SetSCARTOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_GetStatusInfo(HAL_AUDIO_COMMON_INFO_T *pAudioStatusInfo);
 
-/*SPK Out LR Mode*/
+/* SPK Out LR Mode*/
 DTV_STATUS_T HAL_AUDIO_SetSPKOutLRMode(HAL_AUDIO_SNDOUT_LRMODE_T outputMode);
-
-
 
 /* SPDIF(Sound Bar) */
 DTV_STATUS_T HAL_AUDIO_SPDIF_SetOutputType(HAL_AUDIO_SPDIF_MODE_T eSPDIFMode, BOOLEAN bForced);
@@ -1167,7 +1624,7 @@ DTV_STATUS_T HAL_AUDIO_SB_SetOpticalIDData(HAL_AUDIO_SB_SET_INFO_T info);
 DTV_STATUS_T HAL_AUDIO_SB_GetOpticalStatus(HAL_AUDIO_SB_GET_INFO_T *pInfo);
 DTV_STATUS_T HAL_AUDIO_SB_SetCommand(HAL_AUDIO_SB_SET_CMD_T info);
 DTV_STATUS_T HAL_AUDIO_SB_GetCommandStatus(HAL_AUDIO_SB_GET_CMD_T *pInfo);
-DTV_STATUS_T HAL_AUDIO_ARC_SetOutputType(HAL_AUDIO_ARC_MODE_T eARCMode, BOOLEAN bForced); // for TB24 ARC DD+ output 2016/06/4 by ykwang.kim 
+DTV_STATUS_T HAL_AUDIO_ARC_SetOutputType(HAL_AUDIO_ARC_MODE_T eARCMode, BOOLEAN bForced); // for TB24 ARC DD+ output 2016/06/4 by ykwang.kim
 
 /* SE */
 DTV_STATUS_T HAL_AUDIO_LGSE_SetMode(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
@@ -1209,6 +1666,52 @@ DTV_STATUS_T HAL_AUDIO_LGSE_GetData(HAL_AUDIO_LGSE_FUNCLIST_T funcList, HAL_AUDI
 DTV_STATUS_T HAL_AUDIO_LGSE_RegSmartSoundCallback(pfnLGSESmartSound pfnCallBack, UINT32 callbackPeriod);
 DTV_STATUS_T HAL_AUDIO_LGSE_GetParamData(HAL_AUDIO_LGSE_FUNCLIST_T funcList, HAL_AUDIO_LGSE_DATA_MODE_T dataOption,	\
 										 UINT16 noParam, UINT32 *pParams);
+
+/**
+ * HAL AUDIO DAP API define
+ *
+ * 20160702 sanghyun.han(MS12 V1.30), 20160909 kwangshik.kim(MS12 V2.00)
+ */
+DTV_STATUS_T HAL_AUDIO_LGSE_SetPostProcess(HAL_AUDIO_POSTPROC_MODE_T ePostProcMode, HAL_AUDIO_LGSE_DAP_SUPPORTED_AUDIO_TYPE_T stDAPSupportedAudioType);		/* Select Audio Post Processing mode */
+DTV_STATUS_T HAL_AUDIO_LGSE_GetPostProcess(HAL_AUDIO_POSTPROC_MODE_T *pePostProcMode, HAL_AUDIO_LGSE_DAP_SUPPORTED_AUDIO_TYPE_T *pstDAPSupportedAudioType);	/* Get current Audio Post Processing mode */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetSurroundVirtualizerMode(HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_MODE_T stSurroundVirtualizerMode);						/* Set DAP Surround Virtualizer mode */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetSurroundVirtualizerMode(HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_MODE_T *pstSurroundVirtualizerMode);				    	/* Get current DAP Surround Virtualizer mode */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetDialogueEnhancer(HAL_AUDIO_LGSE_DAP_DIALOGUE_ENHANCER_T *pstDialogueEnhancer);											/* Set DAP Dialogue Enhancer */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetDialogueEnhancer(HAL_AUDIO_LGSE_DAP_DIALOGUE_ENHANCER_T *pstDialogueEnhancer);											/* Get current DAP Dialogue Enhancer */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetVolumeLeveler(HAL_AUDIO_LGSE_DAP_VOLUME_LEVELER_T *pstVolumeLeveler);													/* Set DAP Volume Leveler */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetVolumeLeveler(HAL_AUDIO_LGSE_DAP_VOLUME_LEVELER_T *pstVolumeLeveler);													/* Get current DAP Volume Leveler status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetVolumeModeler(HAL_AUDIO_LGSE_DAP_VOLUME_MODELER_T *pstVolumeModeler);													/* Set DAP Volume Modeler */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetVolumeModeler(HAL_AUDIO_LGSE_DAP_VOLUME_MODELER_T *pstVolumeModeler);													/* Get current DAP Volume Modeler status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetVolumeMaximizer(HAL_AUDIO_LGSE_DAP_VOLUME_MAXIMIZER_T *pstVolumeMaximizer);												/* Set DAP Volume Maximizer */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetVolumeMaximizer(HAL_AUDIO_LGSE_DAP_VOLUME_MAXIMIZER_T *pstVolumeMaximizer);												/* Get current DAP Volume Maximizer status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetOptimizer(HAL_AUDIO_LGSE_DAP_OPTIMIZER_T *pstOptimizer);																	/* Set DAP Optimizer */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetOptimizer(HAL_AUDIO_LGSE_DAP_OPTIMIZER_T *pstOptimizer);																	/* Set current DAP Optimizer status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetProcessOptimizer(HAL_AUDIO_LGSE_DAP_PROCESS_OPTIMIZER_T *pstProcessOptimizer);											/* Set DAP Process Optimizer */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetProcessOptimizer(HAL_AUDIO_LGSE_DAP_PROCESS_OPTIMIZER_T *pstProcessOptimizer);											/* Set current DAP Process Optimizer status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetSurroundDecoder(HAL_AUDIO_LGSE_DAP_SURROUND_DECODER_T *pstSurroundDecoder);												/* Set DAP Surround Decoder */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetSurroundDecoder(HAL_AUDIO_LGSE_DAP_SURROUND_DECODER_T *pstSurroundDecoder);												/* Set current DAP Surround Decoder status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetSurroundCompressor(HAL_AUDIO_LGSE_DAP_SURROUND_COMPRESSOR_T *pstSurroundCompressor);										/* Set DAP Surround Compressor */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetSurroundCompressor(HAL_AUDIO_LGSE_DAP_SURROUND_COMPRESSOR_T *pstSurroundCompressor);										/* Get current DAP Surround Compressor status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetVirtualizerSpeakerAngle(HAL_AUDIO_LGSE_DAP_VIRTUALIZER_SPEAKER_ANGLE_T *pstVirtualizerSpeakerAngle);						/* Set DAP Virtualizer Speaker Angle */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetVirtualizerSpeakerAngle(HAL_AUDIO_LGSE_DAP_VIRTUALIZER_SPEAKER_ANGLE_T *pstVirtualizerSpeakerAngle);						/* Set current DAP Virtualizer Speaker Angle status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetIntelligenceEQ(HAL_AUDIO_LGSE_DAP_INTELLIGENCE_EQ_T *pstIntelligenceEQ);													/* Set DAP Intelligence EQ */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetIntelligenceEQ(HAL_AUDIO_LGSE_DAP_INTELLIGENCE_EQ_T *pstIntelligenceEQ);													/* Get current DAP Intelligence EQ */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetMediaIntelligence(HAL_AUDIO_LGSE_DAP_MEDIA_INTELLIGENCE_T *pstMediaIntelligence);										/* Set DAP Media Intelligence */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetMediaIntelligence(HAL_AUDIO_LGSE_DAP_MEDIA_INTELLIGENCE_T *pstMediaIntelligence);										/* Get current DAP Media Intelligence */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetGraphicalEQ(HAL_AUDIO_LGSE_DAP_GRAPHICAL_EQ_T *pstGraphicalEQ);															/* Set DAP Graphical Equalizer */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetGraphicalEQ(HAL_AUDIO_LGSE_DAP_GRAPHICAL_EQ_T *pstGraphicalEQ);															/* Get current DAP Graphical Equalizer status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetPerceptualHeightFilter(HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER_T *pstPerceptualHeightFilter);						/* Set DAP Perceptual Height Filter */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetPerceptualHeightFilter(HAL_AUDIO_LGSE_DAP_PERCEPTUAL_HEIGHT_FILTER_T *pstPerceptualHeightFilter);						/* Get current DAP Perceptual Height Filter status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetBassEnhancer(HAL_AUDIO_LGSE_DAP_BASS_ENHANCER_T *pstBassEnhancer);														/* Set DAP Bass Enhancer */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetBassEnhancer(HAL_AUDIO_LGSE_DAP_BASS_ENHANCER_T *pstBassEnhancer);														/* Get current DAP Bass Enhancer status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetBassExtraction(HAL_AUDIO_LGSE_DAP_BASS_EXTRACTION_T *pstBassExtraction);													/* Set DAP Bass Extraction */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetBassExtraction(HAL_AUDIO_LGSE_DAP_BASS_EXTRACTION_T *pstBassExtraction);													/* Get current DAP Bass Extraction status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetVirtualBass(HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_T *pstVirtualBass);															/* Set DAP Surround Virtual Bass */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetVirtualBass(HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_T *pstVirtualBass);															/* Get current DAP Surround Virtual Bass Status */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetRegulator(HAL_AUDIO_LGSE_DAP_REGULATOR_T *pstRegulator);																	/* Set DAP Regulator */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetRegulator(HAL_AUDIO_LGSE_DAP_REGULATOR_T *pstRegulator);																	/* Get current DAP Regulator stauts */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetSysParam(HAL_AUDIO_LGSE_DAP_SYS_PARAM_T *pstDapSysParam);																/* Set DAP System Param */
+DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetSysParam(HAL_AUDIO_LGSE_DAP_SYS_PARAM_T *pstDapSysParam);																/* Get current DAP System Param stauts */
 
 /* AAD */
 DTV_STATUS_T HAL_AUDIO_SIF_SetInputSource(HAL_AUDIO_SIF_INPUT_T sifSource);
