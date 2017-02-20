@@ -11,10 +11,10 @@
  *
  *	This header file defines the driver functions related to i2c Driver
  *
- *	@author 	dhjung (dhjung77@lge.com)
+ *	@author 	dj911.kim (dj911.kim@lge.com)
  *	@version	0.9
- *	@date		2007.02.12
- *	@note		2007.04.28 modified by earnest for chaplin Chip
+ *	@date		2016.08.25
+ *	@note		
  *	@see
  */
 
@@ -24,22 +24,27 @@
 #ifndef _HAL_PWM_H_
 #define _HAL_PWM_H_
 
-/*****************************************************************************
-	#include File
-*****************************************************************************/
-#include "hal_common.h"
+/******************************************************************************
+	#include 파일들 (File Inclusions)
+******************************************************************************/
+//#include <osa_api.h>
+//#include <osa_kadp.h>
+#include <hal_common.h>
 
 /******************************************************************************
- 	Constant Definitions
+ 	상수 정의(Constant Definitions)
 ******************************************************************************/
 
-/******************************************************************************
-    Macro Definitions
-******************************************************************************/
 
 /******************************************************************************
-	Type Definitions
+    매크로 함수 정의 (Macro Definitions)
 ******************************************************************************/
+
+
+/******************************************************************************
+	형 정의 (Type Definitions)
+******************************************************************************/
+
 /**
 * type definition about PWM device's index
 *
@@ -116,11 +121,13 @@ typedef struct {
 	UINT32					pwm_lock;
 	UINT32					pwm_pos_start;
 	UINT32					pwm_scanning_enable;
+	UINT32					pwm_low_power_enable;
 } PWM_PARAM_T;
 
 /******************************************************************************
-	Function Declaration
+	함수 선언 (Function Declaration)
 ******************************************************************************/
+
 extern DTV_STATUS_T HAL_PWM_Init (void);
 extern DTV_STATUS_T HAL_PWM_SetAdaptFreqCtrl (PWM_PIN_SEL_T pwmIndex, BOOLEAN onOff, PWM_FREQ_DB_T pwmFreqDb);
 extern DTV_STATUS_T HAL_PWM_SetFrequency(PWM_PIN_SEL_T pwmIndex, UINT32 data);
@@ -133,9 +140,5 @@ extern DTV_STATUS_T HAL_PWM_SetVsyncAlign(PWM_PIN_SEL_T pwmIndex, BOOLEAN data);
 extern DTV_STATUS_T HAL_PWM_SetParam(PWM_PIN_SEL_T pwmIndex, PWM_PARAM_T* pstPWMParam);
 extern DTV_STATUS_T HAL_PWM_GetParam(PWM_PIN_SEL_T pwmIndex, PWM_PARAM_T* pstPWMParam);
 extern DTV_STATUS_T HAL_PWM_ApplyParamSet(PWM_PIN_SEL_MASK_T pwmIndex_mask);
-
-
-
-
 
 #endif /* _HAL_PWM_H_ */
