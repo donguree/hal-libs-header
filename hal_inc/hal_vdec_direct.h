@@ -46,6 +46,8 @@ struct HAL_VDEC_DIRECT_VideoInfo
 
 typedef struct HAL_DVDEC HAL_DVDEC_T;
 
+typedef void (*PFN_VDEC_DIRECT_BUFFID_CB_T) (UINT64 buffID);
+
 HAL_DVDEC_T *HAL_VDEC_DIRECT_Open(unsigned int fourcc,
 		int width, int height,
 		HAL_VDEC_DIRECT_3D_TYPE_T trid_type);
@@ -56,9 +58,9 @@ DTV_STATUS_T HAL_VDEC_DIRECT_Close(HAL_DVDEC_T *vdec);
 DTV_STATUS_T HAL_VDEC_DIRECT_GetVideoInfo(HAL_DVDEC_T *vdec,
 		struct HAL_VDEC_DIRECT_VideoInfo *info);
 DTV_STATUS_T HAL_VDEC_DIRECT_SetCallback(HAL_DVDEC_T *vdec,
-	    void(*callback)(unsigned long long buffID));
-DTV_STATUS_T HAL_VDEC_DIRECT_PlayWithCallback(HAL_DVDEC_T *vdec, void *data, 
-	    int size, unsigned long long buffID);
+	PFN_VDEC_DIRECT_BUFFID_CB_T cb);
+DTV_STATUS_T HAL_VDEC_DIRECT_PlayWithCallback(HAL_DVDEC_T *vdec,
+	void *data, int size, UINT64 buffID);
 
 #ifdef __cplusplus
 }

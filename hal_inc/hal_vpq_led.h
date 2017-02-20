@@ -251,6 +251,9 @@ typedef struct
 	HAL_LED_LUT_INFO uiLow;
 	HAL_LED_LUT_INFO uiMedium;
 	HAL_LED_LUT_INFO uiHigh;
+	HAL_LED_LUT_INFO uiHdrLow;
+	HAL_LED_LUT_INFO uiHdrMedium;
+	HAL_LED_LUT_INFO uiHdrHigh;
 } HAL_LED_UI_LUT_INFO_T;
 
 typedef struct
@@ -280,6 +283,7 @@ typedef struct
 	HAL_LED_DB_DIMMING_CURVE_LUT_T dimmingCurve_lut;
 	HAL_LED_UI_LUT_INFO_T pqUi_lut;
 	HAL_LED_UI_LUT_INFO_T pixelCompensation_lut;
+	HAL_LED_LUT_INFO unsharpMask_0_15_dynamic_lut;
 } HAL_LED_DB_LUT_T;
 
 /*-----------------------------------------------------------------------------
