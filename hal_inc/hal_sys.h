@@ -111,4 +111,7 @@ DTV_STATUS_T HAL_SYS_ResetWol(void);
 DTV_STATUS_T HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
 DTV_STATUS_T HAL_SYS_Resume (void);
 
+/* micom dummy */
+DTV_STATUS_T HAL_SYS_WakeUpInternalMicom(void);
+
 #endif  /* _HAL_SYS_H_ */

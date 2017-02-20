@@ -145,6 +145,23 @@ typedef struct
 	UINT32 ACPReserved           : 24;  // not used
 }ADC_COPY_PROTECT_T;
 
+typedef enum
+{
+	ADJ_PC_AUTO = 0,	// PC Auto
+	ADJ_PC_H_POS,		// PC H Position
+	ADJ_PC_V_POS,		// PC V Position
+	ADJ_PC_HV_POS,		
+	ADJ_PC_CLOCK,		// PC Clock
+	ADJ_PC_PHASE,		// PC Phase
+} ADJ_PC_MODE_T;
+
+typedef struct
+{
+	SINT16	pcHDelay;	   /**< Horizontal Sync Delay value */
+	SINT16	pcVDelay;	   /**< Vertical Sync Delay value */
+	SINT8	pcClock;		 /**< Clock value */
+	UINT8	pcPhase;		 /**< Phase value */
+} ADJ_PC_T;
 //////////////////////////////////////
 // start of video common ddi functions
 
@@ -183,6 +200,7 @@ DTV_STATUS_T	HAL_VFE_ADC_GetOTPData(ADC_CAL_DATA_T pAdcData[]);
 DTV_STATUS_T    HAL_VFE_ADC_AdjustCalibration(ADC_CAL_TYPE_T adcType);
 DTV_STATUS_T 	HAL_VFE_ADC_ResetCALData(void);
 DTV_STATUS_T  	HAL_VFE_ADC_FastSwitchingMode(BOOLEAN  bEnable);
+
 /*
 DTV_STATUS_T    HAL_VFE_ADC_SelectMEMType(ADC_CAL_MEMORY_TYPE_T memType );
 DTV_STATUS_T    HAL_VFE_ADC_GetMEMType(ADC_CAL_MEMORY_TYPE_T *pMemType );
@@ -190,6 +208,12 @@ DTV_STATUS_T    HAL_VFE_ADC_GetMEMType(ADC_CAL_MEMORY_TYPE_T *pMemType );
 DTV_STATUS_T 	HAL_VFE_ADC_Resume(void);
 
 
+/*==================      RGB PC FUNCTION (for Signage TV)     ==========================*/
+DTV_STATUS_T  	HAL_VFE_ADC_AdjustPC(ADJ_PC_MODE_T mode, SINT16 value);
+DTV_STATUS_T  	HAL_VFE_ADC_AdjustPCAuto(void *pfnAdjustPCAuto);
+DTV_STATUS_T  	HAL_VFE_ADC_SetPCResolution(SINT32 remapResolution);
+DTV_STATUS_T  	HAL_VFE_ADC_ReadExternalEDID(UINT8 port, UINT8 *pData);
+DTV_STATUS_T  	HAL_VFE_ADC_WriteExternalEDID(UINT8 port, UINT8 *pData);
 
 #if 0
 /**

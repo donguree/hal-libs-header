@@ -439,6 +439,24 @@ DTV_STATUS_T HAL_VDEC_SyncAV(UINT8 nPort , UINT8 onOff);
 VDEC_AFD_MODE_T HAL_VDEC_GetAFD(UINT8 nPort);
 
 /**
+ * function telling if DTV signal is good or not.
+ * It must be called periodically by CM.
+ * @param nPort [in] deprecated, set 0
+ * @return TRUE if good, or FALSE
+ * @see HAL_VDEC_SetLatestDTVSigStatus()
+ */
+BOOLEAN HAL_VDEC_IsDTVSigStatusGood(UINT8 nPort);
+
+/**
+ * set good video forcely regardless of decoding state.
+ * It is called when EPF mode.
+ * @param nPort [in] deprecated, set 0
+ * @param GoodorBad [in] Good/Bad
+ * @see HAL_VDEC_IsDTVSigStatusGood()
+ */
+void HAL_VDEC_SetLatestDTVSigStatus(UINT8 nPort, VDEC_VIDEO_STATUS_T GoodorBad);
+
+/**
  * DDI fuction for starting to gether user data.
  *
  * @param nPort [in] deprecated, set 0
@@ -541,6 +559,17 @@ DTV_STATUS_T HAL_VDEC_GetCurPTS(UINT8 nPort, VDEC_PTS_T *pVdecPTS);
 
 
 /**
+ * Get Current STC of video decoder.
+ * @param port [IN] specifies a video port
+ * @param pVdecSTC [OUT] STC of video decoder
+ * @return  DTV_STATUS_T
+ */
+DTV_STATUS_T HAL_VDEC_GetSTC(UINT8 port, UINT32 *pSTC);
+
+
+
+
+/**
  * DDI fuction for smooth fast forward
  *
  * @param  decodeMode [IN] enable/disable  drop field.
@@ -556,6 +585,57 @@ void	HAL_VDEC_SetDecodeMode(UINT8 nPort, VDEC_DECODE_MODE_T decodeMode);
  */
 BOOLEAN		HAL_VDEC_IsFrameAdvanced(UINT8 nPort);
 
+
+
+#if defined(BCM_PLATFORM) && (PLATFORM_TYPE == BCM_PLATFORM)
+
+/**
+ * DDI fuction for smooth fast forward
+ *
+ * @param  bEnable [IN] enable/disable  drop field.
+ * @return DTV_STATUS
+ */
+DTV_STATUS HAL_VDEC_BCM_SetDropFieldMode(BOOLEAN bEnable);
+
+
+/**
+ * I-Frame Decoding Function.
+ *
+ * This function will not display the decoded image in the video plane.
+ * Instead the decoded image will be saved through file.
+ * And also you don't have to stop VideoDecoder in order to use this function.
+ * In other words, this function is independent of Main VDEC.
+ *
+ * @param	nPort			[IN]	video nPort
+ * @param	codec			[IN]	video codec
+ * @return  if succeeded - API_OK, else - API_ERROR
+ */
+DTV_STATUS_T HAL_VDEC_BCM_StartDripDec(UINT8 nPort, UINT8* dripData, UINT32 dripSize, VDEC_DRIP_TYPE_T dripType, VDEC_CODEC_T codecType);
+
+/**
+ * Stop I-Frame Decoding Function.
+ *
+ * This function will not display the decoded image in the video plane.
+ * Instead the decoded image will be saved through file.
+ * And also you don't have to stop VideoDecoder in order to use this function.
+ * In other words, this function is independent of Main VDEC.
+ *
+ * @param	nPort			[IN]	video nPort
+ * @param	codec			[IN]	video codec
+ * @return  if succeeded - API_OK, else - API_ERROR
+ */
+DTV_STATUS_T HAL_VDEC_BCM_StopDripDec(UINT8 nPort);
+
+/**
+ * DDI fuction for AFD Callback
+ *
+ * @param  pfnMsgCbFn [IN] callback function.
+ * @return void
+ */
+void HAL_VDEC_BCM_MHPAFDCallBack(DDI_VDEC_MHP_AFD_CALLBACK_PTR_T pfnMsgCbFn);
+
+#endif
+
 /**
  * VDEC debug menu.
  *
@@ -563,6 +643,132 @@ BOOLEAN		HAL_VDEC_IsFrameAdvanced(UINT8 nPort);
  * @return void
  */
 void HAL_VDEC_DebugMenu(void);
+
+/**
+ * Existence of the DVS157 data.
+ *
+ * @author
+ * @param	void		[IN]
+ * @return	BOOLEAN : TRUE if there are DVS157 data
+ */
+BOOLEAN HAL_VDEC_IsDVS157ExistCnt(void);
+
+/**
+ * Existence of the EIA708 data.
+ *
+ * @author
+ * @param	serviceNum	[IN] VDEC_DCC_SERVICE_NUM_T
+ * @return	BOOLEAN : TRUE if there are EIA708 data
+ */
+BOOLEAN HAL_VDEC_IsDCCExistCnt(VDEC_DCC_SERVICE_NUM_T serviceNum);
+
+/**
+ * Set 0 on the EIA708 data Existence flag of All Services and DVS157 data Existence flag.
+ *
+ * @author
+ * @param	void		[IN]
+ * @return	void
+ */
+void HAL_VDEC_ResetExistCnt(void);
+
+/**
+ * decrease EIA708 data & DVS157 data Existence flag of all services.
+ *
+ * @author
+ * @param	void		[IN]
+ * @return	void
+ */
+void HAL_VDEC_MonitoringDCC(void);
+
+/**
+ * 채널 체인지 이후에 dcc type, field에 대한 값을 초기화
+ * Vdec_Start 되면서 초기화 하는데도 불구하고 이번 채널의 data가 영향을 줌
+ *
+ * @author
+ * @param	void		[IN]
+ * @return	void
+ */
+ /* skystone_FT_NewJersey */
+void HAL_VDEC_ResetAllDCCType(void);
+
+/**
+ * 한 Picture hdr안에 user data type이 여러개가 올 수 있음.
+ * EIA608(EIA708), DVS 157중에 둘다 왔는 지 둘중에 하나만 왔는지 값을 얻어옴.
+ *
+ * @return DCC_TYPE_STATE : all dcc type
+ * @remarks DDI_VDEC_UnknownDCCDatafromUserData에서 사용됨.
+ */
+VDEC_DCC_TYPE_T HAL_VDEC_GetAllDCCType(void);
+
+/**
+ * reset count value for CC stability
+ *
+ * @author
+ * @param	void
+ * @return	void
+ */
+void HAL_VDEC_InitCntCheck(void);
+
+/**
+ * DCC Type Setting.(Unknown, SCTE21(EIA608 or EIA708), SCTE20(DVS157), UI에서 컨트롤.
+ *
+ * @author
+ * @param 	_bDCCType	[IN]	dcc type
+ * @return 	void
+ */
+void HAL_VDEC_SetDCCType(VDEC_DCC_TYPE_T dccType);
+
+/**
+ * enable userdata rx
+ *
+ * 1. prevent the repeat call of this function.
+ * 3. If this is the first call, then conintue
+ * 4. If not, return.
+ * 5. Send USRDATA_EN event to UsrDataRxTask.
+ * 6. Initialize all userdata queues variables.
+ * 7. clear usrdata temperary buffer.
+ * 8. initialize all userdata related hdall registers.
+ * 9. start ACC encoder.
+ * 10. enable userdata interrupt.
+ *
+ * @author
+ * @param	void	[IN]
+ * @return	DTV_STATUS_T
+ */
+DTV_STATUS_T HAL_VDEC_EnableUserDataRx(void);
+/**
+ * disable userdata rx
+ * reverse order of EnableUserDataRx routine.
+ *
+ * 1. make pointer of userdata rx routine NULL.
+ * 2. check is this the last possible disable call for userdata.
+ * 3. if no, return immediately.
+ * 4. if yes, continue.
+ * 5. send EVENT_USRDATA_DIS to UsrDataRxTask to make ready to terminate
+ *	   its usrdata rx operation.
+ * 6. disable UserData Interrupt of hdall.
+ * 7. stop ACC Encoder operation.
+ * 8. initialize all variables for usrdata queues.
+ *
+ * @author
+ * @param	void	[IN]
+ * @return	DTV_STATUS_T
+ */
+DTV_STATUS_T HAL_VDEC_DisableUserDataRx(void);
+
+/**
+ * Obtain the stored userdata .
+ * This function copy back the received userdata to DCC
+ *
+ * @author
+ * @param	ret_Size	[OUT]	buffer Size
+ * @param	buffer		[OUT]	buffer pointer to save data
+ * @return	DTV_STATUS_T
+ */
+DTV_STATUS_T HAL_VDEC_GetUserData(
+	UINT16	*pRetSize,
+	void	*pBuffer
+);
 
 
 
@@ -765,7 +971,13 @@ typedef enum
 								  unit */
 	VDEC_PARAM_PVR_MODE_INFO,	/**< true for PVR mode */
 
-	VDEC_PARAM_MAX
+	VDEC_PARAM_MAX,
+
+	/* for ID platform */
+	/* Tvservice does special care about userdata gathering or some other
+	 * functions. This flag sets that this is not the tvservice process and let
+	 * HAL_VDEC does not execute such functions. */
+	VDEC_PARAM_NONTVSERVICE = 0xff000000,
 } VDEC_PARAM_T;
 
 /**
@@ -787,6 +999,8 @@ typedef enum
 	VDEC_PARAM2_SECURE_CPB,		/**< protect CPB memory */
 } VDEC_PARAM2_T;
 
+DTV_STATUS_T HAL_VDEC_SetParam2 (UINT8 port,
+		VDEC_PARAM2_T param, unsigned long val);
 
 
 typedef enum
@@ -796,6 +1010,10 @@ typedef enum
 	VDEC_DECODER_TYPE_D14_MCU1,		/**< external UHD video decoder, MCU1 */
 } VDEC_DECODER_TYPE_T;
 
+/**
+ * get hardware decoder version
+ */
+DTV_STATUS_T HAL_VDEC_GetDecoderVersion (VDEC_DECODER_TYPE_T dec, const char **ver);
 
 #ifdef __cplusplus
 }

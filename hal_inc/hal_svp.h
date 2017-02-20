@@ -73,6 +73,8 @@ SVP_STATUS_T HAL_SVP_GetSecureCpbInformation (unsigned long vdecHandle,
 	unsigned long *pSecCpbAddr, int *pSecCpbSize, int *pReadOffset, int *pWriteOffset);
 SVP_STATUS_T HAL_SVP_GetSecureDecryptBufferHandle(unsigned int *pSecDecBufHandle, unsigned int *pSecDecBufSize);
 SVP_STATUS_T HAL_SVP_GetSecureDecryptBufferHandleEx(unsigned int secCpbAddr, unsigned int *pSecDecBufHandle, unsigned int *pSecDecBufSize);
+SVP_STATUS_T HAL_SVP_LockSecureDecryptBufferHandle(void);
+SVP_STATUS_T HAL_SVP_UnlockSecureDecryptBufferHandle(void);
 SVP_STATUS_T HAL_SVP_GetAuInformation(unsigned int *pAuWritePoint, int *pAuWriteLength,
 	unsigned int *pWritePoint, unsigned int readPoint, unsigned int secDecBufHandle, unsigned int srcLength);
 SVP_STATUS_T HAL_SVP_CheckAuTypeIsDolbyHdrMeta(unsigned int auWritePoint, int auWriteLength, BOOLEAN *pIsMetaType);

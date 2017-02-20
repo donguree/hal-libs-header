@@ -28,12 +28,8 @@
 *****************************************************************************/
 #include "hal_common.h"
 
-/******************************************************************************
- 	Constant Definitions
-******************************************************************************/
-
 /*****************************************************************************
-	Macro Definitions
+	Constant Definitions
 *****************************************************************************/
 extern SINT32 gHalGpioLogmFd;
 #define HAL_GPIO_LOGM 						"hal-gpio"
@@ -44,9 +40,7 @@ extern SINT32 gHalGpioLogmFd;
 #define HAL_GPIO_DEBUG(fmt,args...)		KADP_LOGM_PRINT(gHalGpioLogmFd, LX_LOGM_LEVEL_DEBUG, 	fmt, ##args)
 #define HAL_GPIO_TRACE(fmt,args...)		KADP_LOGM_PRINT(gHalGpioLogmFd, LX_LOGM_LEVEL_TRACE, 	fmt, ##args)
 
-/******************************************************************************
-	Type Definitions
-******************************************************************************/
+/* CMIO GPIO */
 /**
  * type definition about gpio group
  *
@@ -69,21 +63,29 @@ typedef enum
 	GPIO_HIGH 				/**< gpio high */
 } GPIO_VALUE_T;
 
-/******************************************************************************
-	Function Declaration\
-******************************************************************************/
+
+/* CMNIO GPIO */
 extern DTV_STATUS_T	HAL_GPIO_Init (UINT8 boardType);
 extern DTV_STATUS_T	HAL_GPIO_InitEx( UINT8 boardType, UINT8 resolution );
 extern DTV_STATUS_T	HAL_GPIO_SetPortDirection(UINT32 portIndex, BOOLEAN direction);
 extern DTV_STATUS_T	HAL_GPIO_SetPortDirection_SP(UINT32 portIndex, BOOLEAN direction); //sungwoo.han 1234
 extern DTV_STATUS_T	HAL_GPIO_SetOutputPort(UINT32 portIndex, UINT8 data);
+extern DTV_STATUS_T	HAL_GPIO_SetOutputPhysicalPort( UINT32 portNum, UINT8 data, UINT32 mode );
+extern DTV_STATUS_T	HAL_GPIO_GetInputPhysicalPort( UINT32 portNum, UINT8 *pData, UINT32 mode );
+extern DTV_STATUS_T	HAL_GPIO_SetPhysicalPortDirection( UINT32 portNum, BOOLEAN direction, UINT32 mode );
+
+#if 1 /* Jason Lim, for fast I2C */
+extern DTV_STATUS_T HAL_GPIO_I2C_ReadWriteByte(UINT32 portIndex_sda, UINT32 portIndex_scl, BOOLEAN bWrite, UINT8 *pData);
+#endif
+
+
 extern DTV_STATUS_T	HAL_GPIO_GetInputPort(UINT32 portIndex, UINT8 *pData);
 extern DTV_STATUS_T	HAL_GPIO_SetOutputPortArray(UINT32 numArray, UINT32 portArray[], UINT8 dataArray[]);
 extern DTV_STATUS_T	HAL_GPIO_GetInputPortArray(UINT32 numArray, UINT32 portArray[], UINT8 dataArray[]);
 extern DTV_STATUS_T	HAL_GPIO_SetIntrCallBack(UINT32 portIndex, void (*pfnGPIO_CB)(UINT32), UINT32 enable);
 extern DTV_STATUS_T HAL_GPIO_GetIntrCount(UINT32 portIndex, UINT32 *pcount, UINT32 *pmsec);
-extern DTV_STATUS_T HAL_GPIO_SetOutputPhysicalPort(UINT32 gpioNum, UINT8 data, UINT32 mode);
-extern DTV_STATUS_T HAL_GPIO_GetInputPhysicalPort (UINT32 gpioNum, UINT8 *pData, UINT32 mode);
-extern DTV_STATUS_T HAL_GPIO_SetPhysicalPortDirection (UINT32 gpioNum, BOOLEAN direction, UINT32 mode);
+
+
+
 
 #endif	/* _HAL_GPIO_H_ */

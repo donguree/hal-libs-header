@@ -83,17 +83,22 @@ typedef enum
 } CIPLUS_CIPHER_KEY_T;
 
 /**
-* CIPLUS_SDEC_CH_T
+* CIPLUS_DECRYPT_KEY_DST_T
 *
 * @see
 */
 typedef enum
 {
-    CIPLUS_SDEC_CH_A                  	= 0,
-	CIPLUS_SDEC_CH_B					= 1,
-	CIPLUS_SDEC_CH_UHD					= 7, /* for SDEC sync */
-    CIPLUS_SDEC_CH_MAX					= 8
-} CIPLUS_SDEC_CH_T;
+    CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_A		= 0x0,
+	CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_B		= 0x1,
+	CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_C		= 0x2,
+	CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_D		= 0x3,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_0	= 0x10,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_1	= 0x11,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_2	= 0x12,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_3	= 0x13,
+    CIPLUS_DECRYPT_KEY_DST_MAX					= 0xff,
+} CIPLUS_DECRYPT_KEY_DST_T;
 
 /**
 * CI_ERROR_CHECK_MODE_T
@@ -111,6 +116,9 @@ typedef enum
 	함수 선언 (Function Declaration)
 ******************************************************************************/
 DTV_STATUS_T HAL_CI_Init(SINT32 *pDeviceHandle);
+DTV_STATUS_T HAL_CI_Open(SINT32 deviceHandle);
+DTV_STATUS_T HAL_CI_Connect(SINT32 deviceHandle);
+DTV_STATUS_T HAL_CI_Disconnect(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_Close(SINT32 *pDeviceHandle);
 UINT8 HAL_CI_DetectCard(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_Reset(SINT32 deviceHandle);
@@ -272,9 +280,9 @@ void HAL_CI_PLUS_SetCipherKeyByPID( UINT8 scrammode, UINT8 keyregister, UINT8 ty
 UINT32 HAL_CI_PLUS_ReadVersion( SINT32 deviceHandle );
 UINT32 HAL_CI_PLUS_ReadCiprof( SINT32 deviceHandle );
 
-DTV_STATUS_T  HAL_CI_PLUS_SetCryptographyByChannel( SINT32 deviceHandle, CIPLUS_SDEC_CH_T eSdecCh, CIPLUS_CRYPTOGRAPHY_T eCryptography );
+DTV_STATUS_T  HAL_CI_PLUS_SetCryptographyByChannel( SINT32 deviceHandle, CIPLUS_DECRYPT_KEY_DST_T eSdecCh, CIPLUS_CRYPTOGRAPHY_T eCryptography );
 DTV_STATUS_T HAL_CI_PLUS_SetCipherKeysByChannel( SINT32 deviceHandle,
-					   CIPLUS_SDEC_CH_T	eSdecCh,
+					   CIPLUS_DECRYPT_KEY_DST_T	eSdecCh,
 					   CIPLUS_CRYPTOGRAPHY_T eCryptography,
 					   CIPLUS_CIPHER_KEY_T eKey,
 					   UINT32* pu32CipherKeys );
@@ -282,7 +290,6 @@ DTV_STATUS_T HAL_CI_PLUS_SetCipherKeysByChannel( SINT32 deviceHandle,
 DTV_STATUS_T HAL_CI_SetErrorCheckMode(SINT32 deviceHandle, CI_ERROR_CHECK_MODE_T errCheckMode);
 DTV_STATUS_T HAL_CI_GetErrorCheckMode(SINT32 deviceHandle, CI_ERROR_CHECK_MODE_T *perrCheckMode);
 
-UINT32 HAL_CI_SetPCMCIASpeed(SINT32 deviceHandle, UINT8 pcmcia_speed);
 
 #endif /*_CI_HAL_H_ */
 
