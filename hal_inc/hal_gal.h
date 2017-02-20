@@ -91,7 +91,6 @@ typedef enum
 	HAL_GAL_PIXEL_FORMAT_RGB16, 	/**< 16 bit RGB (2 byte, red 5\@11, green 6\@5, blue 5\@0) */
 	HAL_GAL_PIXEL_FORMAT_ARGB4444, 	/**< 16 bit ARGB (2 byte, alpha 4\@12, red 4\@8, green 4\@4, blue 4\@0) */
 	HAL_GAL_PIXEL_FORMAT_A8, 		/**< 8 bit A (1 byte, alpha 8\@0) */
-	HAL_GAL_PIXEL_FORMAT_FBC,		/**< FBC pixel format (frame buffer compression for 32bit ARGB) */
 	HAL_GAL_PIXEL_FORMAT_MAX		/**< Maximum number of HAL_GAL_PIXEL_FORMAT_T */
 } HAL_GAL_PIXEL_FORMAT_T;
 
@@ -317,7 +316,6 @@ typedef struct {
 	UINT32						virtualAddrOfBase;						/**< virtual address of graphic memory start (or base of offset). This value will be filled at upper level(by LG). Chip vendor need to fill physicalAddrOfBase and offset value of surface. */
 	HAL_GAL_SUPPORTED_IMAGE_FORMAT_FLAGS_T		supportedImageFormat; 	/**< Image format that can be decoded by HW decoder */
 	HAL_GAL_DEVICE_LIMITATION_INFO_T		deviceLimitationInfo;			/**< Information of gfx device limitations */
-	UINT8 						bFBCSupported;							  /**< whether the FBC (Frame Buffer Compression) is supported, or not (if supported, then this value is TRUE otherwise FALSE.) */
 } HAL_GAL_DEVICE_CAPABILITY_INFO_T;
 
 /**
@@ -546,22 +544,6 @@ typedef enum
 	HAL_GAL_CURSOR_HOTSPOT_LAST				=	0x00000010,	/**< dispRect region on the framebuffer */
 } HAL_GAL_CURSOR_HOTSPOT_TYPES_T;
 
-typedef struct
-{
-	unsigned short		width;
-	unsigned short		height;
-}
-HAL_GAL_RESOLUTION_T;
-
-typedef struct
-{
-	HAL_GAL_POSITION_T		position;			// cursor position
-	unsigned short			width;				// image width
-	unsigned short			height;				// image height
-	HAL_GAL_CURSOR_HOTSPOT_TYPES_T	hotspot;	// hotspot type
-	HAL_GAL_POSITION_T		cursorGapPosition;	// hotspot pos info
-} HAL_GAL_CURSOR_POSITION_INFO_T;
-
 /**
  * This enumeration describes the supported pixel formats for framebuffer.
  */
@@ -631,12 +613,6 @@ typedef enum
 	HAL_GAL_OSD_ROTATE_270_DEGREE,
 }
 HAL_GAL_OSD_ROTATE_TYPE_T;
-
-typedef enum
-{
-    GAL_OSD_PORTRAIT_ARC_ORIGINAL_MODE = 0,
-    GAL_OSD_PORTRAIT_ARC_FULL_MODE
-} HAL_GAL_OSD_PORTRAIT_ARC_MODE_T;
 
 /*----------------------------------------------------------------------------------------
     Type Definitions - end
@@ -850,6 +826,13 @@ HAL_GAL_STATE_T  HAL_GAL_SetFBHWControllerVsync(UINT32 fbHWControllerIndex, BOOL
   */
 HAL_GAL_STATE_T  HAL_GAL_SyncGraphic(void);
 
+/**
+  *  @brief move position of cursor
+  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
+  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
+  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
+  */
+HAL_GAL_STATE_T  HAL_GAL_MoveCursor(UINT32 fbHWControllerIndex, HAL_GAL_CURSOR_PROPERTY_INFO_T *pCursorProperty);
 
 /*----------------------------------------------------------------------------------------
     Image Decode Operation
@@ -968,33 +951,8 @@ HAL_GAL_STATE_T  HAL_GAL_ResetBootLogo(void);
 
 HAL_GAL_STATE_T	 HAL_GAL_SetOSDRotationMode(HAL_GAL_OSD_ROTATE_TYPE_T type);
 
-HAL_GAL_STATE_T  HAL_GAL_SetOSDPortraitMode(HAL_GAL_OSD_ROTATE_TYPE_T rotate_type);
-
-HAL_GAL_STATE_T  HAL_GAL_SetOSDPortraitARCMode(HAL_GAL_OSD_PORTRAIT_ARC_MODE_T gal_osd_portrait_arc_mode);
-
-/**
- * @brief Set graphic output resolution of main SOC
- *
- * @param width [IN] Width for graphic output resolution
- * @param height [IN] Height for graphic output resolution
- * @return If the function succeeds, the return value is HAL_GAL_OK. If the function fails, the return value is HAL_GAL_ERROR.
- *
- * This API set OSD resolution of main SOC thus there is no regard with external FRC
- */
-HAL_GAL_STATE_T	HAL_GAL_SetGraphicOutputResolution(HAL_GAL_RESOLUTION_T graphicOutputResolution);
-
-/**
-  *  @brief move position of cursor
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T HAL_GAL_MoveCursor(UINT32 fbHWControllerIndex, HAL_GAL_CURSOR_PROPERTY_INFO_T *pCursorProperty);
-HAL_GAL_STATE_T HAL_GAL_SetCursorPosition(HAL_GAL_CURSOR_POSITION_INFO_T* pCursorPosition );
-
-HAL_GAL_STATE_T HAL_GAL_SetCursorResolution(HAL_GAL_RESOLUTION_T cursorCoordinateResolution, HAL_GAL_RESOLUTION_T cursorImageResolution);
-
 #ifdef __cplusplus
 }
 #endif
 #endif
+

@@ -73,12 +73,6 @@ DTV_STATUS_T HAL_PVR_InitThumbnail(void);
 
 DTV_STATUS_T HAL_PVR_SetTimeStampMode(PVR_TIMESTAMP_T timeStampMode);
 
-#if 0
-DTV_STATUS_T HAL_PVR_InitDownloadDevice(PVR_DOWN_CH_T ch);
-
-DTV_STATUS_T HAL_PVR_DeInitDownloadDevice(PVR_DOWN_CH_T ch);
-#endif
-
 
 /************************************/
 /* Download(recording) related APIs */
@@ -111,13 +105,6 @@ DTV_STATUS_T HAL_PVR_ReturnDownloadBuffer(PVR_DOWN_CH_T ch, UINT8 *streamRdPtr, 
 /********************************/
 /* Upload(playing) related APIs */
 /********************************/
-
-#if 0
-DTV_STATUS_T HAL_PVR_InitUploadDevice(PVR_DOWN_CH_T ch);
-
-DTV_STATUS_T HAL_PVR_DeInitUploadDevice(PVR_DOWN_CH_T ch);
-#endif
-
 DTV_STATUS_T HAL_PVR_OpenUploadDevice(PVR_UP_CH_T ch);
 
 DTV_STATUS_T HAL_PVR_CloseUploadDevice(PVR_DOWN_CH_T ch);
@@ -164,21 +151,25 @@ DTV_STATUS_T HAL_PVR_CRYPTO_DecryptData(UINT8 *pDst, UINT8 *pSrc, UINT32 size);
 DTV_STATUS_T HAL_PVR_THUMBNAIL_GetThumnail(PVR_DOWN_CH_T ch, PVR_THUMBNAIL_T *pThumbnail);
 
 DTV_STATUS_T HAL_PVR_THUMBNAIL_ExtractThumnail(PVR_PID_INFO_T pidInfo, UINT8 *pBuffer, UINT32 size, PVR_THUMBNAIL_T *pThumData);
+
 DTV_STATUS_T HAL_PVR_THUMBNAIL_ExtractJPEGThumnail(PVR_PID_INFO_T pidInfo, UINT8 *pBuffer, UINT32 size, PVR_THUMBNAIL_T *pThumData);
+
 DTV_STATUS_T HAL_PVR_THUMBNAIL_ExtractJPEGThumbnail(PVR_PID_INFO_T pidInfo, UINT8 *pBuffer, UINT32 size, PVR_THUMBNAIL_T *pThumData, UINT32 timeout);
 
 
 
+BOOLEAN HAL_PVR_IsUploading(PVR_UP_CH_T ch);
 
-/*----------------------------------------------------------------------------------------
-  Extern Variables
-----------------------------------------------------------------------------------------*/
+DTV_STATUS_T HAL_PVR_SetSDECDownloadCh(PVR_DOWN_CH_T downChId, PVR_SDEC_CH_T sdecChId);
+
+DTV_STATUS_T HAL_PVR_SetSDECUploadCh(PVR_UP_CH_T upChId, PVR_SDEC_CH_T sdecChId);
 
 
-
+void HAL_PVR_DEBUG_Menu(void);
 #ifdef __cplusplus
 }
 #endif
 
 #endif
+
 

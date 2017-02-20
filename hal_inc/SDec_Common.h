@@ -2,6 +2,10 @@
 #ifndef __SDEC_COMMON_HEADER__
 #define __SDEC_COMMON_HEADER__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /******************************************************************************
  	상수 정의(Constant Definitions)
 ******************************************************************************/
@@ -74,7 +78,6 @@ typedef enum {
 	PES_DEST_BUFFER,
 	PES_DEST_RECORD_A,
 	PES_DEST_RECORD_B,
-	PES_DEST_TSO,
 	PES_DEST_NUM
 } SDEC_PES_DEST_T;
 
@@ -114,8 +117,7 @@ typedef enum {
 */
 typedef enum {
 	SDEC_WITHOUT_CAS = 0,
-	SDEC_WITH_CAS,
-	SDEC_WITH_CIP_CAS				/* CIPLUS 1.4 test type */
+	SDEC_WITH_CAS
 } SDEC_CAS_TYPE_T;
 
 /**
@@ -129,8 +131,6 @@ typedef enum {
 	SDEC_PORT_EXT_INPUT1,			/* SoC EXT Input ( such as External Demodulator or Channel Browser Chip */
 	SDEC_PORT_EXT_INPUT2,			/* SoC EXT Input ( such as External Demodulator or Channel Browser Chip */
 	SDEC_PORT_FROM_MEM,				/* TS Input From Memory */
-	SDEC_PORT_IP0,					/* IP Stream 0 for CIPLUS 1.4 test */
-	SDEC_PORT_IP1,					/* IP Stream 1 for CIPLUS 1.4 test */
 	SDEC_PORT_NUM,
 
 	SDEC_PORT_NULL //temp
@@ -141,7 +141,6 @@ typedef enum {
 */
 typedef enum {
 	SDEC_IO_PORT_PARALLEL0 = 0,		/* Parallel Output Port 0 */
-	SDEC_IO_PORT_PARALLEL1,
 	SDEC_IO_PORT_SERIAL0			/* Serial Output Port 0 */
 } SDEC_IO_PORT_T;
 
@@ -235,10 +234,7 @@ typedef enum
 	SDEC_PARAM_CHIP_ID,
 	SDEC_PARAM_DRV_VER,
 	SDEC_PARAM_PORT_NUM,
-	SDEC_PARAM_AFIFO,
-	SDEC_PARAM_PCR_MAIN,
-	SDEC_PARAM_DIL_CHIP = 100,
-	SDEC_PARAM_DIL_VER,
+        SDEC_PARAM_AFIFO,
 	SDEC_PARAM_MAX
 } HAL_SDEC_PARAM_T;
 
@@ -321,10 +317,9 @@ typedef enum IPM_PACKET_DESTINATION_TYPE
  */
 typedef enum SDEC_DATA_PUMP_PATH
 {
-	SDEC_DATA_PUMP_PATH_INTERNAL = 0,
-	SDEC_DATA_PUMP_PATH_EXTERNAL,
-	SDEC_DATA_PUMP_PATH_EXTERNAL0 = SDEC_DATA_PUMP_PATH_EXTERNAL,
-	SDEC_DATA_PUMP_PATH_EXTERNAL1,
+	SDEC_DATA_PUMP_PATH_CH_A = 0,
+	SDEC_DATA_PUMP_PATH_CH_B,
+	SDEC_DATA_PUMP_PATH_SERIAL_OUT,
 	SDEC_DATA_PUMP_PATH_MAX
 } SDEC_DATA_PUMP_PATH_T;
 
@@ -414,6 +409,10 @@ typedef enum
 	Extern 전역변수와 함수 prototype 선언
 	(Extern Variables & Function Prototype Declarations)
 *******************************************************************************/
+#ifdef __cplusplus
+	}
+#endif
 
 
 #endif
+

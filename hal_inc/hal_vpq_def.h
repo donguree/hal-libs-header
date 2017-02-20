@@ -69,19 +69,6 @@
 #define PICTURE_CTRL_SATURATION    0x00000004
 #define PICTURE_CTRL_TINT          0x00000008
 
-/*define for block apl*/
-#define CHIP_HST_BLK_APL_H      96
-#define CHIP_HST_BLK_APL_V      54
-
-/*define for DRC*/
-#define CHIP_CM_GLOBAL_POINT	4
-#define CHIP_CM_LOCAL_POINT		6
-#define CHIP_CM_LOCAL_CURVE		17
-#define CHIP_CM_FREE_POINT		6
-
-
-
-
 /*******************************************************************
 	매크로 함수 정의
 	(Macro Definitions)
@@ -133,49 +120,6 @@ typedef struct CHIP_INPUT_CSC_INFO
 	CHIP_CSC_COEFF_T *matrix;	///< matrix
 	UINT32 hdmiDomain;			///< hdmi color domain
 } CHIP_INPUT_CSC_INFO_T;
-
-/**
-*	3x3 csc coefficients' matrix, chip dependant
-*/
-typedef struct CHIP_PCC_COEFF
-{
-	float fCs00;
-	float fCs01;
-	float fCs02;
-	float fCs10;
-	float fCs11;
-	float fCs12;
-	float fCs20;
-	float fCs21;
-	float fCs22;
-} CHIP_PCC_COEFF_T;
-
-/**
-*	pcc post info
-*/
-typedef struct{
-	BOOLEAN bGamma;
-	BOOLEAN bDeGamma; 
-	CHIP_PCC_COEFF_T matrix;
-} CHIP_PCC_POST_T;
-
-/**
-*	od ext lut info
-*/
-typedef struct{
-	UINT8 extType; // index for type (eg. 0: POD, 1:PCID, 2:reserved)
-	UINT8 *pExtData; 
-	UINT32 extLength;
-} CHIP_OD_EXTENTION_T;
-
-/**
-*  vpq block bypass
-*/
-typedef struct {
-	UINT32 u32BlockMask;  // masking bits
-	BOOLEAN bOnOff; 	  // 0: normal operation, 1 : bypass/off,
-}CHIP_BLOCK_BYPASS_T;
-
 
 //H13_B0
 typedef struct CHIP_TNR_CMN
@@ -1368,26 +1312,6 @@ typedef struct
 }
 CHIP_DC2P_SATURATION_T;
 
-typedef struct
-{
-	UINT8 saturation_cr_mode; 						///< low saturation_cr_mode
-	UINT32 saturation_region_gain; 					///< saturation_region_gainposition
-	UINT32 dse_h_x[CHIP_CM_TBLPOINT];				///< hue x_range_max
-	UINT32 dse_h_y[CHIP_CM_TBLPOINT];				///< hue y_range_min
-	UINT32 dse_y_x[CHIP_CM_TBLPOINT];				///< Y x_range_max
-	UINT32 dse_y_y[CHIP_CM_TBLPOINT];				///< Y y_range_min
-	UINT32 sSaturationLUT_x[CHIP_CM_NUM_TRANSCURVE];	///< sSaturationLUT
-	UINT32 sSaturationLUT_y[CHIP_CM_NUM_TRANSCURVE];	///< sSaturationLUT
-	UINT8  region_onoff[CHIP_CM_REGION_NUM];			///< region_onoff
-	UINT8  chroma_gain_en;							///< chroma_gain_en
-	UINT32 dce_chr_gain1;							///< dce_chr_gain1
-	UINT32 dce_chr_gain2;							///< dce_chr_gain2
-	UINT32 dce_chr_alpha1;							///< dce_chr_alpha1
-	UINT32 dce_chr_alpha2;							///< dce_chr_alpha2
-}
-CHIP_DC2P_SATURATION2_T;
-
-
 /**
 *	fresh contrast control
 */
@@ -1403,51 +1327,6 @@ typedef struct
 }
 CHIP_DC2P_FRESH_CONTRAST_T;
 
-/**
-*	fresh contrast control
-*/
-typedef struct
-{
-	UINT16 pos_low; 						///< low position
-	UINT16 pos_high; 						///< high position
-	CHIP_DC2P_DESATURATION_T desat;			///< desaturation
-	CHIP_DCM_DCE_SMOOTH_T smooth0;			///< smooth contrast(v0)
-	CHIP_DCM_DCE_SMOOTH_V1_T smooth1;		///< smooth contrast(v1)
-	UINT32 picture_mode;					///< picture_mode
-	CHIP_DC2P_SATURATION2_T saturation;		///< saturation
-}
-CHIP_DC2P_FRESH_CONTRAST2_T;
-
-/**
-*	drc control
-*/
-typedef struct
-{
-	SINT32 pre_norm;						///pre normal IIR filter
-	SINT32 cur_norm;						///current normal IIR filter
-	SINT32 pre_sc;							///pre scene change IIR filter
-	SINT32 cur_sc;							///current scene change IIR filter
-	SINT32 ui_gain_w;						///UI white gain
-	SINT32 ui_gain_b;						///UI black gain
-	SINT32 vy_mode;							///V_Y_mode
-}
-CHIP_DC2P_DRC_CONT_T;
-
-/**
-*	drc lut
-*/
-typedef struct
-{
-	SINT32 global_apl[CHIP_CM_GLOBAL_POINT];	///global_apl
-	SINT32 local_apl[CHIP_CM_LOCAL_POINT];		///local_apl
-	SINT32 cuv_gain_w;						///CURV white gain
-	SINT32 cuv_gain_b;						///CURV black gain
-	SINT32 n1p_trans_curv[CHIP_CM_FREE_POINT][CHIP_CM_LOCAL_CURVE];	///n1p_trans_curv
-	SINT32 n2p_trans_curv[CHIP_CM_FREE_POINT][CHIP_CM_LOCAL_CURVE];	///n2p_trans_curv
-	SINT32 n3p_trans_curv[CHIP_CM_FREE_POINT][CHIP_CM_LOCAL_CURVE];	///n3p_trans_curv
-	SINT32 n4p_trans_curv[CHIP_CM_FREE_POINT][CHIP_CM_LOCAL_CURVE];	///n4p_trans_curv
-}
-CHIP_DC2P_DRC_APL_T;
 /******************************************************************/
 /* H15** **********************************************************/
 /******************************************************************/
@@ -1616,21 +1495,6 @@ typedef struct
 	UINT8  m_c[27];			///< mc
 }
 CHIP_TNR_DB_M16_T;
-
-typedef struct
-{
-	UINT8  tnr_en;			///< tnr enable(ui)
-	UINT32 tnr_lut[16];		///< lut (ui)
-	UINT32 tnr_lut_gain[5];	///< gian (ui)
-	UINT32 tnr_lut_buff[32];///< buff (ui)
-	UINT8  tnr_ctl[21];		///< tnr_ctrl
-	UINT8  tnr_mae[27];		///< tnr_ma
-	UINT8  tnr__mc[58];		///< tnr_mc
-	UINT8  tnr_edf[36];		///< tnr_df
-	UINT8  tnr_bld[24];		///< tnr_blend
-}
-CHIP_TNR_DB_M16P_T;
-
 
 /**
  * CHIP_DNR_DB_H15_T for HAL_VPQ_SetMpegNoiseReduction
@@ -1821,17 +1685,6 @@ typedef struct
 	UINT8 mosqnr[7];	///< mnr
 }
 CHIP_DNR_DB_M16_T;
-
-typedef struct
-{
-	UINT8 common[46];		///< common(ui)
-	UINT8 dc_bnr[37];		///< dc bnr
-	UINT8 ac_bnr[31];		///< ac bnr
-	UINT8 mosqnr[6];		///< mnr
-	UINT8 decontour[5];	///< decontour
-}
-CHIP_DNR_DB_M16P_T;
-
 
 /**
  * CHIP_SHP_DB_H15_T
@@ -2732,203 +2585,6 @@ typedef struct
 	SINT16 sr_scl_v_main_m1[8];          ///< sr_scl_h_main_m1[8];
 }
 CHIP_SR_DB_M16_T;
-
-/* M16P ** **********************************************************/
-
-/**
- *	CHIP_SR_DB_M16P_T for HAL_VPQ_SetSuperResolution
- */
-typedef struct
-{
-	UINT8  reg_edge_shift_en;				///<reg_edge_shift_en 0xc900d0a0[4]
-	UINT8  reg_master_gain;					///<reg_master_gain   0xc900d0a4[31:24]
-	UINT8  reg_max_clip;					///<reg_max_clip	   0xc900d0a4[23:16]
-	UINT8  reg_base;						///<reg_base             0xc900d0a4[15:8]
-	UINT8  reg_min_ratio;					///<reg_min_ratio       0xc900d0a4[7:0]
-	UINT8  reg_ltv_mul;						///<reg_ltv_mul         0xc900d0a8[15:8]
-	UINT8  reg_ltv_offset;					///<reg_ltv_offset      0xc900d0a8[7:0]
-}
-CHIP_SR_DB_M16P_T;
-/*
-* CHIP_SHP_DB_M16P_T
-Shp Cmn,**********************************************
-*UINT8 shp_cmn[0]		edge_Y_filter_en	0xc90090c8[31]
-*UINT8 shp_cmn[1]		a_map_to_der_gain_x0	0xc9009124[15:8]
-*UINT8 shp_cmn[2]		a_map_to_der_gain_x1	0xc9009124[31:24]
-*UINT8 shp_cmn[3]		a_map_to_der_gain_x2	0xc9009128[15:8]
-*UINT8 shp_cmn[4]		a_map_to_der_gain_x3	0xc9009128[31:24]
-*UINT8 shp_cmn[5]		a_map_to_der_gain_y0	0xc9009124[7:0]
-*UINT8 shp_cmn[6]		a_map_to_der_gain_y1	0xc9009124[23:16]
-*UINT8 shp_cmn[7]		a_map_to_der_gain_y2	0xc9009128[7:0]
-*UINT8 shp_cmn[8]		a_map_to_der_gain_y3	0xc9009128[23:16]
-*UINT8 shp_cmn[9]		mp_reg_shp_en	0xc9009170[0]
-*UINT8 shp_cmn[10]		sp_reg_shp_en	0xc9009130[0]
-*UINT8 shp_cmn[11]		mp_laplacian_weight	0xc9009178[15:8]
-*UINT8 shp_cmn[12]		sp_laplacian_weight	0xc9009138[15:8]
-*UINT8 shp_cmn[13]		flat_filter_en	0xc90090cc[31]
-*UINT8 shp_cmn[14]		flat_filter_type	0xc90090cc[30]
-*UINT8 shp_cmn[15]		flat_filter_gain	0xc90090cc[29:24]
-*UINT8 shp_cmn[16]		edf_en	0xc9009220[0]
-*UINT8 shp_cmn[17]		edge_adaptive_en	0xc9009220[3]
-*UINT8 shp_cmn[18]		edge_min	0xc900922C[23:16]
-*UINT8 shp_cmn[19]		edge_mul	0xc900922C[31:24]
-*UINT8 shp_cmn[20]		center_blur_mode	0xc9009220[21:20]
-*UINT8 shp_cmn[21]		count_diff_th	0xc9009220[12:8]
-*UINT8 shp_cmn[22]		n_avg_mode	0xc9009220[22]
-*UINT8 shp_cmn[23]		line_variation_diff_threshold	0xc9009220[31:24]
-*UINT8 shp_cmn[24]		level_th	0xc9009224[7:0]
-*UINT8 shp_cmn[25]		n_avg_gain	0xc9009224[23:16]
-*UINT8 shp_cmn[26]		reg_G0_cnt_min	0xc9009228[4:0]
-*UINT8 shp_cmn[27]		reg_g0_mul	0xc9009228[12:8]
-*UINT8 shp_cmn[28]		reg_g1_protect_min	0xc900922c[7:0]
-*UINT8 shp_cmn[29]		reg_g1_mul	0xc900922c[14:8]
-Shp Ui Main,**********************************************
-*UINT8 shp_ui_main[0]		lc_enhance_gain	0xc90092d0[15:8]
-*UINT8 shp_ui_main[1]		mp_white_gain         	0xc9009174[6:0]
-*UINT8 shp_ui_main[2]		mp_black_gain         	0xc9009174[14:8]
-*UINT8 shp_ui_main[3]		mp_lap_gain_h_7	0xc900917c[23:20]
-*UINT8 shp_ui_main[4]		mp_lap_gain_h_5	0xc900917c[27:24]
-*UINT8 shp_ui_main[5]		mp_lap_gain_h_3	0xc900917c[31:28]
-*UINT8 shp_ui_main[6]		mp_lap_gain_v_7	0xc900917c[7:4]
-*UINT8 shp_ui_main[7]		mp_lap_gain_v_5	0xc900917c[11:8]
-*UINT8 shp_ui_main[8]		mp_lap_gain_v_3	0xc900917c[15:12]
-*UINT8 shp_ui_main[9]		sp_white_gain	0xc9009134[6:0]
-*UINT8 shp_ui_main[10]	sp_black_gain	0xc9009134[14:8]
-*UINT8 shp_ui_main[11]	sp_lap_gain_h_7	0xc900913C[23:20]
-*UINT8 shp_ui_main[12]	sp_lap_gain_h_5	0xc900913C[27:24]
-*UINT8 shp_ui_main[13]	sp_lap_gain_h_3	0xc900913C[31:28]
-Shp Ui V/H,**********************************************
-*UINT8 shp_ui_h_main_post[0]		reg_csft_gain	0xc90090c4[13:8]
-*UINT8 shp_ui_h_main_post[1]		derh_bf_tap_size	0xc90090c8[2:0]
-*UINT8 shp_ui_h_main_post[2]		edge_filter_white_gain	0xc90090c8[13:8]
-*UINT8 shp_ui_h_main_post[3]		edge_filter_black_gain	0xc90090c8[21:16]
-*UINT8 shp_ui_h_main_post[4]		mp_horizontal_gain    	0xc9009174[23:16]
-*UINT8 shp_ui_h_main_post[5]		sp_horizontal_gain	0xc9009134[23:16]
-*UINT8 shp_ui_h_main_post[6]		ti_h_gain	0xc9009204[15:8]
-*UINT8 shp_ui_v_main_post[0]		der_v_en	0xc90090f0[0]
-*UINT8 shp_ui_v_main_post[1]		csft_gain	0xc90090f4[5:0]
-*UINT8 shp_ui_v_main_post[2]		gain_b	0xc90090fc[6:0]
-*UINT8 shp_ui_v_main_post[3]		gain_w	0xc90090fc[14:8]
-*UINT8 shp_ui_v_main_post[4]		mp_vertical_gain      	0xc9009174[31:24]
-*UINT8 shp_ui_v_main_post[5]		ti_v_gain	0xc9009200[15:8]
-Shp Map Cmn,**********************************************
-*UINT8 shp_map_cmn_post[0]		reg_cross_th	0xc90091b0[31:24]
-*UINT8 shp_map_cmn_post[1]		reg_mul_base_t	0xc90091d0[23:16]
-*UINT8 shp_map_cmn_post[2]		reg_mul_base_e	0xc90091d0[31:24]
-*UINT8 shp_map_cmn_post[3]		reg_mnr_gain_e_en	0xc90092dc [0]
-*UINT8 shp_map_cmn_post[4]		reg_mnr_gain_t_en	0xc90092dc [1]
-*UINT8 shp_map_cmn_post[5]		reg_h_expand  	0xc90092dc [5:4]
-*UINT8 shp_map_cmn_post[6]		reg_mnr_s1_mmd_min  	0xc90092e0 [7:0]
-*UINT8 shp_map_cmn_post[7]		reg_mnr_s2_ratio_min	0xc90092e0 [15:8]
-*UINT8 shp_map_cmn_post[8]		reg_mnr_s2_ratio_max	0xc90092e0 [23:16]
-*UINT8 shp_map_cmn_post[9]		reg_mnr_s2_mmd_min  	0xc90092e0 [31:24]
-*UINT8 shp_map_cmn_post[10]		reg_gain_x0	0xc90092e4 [7:0]
-*UINT8 shp_map_cmn_post[11]		reg_gain_x1	0xc90092e4 [15:8]
-*UINT8 shp_map_cmn_post[12]		reg_gain_y0	0xc90092e4 [23:16]
-*UINT8 shp_map_cmn_post[13]		reg_gain_y1	0xc90092e4 [31:24]
-*UINT8 shp_map_cmn_post[14]		reg_a_map_h_size	0xc90091b0[18:16]
-*UINT8 shp_map_cmn_post[15]		reg_a_map_v_size	0xc90091b0[20:19]
-*UINT8 shp_map_cmn_post[16]		reg_a_map_cut_resolution	0xc90091b0[23:21]
-*UINT8 shp_map_cmn_post[17]		reg_map_blur_h_size	0xc90091b0[1:0]
-*UINT8 shp_map_cmn_post[18]		reg_a_nomalize_en	0xc90091b0[2]
-*UINT8 shp_map_cmn_post[19]		reg_edge_alpha_mul	0xc90091b4[31:24]
-*UINT8 shp_map_cmn_post[20]		reg_edge_beta_mul	0xc90091b4[23:16]
-*UINT8 shp_map_cmn_post[21]		reg_a_lut_edge_x0	0xc90091b8[15:8]
-*UINT8 shp_map_cmn_post[22]		reg_a_lut_edge_y0	0xc90091b8[7:0]
-*UINT8 shp_map_cmn_post[23]		reg_a_lut_edge_x1	0xc90091b8[31:24]
-*UINT8 shp_map_cmn_post[24]		reg_a_lut_edge_y1	0xc90091b8[23:16]
-*UINT8 shp_map_cmn_post[25]		reg_a_lut_detail_x0	0xc90091bc[15:8]
-*UINT8 shp_map_cmn_post[26]		reg_a_lut_detail_y0	0xc90091bc[7:0]
-*UINT8 shp_map_cmn_post[27]		reg_a_lut_detail_x1	0xc90091bc[31:24]
-*UINT8 shp_map_cmn_post[28]		reg_a_lut_detail_y1	0xc90091bc[23:16]
-*UINT8 shp_map_cmn_post[29]		reg_edge_minmax_x0	0xc90091c8[15:8]
-*UINT8 shp_map_cmn_post[30]		reg_edge_minmax_y0	0xc90091c8[7:0]
-*UINT8 shp_map_cmn_post[31]		reg_edge_minmax_x1	0xc90091c8[31:24]
-*UINT8 shp_map_cmn_post[32]		reg_edge_minmax_y1	0xc90091c8[23:16]
-*UINT8 shp_map_cmn_post[33]		reg_t_cut_resolution	0xc90091b0[5:4]
-*UINT8 shp_map_cmn_post[34]		reg_t_nomalize_en	0xc90091b0[3]
-*UINT8 shp_map_cmn_post[35]		reg_detail_alpha_mul	0xc90091b4[15:8]
-*UINT8 shp_map_cmn_post[36]		reg_detail_beta_mul	0xc90091b4[7:0]
-*UINT8 shp_map_cmn_post[37]		reg_t_lut_edge_x0	0xc90091c0[15:8]
-*UINT8 shp_map_cmn_post[38]		reg_t_lut_edge_y0	0xc90091c0[7:0]
-*UINT8 shp_map_cmn_post[39]		reg_t_lut_edge_x1	0xc90091c0[31:24]
-*UINT8 shp_map_cmn_post[40]		reg_t_lut_edge_y1	0xc90091c0[23:16]
-*UINT8 shp_map_cmn_post[41]		reg_t_lut_detail_x0	0xc90091c4[15:8]
-*UINT8 shp_map_cmn_post[42]		reg_t_lut_detail_y0	0xc90091c4[7:0]
-*UINT8 shp_map_cmn_post[43]		reg_t_lut_detail_x1	0xc90091c4[31:24]
-*UINT8 shp_map_cmn_post[44]		reg_t_lut_detail_y1	0xc90091c4[23:16]
-*UINT8 shp_map_cmn_post[45]		reg_detail_minmax_x0	0xc90091cc[15:8]
-*UINT8 shp_map_cmn_post[46]		reg_detail_minmax_y0	0xc90091cc[7:0]
-*UINT8 shp_map_cmn_post[47]		reg_detail_minmax_x1	0xc90091cc[31:24]
-*UINT8 shp_map_cmn_post[48]		reg_detail_minmax_y1	0xc90091cc[23:16]
-*/
-
-typedef struct
-{
-	UINT8  shp_cmn_pre[30];             ///< shp_cmn_pre[30];
-	UINT8  shp_ui_main_pre[14];          ///< shp_ui_main_pre[14];
-	UINT8  shp_ui_h_main_pre[7];       ///< shp_ui_h_main_pre[7];
-	UINT8  shp_ui_v_main_pre[6];        ///< shp_ui_v_main_pre[6];
-	UINT8  shp_map_cmn_pre[49];         ///< shp_map_cmn_pre[49];
-	UINT8  shp_balance_pre[53];         ///< shp_balance_pre[53];
-	UINT8  shp_ee_pre[10];               ///< shp_ee_pre[8];
-	UINT8  shp_de_pre[10];               ///< shp_de_pre[8];
-	UINT8  shp_ti_cmn_pre[12];           ///< shp_ti_cmn_pre[12];
-	UINT8  shp_ti_ui_main_pre[3];       ///< shp_ti_ui_main_pre[3];
-	UINT8  shp_simple_snr_pre[3];       ///< shp_simple_snr_pre[3];
-	UINT8  shp_tgen_cmn_pre[23];        ///< shp_tgen_cmn_pre[23];
-	UINT8  shp_tgen_ui_main_pre[8];     ///< shp_tgen_ui_main_pre[8];
-	UINT8  shp_cmn_post[30];            ///< shp_cmn_post[30];
-	UINT8  shp_ui_main_post[14];        ///< shp_ui_main_post[14];
-	UINT8  shp_ui_h_main_post[7];		///< shp_ui_h_main_post[7];
-	UINT8  shp_ui_v_main_post[2];       ///< shp_ui_v_main_post[2];
-	UINT8  shp_map_cmn_post[49];        ///< shp_map_cmn_post[49];
-	UINT8  shp_balance_post[53];        ///< shp_balance_post[53];
-	UINT8  shp_ee_post[8];              ///< shp_ee_post[8];
-	UINT8  shp_de_post[8];              ///< shp_de_post[8];
-	UINT8  shp_ti_cmn_post[12];         ///< shp_ti_cmn_post[12];
-	UINT8  shp_ti_ui_main_post[3];      ///< shp_ti_ui_main_post[3];
-	UINT8  shp_simple_snr_post[3];      ///< shp_simple_snr_post[3];
-	UINT8  shp_cti_cmn_post[7];         ///< shp_cti_cmn_post[7];
-	UINT8  shp_cti_ui_main_post[1];     ///< shp_cti_ui_main_post[1];
-	UINT8  shp_motion_post[9];       	///< shp_motion_post[9];
-	UINT8  shp_chroma_post[5];    		///< shp_chroma_post[5];
-}
-CHIP_SHP_DB_M16P_T;
-
-/**
- *	CHIP_SHP_EE_DB_M16P_T for HAL_VPQ_SetEdgeEnhance
- */
-typedef struct
-{
-	UINT8  shp_ee_pre[10];               ///< shp_ee_pre[10];
-	UINT8  shp_ee_post[8];              ///< shp_ee_post[8];
-}
-CHIP_SHP_EE_DB_M16P_T;
-
-
-/**
- *	CHIP_PSP_DB_M16P_T for HAL_VPQ_SetPsp
- */
-
-typedef struct
-{
-	UINT8  iir_en;						//uIIREnBit
-	UINT8  psp_en;						//uPspEnBit
-	UINT8  chroma_protection_en;		//uChrmProtectEnBit
-	UINT8  map_master_gain;				//uMapGain
-	UINT8  iir_gain;					//uIIRGain
-	UINT16 cb_offset_gain;				//uCbOffset
-	UINT16 cr_offset_gain;				//uCrOffset
-	UINT8  position_lut_x[16];			//0~255, uPerspectiveLUT_x
-	UINT8  position_lut_y[16];			//0~255 uPerspectiveLUT_y
-	UINT16 psp_lut_x[17];				//0~1024 uLumaLUT_x
-	UINT16 psp_lut_y[17];				//0~1024 uLumaLUT_y
-}
-CHIP_PSP_DB_M16P_T;
-
-
-
 
 /******************************************************************/
 

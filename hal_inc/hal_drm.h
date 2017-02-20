@@ -75,11 +75,6 @@ DTV_STATUS_T HAL_DRM_EncryptUDContent(UINT8 *pData, int length);
 DTV_STATUS_T HAL_DRM_StartSecureUDTS(void);
 DTV_STATUS_T HAL_DRM_StopSecureUDTS(void);
 
-// UHDCP
-DTV_STATUS_T HAL_DRM_UHDCP_SetCW(unsigned char *KID, unsigned char *CW);
-DTV_STATUS_T HAL_DRM_UHDCP_Decrypt(unsigned char *pData, unsigned int data_size,
-	unsigned char *pIV, unsigned char *pKID, unsigned long block_offset, unsigned short byte_offset);
-
 // SVP
 DTV_STATUS_T HAL_DRM_SVP_GetProvisionedData(char *pszPath,
 	unsigned char *pbData, unsigned int cbData, BOOLEAN bProtectData);
@@ -124,7 +119,6 @@ DTV_STATUS_T HAL_DRM_PI_SetSecureData_XXXX(unsigned int offset1, unsigned int da
 DTV_STATUS_T HAL_DRM_PI_GetSecureData_XX(unsigned char *pData, unsigned int offset,
 	unsigned int dat_loc, unsigned long length);
 DTV_STATUS_T HAL_DRM_PI_CheckIV(unsigned int offset);
-DTV_STATUS_T HAL_DRM_PI_CheckVersion(void);
 DTV_STATUS_T HAL_DRM_PI_GetMsgTypes(unsigned int offset, unsigned char *pMType1, unsigned char *pMType2);
 DTV_STATUS_T HAL_DRM_PI_SetXHFs(unsigned int mode, unsigned int offset1, unsigned int offset2);
 DTV_STATUS_T HAL_DRM_PI_DecryptTS4ClearPath(unsigned char *pInOutData, unsigned int numPkts, unsigned int pktSize, unsigned int msg_pid);

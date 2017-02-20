@@ -282,6 +282,19 @@ typedef struct _PVR_THUMBNAIL_T
 	UINT16	consumedTime;
 } PVR_THUMBNAIL_T;
 
+typedef enum {
+    PVR_SDEC_CH_MIN =0,
+    PVR_SDEC_CH_A = PVR_SDEC_CH_MIN,
+    PVR_SDEC_CH_B,
+    PVR_SDEC_CH_C,
+    PVR_SDEC_CH_CHB,
+    PVR_SDEC_CH_PLAYER_A,
+    PVR_SDEC_CH_PLAYER_B,
+    PVR_SDEC_CH_PLAYER_C,
+    PVR_SDEC_CH_UHD, /* For D1x. Currently not used */
+    PVR_SDEC_CH_MAX
+}PVR_SDEC_CH_T;
+
 /*----------------------------------------------------------------------------------------
 	Function Prototype Declaration
 ----------------------------------------------------------------------------------------*/
@@ -295,4 +308,5 @@ typedef struct _PVR_THUMBNAIL_T
 #endif /* __cplusplus */
 
 #endif /* _PVR_COMMON_HEADER_H_ */
+
 

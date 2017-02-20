@@ -180,43 +180,9 @@ typedef struct
 	HAL_VPQ_GAMUT_ADD_INFO_T addInfo;
 } HAL_VPQ_GAMUT_LUT_T;
 
-/**
-*	COLOR_CORRECTION
-*/
-typedef struct{
-	UINT8 uHueBlend;	///< 0~255
-	UINT8 uSatBlend;	///< 0~255
-} HAL_VPQ_COLOR_CORRECTION_T;
-
-typedef enum{
-	HDRPATH_DEFAULT = 0,	///< not SDR2HDR
-	HDRPATH_SDR2HDR = 1,	///< SDR2HDR
-} HAL_VPQ_HDRPATH_T;
-
-/**
-*	HDR_TONEMA
-*/
-typedef struct{
-	HAL_VPQ_HDRPATH_T hdrpath;
-	UINT16 uRdata[66];	///<0~65535, 33point x,y data
-	UINT16 uGdata[66];	///<0~65535, 33point x,y data
-	UINT16 uBdata[66];	///<0~65535, 33point x,y data
-} HAL_VPQ_HDR_TONEMAP_T;
-
-/**
-*	VPQ_DATA
-*/
-typedef struct {
-	UINT32 version;		///< version = 0 : wild card(default data)
-	UINT32 length;		///< pData Length
-	UINT8  wId;			///< 0 : main
-	UINT8* pData;		///< pData
-} HAL_VPQ_DATA_T;
-
 /*******************************************************************/
 /**************** 	SOC DDI (defined in pql_soc.c)	****************/
 /*******************************************************************/
-DTV_STATUS_T HAL_VPQ_SetByPassBlocks(HAL_VPQ_DATA_T *pstData);
 
 /* Picture Control */
 DTV_STATUS_T HAL_VPQ_SetPictureCtrl(VIDEO_WID_T wId,
@@ -236,7 +202,6 @@ DTV_STATUS_T HAL_VPQ_SetSharpness(VIDEO_WID_T wId,
 DTV_STATUS_T HAL_VPQ_SetEdgeEnhance(VIDEO_WID_T wId,
 									UINT16 uEeVal,
 									void *pstData);
-DTV_STATUS_T HAL_VPQ_SetPsp(HAL_VPQ_DATA_T *pstData);
 
 /* Init, Open, Close */
 DTV_STATUS_T HAL_VPQ_Initialize(void);
@@ -255,10 +220,6 @@ DTV_STATUS_T HAL_VPQ_SetFreshContrast(VIDEO_WID_T wId,
 DTV_STATUS_T HAL_VPQ_SetFreshContrastLUT(SINT32 *pAccLUT);
 DTV_STATUS_T HAL_VPQ_SetSaturationLUT(UINT32 *pSaturationX,
 									UINT32 *pSaturationY);
-DTV_STATUS_T HAL_VPQ_SetLocalContastTable(HAL_VPQ_DATA_T *pstData);
-DTV_STATUS_T HAL_VPQ_SetLocalContastParam(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetLocalContrastTable(HAL_VPQ_DATA_T *pstData);
-DTV_STATUS_T HAL_VPQ_SetLocalContrastParam(HAL_VPQ_DATA_T *pData);
 
 /* Dynamic Color */
 DTV_STATUS_T HAL_VPQ_InitColorForAdvanced(VIDEO_WID_T wId,
@@ -353,28 +314,20 @@ DTV_STATUS_T HAL_VPQ_SetIREInnerPattern(UINT8 patternType,
 /* APL info */
 DTV_STATUS_T HAL_VPQ_GetSrcAplInfo(UINT32 *pStat);
 DTV_STATUS_T HAL_VPQ_GetApl(UINT32 *pStat);
-DTV_STATUS_T HAL_VPQ_GetBlockApl(HAL_VPQ_DATA_T *pData);
 
 /* HDR */
 DTV_STATUS_T HAL_VPQ_HDR_GetPicInfo(UINT32* pstPicInfo);
 DTV_STATUS_T HAL_VPQ_HDR_SetLUT(UINT32* lut);
 DTV_STATUS_T HAL_VPQ_HDR_SetDemoMode(BOOLEAN bDemoMode);
-DTV_STATUS_T HAL_VPQ_SetHDR3DLUT(UINT16 *pLUT);
-DTV_STATUS_T HAL_VPQ_SetHDREotf(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetHDROetf(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetHDRToneMap(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetHDRColorCorrection(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetGamutMatrixPre(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetGamutMatrixPost(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetHlgYGainTable(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetPQModeInfo(HAL_VPQ_DATA_T *pData);
+
+/*HDR 33 GamutMatrix*/
+DTV_STATUS_T HAL_VPQ_SetHDRGamutMatrix(float pMatrix[9]);
+
+/*HDR 3D LUT 17x17x17x3=14739*/
+DTV_STATUS_T HAL_VPQ_SetHDR3DLUT(UINT16 pLUT[14739]); 
 
 /* Inversion */
 DTV_STATUS_T HAL_VPQ_SetInversion(BOOLEAN bEnable);
-
-/* ODC */
-DTV_STATUS_T HAL_VPQ_SetOd(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_SetOdExtentions(HAL_VPQ_DATA_T *pData);
 
 /* Dolby */
 DTV_STATUS_T HAL_VPQ_SetDolbyPictureMode(BOOLEAN bOnOff, UINT8 uPictureMode);
@@ -383,7 +336,6 @@ DTV_STATUS_T HAL_VPQ_SetDolbyBrightness(BOOLEAN bOnOff, UINT8 uBrightness);
 DTV_STATUS_T HAL_VPQ_SetDolbyColor(BOOLEAN bOnOff, UINT8 uColor);
 DTV_STATUS_T HAL_VPQ_SetDolbyContrast(BOOLEAN bOnOff, UINT8 uContrast);
 DTV_STATUS_T HAL_VPQ_SetDolbyTuningMode(BOOLEAN bOnOff, UINT8 uTuningMode);
-DTV_STATUS_T HAL_VPQ_SetDolbyPwmRatio(UINT8 u8Percent);
 void HAL_VPQ_InitDolbyPictureConfig(char* configFilePath[]);
 DTV_STATUS_T HAL_VPQ_GetDolbySWVersion(char* pstVersion);
 

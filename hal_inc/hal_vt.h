@@ -129,7 +129,7 @@ typedef struct
 /**
  * @brief This structure describes the capability of video frame buffer.
  */
-typedef struct 
+typedef struct
 {
 	unsigned int numOfVideoFrameBuffer;
 	HAL_VT_VIDEO_FRAME_BUFFER_PLANE_NUMBER_T numOfPlane;
@@ -187,18 +187,6 @@ typedef struct
 } HAL_VT_VIDEO_FRAME_OUTPUT_DEVICE_STATE_INFO_T;
 
 /**
- * @brief This structure describes property information of video frame output device.
- */
-typedef struct
-{
-	HAL_VT_VIDEO_FRAME_OUTPUT_DEVICE_STATE_INFO_T stateInfo;
-	unsigned int framerate;
-	HAL_VT_DUMP_LOCATION_TYPE_T dumpLocation;
-	HAL_VT_RECT_T outputRegion;
-	unsigned char bBlockState;
-} HAL_VT_VIDEO_FRAME_OUTPUT_DEVICE_PROPERTY_INFO_T;
-
-/**
  * @brief This structure describes information of input video.
  */
 typedef struct {
@@ -224,20 +212,6 @@ typedef struct {
 	HAL_VT_RECT_T	maxRegion;
 	HAL_VT_RECT_T	activeRegion;
 } HAL_VT_VIDEO_FRAME_OUTPUT_DEVICE_OUTPUT_INFO_T;
-
-/**
- * @brief This structure describes information of captured video frame
- * 		This legacy structure will be used to support legacy chipset. (M14, H13)
- * 		Then this legacy structure is not used from latest chip (H15, LM15U).
- */
-typedef struct
-{
-	HAL_VT_VIDEO_FRAME_BUFFER_PIXEL_FORMAT_T pixelFormat;
-	unsigned short	stride;
-	unsigned short	width;
-	unsigned short	height;
-	unsigned char	*pVideoFrameAddress[3];
-} HAL_VT_LEGACY_VIDEO_FRAME_INFO_T;
 
 /*----------------------------------------------------------------------------------------
     Type Definitions - end
@@ -281,7 +255,7 @@ DTV_STATUS_T HAL_VT_GetDeviceCapability(HAL_VT_DEVICE_CAPABILITY_INFO_T *pDevice
  *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
  */
 DTV_STATUS_T HAL_VT_GetVideoFrameBufferCapability(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_VIDEO_FRAME_BUFFER_CAPABILITY_INFO_T *pVideoFrameBufferCapabilityInfo);
-	
+
 /**
  *	@brief	Gets the capability of Video Frame Output Device.
  * 	@param	videoWindowID 						[IN]		video window ID
@@ -422,25 +396,6 @@ DTV_STATUS_T HAL_VT_GetVideoFrameOutputDeviceBlockState(HAL_VT_VIDEO_WINDOW_TYPE
  *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
  */
 DTV_STATUS_T HAL_VT_SetVideoFrameOutputDeviceBlockState(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, unsigned char bBlockState);
-
-/**
- *	@brief	Get property information of video frame output device corresponding to videoWindowID.
- *	@param	videoWindowID					[IN]		video window ID
- *	@param	pVideoFrameOutputDeviceProperty	[OUT]	property information of VFOD corresponding to videoWindowID
- *	@return	if success API_OK, else API_ERROR.
- *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
- */
-DTV_STATUS_T HAL_VT_GetVideoFrameOutputDeviceProperty(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_VIDEO_FRAME_OUTPUT_DEVICE_PROPERTY_INFO_T *pVideoFrameOutputDeviceProperty);
-
-/**
- *	@brief	Set property information of video frame output device corresponding to videoWindowID.
- *	@param	videoWindowID					[IN]		video window ID
- *	@param	pVideoFrameOutputDeviceProperty	[IN]		property information of VFOD corresponding to videoWindowID
- *	@return 	if success API_OK, else API_ERROR.
- *	@author 	jinhyuk.hong (jinhyuk.hong@lge.com)
- */
-DTV_STATUS_T HAL_VT_SetVideoFrameOutputDeviceProperty(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_VIDEO_FRAME_OUTPUT_DEVICE_PROPERTY_INFO_T *pVideoFrameOutputDeviceProperty);
-
 /*----------------------------------------------------------------------------------------
     Provide VFOD vsync state
 ----------------------------------------------------------------------------------------*/
@@ -485,111 +440,12 @@ DTV_STATUS_T HAL_VT_GetOutputVideoInfo(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID,
 DTV_STATUS_T HAL_VT_GetVideoMuteStatus(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, unsigned char *pbOnOff);
 
 /*----------------------------------------------------------------------------------------
-    Legacy Features
-----------------------------------------------------------------------------------------*/
-/**
- *	@brief	Capture video frame corresponding to videoWindowID
- * 			This legacy API will be used to support legacy chipset. (M14, H13)
- * 			Then this legacy structure is not used from latest chip (H15, LM15U).
- *
- *	@param	videoWindowID						[IN]		video window ID
- *	@param	dumpLocation							[IN]		dump location of VFOD
- *	@param	captureWidth							[IN]		width that to be captured
- *	@param	captureHeight							[IN]		width that to be captured
- *	@param	pVideoFrameInfo						[OUT]	information of captured video frame
- *	@return if success API_OK, else API_ERROR.
- *	@author jinhyuk.hong (jinhyuk.hong@lge.com)
- */
-DTV_STATUS_T HAL_VT_LegacyCaptureVideoFrame(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_DUMP_LOCATION_TYPE_T dumpLocation, unsigned short captureWidth, unsigned short captureHeight, HAL_VT_LEGACY_VIDEO_FRAME_INFO_T *pVideoFrameInfo);
-
-/**
- *	@brief	Set default window info corresponding to videoWindowID.
- *	@param	videoWindowID
- *	@param	dumpLocation	
- *	@param	pInputVideoRegion	
- *	@param	pOutputRegion	
- *	@return if success API_OK, else API_ERROR.
- *	@author jinhyuk.hong (jinhyuk.hong@lge.com)
- */
-DTV_STATUS_T HAL_VT_SetDefaultRegion(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_DUMP_LOCATION_TYPE_T dumpLocation, HAL_VT_RECT_T *pInputVideoRegion, HAL_VT_RECT_T *pOutputRegion);
-
-/*----------------------------------------------------------------------------------------
-    API list for capturing 4 2k windows. 
-----------------------------------------------------------------------------------------*/
-DTV_STATUS_T HAL_VT_QUAD_Init(void);
-
-DTV_STATUS_T HAL_VT_QUAD_Finalize(void);
-
-DTV_STATUS_T HAL_VT_QUAD_GetFrameBufferProperty(UINT32 planeLR, HAL_VT_VIDEO_FRAME_BUFFER_PROPERTY_INFO_T *pVideoFrameBufferProperty);
-
-DTV_STATUS_T HAL_VT_QUAD_GetFrameBufferIndex(UINT32 planeLR, unsigned int *pIndexOfCurrentVideoFrameBuffer);
-
-DTV_STATUS_T HAL_VT_QUAD_WaitVsync(UINT32 planeLR);
-
-/*----------------------------------------------------------------------------------------
     Provide VT Debug Test
 ----------------------------------------------------------------------------------------*/
 void	HAL_VT_DEBUG_Test (void);
-
-/*----------------------------------------------------------------------------------------
-    HAL VTV (HAL VTV is independent module from HAL_VT. So two module should not be used at sametime.)
-----------------------------------------------------------------------------------------*/
-typedef struct {
-    unsigned int width;
-    unsigned int height;
-} HAL_VTV_RESOLUTION_T;
-
-typedef struct {
-    unsigned char   bSupportInputVideoDeInterlacing;
-    unsigned char   bSupportDisplayVideoDeInterlacing;
-    unsigned char   bSupportScaleUp;
-    unsigned char   bSupportScaleDown;
-    unsigned int    scaleUpLimitWidth;
-    unsigned int    scaleUpLimitHeight;
-    unsigned int    scaleDownLimitWidth;
-    unsigned int    scaleDownLimitHeight;
-    HAL_VTV_RESOLUTION_T inputBufferMaxResolution;
-    HAL_VTV_RESOLUTION_T outputBufferMaxResolution;
-    unsigned int    nNumOfInputBuffer;
-    unsigned int    nNumOfOutputBuffer;
-    unsigned int    nNumOfPlane;
-} HAL_VTV_DEVICE_CAPABILITY_INFO_T;
-
-typedef struct
-{
-    HAL_VT_VIDEO_FRAME_BUFFER_PIXEL_FORMAT_T pixelFormat;
-    unsigned int    stride;
-    unsigned int    width;
-    unsigned int    height;
-    unsigned int    yFrame[3];
-    unsigned int    uFrame[3];
-    unsigned int    vFrame[3];
-} HAL_VTV_VFB_PROPERTY_INFO_T;
-
-typedef struct {
-    HAL_VTV_VFB_PROPERTY_INFO_T inputBufferInfo;
-    HAL_VTV_VFB_PROPERTY_INFO_T outputBufferInfo;
-    unsigned int    inputBufferIndex;
-    unsigned int    outputBufferIndex;
-    unsigned int    vendorData; /**< reserved for chip vendor */
-} HAL_VTV_CALLBACK_INFO_T;
-
-typedef void (*HAL_VTV_CALLBACK)(HAL_VTV_CALLBACK_INFO_T *pInfo);
-
-DTV_STATUS_T HAL_VTV_Init(void);
-DTV_STATUS_T HAL_VTV_Finalize(void);
-DTV_STATUS_T HAL_VTV_GetDeviceCapability(HAL_VTV_DEVICE_CAPABILITY_INFO_T* pCapabilityInfo);
-DTV_STATUS_T HAL_VTV_RegisterCallback(HAL_VTV_CALLBACK cbFunc);
-DTV_STATUS_T HAL_VTV_GetInputBufferResolution(HAL_VTV_RESOLUTION_T *pResolution);
-DTV_STATUS_T HAL_VTV_SetInputBufferResolution(HAL_VTV_RESOLUTION_T *pResolution);
-DTV_STATUS_T HAL_VTV_GetOutputBufferResolution(HAL_VTV_RESOLUTION_T *pResolution);
-DTV_STATUS_T HAL_VTV_SetOutputBufferResolution(HAL_VTV_RESOLUTION_T *pResolution);
-DTV_STATUS_T HAL_VTV_GetOutputBufferIndex(unsigned int *pIndex);
-DTV_STATUS_T HAL_VTV_SetOutputBufferIndex(unsigned int index, unsigned int vendorData);
-DTV_STATUS_T HAL_VTV_GetInputBufferFreeze(unsigned int bufferIndex, unsigned int *pbFreeze);
-DTV_STATUS_T HAL_VTV_SetInputBufferFreeze(unsigned int bufferIndex, unsigned int bFreeze);
 
 #ifdef __cplusplus
 }
 #endif
 #endif
+
