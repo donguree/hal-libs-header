@@ -24,22 +24,22 @@
 #define _HAL_GPIO_INDEX_H_
 
 /******************************************************************************
-	#include ¢®¡×¡Ë¢çAAI¢®Iie (File Inclusions)
+	File Inclusions
 ******************************************************************************/
 #include "hal_common.h"
 
-
 /******************************************************************************
- 	¡Ë¢çio¢®¡×uo A¢®E¡Ë¡ÍAC(Constant Definitions)
+	Constant Definitions
 ******************************************************************************/
+
 /** GPIO Group Index */
 #define	_GPIO_GROUP_CMNIO				1
 #define	_GPIO_GROUP_MICOM				2
 #define	_GPIO_GROUP_IOEXP				3
 #define	_GPIO_GROUP_MAX 				4
 #define _GPIO_GROUP_SHIFT				12
-#define _GPIO_GROUP_SET( x )			( ((x) & 0xF) << _GPIO_GROUP_SHIFT )
-#define	GPIO_GROUP_GET( x ) 			( ((x) >> _GPIO_GROUP_SHIFT) & 0xF )
+#define _GPIO_GROUP_SET( x )				( ((x) & 0xF) << _GPIO_GROUP_SHIFT )
+#define	GPIO_GROUP_GET( x ) 				( ((x) >> _GPIO_GROUP_SHIFT) & 0xF )
 
 #define GPIO_GROUP_CMNIO				_GPIO_GROUP_SET( _GPIO_GROUP_CMNIO )
 #define GPIO_GROUP_MICOM				_GPIO_GROUP_SET( _GPIO_GROUP_MICOM )
@@ -75,7 +75,7 @@
 #define GPIO_PORT_WR_TUNER_RESET2		( GPIO_CMNIO_WR +  4 )
 #define GPIO_PORT_WR_DEMOD_RESET		( GPIO_CMNIO_WR +  5 )
 #define GPIO_PORT_WR_EXT_RF_SWITCH		( GPIO_CMNIO_WR +  6 )  // RF SWITCH
-#define GPIO_PORT_WR_M_RFMODULE_RESET	( GPIO_CMNIO_WR +  7 )
+#define GPIO_PORT_WR_M_RFMODULE_RESET		( GPIO_CMNIO_WR +  7 )
 #define GPIO_PORT_WR_USB1_CTRL			( GPIO_CMNIO_WR +  8 )  // USB1 ctrl
 #define GPIO_PORT_WR_USB2_CTRL			( GPIO_CMNIO_WR +  9 )  // USB2 ctrl
 #define GPIO_PORT_WR_USB3_CTRL			( GPIO_CMNIO_WR + 10 )  // USB3 ctrl
@@ -97,7 +97,7 @@
 #define GPIO_PORT_WR_HDMI_HPD_2			( GPIO_CMNIO_WR + 26 )
 #define GPIO_PORT_WR_HDMI_HPD_3			( GPIO_CMNIO_WR + 27 )
 #define GPIO_PORT_WR_HDMI_HPD_4			( GPIO_CMNIO_WR + 28 )
-#define GPIO_PORT_WR_HDMI_SPLITTER_TEST	( GPIO_CMNIO_WR + 29 )
+#define GPIO_PORT_WR_HDMI_SPLITTER_TEST		( GPIO_CMNIO_WR + 29 )
 #define GPIO_PORT_WR_HDMI_MUX_SEL		( GPIO_CMNIO_WR + 30 )
 #define GPIO_PORT_WR_PA168_RESET		( GPIO_CMNIO_WR + 31 )
 #define GPIO_PORT_WR_IR_B_RESET			( GPIO_CMNIO_WR + 32 )
@@ -112,19 +112,19 @@
 #define GPIO_PORT_WR_R9531_WP 			( GPIO_CMNIO_WR + 40 )
 
 /** Add logical GPIO pin for H15 / LM15U **/
-#define GPIO_PORT_WR_RETENTION_DISABLE	( GPIO_CMNIO_WR + 41 )
+#define GPIO_PORT_WR_RETENTION_DISABLE		( GPIO_CMNIO_WR + 41 )
 #define GPIO_PORT_WR_LOCAL_DIM_EN		( GPIO_CMNIO_WR + 42 )
 #define GPIO_PORT_WR_BT_RESET			( GPIO_CMNIO_WR + 43 )
-#define GPIO_PORT_WR_DEBUG				( GPIO_CMNIO_WR + 44 )
+#define GPIO_PORT_WR_DEBUG			( GPIO_CMNIO_WR + 44 )
 #define GPIO_PORT_WR_TCON_I2C_EN		( GPIO_CMNIO_WR + 45 )
 #define GPIO_PORT_WR_SIL9679_RESET		( GPIO_CMNIO_WR + 46 )
 #define GPIO_PORT_WR_HDMI_SW_SWITCH		( GPIO_CMNIO_WR + 47 )
 #define GPIO_PORT_WR_WL_MUTE			( GPIO_CMNIO_WR + 48 )
 #define GPIO_PORT_WR_WL_RESET			( GPIO_CMNIO_WR + 49 )
-#define GPIO_PORT_WR_LOCAL_DIMMING_EN	( GPIO_CMNIO_WR + 50 )
+#define GPIO_PORT_WR_LOCAL_DIMMING_EN		( GPIO_CMNIO_WR + 50 )
 #define GPIO_PORT_WR_MN864778_RESET		( GPIO_CMNIO_WR + 51 )
 #define GPIO_PORT_WR_PCM_5V_CTL			( GPIO_CMNIO_WR + 52 )
-#define GPIO_PORT_WR_3D_EN				( GPIO_CMNIO_WR + 53 )
+#define GPIO_PORT_WR_3D_EN			( GPIO_CMNIO_WR + 53 )
 #define GPIO_PORT_WR_OTP_WRITE			( GPIO_CMNIO_WR + 54 )
 
 #define GPIO_PORT_WR_CI_ENABLE			( GPIO_CMNIO_WR + 55 )
@@ -132,23 +132,29 @@
 #define GPIO_PORT_WR_URSA_RESET_SOC		( GPIO_CMNIO_WR + 57 )
 #define GPIO_PORT_WR_PCM_RESET			( GPIO_CMNIO_WR + 58 )
 #define GPIO_PORT_WR_SIL9679_INT		( GPIO_CMNIO_WR + 59 )
-#define GPIO_PORT_WR_VX1_DATA_FORMAT0	( GPIO_CMNIO_WR + 60 )
-#define GPIO_PORT_WR_VX1_DATA_FORMAT1	( GPIO_CMNIO_WR + 61 )
+#define GPIO_PORT_WR_VX1_DATA_FORMAT0		( GPIO_CMNIO_WR + 60 )
+#define GPIO_PORT_WR_VX1_DATA_FORMAT1		( GPIO_CMNIO_WR + 61 )
 #define GPIO_PORT_WR_WL_AMP_MUTE		( GPIO_CMNIO_WR + 62 )
 #define GPIO_PORT_WR_SPDIF_SW			( GPIO_CMNIO_WR + 63 )
 #define GPIO_PORT_WR_MTR_ACTIVE			( GPIO_CMNIO_WR + 64 )
 
-#define GPIO_PORT_WR_FRC_CHIP_SELECT_0 ( GPIO_CMNIO_WR + 65 )
-#define GPIO_PORT_WR_FRC_CHIP_SELECT_1 ( GPIO_CMNIO_WR + 66 )
-#define GPIO_PORT_WR_FRC_CHIP_SELECT_2 ( GPIO_CMNIO_WR + 67 )
-#define GPIO_PORT_WR_FRC_CHIP_SELECT_3 ( GPIO_CMNIO_WR + 68 )
+#define GPIO_PORT_WR_FRC_CHIP_SELECT_0		( GPIO_CMNIO_WR + 65 )
+#define GPIO_PORT_WR_FRC_CHIP_SELECT_1		( GPIO_CMNIO_WR + 66 )
+#define GPIO_PORT_WR_FRC_CHIP_SELECT_2		( GPIO_CMNIO_WR + 67 )
+#define GPIO_PORT_WR_FRC_CHIP_SELECT_3		( GPIO_CMNIO_WR + 68 )
 #define GPIO_PORT_WR_QSM_EN			( GPIO_CMNIO_WR + 69 )
 #define GPIO_PORT_WR_MSE_CTRL			( GPIO_CMNIO_WR + 70 )
 #define GPIO_PORT_WR_MLE_MODE_0			( GPIO_CMNIO_WR + 71 )
 #define GPIO_PORT_WR_MLE_MODE_1			( GPIO_CMNIO_WR + 72 )
 #define GPIO_PORT_WR_OLED_3D_EN			( GPIO_CMNIO_WR + 73 )
 #define GPIO_PORT_WR_HDMI3_5V_SEL		( GPIO_CMNIO_WR + 74 )
-#define GPIO_PORT_WR_HDMI4_5V_SEL			( GPIO_CMNIO_WR + 75 )
+#define GPIO_PORT_WR_HDMI4_5V_SEL		( GPIO_CMNIO_WR + 75 )
+
+#define GPIO_PORT_WR_HIGH_LUMINANCE		( GPIO_CMNIO_WR + 76)
+#define GPIO_PORT_WR_LOW_POWER			( GPIO_CMNIO_WR + 77)
+#define GPIO_PORT_WR_AGP_CTRL			( GPIO_CMNIO_WR + 78)
+
+#define GPIO_PORT_WR_HDMI_RETIMER		( GPIO_CMNIO_WR + 79)
 
 /** GPIO Read Group */
 #define GPIO_PORT_RD_MODEL_OPTION_0		( GPIO_CMNIO_RD +  0 )
@@ -161,7 +167,7 @@
 #define GPIO_PORT_RD_MODEL_OPTION_7		( GPIO_CMNIO_RD +  7 )
 #define GPIO_PORT_RD_MODEL_OPTION_8		( GPIO_CMNIO_RD +  8 )
 #define GPIO_PORT_RD_MODEL_OPTION_9		( GPIO_CMNIO_RD +  9 )
-#define GPIO_PORT_RD_MODEL_OPTION_10	( GPIO_CMNIO_RD + 10 )
+#define GPIO_PORT_RD_MODEL_OPTION_10		( GPIO_CMNIO_RD + 10 )
 #define GPIO_PORT_RD_COMP1_LINK			( GPIO_CMNIO_RD + 11 )
 #define GPIO_PORT_RD_CVBS1_LINK			( GPIO_CMNIO_RD + 12 )
 #define GPIO_PORT_RD_SCART1_LINK 		( GPIO_CMNIO_RD + 13 )
@@ -171,18 +177,18 @@
 #define GPIO_PORT_RD_USB2_OCD			( GPIO_CMNIO_RD + 17 )
 #define GPIO_PORT_RD_USB3_OCD			( GPIO_CMNIO_RD + 18 )
 #define GPIO_PORT_RD_CAM_SLIDE_DET		( GPIO_CMNIO_RD + 19 )
-#define GPIO_PORT_RD_OLED_EXT_COMP_DONE	( GPIO_CMNIO_RD + 20 )
-#define GPIO_PORT_RD_INTR_VOICE_DET_CB	( GPIO_CMNIO_RD + 21 )  // register callback funciton. (special case)
+#define GPIO_PORT_RD_OLED_EXT_COMP_DONE		( GPIO_CMNIO_RD + 20 )
+#define GPIO_PORT_RD_INTR_VOICE_DET_CB		( GPIO_CMNIO_RD + 21 )  // register callback funciton. (special case)
 #define GPIO_PORT_RD_PA168_DONE			( GPIO_CMNIO_RD + 22 )
-#define GPIO_PORT_RD_INTR_U14_H13_CON	( GPIO_CMNIO_RD + 23 )
+#define GPIO_PORT_RD_INTR_U14_H13_CON		( GPIO_CMNIO_RD + 23 )
 
 /** Add logical GPIO pin for H15 / LM15U **/
-#define GPIO_PORT_RD_MODEL_OPTION_11	( GPIO_CMNIO_RD + 24 )
+#define GPIO_PORT_RD_MODEL_OPTION_11		( GPIO_CMNIO_RD + 24 )
 #define GPIO_PORT_RD_INSTANT_BOOT		( GPIO_CMNIO_RD + 25 )
 #define GPIO_PORT_RD_VX1_LOCKN			( GPIO_CMNIO_RD + 26 )
 #define GPIO_PORT_RD_SIL9679_INT		( GPIO_CMNIO_RD + 27 )
-#define GPIO_PORT_RD_DDR_VENDOR_OPTION1	( GPIO_CMNIO_RD + 28 )
-#define GPIO_PORT_RD_DDR_VENDOR_OPTION2	( GPIO_CMNIO_RD + 29 )
+#define GPIO_PORT_RD_DDR_VENDOR_OPTION1		( GPIO_CMNIO_RD + 28 )
+#define GPIO_PORT_RD_DDR_VENDOR_OPTION2		( GPIO_CMNIO_RD + 29 )
 #define GPIO_PORT_RD_FAN_TACH			( GPIO_CMNIO_RD + 30 )
 #define GPIO_PORT_RD_HDMI1_5V_DET		( GPIO_CMNIO_RD + 31 )
 #define GPIO_PORT_RD_HDMI2_5V_DET		( GPIO_CMNIO_RD + 32 )
@@ -202,15 +208,16 @@
 #define GPIO_PORT_RD_VX1_HTPDAn			( GPIO_CMNIO_RD + 46 )
 #define GPIO_PORT_RD_SPK_DET			( GPIO_CMNIO_RD + 47 )
 #define GPIO_PORT_RD_SPK_SB_PWR_DET		( GPIO_CMNIO_RD + 48 )
-#define GPIO_PORT_RD_WL_INT				( GPIO_CMNIO_RD + 49 )
+#define GPIO_PORT_RD_WL_INT			( GPIO_CMNIO_RD + 49 )
 #define GPIO_PORT_RD_WL_MSG_RDY			( GPIO_CMNIO_RD + 50 )
 #define GPIO_PORT_RD_ACCEL			( GPIO_CMNIO_RD + 51 )
 #define GPIO_PORT_RD_BT_RESET			( GPIO_CMNIO_RD + 52 )
 #define GPIO_PORT_RD_ON_RF_DONE			( GPIO_CMNIO_RD + 53 )
-#define GPIO_PORT_RD_FAN1_PWM                  ( GPIO_CMNIO_RD + 54 )
-#define GPIO_PORT_RD_FAN2_PWM                  ( GPIO_CMNIO_RD + 55 )
+#define GPIO_PORT_RD_FAN1_PWM			( GPIO_CMNIO_RD + 54 )
+#define GPIO_PORT_RD_FAN2_PWM			( GPIO_CMNIO_RD + 55 )
 #define GPIO_PORT_RD_FAN_TACH2			( GPIO_CMNIO_RD + 56 )
 #define GPIO_PORT_RD_OLED_AM_MODE 		( GPIO_CMNIO_RD + 57 )
+#define GPIO_PORT_RD_OLED_EXT_COMP_DONE_1	( GPIO_CMNIO_RD + 58 )
 
 
 #define GPIO_OUTPUT_PUSHPULL			0
@@ -224,22 +231,23 @@
 #define RESOLUTION_MAX					3
 
 #define PANEL_NON_OLED					(0)
-#define PANEL_OLED						(1)
+#define PANEL_OLED					(1)
 
 /******************************************************************************
-    ¢®E¢®©­AA¢®¡×I¡Ë¢ç¡Ë¢¥I CO¢®¡×uo A¢®E¡Ë¡ÍAC (Macro Definitions)
+        Macro Definitions
 ******************************************************************************/
-
 
 /******************************************************************************
-	Cu A¢®E¡Ë¡ÍAC (Type Definitions)
+        Type Definitions
 ******************************************************************************/
-
 
 /******************************************************************************
-	CO¢®¡×uo ¢®¡×u¡Ë¢ç¡§u¢®¡×u¡§I¢®I (Function Declaration)
+        Enum Definitions
 ******************************************************************************/
 
+/******************************************************************************
+        Function Declaration
+******************************************************************************/
 
 
 #endif /* _HAL_GPIO_INDEX_H_ */

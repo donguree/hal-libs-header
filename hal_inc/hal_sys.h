@@ -1,15 +1,9 @@
 /******************************************************************************
-
  *   DTV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
-
  *   Copyright(c) 2008 by LG Electronics Inc.
-
  *
-
  *   All rights reserved. No part of this work may be reproduced, stored in a
-
  *   retrieval system, or transmitted by any means without prior written
-
  *   permission of LG Electronics Inc.
 
  *****************************************************************************/
@@ -18,31 +12,34 @@
   *
   *  System related header file
   *
-  *  @author		dhjung(dhjung77@lge.com)
+  *  @author		kwangseok.kim (kwangseok.kim@lge.com)
   *  @version		 1.0
-  *  @date		2009.10.08
+  *  @date		2017.02.23
   *  @note
   *  @see		hal_sys.c
 */
 
+/******************************************************************************
+        Header File Guarder
+******************************************************************************/
 #ifndef _HAL_SYS_H_
 #define _HAL_SYS_H_
 
 /******************************************************************************
- #include 파일들 (File Inclusions)
+        File Inclusions
 ******************************************************************************/
 #include "hal_common.h"
 
 /******************************************************************************
- 	상수 정의(Constant Definitions)
+        Constant Definitions
 ******************************************************************************/
 
 /******************************************************************************
-    매크로 함수 정의 (Macro Definitions)
+        Macro Definitions
 ******************************************************************************/
 
 /******************************************************************************
-	형 정의 (Type Definitions)
+        Type Definitions
 ******************************************************************************/
 
 /**
@@ -60,6 +57,9 @@ typedef struct
     UINT32  percent_chC;                //ratio for how much bandwidth of the channel C is used.
 } DRAM_BW_INFO_T;
 
+/******************************************************************************
+        Enum Definitions
+******************************************************************************/
 
 /* SPREAD SPECTRUM ENUMERATIONS HAVE TO BE SAME AS KAPI */
 typedef enum
@@ -90,10 +90,8 @@ typedef enum
 } SUSPEND_MODE_T;
 
 /******************************************************************************
-	Extern 전역변수와 함수 prototype 선언
-	(Extern Variables & Function Prototype Declarations)
-*******************************************************************************/
-
+        Function Declaration
+******************************************************************************/
 DTV_STATUS_T HAL_SYS_SetDramBWEnable(BOOLEAN bOnOff);
 DTV_STATUS_T HAL_SYS_GetDramBWInfo(DRAM_BW_INFO_T *pstBWInfo);
 DTV_STATUS_T HAL_SYS_LockDebugPort(BOOLEAN bLock);
@@ -106,12 +104,19 @@ DTV_STATUS_T HAL_SYS_InitEthernet(void);//reset PHY
 DTV_STATUS_T HAL_SYS_SetWarmWolOnOff(BOOLEAN bOnOff);
 DTV_STATUS_T HAL_SYS_GetWarmWolStatus(BOOLEAN *Status);
 DTV_STATUS_T HAL_SYS_ResetWol(void);
+DTV_STATUS_T HAL_SYS_InitEthernet(void);
 
-/* SUSPEND/RESUME */
+/* SUSPEND/RESUME, SIC chip only used */
 DTV_STATUS_T HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
 DTV_STATUS_T HAL_SYS_Resume (void);
 
-/* micom dummy */
+/* WAKE Up Internal Micom, RTK chip only used */
 DTV_STATUS_T HAL_SYS_WakeUpInternalMicom(void);
+
+/* Internal Micom ?, Mstar chip only used */
+DTV_STATUS_T HAL_SYS_ReadBootData(unsigned char *pBootData, unsigned int bootDataSize);
+DTV_STATUS_T HAL_SYS_WriteBootData(unsigned char *pBootDataPath, unsigned int bootDataSize);
+DTV_STATUS_T HAL_SYS_ReadPMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
+DTV_STATUS_T HAL_SYS_WritePMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
 
 #endif  /* _HAL_SYS_H_ */

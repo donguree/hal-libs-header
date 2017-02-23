@@ -6,13 +6,13 @@
  *   retrieval system, or transmitted by any means without prior written
  *   permission of LG Electronics Inc.
  *****************************************************************************/
-/** @file hal_gpio.h
+/** @file hal_i2c.h
  *
- *  This c file defines the DDI functions related to I2C Driver.
+ *  This c file defines the HAL functions related to I2C Driver.
  *
- *  @author		dhjung(dhjung77@lge.com)
- *  @version	0.1
- *  @date		2008.02.12
+ *  @author		kwangseok.kim (kwangseok.kim@lge.com)
+ *  @version		0.1
+ *  @date		2017.02.22
  *  @note
  *  @see
  */
@@ -23,43 +23,38 @@
 #ifndef _HAL_I2C_H_
 #define _HAL_I2C_H_
 
-/*****************************************************************************
-	#include File
-*****************************************************************************/
+/******************************************************************************
+        File Inclusions
+******************************************************************************/
 #include "hal_common.h"
 
-#define HAL_I2C_LOGM 						"hal-i2c"
-#define HAL_I2C_ERROR(fmt,args...)		KADP_LOGM_PRINT(gHalI2cLogmFd, LX_LOGM_LEVEL_ERROR, 	fmt, ##args)
-#define HAL_I2C_WARN(fmt,args...)			KADP_LOGM_PRINT(gHalI2cLogmFd, LX_LOGM_LEVEL_WARNING, fmt, ##args)
-#define HAL_I2C_NOTI(fmt,args...)			KADP_LOGM_PRINT(gHalI2cLogmFd, LX_LOGM_LEVEL_NOTI, 	fmt, ##args)
-#define HAL_I2C_INFO(fmt,args...)			KADP_LOGM_PRINT(gHalI2cLogmFd, LX_LOGM_LEVEL_INFO, 	fmt, ##args)
-#define HAL_I2C_DEBUG(fmt,args...)		KADP_LOGM_PRINT(gHalI2cLogmFd, LX_LOGM_LEVEL_DEBUG, 	fmt, ##args)
-#define HAL_I2C_TRACE(fmt,args...)		KADP_LOGM_PRINT(gHalI2cLogmFd, LX_LOGM_LEVEL_TRACE, 	fmt, ##args)
-extern SINT32 gHalI2cLogmFd;
 /*****************************************************************************
 	Constant Definitions
 *****************************************************************************/
+#define I2C_OK				 0
+#define I2C_ERROR			-1
 
-/* CMNIO I2C */
+/******************************************************************************
+        Type Definitions
+******************************************************************************/
 
 /**
  * type definition about i2c speed
  *
 */
-
-#define I2C_OK				 0
-#define I2C_ERROR			-1
-
 typedef enum
 {
 	I2C_MODE_NORMAL 	=	0,		/**< normal speed	: 100K	*/
 	I2C_MODE_FAST		=	1,		/**< fast speed 	: 400K	*/
 	I2C_MODE_SLOW		=	2,		/**< slow speed 	:  50K	*/
-	I2C_MODE_DOWNLOAD1	=	3,			/**< download speed 	: 700K	*/
-	I2C_MODE_DOWNLOAD2	=	4,			/**< download speed 	: 800K	*/
+	I2C_MODE_DOWNLOAD1	=	3,		/**< download speed 	: 700K	*/
+	I2C_MODE_DOWNLOAD2	=	4,		/**< download speed 	: 800K	*/
 }	I2C_MODE_T;
 
-/* CMNIO I2C */
+
+/******************************************************************************
+        Function Declaration
+******************************************************************************/
 extern DTV_STATUS_T HAL_I2C_Init (void);
 extern DTV_STATUS_T HAL_I2C_Read (UINT8 ChNum, I2C_MODE_T transMode, UINT8 slaveAddr, UINT32 subAddrMode,
 									   UINT8 *subAddr, UINT16 nBytes, UINT8 *rxBuf, UINT32 retry);
