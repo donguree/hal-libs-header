@@ -28,12 +28,12 @@
 #define	_HAL_CRYPTO_H_
 
 /******************************************************************************
- #include ÆÄÀÏµé (File Inclusions)
+ #include ÆÄ?Ïµé (File Inclusions)
 ******************************************************************************/
 #include "hal_common.h"
 
 /******************************************************************************
-	Çü Á¤ÀÇ (Type Definitions)
+	Çü Á¤?Ç (Type Definitions)
 ******************************************************************************/
 #define HAL_CRYPTO_ARG_MAX 8
 
@@ -46,19 +46,19 @@ typedef struct _HAL_CRYPTO_ARG {
 } HAL_CRYPTO_ARG_T;
 
 /******************************************************************************
-    ¸ÅÅ©·Î ÇÔ¼ö Á¤ÀÇ (Macro Definitions)
+    ¸ÅÅ©·Î ÇÔ¼ö Á¤?Ç (Macro Definitions)
 ******************************************************************************/
 
 /******************************************************************************
-   ·ÎÄÃ »ó¼ö Á¤ÀÇ (Local Constant Definitions)
+   ·ÎÄÃ »ó¼ö Á¤?Ç (Local Constant Definitions)
 ******************************************************************************/
 
 /******************************************************************************
-    ·ÎÄÃ Çü Á¤ÀÇ (Local Type Definitions)
+    ·ÎÄÃ Çü Á¤?Ç (Local Type Definitions)
 ******************************************************************************/
 
 /******************************************************************************
-    Àü¿ª Çü Á¤ÀÇ (Global Type Definitions)
+    ?ü¿ª Çü Á¤?Ç (Global Type Definitions)
 ******************************************************************************/
 typedef enum {
 	CRYPTO_HDCP_14,  //HDCP 1.4
@@ -67,7 +67,7 @@ typedef enum {
 } CRYPTO_HDCP_T;	// For HAL_CRYPTO_WriteHDCPOnSecure()/HAL_CRYPTO_ReadHDCPFromSecure()
 
 /******************************************************************************
-    Extern Àü¿ªº¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
+    Extern ?ü¿ªº¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
     (Extern Variables & Function Prototype Declarations)
 ******************************************************************************/
 
@@ -82,12 +82,12 @@ typedef enum {
 ******************************************************************************/
 
 /******************************************************************************
-    Àü¿ª º¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
+    ?ü¿ª º¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
     (Global Variables & Function Prototypes Declarations)
 ******************************************************************************/
 
 /******************************************************************************
-	ÇÔ¼ö Á¤ÀÇ (Function Definitions)
+	ÇÔ¼ö Á¤?Ç (Function Definitions)
 ******************************************************************************/
 
 /* Netflix */
@@ -849,7 +849,7 @@ DTV_STATUS_T HAL_CRYPTO_VUDU_SVP_Release(void);
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszMode, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform TEE AES decryption.
@@ -867,7 +867,7 @@ DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszMode, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA encryption.
@@ -884,7 +884,7 @@ DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszKeyType, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA decryption.
@@ -899,7 +899,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @param   pKey             [IN]      SecureData of cipher key
  *  @param   nKeySize         [IN]      Size of pKey data
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32_t *pDstLen, uint8_t *pDstData, char *pszKeyType, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA Signing in TEE
@@ -914,7 +914,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (uint32_t nSrcLen, uint8_t *pSrcData, uint32
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
 */
-DTV_STATUS_T HAL_CRYPTO_RSA_Sign (uint32_t nDataSize, uint8_t *pData, uint32_t *pSigLen, uint8_t *pSig, char *pszKeyType, uint8_t *pKey, uint32_t nKeyLen);
+DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeyLen);
 
 /*
  * Perform RSA signature verification in TEE
@@ -929,7 +929,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Sign (uint32_t nDataSize, uint8_t *pData, uint32_t *
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
 */
-DTV_STATUS_T HAL_CRYPTO_RSA_Verify (uint32_t nDataSize, uint8_t *pData, uint32_t nSigLen, uint8_t *pSig, char *pszKeyType, uint8_t *pKey, uint32_t nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 #endif		//_HAL_CRYPTO_H_
 
