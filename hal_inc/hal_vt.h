@@ -1,6 +1,6 @@
 /******************************************************************************
  *   LCD TV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 2011 by LG Electronics Inc.
+ *   Copyright(c) 2011-2017 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -14,7 +14,7 @@
  *
  *  @author     JinHyuk Hong (jinhyuk.hong@lge.com)
  *  @version    1.0
- *  @date       	2013.11.29
+ *  @date       2013.11.29
  *  @note
  *  @see
  */
@@ -485,54 +485,13 @@ DTV_STATUS_T HAL_VT_GetOutputVideoInfo(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID,
 DTV_STATUS_T HAL_VT_GetVideoMuteStatus(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, unsigned char *pbOnOff);
 
 /*----------------------------------------------------------------------------------------
-    Legacy Features
-----------------------------------------------------------------------------------------*/
-/**
- *	@brief	Capture video frame corresponding to videoWindowID
- * 			This legacy API will be used to support legacy chipset. (M14, H13)
- * 			Then this legacy structure is not used from latest chip (H15, LM15U).
- *
- *	@param	videoWindowID						[IN]		video window ID
- *	@param	dumpLocation							[IN]		dump location of VFOD
- *	@param	captureWidth							[IN]		width that to be captured
- *	@param	captureHeight							[IN]		width that to be captured
- *	@param	pVideoFrameInfo						[OUT]	information of captured video frame
- *	@return if success API_OK, else API_ERROR.
- *	@author jinhyuk.hong (jinhyuk.hong@lge.com)
- */
-DTV_STATUS_T HAL_VT_LegacyCaptureVideoFrame(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_DUMP_LOCATION_TYPE_T dumpLocation, unsigned short captureWidth, unsigned short captureHeight, HAL_VT_LEGACY_VIDEO_FRAME_INFO_T *pVideoFrameInfo);
-
-/**
- *	@brief	Set default window info corresponding to videoWindowID.
- *	@param	videoWindowID
- *	@param	dumpLocation	
- *	@param	pInputVideoRegion	
- *	@param	pOutputRegion	
- *	@return if success API_OK, else API_ERROR.
- *	@author jinhyuk.hong (jinhyuk.hong@lge.com)
- */
-DTV_STATUS_T HAL_VT_SetDefaultRegion(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_DUMP_LOCATION_TYPE_T dumpLocation, HAL_VT_RECT_T *pInputVideoRegion, HAL_VT_RECT_T *pOutputRegion);
-
-/*----------------------------------------------------------------------------------------
-    API list for capturing 4 2k windows. 
-----------------------------------------------------------------------------------------*/
-DTV_STATUS_T HAL_VT_QUAD_Init(void);
-
-DTV_STATUS_T HAL_VT_QUAD_Finalize(void);
-
-DTV_STATUS_T HAL_VT_QUAD_GetFrameBufferProperty(UINT32 planeLR, HAL_VT_VIDEO_FRAME_BUFFER_PROPERTY_INFO_T *pVideoFrameBufferProperty);
-
-DTV_STATUS_T HAL_VT_QUAD_GetFrameBufferIndex(UINT32 planeLR, unsigned int *pIndexOfCurrentVideoFrameBuffer);
-
-DTV_STATUS_T HAL_VT_QUAD_WaitVsync(UINT32 planeLR);
-
-/*----------------------------------------------------------------------------------------
     Provide VT Debug Test
 ----------------------------------------------------------------------------------------*/
 void	HAL_VT_DEBUG_Test (void);
 
 /*----------------------------------------------------------------------------------------
     HAL VTV (HAL VTV is independent module from HAL_VT. So two module should not be used at sametime.)
+	NOTE : HAL VTV Interface are only used for SIC chip vendor. But other chip vendor is need to make dummy Interface.
 ----------------------------------------------------------------------------------------*/
 typedef struct {
     unsigned int width;
