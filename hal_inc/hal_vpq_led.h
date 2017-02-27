@@ -135,7 +135,7 @@ typedef enum {
 	HAL_INCH_40,
 	HAL_INCH_43,
 	HAL_INCH_86,
-	
+
 	HAL_INCH_BASE
 } HAL_INCH_TYPE_T;
 
@@ -239,53 +239,6 @@ typedef struct {
 	HAL_WCG_PANEL_TYPE_T hal_panel_type;
 } HAL_LED_PANEL_INFO_T;
 
-typedef struct
-{
-	UINT32 *pu32Ptr;
-	UINT32 u32Size;
-} HAL_LED_LUT_INFO;
-
-typedef struct
-{
-	HAL_LED_LUT_INFO uiOff;
-	HAL_LED_LUT_INFO uiLow;
-	HAL_LED_LUT_INFO uiMedium;
-	HAL_LED_LUT_INFO uiHigh;
-	HAL_LED_LUT_INFO uiHdrLow;
-	HAL_LED_LUT_INFO uiHdrMedium;
-	HAL_LED_LUT_INFO uiHdrHigh;
-} HAL_LED_UI_LUT_INFO_T;
-
-typedef struct
-{
-	HAL_LED_LUT_INFO sbiHCoef;
-	HAL_LED_LUT_INFO sbiVCoef;
-	HAL_LED_LUT_INFO lres1TabCoef;
-	HAL_LED_LUT_INFO lres5TabCoef;
-} HAL_LED_DB_LIGHT_PROFILE_LUT_T;
-
-typedef struct
-{
-	HAL_LED_UI_LUT_INFO_T upperCurve;
-	HAL_LED_UI_LUT_INFO_T lowerCurve;
-} HAL_LED_DB_DIMMING_CURVE_LUT_T;
-
-/**
- * LED LUT DB
- */
-typedef struct
-{
-	UINT32 u32LutVersion;
-	HAL_LED_LUT_INFO pq_common_lut;
-	HAL_LED_LUT_INFO module_lut;
-	HAL_LED_LUT_INFO unsharpMask_lut;
-	HAL_LED_DB_LIGHT_PROFILE_LUT_T lightProfile_lut;
-	HAL_LED_DB_DIMMING_CURVE_LUT_T dimmingCurve_lut;
-	HAL_LED_UI_LUT_INFO_T pqUi_lut;
-	HAL_LED_UI_LUT_INFO_T pixelCompensation_lut;
-	HAL_LED_LUT_INFO unsharpMask_0_15_dynamic_lut;
-} HAL_LED_DB_LUT_T;
-
 /*-----------------------------------------------------------------------------
 	Local Variables & Function Prototypes Declarations
 ------------------------------------------------------------------------------*/
@@ -298,32 +251,11 @@ DTV_STATUS_T HAL_VPQ_LED_LDSetLUT(UINT8 lutTableIndex);
 DTV_STATUS_T HAL_VPQ_LED_LDEnablePixelCompensation(BOOLEAN bCtrl);
 DTV_STATUS_T HAL_VPQ_LED_LDCtrlDemoMode(LOCALDIMMING_DEMO_TYPE_T bType, BOOLEAN bCtrl);
 DTV_STATUS_T HAL_VPQ_LED_LDCtrlSPI(UINT8 bitMask, BOOLEAN bCtrl);
-DTV_STATUS_T HAL_VPQ_LED_LDGetFirmwareVersion(UINT8 *pVersion);
 DTV_STATUS_T HAL_VPQ_LED_LDGetAPL(UINT16 *u16Max, UINT16 *u16Min);
-DTV_STATUS_T HAL_VPQ_LED_LDSetClippingValue(UINT16 u16ClippingValue);
-
-DTV_STATUS_T HAL_VPQ_LED_LDSetClearPlus(BOOLEAN bCtrl);
-DTV_STATUS_T HAL_VPQ_LED_LDCtrlStoreDimmingLuxUp(BOOLEAN bCtrl);
-DTV_STATUS_T HAL_VPQ_LED_LDSetLedPKGControl(BOOLEAN bCtrl);
 
 /*HDR */
-DTV_STATUS_T HAL_VPQ_LED_HDRInitialize(void);
 DTV_STATUS_T HAL_VPQ_LED_HDRSetMode(UINT8 hdrDCMode);
-DTV_STATUS_T HAL_VPQ_LED_HDRSetDECMode(UINT8 hdrDECMode);
-DTV_STATUS_T HAL_VPQ_LED_HDRBypassMode(BOOLEAN bCtrl);
-DTV_STATUS_T HAL_VPQ_LED_HDRBypassInternalControl(BOOLEAN hdrBypass);
 DTV_STATUS_T HAL_VPQ_LED_HDRSetSceneChange(BOOLEAN bIsSceneChange);
-DTV_STATUS_T HAL_VPQ_LED_HDRCtrlStoreMode(BOOLEAN bCtrl);
-DTV_STATUS_T HAL_VPQ_LED_HDRGetFirmwareVersion(UINT8 *pVersion);
-
-/*WCG */
-DTV_STATUS_T HAL_VPQ_LED_WCGInitialize(HAL_LED_PANEL_INFO_T panelInfo);
-DTV_STATUS_T HAL_VPQ_LED_WCGEnable(BOOLEAN bCtrl);
-DTV_STATUS_T HAL_VPQ_LED_WCGSetMode(UINT8 wcgMode);
-DTV_STATUS_T HAL_VPQ_LED_WCGBypassMode(BOOLEAN bCtrl);
-DTV_STATUS_T HAL_VPQ_LED_WCGGetFirmwareVersion(UINT8 *pVersion);
-
-DTV_STATUS_T HAL_VPQ_LED_WCGSetLUT(UINT8 lutTableIndex);
 
 /* DEBUG Function */
 DTV_STATUS_T HAL_VPQ_LED_Debug(void);

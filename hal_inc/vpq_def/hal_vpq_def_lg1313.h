@@ -155,7 +155,7 @@ typedef struct CHIP_PCC_COEFF
 */
 typedef struct{
 	BOOLEAN bGamma;
-	BOOLEAN bDeGamma; 
+	BOOLEAN bDeGamma;
 	CHIP_PCC_COEFF_T matrix;
 } CHIP_PCC_POST_T;
 
@@ -164,7 +164,7 @@ typedef struct{
 */
 typedef struct{
 	UINT8 extType; // index for type (eg. 0: POD, 1:PCID, 2:reserved)
-	UINT8 *pExtData; 
+	UINT8 *pExtData;
 	UINT32 extLength;
 } CHIP_OD_EXTENTION_T;
 
@@ -1286,7 +1286,7 @@ typedef struct
 	CHIP_CM_REGIONCTRL_B0_T gain[CHIP_CM_RGN_CTRL_NUM];	///< region gain
 	CHIP_CM_CLEAR_WHITE_T clear_white;					///< clear white
 }
-CHIP_CM_FRESH_COLOR_T;
+CHIP_CM_DYNAMIC_COLOR_T;
 
 /**
  *	set preferred color type
@@ -1298,7 +1298,7 @@ typedef struct
 	SINT8 bsky_hue_val;						///< blue sky hue value
 	SINT8 grass_hue_val;					///< grass hue value
 }
-CHIP_CM_PREFERRED_COLOR_T;
+CHIP_COLOR_CONTROL_T;
 
 /**
  *	init exp color type
@@ -1321,7 +1321,7 @@ typedef struct
 	SINT32 sat_offset;					///< saturation offset
 	SINT32 val_offset;					///< value offset
 }
-CHIP_CM_COLOR_MANAGEMENT_T;
+CHIP_CM_DATA_T;
 
 /**
  *	set clear white gain type
@@ -1332,7 +1332,8 @@ typedef struct
 	UINT32 g_gain;					///< green gain : 0~255
 	UINT32 b_gain;					///< blue gain : 0~255
 }
-CHIP_CM_CW_GAIN_CTRL_T;
+CHIP_COLOR_WHITE_T
+
 /**
 *	DC2P de-saturation
 */
@@ -1416,7 +1417,7 @@ typedef struct
 	UINT32 picture_mode;					///< picture_mode
 	CHIP_DC2P_SATURATION2_T saturation;		///< saturation
 }
-CHIP_DC2P_FRESH_CONTRAST2_T;
+CHIP_DC2P_DYNAMIC_CONTRAST_T;
 
 /**
 *	drc control
@@ -1629,8 +1630,7 @@ typedef struct
 	UINT8  tnr_edf[36];		///< tnr_df
 	UINT8  tnr_bld[24];		///< tnr_blend
 }
-CHIP_TNR_DB_M16P_T;
-
+CHIP_NOISE_REDUCTION_T;
 
 /**
  * CHIP_DNR_DB_H15_T for HAL_VPQ_SetMpegNoiseReduction
@@ -1830,8 +1830,7 @@ typedef struct
 	UINT8 mosqnr[6];		///< mnr
 	UINT8 decontour[5];	///< decontour
 }
-CHIP_DNR_DB_M16P_T;
-
+CHIP_MPEG_NOISE_REDUCTION_T;
 
 /**
  * CHIP_SHP_DB_H15_T
@@ -1839,7 +1838,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT32_scl_flt_pre_idx[01]:______luma_ver_index;________///<_luma_ver_index
  * UINT32_scl_flt_pre_idx[02]:______chrm_hor_index;________///<_chrm_hor_index
  * UINT32_scl_flt_pre_idx[03]:______chrm_ver_index;________///<_chrm_ver_index
- * 
+ *
  * UINT8__shp_cmn_pre[00]:__________edge_Y_filter_en;______///<_0xc800a0c8[31]___,_H
  * UINT8__shp_cmn_pre[01]:__________e_gain_max;____________///<_0xc800a0e0[5:0]__,_H
  * UINT8__shp_cmn_pre[02]:__________f_gain_max;____________///<_0xc800a0e0[13:8]_,_H
@@ -1863,7 +1862,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_cmn_pre[20]:__________reg_g0_mul;____________///<_0xc800a228[12:8]_,_DJAG
  * UINT8__shp_cmn_pre[21]:__________reg_g1_protect_min;____///<_0xc800a22c[7:0]__,_DJAG
  * UINT8__shp_cmn_pre[22]:__________reg_g1_mul;____________///<_0xc800a22c[14:8]_,_DJAG
- * 
+ *
  * UINT8__shp_ui_main_pre[00]:______mp_white_gain;_________///<_0xc800a174[6:0]
  * UINT8__shp_ui_main_pre[01]:______mp_black_gain;_________///<_0xc800a174[14:8]
  * UINT8__shp_ui_main_pre[02]:______sp_white_gain;_________///<_0xc800a134[6:0]
@@ -1872,7 +1871,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ui_main_pre[05]:______sp_lap_h_mode;_________///<_0xc800a148[1:0]
  * UINT8__shp_ui_main_pre[06]:______mp_lap_v_mode;_________///<_0xc800a188[6:4]
  * UINT8__shp_ui_main_pre[07]:______sp_lap_v_mode;_________///<_0xc800a148[4]
- * 
+ *
  * UINT8__shp_ui_h_main_pre[00]:____reg_csft_gain;__________///<_0xc800a0c4[13:8]
  * UINT8__shp_ui_h_main_pre[01]:____edge_filter_white_gain;_///<_0xc800a0c8[13:8]
  * UINT8__shp_ui_h_main_pre[02]:____edge_filter_black_gain;_///<_0xc800a0c8[21:16]
@@ -1883,7 +1882,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ui_h_main_pre[07]:____e_gain_th2;_____________///<_0xc800a0dc[15:8]
  * UINT8__shp_ui_h_main_pre[08]:____f_gain_th1;_____________///<_0xc800a0dc[23:16]
  * UINT8__shp_ui_h_main_pre[09]:____f_gain_th2;_____________///<_0xc800a0dc[31:24]
- * 
+ *
  * UINT8__shp_ui_v_main_pre[00]:____bif_manual_th;__________///<_0xc800a0f0[15:8]
  * UINT8__shp_ui_v_main_pre[01]:____csft_gain;______________///<_0xc800a0f4[5:0]
  * UINT8__shp_ui_v_main_pre[02]:____gain_b;_________________///<_0xc800a0fc[6:0]
@@ -1893,7 +1892,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ui_v_main_pre[06]:____sp_vertical_gain;_______///<_0xc800a134[31:24]
  * UINT8__shp_ui_v_main_pre[07]:____gain_th1;_______________///<_0xc800a0f8[23:16]
  * UINT8__shp_ui_v_main_pre[08]:____gain_th2;_______________///<_0xc800a0f8[31:24]
- * 
+ *
  * UINT8__shp_map_cmn_pre[00]:______reg_cross_th_sc;________///<_0xc800a1b0[23:16],_CMN
  * UINT8__shp_map_cmn_pre[01]:______reg_cross_th;___________///<_0xc800a1b0[31:24],_CMN
  * UINT8__shp_map_cmn_pre[02]:______reg_mul_base_t;_________///<_0xc800a1d0[23:16],_CMN
@@ -1930,7 +1929,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_map_cmn_pre[33]:______reg_detail_minmax_y0;___///<_0xc800a1cc[7:0]__,_T_MAP
  * UINT8__shp_map_cmn_pre[34]:______reg_detail_minmax_x1;__///<_0xc800a1cc[31:24],_T_MAP
  * UINT8__shp_map_cmn_pre[35]:______reg_detail_minmax_y1;__///<_0xc800a1cc[23:16],_T_MAP
- * 
+ *
  * UINT8__shp_balance_pre[00]:______mp_gb_en;______________///<_0xc800a18c[0]____,_GAIN_MP
  * UINT8__shp_balance_pre[01]:______mp_db_mode;____________///<_0xc800a18c[4]____,_GAIN_MP
  * UINT8__shp_balance_pre[02]:______mp_db_x1;______________///<_0xc800a18c[15:8]_,_GAIN_MP
@@ -1973,17 +1972,17 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_balance_pre[39]:______sp_lum2_y0;____________///<_0xc800a15c[31:24],_LEVEL_OVER_SHOOT
  * UINT8__shp_balance_pre[40]:______sp_lum2_y1;____________///<_0xc800a160[7:0]__,_LEVEL_OVER_SHOOT
  * UINT8__shp_balance_pre[41]:______sp_lum2_y2;____________///<_0xc800a160[15:8]_,_LEVEL_OVER_SHOOT
- * 
+ *
  * UINT8__shp_ee_pre[00]:___________mp_edge_gain_b;________///<_0xc800a1d4[6:0]
  * UINT8__shp_ee_pre[01]:___________mp_edge_gain_w;________///<_0xc800a1d4[14:8]
  * UINT8__shp_ee_pre[02]:___________sp_edge_gain_b;________///<_0xc800a114[6:0]
  * UINT8__shp_ee_pre[03]:___________sp_edge_gain_w;________///<_0xc800a114[14:8]
- * 
+ *
  * UINT8__shp_de_pre[00]:___________mp_texture_gain_b;_____///<_0xc800a1d4[22:16]
  * UINT8__shp_de_pre[01]:___________mp_texture_gain_w;_____///<_0xc800a1d4[30:24]
  * UINT8__shp_de_pre[02]:___________sp_texture_gain_b;_____///<_0xc800a114[22:16]
  * UINT8__shp_de_pre[03]:___________sp_texture_gain_w;_____///<_0xc800a114[30:24]
- * 
+ *
  * UINT8__shp_ti_cmn_pre[00]:_______reg_pv_ti_enable;______///<_0xc800a200[0]__,_PTI_V
  * UINT8__shp_ti_cmn_pre[01]:_______reg_pv_mm_tap_size;____///<_0xc800a200[3:2],_PTI_V
  * UINT8__shp_ti_cmn_pre[02]:_______reg_pv_avg_tap_size;___///<_0xc800a200[5:4],_PTI_V
@@ -1993,13 +1992,13 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ti_cmn_pre[06]:_______reg_s_ti_enable;_______///<_0xc800a208[0]__,_STI
  * UINT8__shp_ti_cmn_pre[07]:_______reg_s_mm_tap_size;_____///<_0xc800a208[3:2],_STI
  * UINT8__shp_ti_cmn_pre[08]:_______reg_s_avg_tap_size;____///<_0xc800a208[5:4],_STI
- * 
+ *
  * UINT8__shp_ti_ui_main_pre[00]:___reg_master_gain_pti_v;_///<_0xc800a200[15:8]
  * UINT8__shp_ti_ui_main_pre[01]:___reg_master_gain_pti_h;_///<_0xc800a204[15:8]
  * UINT8__shp_ti_ui_main_pre[02]:___reg_master_gain_sti;___///<_0xc800a208[15:8]
  * UINT8__shp_ti_ui_main_pre[03]:___reg_edge_gain_sti;_____///<_0xc800a208[31:24]
  * UINT8__shp_ti_ui_main_pre[04]:___reg_texture_gain_sti;__///<_0xc800a208[23:16]
- * 
+ *
  * UINT8__shp_tgen_cmn_pre[00]:_____tgen_on_off;___________///<_0xc800a2a0[0]
  * UINT8__shp_tgen_cmn_pre[01]:_____tgen_initial_seed_mode;///<_0xc800a2a0[4]
  * UINT8__shp_tgen_cmn_pre[02]:_____tgen_table_sel;________///<_0xc800a2a0[19:16]
@@ -2032,12 +2031,12 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_tgen_cmn_pre[29]:_____tg_gain5;______________///<_0xc800a2c4[11:8]
  * UINT8__shp_tgen_cmn_pre[30]:_____tg_gain6;______________///<_0xc800a2c4[7:4]
  * UINT8__shp_tgen_cmn_pre[31]:_____tg_gain7;______________///<_0xc800a2c4[3:0]
- * 
+ *
  * UINT8__shp_tgen_ui_main_pre[00]:_tg_map_edge_gain;______///<_0xc800a2c0[4:0]
  * UINT8__shp_tgen_ui_main_pre[01]:_tg_map_detail_gain;____///<_0xc800a2c0[12:8]
  * UINT8__shp_tgen_ui_main_pre[02]:_tg_map_offset;_________///<_0xc800a2c0[23:16]
  * UINT8__shp_tgen_ui_main_pre[03]:_tg_gs_noise;___________///<_0xc800a2c0[29:24]
- * 
+ *
  * UINT32_sr_scl_flt[00]:___________iu_scale_coeff0_0;_____///<_0xc8009000_[26:16]
  * UINT32_sr_scl_flt[01]:___________iu_scale_coeff0_1;_____///<_0xc8009000_[10:0]
  * UINT32_sr_scl_flt[02]:___________iu_scale_coeff0_2;_____///<_0xc8009004_[26:16]
@@ -2046,7 +2045,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT32_sr_scl_flt[05]:___________iu_scale_coeff1_1;_____///<_0xc8009008_[10:0]
  * UINT32_sr_scl_flt[06]:___________iu_scale_coeff1_2;_____///<_0xc800900C_[26:16]
  * UINT32_sr_scl_flt[07]:___________iu_scale_coeff1_3;_____///<_0xc800900C_[10:0]
- * 
+ *
  * UINT8__sr_cmn[00]:_______________lut_iu_um_grdavg00;____///<_0xc8008148_[28:24],_SC_Peaking
  * UINT8__sr_cmn[01]:_______________lut_iu_um_grdavg01;____///<_0xc8008148_[20:16],_SC_Peaking
  * UINT8__sr_cmn[02]:_______________lut_iu_um_grdavg02;____///<_0xc8008148_[12:8]
@@ -2083,7 +2082,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__sr_cmn[32]:_______________we_jone_base;__________///<_0xc80081b0_[15:8]_,_MC
  * UINT8__sr_cmn[33]:_______________we_jone_min;___________///<_0xc80081b0_[7:0]__,_MC
  * UINT8__sr_cmn[34]:_______________we_jone_max;___________///<_0xc80081b4_[7:0]__,_MC
- * 
+ *
  * UINT8__sr_ui_main[00]:___________use_iu_en;_____________///<_0xc800904c_[0:0]__,_EMP
  * UINT8__sr_ui_main[01]:___________iu_en_4mm_min_th;______///<_0xc8009050_[20:16],_EMP
  * UINT8__sr_ui_main[02]:___________iu_en_4mm_max_th;______///<_0xc8009050_[4:0]__,_EMP
@@ -2110,12 +2109,12 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__sr_ui_main[23]:___________we_id_whq_base;________///<_0xc8008214_[7:0]__,_FUSION
  * UINT8__sr_ui_main[24]:___________we_id_range0;__________///<_0xc8009054_[7:0]__,_FUSION
  * UINT8__sr_ui_main[25]:___________we_id_range1;__________///<_0xc8009058_[7:0]__,_FUSION
- * 
+ *
  * UINT32_scl_flt_post_idx[00]:_____luma_hor_index;________///<_luma_hor_index
  * UINT32_scl_flt_post_idx[01]:_____luma_ver_index;________///<_luma_ver_index
  * UINT32_scl_flt_post_idx[02]:_____chrm_hor_index;________///<_chrm_hor_index
  * UINT32_scl_flt_post_idx[03]:_____chrm_ver_index;________///<_chrm_ver_index
- * 
+ *
  * UINT8__shp_cmn_post[00]:_________edge_Y_filter_en;______///<_0xc800d4c8[31]___,_H
  * UINT8__shp_cmn_post[01]:_________e_gain_max;____________///<_0xc800d4e0[5:0]__,_H
  * UINT8__shp_cmn_post[02]:_________f_gain_max;____________///<_0xc800d4e0[13:8]_,_H
@@ -2139,7 +2138,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_cmn_post[20]:_________reg_g0_mul;____________///<_0xc800d628[12:8]_,_DJAG
  * UINT8__shp_cmn_post[21]:_________reg_g1_protect_min;____///<_0xc800d62c[7:0]__,_DJAG
  * UINT8__shp_cmn_post[22]:_________reg_g1_mul;____________///<_0xc800d62c[14:8]_,_DJAG
- * 
+ *
  * UINT8__shp_ui_main_post[00]:_____mp_white_gain;_________///<_0xc800d574[6:0]
  * UINT8__shp_ui_main_post[01]:_____mp_black_gain;_________///<_0xc800d574[14:8]
  * UINT8__shp_ui_main_post[02]:_____sp_white_gain;_________///<_0xc800d534[6:0]
@@ -2148,7 +2147,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ui_main_post[05]:_____sp_lap_h_mode;_________///<_0xc800d548[1:0]
  * UINT8__shp_ui_main_post[06]:_____mp_lap_v_mode;_________///<_0xc800d588[6:4]
  * UINT8__shp_ui_main_post[07]:_____sp_lap_v_mode;_________///<_0xc800d548[4]
- * 
+ *
  * UINT8__shp_ui_h_main_post[00]:___reg_csft_gain;_________///<_0xc800d4c4[13:8]
  * UINT8__shp_ui_h_main_post[01]:___edge_filter_white_gain;///<_0xc800d4c8[13:8]
  * UINT8__shp_ui_h_main_post[02]:___edge_filter_black_gain;///<_0xc800d4c8[21:16]
@@ -2159,7 +2158,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ui_h_main_post[07]:___e_gain_th2;____________///<_0xc800d4dc[15:8]
  * UINT8__shp_ui_h_main_post[08]:___f_gain_th1;____________///<_0xc800d4dc[23:16]
  * UINT8__shp_ui_h_main_post[09]:___f_gain_th2;____________///<_0xc800d4dc[31:24]
- * 
+ *
  * UINT8__shp_ui_v_main_post[00]:___bif_manual_th;_________///<_0xc800d4f0[15:8]
  * UINT8__shp_ui_v_main_post[01]:___csft_gain;_____________///<_0xc800d4f4[5:0]
  * UINT8__shp_ui_v_main_post[02]:___gain_b;________________///<_0xc800d4fc[6:0]
@@ -2169,7 +2168,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ui_v_main_post[06]:___sp_vertical_gain;______///<_0xc800d534[31:24]
  * UINT8__shp_ui_v_main_post[07]:___gain_th1;______________///<_0xc800d4f8[23:16]
  * UINT8__shp_ui_v_main_post[08]:___gain_th2;______________///<_0xc800d4f8[31:24]
- * 
+ *
  * UINT8__shp_map_cmn_post[00]:_____reg_cross_th_sc;_______///<_0xc800d5b0[23:16],_CMN
  * UINT8__shp_map_cmn_post[01]:_____reg_cross_th;__________///<_0xc800d5b0[31:24],_CMN
  * UINT8__shp_map_cmn_post[02]:_____reg_mul_base_t;________///<_0xc800d5d0[23:16],_CMN
@@ -2206,7 +2205,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_map_cmn_post[33]:_____reg_detail_minmax_y0;__///<_0xc800d5cc[7:0]__,_T_MAP
  * UINT8__shp_map_cmn_post[34]:_____reg_detail_minmax_x1;__///<_0xc800d5cc[31:24],_T_MAP
  * UINT8__shp_map_cmn_post[35]:_____reg_detail_minmax_y1;__///<_0xc800d5cc[23:16],_T_MAP
- * 
+ *
  * UINT8__shp_balance_post[00]:_____mp_gb_en;______________///<_0xc800d58c[0]____,_GAIN_MP
  * UINT8__shp_balance_post[01]:_____mp_db_mode;____________///<_0xc800d58c[4]____,_GAIN_MP
  * UINT8__shp_balance_post[02]:_____mp_db_x1;______________///<_0xc800d58c[15:8]_,_GAIN_MP
@@ -2249,17 +2248,17 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_balance_post[39]:_____sp_lum2_y0;____________///<_0xc800d55c[31:24],_LEVEL_OVER_SHOOT
  * UINT8__shp_balance_post[40]:_____sp_lum2_y1;____________///<_0xc800d560[7:0]__,_LEVEL_OVER_SHOOT
  * UINT8__shp_balance_post[41]:_____sp_lum2_y2;____________///<_0xc800d560[15:8]_,_LEVEL_OVER_SHOOT
- * 
+ *
  * UINT8__shp_ee_post[00]:__________mp_edge_gain_b;________///<_0xc800d5d4[6:0]
  * UINT8__shp_ee_post[01]:__________mp_edge_gain_w;________///<_0xc800d5d4[14:8]
  * UINT8__shp_ee_post[02]:__________sp_edge_gain_b;________///<_0xc800d514[6:0]
  * UINT8__shp_ee_post[03]:__________sp_edge_gain_w;________///<_0xc800d514[14:8]
- * 
+ *
  * UINT8__shp_de_post[00]:__________mp_texture_gain_b;_____///<_0xc800d5d4[22:16]
  * UINT8__shp_de_post[01]:__________mp_texture_gain_w;_____///<_0xc800d5d4[30:24]
  * UINT8__shp_de_post[02]:__________sp_texture_gain_b;_____///<_0xc800d514[22:16]
  * UINT8__shp_de_post[03]:__________sp_texture_gain_w;_____///<_0xc800d514[30:24]
- * 
+ *
  * UINT8__shp_ti_cmn_post[00]:______reg_pv_ti_enable;______///<_0xc800d600[0]__,_PTI_V
  * UINT8__shp_ti_cmn_post[01]:______reg_pv_mm_tap_size;____///<_0xc800d600[3:2],_PTI_V
  * UINT8__shp_ti_cmn_post[02]:______reg_pv_avg_tap_size;___///<_0xc800d600[5:4],_PTI_V
@@ -2269,13 +2268,13 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_ti_cmn_post[06]:______reg_s_ti_enable;_______///<_0xc800d608[0]__,_STI
  * UINT8__shp_ti_cmn_post[07]:______reg_s_mm_tap_size;_____///<_0xc800d608[3:2],_STI
  * UINT8__shp_ti_cmn_post[08]:______reg_s_avg_tap_size;_____///<_0xc800d608[5:4],_STI
- * 
+ *
  * UINT8__shp_ti_ui_main_post[00]:__reg_master_gain_pti_v;__///<_0xc800d600[15:8]
  * UINT8__shp_ti_ui_main_post[01]:__reg_master_gain_pti_h;_///<_0xc800d604[15:8]
  * UINT8__shp_ti_ui_main_post[02]:__reg_master_gain_sti;___///<_0xc800d608[15:8]
  * UINT8__shp_ti_ui_main_post[03]:__reg_edge_gain_sti;_____///<_0xc800d608[31:24]
  * UINT8__shp_ti_ui_main_post[04]:__reg_texture_gain_sti;___///<_0xc800d608[23:16]
- * 
+ *
  * UINT8__shp_cti_cmn_post[00]:_____cti_en;________________///<_0xc800d630[0]
  * UINT8__shp_cti_cmn_post[01]:_____coring_th0;____________///<_0xc800d634[7:0]
  * UINT8__shp_cti_cmn_post[02]:_____coring_th1;____________///<_0xc800d634[15:8]
@@ -2284,12 +2283,12 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_cti_cmn_post[05]:_____ycm_en1;_______________///<_0xc800d638[1]
  * UINT8__shp_cti_cmn_post[06]:_____ycm_band_sel;__________///<_0xc800d638[6:4]
  * UINT8__shp_cti_cmn_post[07]:_____ycm_diff_th;___________///<_0xc800d638[15:8]
- * 
+ *
  * UINT8__shp_cti_ui_main_post[00]:_cti_filter_tap_size;___///<_0xc800d630[6:4]
  * UINT8__shp_cti_ui_main_post[01]:_cti_gain;______________///<_0xc800d630[15:8]
  * UINT8__shp_cti_ui_main_post[02]:_ycm_y_gain;____________///<_0xc800d638[19:16]
  * UINT8__shp_cti_ui_main_post[03]:_ycm_c_gain;____________///<_0xc800d638[23:20]
- * 
+ *
  * UINT8__shp_tgen_cmn_post[00]:____tgen_on_off;____________///<_0xc800d6a0[0]
  * UINT8__shp_tgen_cmn_post[01]:____tgen_initial_seed_mode;_///<_0xc800d6a0[4]
  * UINT8__shp_tgen_cmn_post[02]:____tgen_table_sel;_________///<_0xc800d6a0[19:16]
@@ -2322,7 +2321,7 @@ CHIP_DNR_DB_M16P_T;
  * UINT8__shp_tgen_cmn_post[29]:____tg_gain5;_______________///<_0xc800d6c4[11:8]
  * UINT8__shp_tgen_cmn_post[30]:____tg_gain6;_______________///<_0xc800d6c4[7:4]
  * UINT8__shp_tgen_cmn_post[31]:____tg_gain7;_______________///<_0xc800d6c4[3:0]
- * 
+ *
  * UINT8__shp_tgen_ui_main_post[00]:tg_map_edge_gain;_______///<_0xc800d6c0[4:0]
  * UINT8__shp_tgen_ui_main_post[01]:tg_map_detail_gain;_____///<_0xc800d6c0[12:8]
  * UINT8__shp_tgen_ui_main_post[02]:tg_map_offset;__________///<_0xc800d6c0[23:16]
@@ -2736,7 +2735,7 @@ CHIP_SR_DB_M16_T;
 /* M16P ** **********************************************************/
 
 /**
- *	CHIP_SR_DB_M16P_T for HAL_VPQ_SetSuperResolution
+ *	CHIP_SUPER_RESOLUTION_T for HAL_VPQ_SetSuperResolution
  */
 typedef struct
 {
@@ -2748,7 +2747,7 @@ typedef struct
 	UINT8  reg_ltv_mul;						///<reg_ltv_mul         0xc900d0a8[15:8]
 	UINT8  reg_ltv_offset;					///<reg_ltv_offset      0xc900d0a8[7:0]
 }
-CHIP_SR_DB_M16P_T;
+CHIP_SUPER_RESOLUTION_T;
 /*
 * CHIP_SHP_DB_M16P_T
 Shp Cmn,**********************************************
@@ -2894,7 +2893,7 @@ typedef struct
 	UINT8  shp_motion_post[9];       	///< shp_motion_post[9];
 	UINT8  shp_chroma_post[5];    		///< shp_chroma_post[5];
 }
-CHIP_SHP_DB_M16P_T;
+CHIP_SHARPNESS_T;
 
 /**
  *	CHIP_SHP_EE_DB_M16P_T for HAL_VPQ_SetEdgeEnhance
@@ -2904,7 +2903,7 @@ typedef struct
 	UINT8  shp_ee_pre[10];               ///< shp_ee_pre[10];
 	UINT8  shp_ee_post[8];              ///< shp_ee_post[8];
 }
-CHIP_SHP_EE_DB_M16P_T;
+CHIP_EDGE_ENHANCE_T;
 
 
 /**
@@ -2928,6 +2927,72 @@ typedef struct
 CHIP_PSP_DB_M16P_T;
 
 
+/**
+ *	structure for HAL_VPQ_LED_LDSetDBLUT
+ */
+
+typedef struct
+{
+	UINT32 *pu32Ptr;
+	UINT32 u32Size;
+} HAL_LED_LUT_INFO;
+
+typedef struct
+{
+	HAL_LED_LUT_INFO uiOff;
+    HAL_LED_LUT_INFO uiLow;
+    HAL_LED_LUT_INFO uiMedium;
+    HAL_LED_LUT_INFO uiHigh;
+    HAL_LED_LUT_INFO uiHdrLow;
+    HAL_LED_LUT_INFO uiHdrMedium;
+    HAL_LED_LUT_INFO uiHdrHigh;
+} HAL_LED_UI_LUT_INFO_T;
+} HAL_LED_UI_LUT_INFO_T;
+
+typedef struct
+{
+	HAL_LED_LUT_INFO sbiHCoef;
+	HAL_LED_LUT_INFO sbiVCoef;
+	HAL_LED_LUT_INFO lres1TabCoef;
+	HAL_LED_LUT_INFO lres5TabCoef;
+} HAL_LED_DB_LIGHT_PROFILE_LUT_T;
+
+typedef struct
+{
+	HAL_LED_UI_LUT_INFO_T upperCurve;
+	HAL_LED_UI_LUT_INFO_T lowerCurve;
+} HAL_LED_DB_DIMMING_CURVE_LUT_T;
+
+/**
+ * LED LUT DB
+ */
+typedef struct
+{
+	UINT32 u32LutVersion;
+	HAL_LED_LUT_INFO pq_common_lut;
+	HAL_LED_LUT_INFO module_lut;
+	HAL_LED_LUT_INFO unsharpMask_lut;
+	HAL_LED_DB_LIGHT_PROFILE_LUT_T lightProfile_lut;
+	HAL_LED_DB_DIMMING_CURVE_LUT_T dimmingCurve_lut;
+	HAL_LED_UI_LUT_INFO_T pqUi_lut;
+	HAL_LED_UI_LUT_INFO_T pixelCompensation_lut;
+} HAL_LED_DB_LUT_T;
+
+/**
+*	Set Gamut 
+*/
+typedef struct CHIP_GAMUT
+{
+	float gamutmatrix_00;
+	float gamutmatrix_01;
+	float gamutmatrix_02;
+	float gamutmatrix_03;
+	float gamutmatrix_04;
+	float gamutmatrix_05;
+	float gamutmatrix_06;
+	float gamutmatrix_07;
+	float gamutmatrix_08;
+} CHIP_GAMUT_T;
 
 
 /******************************************************************/
