@@ -28,13 +28,6 @@
 #include "pvr_common.h"
 
 /*#include "common.h"*/
-#if 0
-#include "osa_api.h"
-
-#include "dil_sdec.h"
-#include "dil_vdec.h"
-#include "hal_adec.h"
-#endif
 
 #ifdef __cplusplus
 extern "C"
@@ -73,12 +66,6 @@ DTV_STATUS_T HAL_PVR_InitThumbnail(void);
 
 DTV_STATUS_T HAL_PVR_SetTimeStampMode(PVR_TIMESTAMP_T timeStampMode);
 
-#if 0
-DTV_STATUS_T HAL_PVR_InitDownloadDevice(PVR_DOWN_CH_T ch);
-
-DTV_STATUS_T HAL_PVR_DeInitDownloadDevice(PVR_DOWN_CH_T ch);
-#endif
-
 
 /************************************/
 /* Download(recording) related APIs */
@@ -111,13 +98,6 @@ DTV_STATUS_T HAL_PVR_ReturnDownloadBuffer(PVR_DOWN_CH_T ch, UINT8 *streamRdPtr, 
 /********************************/
 /* Upload(playing) related APIs */
 /********************************/
-
-#if 0
-DTV_STATUS_T HAL_PVR_InitUploadDevice(PVR_DOWN_CH_T ch);
-
-DTV_STATUS_T HAL_PVR_DeInitUploadDevice(PVR_DOWN_CH_T ch);
-#endif
-
 DTV_STATUS_T HAL_PVR_OpenUploadDevice(PVR_UP_CH_T ch);
 
 DTV_STATUS_T HAL_PVR_CloseUploadDevice(PVR_DOWN_CH_T ch);
@@ -136,10 +116,7 @@ DTV_STATUS_T HAL_PVR_PushUploadBuffer(PVR_UP_CH_T ch, UINT8 *pPushBuffer, UINT32
 
 DTV_STATUS_T HAL_PVR_SetUploadSpeed(PVR_UP_CH_T ch, SINT16 speed);
 
-DTV_STATUS_T HAL_PVR_GetUploadBufferOccupiedSize(PVR_UP_CH_T ch, UINT32 *pOccupiedSize);
-
-
-
+DTV_STATUS_T HAL_PVR_GetUploadBufferOccupiedSize(PVR_UP_CH_T ch,UINT32 *pOccupiedSize);
 /***************************/
 /* Encryption related APIs */
 /***************************/
@@ -168,17 +145,16 @@ DTV_STATUS_T HAL_PVR_THUMBNAIL_ExtractJPEGThumnail(PVR_PID_INFO_T pidInfo, UINT8
 DTV_STATUS_T HAL_PVR_THUMBNAIL_ExtractJPEGThumbnail(PVR_PID_INFO_T pidInfo, UINT8 *pBuffer, UINT32 size, PVR_THUMBNAIL_T *pThumData, UINT32 timeout);
 
 
+BOOLEAN HAL_PVR_IsUploading(PVR_UP_CH_T upChId);
+BOOLEAN HAL_PVR_IsDownloading(PVR_DOWN_CH_T dnChId);
 
+DTV_STATUS_T HAL_PVR_SetSDECDownloadCh(PVR_DOWN_CH_T downChId, PVR_SDEC_CH_T sdecChId);
+DTV_STATUS_T HAL_PVR_SetSDECUploadCh(PVR_UP_CH_T upChId, PVR_SDEC_CH_T sdecChId);
 
-/*----------------------------------------------------------------------------------------
-  Extern Variables
-----------------------------------------------------------------------------------------*/
-
-
+void HAL_PVR_DEBUG_Menu(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
-
+#endif /* _HAL_PVR_H_ */

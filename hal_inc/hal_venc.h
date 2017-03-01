@@ -11,7 +11,7 @@
  *
  * @{
  */
- 
+
 /** @file hal_venc.h
  *
  *  Video Encoder HAL function header file.
@@ -20,12 +20,12 @@
  *	@author		Jaeseop So (jaeseop.so@lge.com)
  *  @version	1.0
  *  @date		2013.03.13
- *  @see		
+ *  @see
  */
 
 /*! \mainpage HAL VENC APIs
  * \section recodring_sec Recoding APIs
- * 
+ *
  * VENC supports Recoding APIs for DVR feature.
  *
  * \section codecapi_sec Codec APIs
@@ -40,14 +40,14 @@
 /******************************************************************************
  #include files (File Inclusions)
 ******************************************************************************/
-	
+
 //#include <osa_api.h>
 #ifndef WIN32_SIM // Modified by dilly97: fix include
 #include "hal_common.h"
 #else
 #include "common_win32.h"
 #endif
-  
+
 #ifdef __cplusplus
     extern "C"
     {
@@ -108,7 +108,7 @@ typedef enum
 	VENC_FRAMERATE_25P,	//25Hz progressive (reserved not used)
 	VENC_FRAMERATE_25I,	//25Hz interlaced (reserved not used)
 	VENC_FRAMERATE_24P,	//24Hz progressive (reserved not used)
-	VENC_FRAMERATE_24I,	//24Hz interlaced (reserved not used) 
+	VENC_FRAMERATE_24I,	//24Hz interlaced (reserved not used)
 	VENC_FRAMERATE_INVALID
 }VENC_FRAMERATE_T;
 
@@ -160,101 +160,18 @@ typedef enum {
 	VENC_INFO_RATECONTROL,
 	VENC_INFO_GOPLENGTH,
 	VENC_INFO_QP,
+	VENC_INFO_SOURCE,
 	VENC_INFO_NUM
 }VENC_INFO_T;
 
-/*!@defgroup venc_codec_api	Encoder Codec API
- * @ingroup venc
- * 
- * @{
- */
 
-/*!@brief Types of YUV Picture for initialization
- */
 typedef enum {
-	/*!@brief YUV 420 Planar
-	 *
-	 * YYYY... UUUU... VVVV... 
-	 */
-    VENC_YUV_FORMAT_YUV420_PLANAR = 0,
-	/*!@brief YUV 420 Semiplanar
-	 *
-	 * YYYY... UVUVUV...
-	 *
-	 */    
-    VENC_YUV_FORMAT_YUV420_SEMIPLANAR,
-    /*!@brief YUV 420 Semiplanar VU
-     *
-	 * YYYY... VUVUVU...
-	 *
-	 */
-    VENC_YUV_FORMAT_YUV420_SEMIPLANAR_VU,    
-    /*!@brief YUV 422 Interleaved YUYV
-	 *
-	 * YUYVYUYV...
-	 *
-	 */
-    VENC_YUV_FORMAT_YUV422_INTERLEAVED_YUYV, 
-    /*!@brief YUV 422 Interleaved UYVY
-	 *
-	 * UYVYUYVY...
-	 *
-	 */
-    VENC_YUV_FORMAT_YUV422_INTERLEAVED_UYVY, 
-    VENC_YUV_FORMAT_LEN
-} VENC_YUV_FORMAT_T;
+    VENC_SOURCE_ATV = 0,
+    VENC_SOURCE_AV,
+    VENC_SOURCE_SCARTIN,
+    VENC_SOURCE_NUM
+} VENC_SOURCE_T;
 
-/*!@brief YUV Component types
- */
-typedef enum {
-    VENC_PLANE_Y = 0,
-    VENC_PLANE_U,
-    VENC_PLANE_V,
-    VENC_PLANE_TYPE_LEN
-} VENC_PLANE_TYPE_T;
-
-/*!@brief Codec API configuration structure
- *
- */
-typedef struct {
-	VENC_YUV_FORMAT_T	inputFormat;	/**< input yuv format */
-	VENC_CODEC_T		codecType;		/**< codec type */
-
-	int 				width;			/**< input width */
-	int 				height;			/**< input height */
-	int 				bitrate;		/**< target bitrate */
-	int 				framerate;		/**< framerate */
-	int 				gopLength;		/**< gop length */
-} VENC_CODEC_CONFIG_T;
-
-/*!@brief Raw image structure
- */
-typedef struct {
-    VENC_YUV_FORMAT_T   format;
-    UINT32              width;
-    UINT32              height;
-    UINT8 *             planes[VENC_PLANE_TYPE_LEN];
-    UINT32              planes_len[VENC_PLANE_TYPE_LEN];
-    UINT8               stride[VENC_PLANE_TYPE_LEN];
-} VENC_RAW_IMAGE_T;
-
-/*!@brief Coded frame structure
- */
-typedef struct {
-    UINT8 *             data;
-    int                 size;
-} VENC_CX_FRAME_T;
-
-/*!@brief Encoded frame flags
- */
-typedef UINT32			VENC_CODEC_FRAME_FLAGS_T;
-
-/*!@brief Type definition for codec api
- */
-typedef const void *	VENC_CODEC_INST_T;
-
-/*! @} - end defgroup venc_codec_api */
- 
 /**
  * VENC Open for recoding
  *
@@ -321,7 +238,7 @@ DTV_STATUS_T	HAL_VENC_SetParam(UINT8 port, VENC_INFO_T info, SINT32 value);
  * VENC Get infomation
  *
  * @param[in]	port		port of video encoder(reserved)
- * @param[in]	info		Type of info to set 
+ * @param[in]	info		Type of info to set
  * @param[in] 	pValue		Pointer to set result value
  * @return  DTV_STATUS_T
  * @retval	OK
@@ -341,13 +258,13 @@ DTV_STATUS_T	HAL_VENC_GetParam(UINT8 port, VENC_INFO_T info, void *pValue);
 DTV_STATUS_T	HAL_VENC_RegisterEncoderCallback(UINT8 port, pfnVENCDataHandlingCB pfnCallBack);
 
 /**
- * Release Encoded Data buffer
+ * Copy Encoded Data to Destination
  *
  * @param[in]	port		port of video encoder(reserved)
  * @param[in]	pDest		Destination to Copy Data
  * @param[in]	pBufAddr	Encoded data start point
  * @param[in]	datasize	Encoded data length
- * @param[in]	pRStart		Start point of RingBuffer 
+ * @param[in]	pRStart		Start point of RingBuffer
  * @param[in]	pREnd		End point of RingBuffer
  * @return  DTV_STATUS_T
  * @retval	OK
@@ -380,69 +297,7 @@ DTV_STATUS_T	HAL_VENC_ReleaseData(UINT8 port, UINT8 *pBufAddr,UINT32 datasize);
  */
 DTV_STATUS_T	HAL_VENC_GetThumbnail(UINT8 port, UINT32 width, UINT32 height, UINT8 *pBufAddr, UINT32 datasize);
 
-/*!@defgroup venc_codec_api	Encoder Codec API
- * @ingroup venc
- * 
- * @{
- */
- 
-/*!@brief Create an encoder instance
- *
- * @param[in]	config		Configuration codec api
- * @param[out]	pInst		where to save the created instance
- * @return  DTV_STATUS_T
- * @retval #OK
- *		The encoder instance initialized.
- * @retval #NOT_OK
- *		A parameter was NULL, of Instance creation failed.
- * @retval #NOT_ENOUGH_RESOURCE
- *		The encoder resource was not available.
- */
-DTV_STATUS_T	HAL_VENC_CODEC_Create(VENC_CODEC_CONFIG_T *config, VENC_CODEC_INST_T *pInst);
-
-/*!@brief Destroy an encoder instance
- *
- * @param[in]	inst		the instance to be destroyed
- * @return  DTV_STATUS_T
- * @retval #OK
- *		The encoder was destory successfully.
- * @retval #NOT_OK
- *		Destruction was failed.
- * @retval #INVALID_PARAMS
- *		A parameter was NULL.
- */
-DTV_STATUS_T	HAL_VENC_CODEC_Destroy(VENC_CODEC_INST_T inst);
-
-/*!@brief Destroy an encoder instance
- *
- * @param[in]	inst		the instance to be used
- * @param[in]	raw			Pointer of yuv raw image
- * @param[out]	frame		Pointer of encoded frame data struct
- * @param[in]	flags		RESERVED for encoding flags
- * @return  DTV_STATUS_T
- * @retval #OK
- *		The encoder was encode was successfully.
- * @retval #NOT_OK
- *		The encoding was failed.
- * @retval #INVALID_PARAMS
- *		A parameter was NULL. the image format is unsupported, etc.
- */
-DTV_STATUS_T	HAL_VENC_CODEC_Encode(VENC_CODEC_INST_T inst, const VENC_RAW_IMAGE_T *raw, VENC_CX_FRAME_T *frame, const VENC_CODEC_FRAME_FLAGS_T flags);
-
-/*!@brief Release encoded data.
- *
- * @param[in]	frame		The encoded frame data to be released
- * @return  DTV_STATUS_T
- * @retval #OK
- *		The data was release successfully
- * @retval #INVALID_PARAMS
- *		A parameter was NULL.
- */
-DTV_STATUS_T	HAL_VENC_CODEC_ReleaseFrameData(VENC_CX_FRAME_T *frame);
-
-/*! @} - end defgroup venc_codec_api */
-
-/*! @} - end defgroup venc */
+void HAL_VENC_DEBUG_Menu(void);
 
 #ifdef	__cplusplus
 }

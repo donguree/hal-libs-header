@@ -49,6 +49,10 @@
 	형 정의 (Type Definitions)
 ******************************************************************************/
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
 * CIPLUS_DATARATE_T
 *
@@ -112,14 +116,43 @@ typedef enum
 	CI_ERROR_CHECK_MODE_MAX
 } CI_ERROR_CHECK_MODE_T;
 
+/**
+* CI_CH_T
+*
+* @see
+*/
+typedef enum
+{
+    CIPLUS_CI_CH_0 = 0x0,
+    CIPLUS_CI_CH_1 = 0x1,
+    CIPLUS_CI_CH_2 = 0x2,
+	CIPLUS_CI_CH_3 = 0x3,
+	CIPLUS_CI_CH_MAX
+} CIPLUS_CI_CH_T;
+
+
+
+/**
+* CIPLUS_EVENT_HANDLER_INFO_T
+*
+* @see
+*/
+typedef void (*PFN_CIPLUS_EVENT_CB) (UINT16 *pValue) ;
+typedef struct CIPLUS_EVENT_HANDLER_INFO {
+    CIPLUS_CI_CH_T  muxInputCh;
+    UINT16 underflowThreshold;
+    UINT16 overflowThreshold;
+    PFN_CIPLUS_EVENT_CB			pfnUnderflowHandler;
+    PFN_CIPLUS_EVENT_CB			pfnOverflowHandler;
+} CIPLUS_EVENT_HANDLER_INFO_T;
 /******************************************************************************
 	함수 선언 (Function Declaration)
 ******************************************************************************/
 DTV_STATUS_T HAL_CI_Init(SINT32 *pDeviceHandle);
+DTV_STATUS_T HAL_CI_Close(SINT32 *pDeviceHandle);
 DTV_STATUS_T HAL_CI_Open(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_Connect(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_Disconnect(SINT32 deviceHandle);
-DTV_STATUS_T HAL_CI_Close(SINT32 *pDeviceHandle);
 UINT8 HAL_CI_DetectCard(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_Reset(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_CheckCIS(SINT32 deviceHandle);
@@ -280,16 +313,51 @@ void HAL_CI_PLUS_SetCipherKeyByPID( UINT8 scrammode, UINT8 keyregister, UINT8 ty
 UINT32 HAL_CI_PLUS_ReadVersion( SINT32 deviceHandle );
 UINT32 HAL_CI_PLUS_ReadCiprof( SINT32 deviceHandle );
 
-DTV_STATUS_T  HAL_CI_PLUS_SetCryptographyByChannel( SINT32 deviceHandle, CIPLUS_DECRYPT_KEY_DST_T eSdecCh, CIPLUS_CRYPTOGRAPHY_T eCryptography );
+DTV_STATUS_T  HAL_CI_PLUS_SetCryptographyByChannel( SINT32 deviceHandle, CIPLUS_DECRYPT_KEY_DST_T eDecryptKeyDst, CIPLUS_CRYPTOGRAPHY_T eCryptography );
 DTV_STATUS_T HAL_CI_PLUS_SetCipherKeysByChannel( SINT32 deviceHandle,
-					   CIPLUS_DECRYPT_KEY_DST_T	eSdecCh,
+					   CIPLUS_DECRYPT_KEY_DST_T eDecryptKeyDst,
 					   CIPLUS_CRYPTOGRAPHY_T eCryptography,
 					   CIPLUS_CIPHER_KEY_T eKey,
 					   UINT32* pu32CipherKeys );
 
 DTV_STATUS_T HAL_CI_SetErrorCheckMode(SINT32 deviceHandle, CI_ERROR_CHECK_MODE_T errCheckMode);
 DTV_STATUS_T HAL_CI_GetErrorCheckMode(SINT32 deviceHandle, CI_ERROR_CHECK_MODE_T *perrCheckMode);
+UINT32 HAL_CI_SetPCMCIASpeed(SINT32 deviceHandle, UINT8 pcmcia_speed);
+void HAL_CI_DebugMenu(void);
 
+//-------------------------------
+// ci plus 1.4
+//-------------------------------
+DTV_STATUS_T HAL_CI_PLUS14_GetCICAMInOutBitRate(UINT32 *pMuxOutputBps, UINT32 *pDeMuxInputBps);
+
+DTV_STATUS_T HAL_CI_PLUS14_RegisterUploadEventHandler(CIPLUS_EVENT_HANDLER_INFO_T *pEventHandle);
+DTV_STATUS_T HAL_CI_PLUS14_RegisterDownloadEventHandler(CIPLUS_EVENT_HANDLER_INFO_T *pEventHandle);
+
+DTV_STATUS_T HAL_CI_PLUS14_SetCIPLUS14Config(SDEC_INPUT_PORT_T dtvStreamInputSrc, CIPLUS_CI_CH_T ciMuxInputCh, SDEC_CHANNEL_T sdecInputCh);
+DTV_STATUS_T HAL_CI_PLUS14_SetDownloadMode(CIPLUS_CI_CH_T ciDeMuxOutputCh, BOOLEAN bSample);
+
+DTV_STATUS_T HAL_CI_PLUS14_ResetUploadBuf(CIPLUS_CI_CH_T ciMuxInputCh);
+DTV_STATUS_T HAL_CI_PLUS14_StartSendingDataToMuxInput(CIPLUS_CI_CH_T ciMuxInputCh);
+DTV_STATUS_T HAL_CI_PLUS14_GetUploadBufInfo(CIPLUS_CI_CH_T ciMuxInputCh, UINT8 **ppStartingAddrOfUpBuf, UINT32 *pTotalSizeOfUpBuf);
+int HAL_CI_PLUS14_GetUploadBuf(CIPLUS_CI_CH_T ciMuxInputCh, UINT8 **ppPushStartingAddr, UINT32 *pMaxPushSize);
+int HAL_CI_PLUS14_PushUploadBuf(CIPLUS_CI_CH_T ciMuxInputCh, UINT8 *pPushStartingAddr, UINT32 pushedSize);
+DTV_STATUS_T HAL_CI_PLUS14_StopSendingDataToMuxInput(CIPLUS_CI_CH_T ciMuxInputCh);
+
+DTV_STATUS_T HAL_CI_PLUS14_ResetDownloadBuf(CIPLUS_CI_CH_T ciDeMuxOutputCh);
+DTV_STATUS_T HAL_CI_PLUS14_StartReceivingDataFromDeMuxOutput(CIPLUS_CI_CH_T ciDeMuxOutputCh);
+DTV_STATUS_T HAL_CI_PLUS14_GetDownloadBufInfo(CIPLUS_CI_CH_T ciDeMuxOutputCh, UINT8 **ppStartingAddrOfDownBuf, UINT32 *pTotalSizeOfDownBuf);
+int HAL_CI_PLUS14_GetDownloadBuf(CIPLUS_CI_CH_T ciDeMuxOutputCh, UINT8 **ppReadStartingAddr, UINT8 **ppNextWriteStartingAddr);
+int HAL_CI_PLUS14_ReturnDownloadBuf(CIPLUS_CI_CH_T ciDeMuxOutputCh, UINT8 *pReadFinishingAddr, UINT8 *pNextWriteStartingAddr);
+DTV_STATUS_T HAL_CI_PLUS14_StopReceivingDataFromDeMuxOutput(CIPLUS_CI_CH_T ciDeMuxOutputCh);
+
+DTV_STATUS_T HAL_CI_PLUS14_AddPIDsOnPIDFilter(CIPLUS_CI_CH_T ciMuxInputCh, UINT8 numOfPIDs, UINT16* pPIDs);
+DTV_STATUS_T HAL_CI_PLUS14_RemovePIDsFromPIDFilter(CIPLUS_CI_CH_T ciMuxInputCh, UINT8 numOfPids, UINT16* pPIDs);
+DTV_STATUS_T HAL_CI_PLUS14_RemoveAllPIDsFromPIDFilter(CIPLUS_CI_CH_T ciMuxInputCh);
+DTV_STATUS_T HAL_CI_PLUS14_GetAllPIDsFromPIDFilter(CIPLUS_CI_CH_T ciMuxInputCh, UINT16 *pNumOfPids, UINT16** ppPids);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /*_CI_HAL_H_ */
-
