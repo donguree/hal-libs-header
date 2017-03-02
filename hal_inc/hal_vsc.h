@@ -110,7 +110,7 @@ typedef enum VSC_INPUT_TYPE
 	VSC_INPUTSRC_HDMI,
 	VSC_INPUTSRC_VDEC,
 	VSC_INPUTSRC_JPEG,
-	VSC_INPUTSRC_MAX = VSC_INPUTSRC_JPEG,
+        VSC_INPUTSRC_MAX = VSC_INPUTSRC_JPEG,
 	VSC_INPUTSRC_MAXN,
 } VSC_INPUT_TYPE_T;
 
@@ -135,6 +135,13 @@ typedef enum VSC_OUTPUT_MODE
 	VSC_OUTPUT_MAX = VSC_OUTPUT_AVE_MODE,
 	VSC_OUTPUT_MAXN,
 } VSC_OUTPUT_MODE_T;
+
+typedef enum
+{
+        VSC_VIDEO_COLOR_OFF,
+        VSC_VIDEO_COLOR_WHITE,
+}VSC_VIDEO_COLOR_TYPE_T;
+
 /**
  * Color of Video Window.
  *
@@ -208,86 +215,28 @@ typedef struct
 }VIDEO_DDI_CAPTURE_INFO_T;
 
 /**
- * 3D Video Full Timing Information.
+ * HDR Mode Information.
  *
  * @see DDI Implementation Guide
-*/
-/*  have to refer timing info, doesn't refer 3D tag or header info */
-typedef enum
-{
-	/*     아래 enum value는 관리 안함.  */
-	VIDEO_DDI_3D_FORMAT_2D,					/**< for No 3D (OFF)..... INPUT_TYPE_2DTO3D */
+ */
+typedef enum {
+        VSC_HDR_HDR10,
+        VSC_HDR_DOLBY,
+        VSC_HDR_VP9,
+        VSC_HDR_HLG,
+        VSC_HDR_MAX = VSC_HDR_HLG,
+        VSC_HDR_MAXN,
+}VSC_HDR_TYPE_T;
 
-	/*      From UI, 3D ON이면서 아래 Format이 넘어오면 일반 3D ON이 됨.    */
-	//interim format - half
-	VIDEO_DDI_3D_FORMAT_TOP_BOTTOM,			/**< for T/B, S/S, Checker, Frame Seq...INPUT_TYPE_TOPNBOTTOM*/
-	VIDEO_DDI_3D_FORMAT_SIDEBYSIDE_HALF,	/**< for T/B, S/S, Checker, Frame Seq...INPUT_TYPE_SIDEBYSIDE*/
-	VIDEO_DDI_3D_FORMAT_CHECKER_BOARD,		/**< for T/B, S/S, Checker, Frame Seq...INPUT_TYPE_CHECKERBOARD*/
-	VIDEO_DDI_3D_FORMAT_FRAME_SEQ,			/**< for T/B, S/S, Checker, Frame Seq...INPUT_TYPE_FRAMESEQ*/
-	VIDEO_DDI_3D_FORMAT_COLUMN_INTERLEAVE,	/**< for H.264*/
-	VIDEO_DDI_3D_FORMAT_LINE_INTERLEAVE_HALF,	/**< for H.264*/
-
-	//Full format
-	VIDEO_DDI_3D_FORMAT_FRAME_PACKING,			/**< Full format*/
-	VIDEO_DDI_3D_FORMAT_FIELD_ALTERNATIVE,		/**< Full format*/
-	VIDEO_DDI_3D_FORMAT_LINE_ALTERNATIVE,		/**< Full format (row interleave)*/
-	VIDEO_DDI_3D_FORMAT_SIDEBYSIDE_FULL,		/**< Full format*/
-	VIDEO_DDI_3D_FORMAT_DUALSTREAM,		/**< Full format*/
-	/*    From UI, 3D ON이면서 아래 Format이 넘어오면 2D to 3D 가 됨    */
-	VIDEO_DDI_3D_FORMAT_2DTO3D,					/**< for2D TO  3D..... INPUT_TYPE_2DTO3D */
-	VIDEO_DDI_3D_FORMAT_MAX,
-}VIDEO_DDI_3D_FORMAT_TYPE_T;
-
-/**
- * 3D Video Full Timing Information.
+/*
+ * HDR Mode Current Information
  *
  * @see DDI Implementation Guide
-*/
-/*  have to refer timing info, doesn't refer 3D tag or header info */
-typedef enum
-{
-	/*     아래 enum value는 관리 안함.  */
-//	VIDEO_DDI_3D_PATTERN_2D			        = BIT0 << VIDEO_DDI_3D_FORMAT_2D                ,
-
-	/*      From UI, 3D ON이면서 아래 Format이 넘어오면 일반 3D ON이 됨.    */
-	//interim format - half
-	VIDEO_DDI_3D_PATTERN_TOP_BOTTOM         = BIT0 << VIDEO_DDI_3D_FORMAT_TOP_BOTTOM        ,
-	VIDEO_DDI_3D_PATTERN_SIDEBYSIDE_HALF    = BIT0 << VIDEO_DDI_3D_FORMAT_SIDEBYSIDE_HALF   ,
-	VIDEO_DDI_3D_PATTERN_CHECKER_BOARD      = BIT0 << VIDEO_DDI_3D_FORMAT_CHECKER_BOARD     ,
-	VIDEO_DDI_3D_PATTERN_FRAME_SEQ          = BIT0 << VIDEO_DDI_3D_FORMAT_FRAME_SEQ         ,
-	VIDEO_DDI_3D_PATTERN_COLUMN_INTERLEAVE  = BIT0 << VIDEO_DDI_3D_FORMAT_COLUMN_INTERLEAVE ,
-	VIDEO_DDI_3D_PATTERN_LINE_INTERLEAVE_HALF	= BIT0 << VIDEO_DDI_3D_FORMAT_LINE_INTERLEAVE_HALF ,
-
-	//Full format
-	VIDEO_DDI_3D_PATTERN_FRAME_PACKING       = BIT0 << VIDEO_DDI_3D_FORMAT_FRAME_PACKING     ,
-	VIDEO_DDI_3D_PATTERN_FIELD_ALTERNATIVE   = BIT0 << VIDEO_DDI_3D_FORMAT_FIELD_ALTERNATIVE ,
-	VIDEO_DDI_3D_PATTERN_LINE_ALTERNATIVE    = BIT0 << VIDEO_DDI_3D_FORMAT_LINE_ALTERNATIVE  ,
-	VIDEO_DDI_3D_PATTERN_SIDEBYSIDE_FULL     = BIT0 << VIDEO_DDI_3D_FORMAT_SIDEBYSIDE_FULL   ,
-	VIDEO_DDI_3D_PATTERN_DUALSTREAM          = BIT0 << VIDEO_DDI_3D_FORMAT_DUALSTREAM        ,
-
-}VIDEO_DDI_3D_PATTERN_TYPE_T;
-
-/**
- * 3D L/R selection
- * .
-*/
-typedef enum
-{
-	VIDEO_DDI_3D_LR,	//Driver와 일치.
-	VIDEO_DDI_3D_RL,
-}VIDEO_DDI_3D_LR_TYPE_T;
-
-/**
- * 3D Dual Mode Information.
- *
- * @see DDI Implementation Guide
-*/
-typedef enum
-{
-	VIDEO_DDI_DUAL_2D,			/**< for No Dual (OFF) */
-	VIDEO_DDI_DUAL_TOP_BOTTOM,	/**< for T/B Dual Mode */
-	VIDEO_DDI_DUAL_SIDEBYSIDE,	/**< for S/S Dual Mode */
-}VIDEO_DDI_DUAL_TYPE_T;
+ */
+typedef struct {
+        VIDEO_WID_T ewinId;
+        VSC_HDR_TYPE_T eHdrMode;
+}VSC_HDR_INFO_T;
 
 /**
  * Video Timing Information.
@@ -309,9 +258,6 @@ typedef struct
 	UINT8  mode;	    /**< update by LG */
 //	VFE_AVD_AVDECODER_VIDEO_MODE_T  standard;	/**< for color standard*/ // 2012.10.31 yongsu.yoo change this for Late-return of analog color system
 	UINT8  vdLock;	/**< for ATV */
-	/* 3D restructuring by seongcheoll.kim 2011.07.01 */
-	VIDEO_DDI_3D_FORMAT_TYPE_T full_3d_timing;
-	VIDEO_DDI_3D_LR_TYPE_T	video_LR_order;
 } VIDEO_TIMING_INFO_T;
 
 #if 1
@@ -558,19 +504,20 @@ typedef struct {
 #endif
 
 typedef enum {
-	VIDEO_SEAMLESS_OFF,
-	VIDEO_SEAMLESS_AUTO,      ///< Neflix
-	VIDEO_SEAMLESS_EXTERNAL,  ///< BBC
-	VIDEO_SEAMLESS_INTERNAL,  ///< Amazon
-	VIDEO_SEAMLESS_MAX
-} VIDEO_SEAMLESS_MODE_T;
-
-typedef enum {
 	VSC_SUB_MODE_PIP,
 	VSC_SUB_MODE_PBP,
 	VSC_SUB_MODE_MAX = VSC_SUB_MODE_PBP,
 	VSC_SUB_MODE_MAXN
 } VSC_SUB_MODE_T;
+
+typedef enum VSC_SUB_PURPOSE
+{
+   VSC_SUB_PURPOSE_NONE =0,      // in case PBP enter/exit or PIP(live zoom or magnifier) exit.
+   VSC_SUB_PURPOSE_LIVE_ZOOM, // in case live zoom enter
+   VSC_SUB_PURPOSE_MAGNIFIER, // in case magnifier enter
+   VSC_SUB_PURPOSE_MAX = VSC_SUB_PURPOSE_MAGNIFIER,
+   VSC_SUB_PURPOSE_MAXN
+} VSC_SUB_PURPOSE_T;
 
 typedef enum {
 	VSC_MGF_TYPE_CIRCLE = 0,
@@ -584,12 +531,6 @@ typedef struct
 	UINT8 uZorder; // 0: bottom, 1: bottom+1,..
 	UINT8 uAlpha; // 0 ~ 255
 } VSC_ZORDER_T;
-
-typedef enum
-{
-	VSC_VIDEO_COLOR_OFF = 0,
-	VSC_VIDEO_COLOR_WHITE
-} VSC_VIDEO_COLOR_TYPE_T;
 
 typedef struct VSC_ACTIVE_VIDEO_WINDOW {
     VIDEO_RECT_T original;
@@ -612,9 +553,11 @@ DTV_STATUS_T	HAL_VSC_Disconnect(VIDEO_WID_T wId, VSC_INPUT_SRC_INFO_T vscInput, 
 DTV_STATUS_T	HAL_VSC_SetWinBlank(VIDEO_WID_T wId, BOOLEAN bOnOff, VIDEO_DDI_WIN_COLOR_T color);
 DTV_STATUS_T	HAL_VSC_GetInputRegion(VIDEO_WID_T wId, VIDEO_RECT_T *pInRegion);
 DTV_STATUS_T	HAL_VSC_SetInputRegion(VIDEO_WID_T wId, VIDEO_RECT_T inRegion);
+DTV_STATUS_T    HAL_VSC_SetInputRegion_ForAdaptive(VIDEO_WID_T wId, VIDEO_RECT_T inRegion);
 DTV_STATUS_T	HAL_VSC_GetOutputRegion(VIDEO_WID_T wId, VIDEO_RECT_T *pOutRegion);
 DTV_STATUS_T	HAL_VSC_SetOutputRegion(VIDEO_WID_T wId, VIDEO_RECT_T outRegion);
-DTV_STATUS_T	HAL_VSC_SetWinFreeze(VIDEO_WID_T wId, BOOLEAN bOnOff, BOOLEAN bAll);
+DTV_STATUS_T    HAL_VSC_SetVENCMode (UINT16 frame_rate, UINT16 scan_type);
+DTV_STATUS_T	HAL_VSC_SetWinFreeze(VIDEO_WID_T wId, BOOLEAN bOnOff, BOOLEAN bAll); // Add "BOOLEAN bAll" parameter, by choonghoon.park 20170203
 
 DTV_STATUS_T	HAL_VSC_CaptureVideoFrame(VIDEO_DDI_CAPTURE_PLACE_T place, VIDEO_DDI_CAPTURE_INFO_T* pCaptureInfo);
 DTV_STATUS_T	HAL_VSC_FreezeVideoFrameBuffer(BOOLEAN bFreezeOn);
@@ -626,18 +569,19 @@ DTV_STATUS_T	HAL_VSC_GetVideoDelayedTime (VIDEO_WID_T eWinId, UINT16 *pDelayedTi
 DTV_STATUS_T 	HAL_VSC_SetAdaptiveStream(BOOLEAN bOnOff);
 
 DTV_STATUS_T    HAL_VSC_SetDelayBuffer(VIDEO_WID_T wId, UINT8 ubuffer);
-DTV_STATUS_T    HAL_VSC_SetSubWinMode(VSC_SUB_MODE_T mode); // m16
+DTV_STATUS_T    HAL_VSC_SetSubWinMode(VSC_SUB_MODE_T mode);
 DTV_STATUS_T    HAL_VSC_SetSubWinShape(VSC_SUB_SHAPE_T shape, VIDEO_RECT_T rect);
 DTV_STATUS_T    HAL_VSC_SetZorder(VSC_ZORDER_T *zOrder, UINT8 uWindowNo);
-DTV_STATUS_T    HAL_VSC_SetDualMode(BOOLEAN bOnOff); // m16
-DTV_STATUS_T    HAL_VSC_SetTwinZoom(BOOLEAN bOnOff); // m16
-
-DTV_STATUS_T 	HAL_VSC_DM_Open(void);
-DTV_STATUS_T 	HAL_VSC_DM_Close(void);
-DTV_STATUS_T 	HAL_VSC_DM_Connect(void);
-DTV_STATUS_T 	HAL_VSC_DM_Disconnect(void);
+DTV_STATUS_T    HAL_VSC_SetDualMode(BOOLEAN bOnOff);
+DTV_STATUS_T    HAL_VSC_SetTwinZoom(BOOLEAN bOnOff);
 
 DTV_STATUS_T	HAL_VSC_RegisterActiveVideoWindowCallback(VIDEO_WID_T wId, PFN_VSC_NOTIFY_ACTIVE_VIDEO_WINDOW_T callback);
+DTV_STATUS_T	HAL_VSC_MakeColoredVideo(VSC_VIDEO_COLOR_TYPE_T videoColor);
+
+DTV_STATUS_T    HAL_VSC_HDR_Open(void);
+DTV_STATUS_T    HAL_VSC_HDR_Close(void);
+DTV_STATUS_T    HAL_VSC_HDR_Connect(VSC_HDR_TYPE_T eHdrMode);
+DTV_STATUS_T    HAL_VSC_HDR_Disconnect(void);
 
 
 /*-----------------------------------------------------------------------------
