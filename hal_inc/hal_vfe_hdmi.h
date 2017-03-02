@@ -119,7 +119,7 @@ typedef enum
     HAL_VFE_HDMI_AVI_CSC_RGB = 0,		/**< HDMI CSC info */
     HAL_VFE_HDMI_AVI_CSC_YCBCR422,	/**< HDMI CSC info */
     HAL_VFE_HDMI_AVI_CSC_YCBCR444,	/**< HDMI CSC info */
-    HAL_VFE_HDMI_AVI_CSC_FUTURE		/**< HDMI CSC info */
+    HAL_VFE_HDMI_AVI_CSC_YCBCR420		/**< HDMI CSC info */
 } HAL_VFE_HDMI_AVI_CSC_T;
 
 
@@ -301,7 +301,6 @@ typedef enum
 */
 typedef struct
 {
-	//int		prt_num;				/// < port selection information(-1: use previous selected port)
 	UINT8 type;            /**< packet type */
 	UINT8 version;         /**< packet version */
 	UINT8 length;          /**< packet length */
@@ -481,7 +480,7 @@ typedef enum
 HAL_HDMI_DRM_EOTF_SDR_LUMINANCE_RANGE,
 HAL_HDMI_DRM_EOTF_HDR_LUMINANCE_RANGE,
 HAL_HDMI_DRM_EOTF_SMPTE_ST_2084,
-HAL_HDMI_DRM_EOTF_FUTURE_EOTF,
+HAL_HDMI_DRM_EOTF_HLG,
 HAL_HDMI_DRM_EOTF_RESERVED_4,
 HAL_HDMI_DRM_EOTF_RESERVED_5,
 HAL_HDMI_DRM_EOTF_RESERVED_6,
@@ -712,7 +711,6 @@ DTV_STATUS_T  	HAL_VFE_HDMI_Close(void);
 DTV_STATUS_T  	HAL_VFE_HDMI_Connect(UINT8 port);
 DTV_STATUS_T  	HAL_VFE_HDMI_Disconnect(UINT8 port);
 DTV_STATUS_T	HAL_VFE_HDMI_GetPortTimingInfo(UINT8 port, HAL_VFE_HDMI_TIMING_INFO_T *pInfo);
-DTV_STATUS_T    HAL_VFE_HDMI_EnableMHL(BOOLEAN value);
 DTV_STATUS_T    HAL_VFE_HDMI_SetHPD(BOOLEAN value);
 UINT8           HAL_VFE_HDMI_Get_SourceVersion(UINT8 port);
 DTV_STATUS_T	HAL_VFE_HDMI_GetDRMInfo(UINT8 hwPort, HAL_VFE_HDMI_DRM_INFO_T *pstDRM);
@@ -720,7 +718,6 @@ DTV_STATUS_T	HAL_VFE_HDMI_GetPortVSIInfo(UINT8 port, HAL_VFE_HDMI_VSI_T *pPacket
 DTV_STATUS_T	HAL_VFE_HDMI_GetPortSPDInfo(UINT8 port, HAL_VFE_HDMI_SPD_T *pPacket);
 DTV_STATUS_T	HAL_VFE_HDMI_GetPortAVIInfo(UINT8 port, HAL_VFE_HDMI_AVI_T *pPacket);
 DTV_STATUS_T	HAL_VFE_HDMI_GetPortPacketInfo(UINT8 port, HAL_VFE_HDMI_ALL_PACKET_T *pPacket);
-BOOLEAN	HAL_VFE_HDMI_GetClockStatus(UINT8 port);
 
 DTV_STATUS_T HAL_VFE_HDMI_GetHDMISW5V(UINT8 port, UINT8 *pData);
 DTV_STATUS_T HAL_VFE_HDMI_GetConnectionState(UINT8 port, UINT8 *pData);
@@ -731,43 +728,23 @@ DTV_STATUS_T HAL_VFE_HDMI_WriteHDCP(UINT8 *pData);
 DTV_STATUS_T HAL_VFE_HDMI_ReadHDCP(UINT8 *pData);
 
 DTV_STATUS_T HAL_VFE_HDMI_GetSourceKSVData(UINT8 port, UINT8 *pKSVData);
-BOOLEAN HAL_VFE_HDMI_MHL_IsMode(void);
-DTV_STATUS_T HAL_VFE_HDMI_MHL_SendMSCMsg(UINT8 rcp);
-DTV_STATUS_T HAL_VFE_HDMI_MHL_SendWriteBurst(UINT8 *mhl_msg);
-DTV_STATUS_T HAL_VFE_HDMI_MHL_ReadWriteBurst(char *mhl_msg);
 
 DTV_STATUS_T HAL_VFE_HDMI_EnableHPD(void);
 DTV_STATUS_T HAL_VFE_HDMI_DisableHPD(void);
 DTV_STATUS_T HAL_VFE_HDMI_RestartHPD(UINT8 port);
+DTV_STATUS_T HAL_VFE_HDMI_SetHPD(UINT8 port, BOOLEAN enable);
 
 DTV_STATUS_T HAL_VFE_HDMI_DisableInternalEDIDAccess(UINT8 port);
-BOOLEAN HAL_VFE_HDMI_IsInternalEDIDDisabled(UINT8 *pDisabledEDIDPort);
 DTV_STATUS_T HAL_VFE_HDMI_WriteExternalEDID(UINT8 port, UINT8 *pData);
 DTV_STATUS_T HAL_VFE_HDMI_ReadExternalEDID(UINT8 port, UINT8 *pData);
-BOOLEAN HAL_VFE_HDMI_GetMHLMode(UINT8 port);
-BOOLEAN HAL_VFE_HDMI_MHL_CheckRCPMsg(void);
-DTV_STATUS_T HAL_VFE_HDMI_MHL_ReceiveRCPMsg(UINT8* rcp);
-DTV_STATUS_T HAL_VFE_HDMI_SetHPDLowDelay(UINT32 delay);
-//DTV_STATUS_T HAL_VFE_HDMI_MHL_CleaerRCPReg();
-/* //K2H don't use//
-DTV_STATUS_T HAL_VFE_HDMI20_ReadExternalEDID(UINT8 port, UINT8 *pData);
-DTV_STATUS_T HAL_VFE_HDMI20_WriteExternalEDID(UINT8 port, UINT8 *pData, int size, UINT8 addr);
-DTV_STATUS_T HAL_VFE_HDMI_GetPortTimingInfo(UINT8 port, HAL_VFE_HDMI_TIMING_INFO_T *pInfo);
-DTV_STATUS_T HAL_VFE_HDMI_GetPortVSIInfo(UINT8 port, HAL_VFE_HDMI_VSI_T *pVSIPacket);
-DTV_STATUS_T HAL_VFE_HDMI_GetPortSPDInfo(UINT8 port, HAL_VFE_HDMI_SPD_T *pPacket);
-DTV_STATUS_T HAL_VFE_HDMI_GetPortAVIInfo(UINT8 port, HAL_VFE_HDMI_AVI_T *pPacket);
-DTV_STATUS_T HAL_VFE_HDMI_GetPortPacketInfo(UINT8 port, HAL_VFE_HDMI_ALL_PACKET_T *pPacket);
-BOOLEAN HAL_VFE_HDMI_CheckErrorHDMI20(UINT8 port);
+
+DTV_STATUS_T  HAL_VFE_HDMI_PowerOff(void);
 DTV_STATUS_T HAL_VFE_HDMI_WriteHDCP22(UINT8 *pData, UINT32 size);
 
-DTV_STATUS_T HAL_VFE_HDMI_ReadHDCP14(UINT8 port, UINT8 *pData);
-DTV_STATUS_T HAL_VFE_HDMI_EnableMHL(BOOLEAN value);
-
-DTV_STATUS_T HAL_VFE_HDMI20_ReadInternalEDID(UINT8 port, UINT8 *pData);
-DTV_STATUS_T HAL_VFE_HDMI20_WriteInternalEDID(UINT8 port, UINT8 *pData, int size);
-DTV_STATUS_T HAL_VFE_HDMI_Enable_PowerOnlyMode(BOOLEAN value);
+// for repeater (W series)
 DTV_STATUS_T HAL_VFE_HDMI_HPD_Control_Port(UINT8 port, BOOLEAN value);
-*/
+DTV_STATUS_T HAL_VFE_HDMI_RpRx_SetTopology(UINT8 slot, UINT8 deviceCount, UINT8 depth, UINT8 *topology);
+
 #ifdef __cplusplus
 }
 #endif
