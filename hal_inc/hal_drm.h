@@ -48,90 +48,32 @@
 /******************************************************************************
     Function Declaration
 ******************************************************************************/
-DTV_STATUS_T HAL_DRM_GetSecureData (char *pDataPath, unsigned char *pData, unsigned int *pLength);
-DTV_STATUS_T HAL_DRM_SetSecureData (char *pDataPath, unsigned char *pData, unsigned int length);
-DTV_STATUS_T HAL_DRM_DeleteSecureData (char *pDataPath);
-DTV_STATUS_T HAL_DRM_GetHWRandomData (unsigned char *pData, unsigned int digit);
-DTV_STATUS_T HAL_DRM_GetSecureClock (unsigned long long *pSecureClock);
-DTV_STATUS_T HAL_DRM_SetSecureClock (unsigned long long secureClock);
-DTV_STATUS_T DDI_DRM_GetOriginalDataLength (char *pDataPath, unsigned int *pLength);
-DTV_STATUS_T HAL_DRM_GetClearDataLength (char *pDataPath, unsigned int *pLength);
-DTV_STATUS_T HAL_DRM_AESHWInit (int mode, unsigned char *pKey, unsigned char *pIV, int operation, int isPadding);
-DTV_STATUS_T HAL_DRM_AESHWUpdate (unsigned char *pOutData, unsigned int *pOutDataSize, unsigned char *pInData, unsigned int nInDataSize);
-DTV_STATUS_T HAL_DRM_AESHWFinish (unsigned char *pOutData, unsigned int *pOutDataSize);
-DTV_STATUS_T HAL_DRM_GetHWID(unsigned char *pOutData, unsigned int *pOutDataSize);
-DTV_STATUS_T HAL_DRM_IsSecureDataExist(char *pDataPath);
+DTV_STATUS_T HAL_DRM_GetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 *pLength);
+DTV_STATUS_T HAL_DRM_SetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 length);
+DTV_STATUS_T HAL_DRM_DeleteSecureData (SINT8 *pDataPath);
+DTV_STATUS_T HAL_DRM_GetHWRandomData (UINT8 *pData, UINT32 digit);
+DTV_STATUS_T HAL_DRM_GetSecureClock (UINT64 *pSecureClock);
+DTV_STATUS_T HAL_DRM_SetSecureClock (UINT64 secureClock);
+DTV_STATUS_T HAL_DRM_GetClearDataLength (SINT8 *pDataPath, UINT32 *pLength);
+DTV_STATUS_T HAL_DRM_AESHWInit (SINT32 mode, UINT8 *pKey, UINT8 *pIV, SINT32 operation, SINT32 isPadding);
+DTV_STATUS_T HAL_DRM_AESHWUpdate (UINT8 *pOutData, UINT32 *pOutDataSize, UINT8 *pInData, UINT32 nInDataSize);
+DTV_STATUS_T HAL_DRM_AESHWFinish (UINT8 *pOutData, UINT32 *pOutDataSize);
+DTV_STATUS_T HAL_DRM_GetHWID(UINT8 *pOutData, UINT32 *pOutDataSize);
+DTV_STATUS_T HAL_DRM_IsSecureDataExist(SINT8 *pDataPath);
 DTV_STATUS_T HAL_DRM_InitDrv(void);
-DTV_STATUS_T HAL_DRM_DIVXDRM_GetHWSecretKey(unsigned char *pOutData, unsigned int *pOutDataSize);
-DTV_STATUS_T HAL_DRM_JPMARLIN_CheckSecretData(int secretDataType);
-DTV_STATUS_T HAL_DRM_JPMARLIN_WriteSecretData(int secretDataType,
-	unsigned char *pRootCert, int rootCertLen, unsigned char *pCaCert, int caCertLen,
-	unsigned char *pClientCert, int clientCertLen, unsigned char *pClientKey, int clientKeyLen);
-DTV_STATUS_T HAL_DRM_GetSecureDataProtected(char *pID, unsigned char *pData, unsigned int *pLength);
-DTV_STATUS_T HAL_DRM_WriteWidevineKeyBox(UINT8 *pData, int dataLength);
-DTV_STATUS_T HAL_DRM_GetWidevineDeviceID(UINT8 *pDeviceID,  int *pIdLength);
-DTV_STATUS_T HAL_DRM_GetWidevineUDContentKey(UINT8 *pUdKey);
-DTV_STATUS_T HAL_DRM_EncryptUDContent(UINT8 *pData, int length);
-DTV_STATUS_T HAL_DRM_StartSecureUDTS(void);
-DTV_STATUS_T HAL_DRM_StopSecureUDTS(void);
+DTV_STATUS_T HAL_DRM_DIVXDRM_GetHWSecretKey(UINT8 *pOutData, UINT32 *pOutDataSize);
+DTV_STATUS_T HAL_DRM_JPMARLIN_CheckSecretData(SINT32 secretDataType);
+DTV_STATUS_T HAL_DRM_JPMARLIN_WriteSecretData(SINT32 secretDataType,
+	                                      UINT8 *pRootCert, SINT32 rootCertLen, UINT8 *pCaCert, SINT32 caCertLen,
+	                                      UINT8 *pClientCert, SINT32 clientCertLen, UINT8 *pClientKey, SINT32 clientKeyLen);
+DTV_STATUS_T HAL_DRM_GetSecureDataProtected(SINT8 *pID, UINT8 *pData, UINT32 *pLength);
+DTV_STATUS_T HAL_DRM_WriteWidevineKeyBox(UINT8 *pData, SINT32 dataLength);
+DTV_STATUS_T HAL_DRM_GetWidevineDeviceID(UINT8 *pDeviceID,  SINT32 *pIdLength);
 
-// UHDCP
-DTV_STATUS_T HAL_DRM_UHDCP_SetCW(unsigned char *KID, unsigned char *CW);
-DTV_STATUS_T HAL_DRM_UHDCP_Decrypt(unsigned char *pData, unsigned int data_size,
-	unsigned char *pIV, unsigned char *pKID, unsigned long block_offset, unsigned short byte_offset);
+// UHDCP(CAS PROTECTION)
+DTV_STATUS_T HAL_DRM_UHDCP_SetCW(UINT8 *KID, UINT8 *CW);
+DTV_STATUS_T HAL_DRM_UHDCP_Decrypt(UINT8 *pData, UINT32 data_size,
+                                   UINT8 *pIV, UINT8 *pKID, ULONG block_offset, UINT16 byte_offset);
 
-// SVP
-DTV_STATUS_T HAL_DRM_SVP_GetProvisionedData(char *pszPath,
-	unsigned char *pbData, unsigned int cbData, BOOLEAN bProtectData);
-DTV_STATUS_T HAL_DRM_SVP_GenKeyPair_ECCP256(unsigned char *pPubKey, unsigned char *pPrivKey);
-DTV_STATUS_T HAL_DRM_SVP_SetKey_ECCP256(unsigned char *pbKeyBuffer,
-	unsigned int ibKeyBuffer, unsigned int cbKeyBuffer, BOOLEAN isKeyProtected);
-DTV_STATUS_T HAL_DRM_SVP_Sign_ECDSAP256(unsigned char *pbData, unsigned int cbData, unsigned char *pbSignature);
-DTV_STATUS_T HAL_DRM_SVP_Decrypt_ECCP256(unsigned char *pbCipherText, unsigned char *pbPlainText, BOOLEAN bProtectPlainText);
-DTV_STATUS_T HAL_DRM_SVP_SetKey_OMAC1(unsigned char *pbKeyBuffer,
-	unsigned int ibKeyBuffer, unsigned int cbKeyBuffer, BOOLEAN isKeyProtected);
-DTV_STATUS_T HAL_DRM_SVP_Verify_OMAC1(unsigned char *pbData, unsigned int ibData, unsigned int cbData,
-	unsigned char *pbSignature, unsigned int ibSignature);
-DTV_STATUS_T HAL_DRM_SVP_Sign_OMAC1(unsigned char *pbData, unsigned int ibData, unsigned int cbData,
-	unsigned char *pbSignature, BOOLEAN bProtectSignature);
-DTV_STATUS_T HAL_DRM_SVP_CopyBytes(void *bpTo, unsigned int ibTo,
-	void *pbFrom, unsigned int ibFrom, unsigned int cbFrom, unsigned int cbCount);
-DTV_STATUS_T HAL_DRM_SVP_SetContentKey_AESCTR(unsigned char *pbKeyBuffer,
-	unsigned int ibKeyBuffer, unsigned int cbKeyBuffer, BOOLEAN isKeyProtected);
-DTV_STATUS_T HAL_DRM_SVP_GetUDContentKey(unsigned char *pUdKey);
-DTV_STATUS_T HAL_DRM_SVP_DecryptContent_AESCTR(void *pCtrContext,
-	unsigned char *pbData, unsigned int cbData, BOOLEAN bProtectContent);
-DTV_STATUS_T HAL_DRM_SVP_SetKey_AESECB(unsigned char *pbKeyBuffer,
-	unsigned int ibKeyBuffer, unsigned int cbKeyBuffer, BOOLEAN isKeyProtected);
-DTV_STATUS_T HAL_DRM_SVP_Encrypt_AESECB(unsigned char *pbData, unsigned int cbData, BOOLEAN bProtectData);
-DTV_STATUS_T HAL_DRM_SVP_Decrypt_AESECB(unsigned char *pbData, unsigned int cbData, BOOLEAN bProtectData);
-
-// For ProIdiom DRM
-DTV_STATUS_T HAL_DRM_PI_SetSecureFilePath(char *pPath);
-DTV_STATUS_T HAL_DRM_PI_Init(void);
-DTV_STATUS_T HAL_DRM_PI_Release(void);
-DTV_STATUS_T HAL_DRM_PI_Update(int bUpdateSF, int bUpdateSD);
-DTV_STATUS_T HAL_DRM_PI_AES_ECB_SFSF(unsigned int offset1, unsigned int dat_loc, int operation,
-	unsigned int offset2, unsigned int nInDataSize, unsigned int offset3);
-DTV_STATUS_T HAL_DRM_PI_XOR_XXSFSF(unsigned int offset1, unsigned int dat_loc,
-	unsigned int offset2, unsigned int nInDataSize, unsigned int offset3);
-DTV_STATUS_T HAL_DRM_PI_XORAND_SFSFSFSF(unsigned int offset1, unsigned int offset2,
-	unsigned int offset3, unsigned int nInDataSize, unsigned int offset4);
-DTV_STATUS_T HAL_DRM_PI_SetSecureData_NWXX(unsigned char *pData, unsigned int length,
-	unsigned int offset, unsigned int dat_loc);
-DTV_STATUS_T HAL_DRM_PI_SetSecureData_XXXX(unsigned int offset1, unsigned int dat_loc1, unsigned int length,
-	unsigned int offset2, unsigned int dat_loc2);
-DTV_STATUS_T HAL_DRM_PI_GetSecureData_XX(unsigned char *pData, unsigned int offset,
-	unsigned int dat_loc, unsigned long length);
-DTV_STATUS_T HAL_DRM_PI_CheckIV(unsigned int offset);
-DTV_STATUS_T HAL_DRM_PI_CheckVersion(void);
-DTV_STATUS_T HAL_DRM_PI_GetMsgTypes(unsigned int offset, unsigned char *pMType1, unsigned char *pMType2);
-DTV_STATUS_T HAL_DRM_PI_SetXHFs(unsigned int mode, unsigned int offset1, unsigned int offset2);
-DTV_STATUS_T HAL_DRM_PI_DecryptTS4ClearPath(unsigned char *pInOutData, unsigned int numPkts, unsigned int pktSize, unsigned int msg_pid);
-DTV_STATUS_T HAL_DRM_PI_DecryptTS(unsigned char *pInData, unsigned int numPkts, unsigned int pktSize, unsigned int msg_pid);
-DTV_STATUS_T HAL_DRM_PI_GetAvailableBufferSize(unsigned int *pAvailableSize);
-DTV_STATUS_T HAL_DRM_PI_InitSecureCPB(unsigned int base, int size, int align);
-DTV_STATUS_T HAL_DRM_PI_ReleaseSecureCPB(void);
-
-#endif /* _DILE_DRM_H_ */
+#endif /* _HAL_DRM_H_ */
 
