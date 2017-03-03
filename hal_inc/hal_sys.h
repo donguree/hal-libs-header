@@ -42,46 +42,9 @@
         Type Definitions
 ******************************************************************************/
 
-/**
-* DRAM bandwidth  information
-*
-* @see
-*/
-typedef struct
-{
-    UINT32  totalBytes_chA;
-    UINT32  percent_chA;                //ratio for how much bandwidth of the channel A is used.
-    UINT32  totalBytes_chB;
-    UINT32  percent_chB;                //ratio for how much bandwidth of the channel B is used.
-    UINT32  totalBytes_chC;
-    UINT32  percent_chC;                //ratio for how much bandwidth of the channel C is used.
-} DRAM_BW_INFO_T;
-
 /******************************************************************************
         Enum Definitions
 ******************************************************************************/
-
-/* SPREAD SPECTRUM ENUMERATIONS HAVE TO BE SAME AS KAPI */
-typedef enum
-{
-	SPREAD_SPECTRUM_MODULE_CPU = 0,		// CPU PLL
-	SPREAD_SPECTRUM_MODULE_MAIN_0,		// Main PLL 0
-	SPREAD_SPECTRUM_MODULE_MAIN_1,		// Main PLL 1
-	SPREAD_SPECTRUM_MODULE_MAIN_2,		// Main PLL 2
-	SPREAD_SPECTRUM_MODULE_DISPLAY,		// Display PLL
-} SPREAD_SPRECTRUM_MODULE_T;
-
-typedef enum
-{
-	SPREAD_SPECTRUM_OFF = 0,
-	SPREAD_SPECTRUM_RATIO_0_25,		// 0.25%
-	SPREAD_SPECTRUM_RATIO_0_50,		// 0.50%
-	SPREAD_SPECTRUM_RATIO_0_75,		// 0.75%
-	SPREAD_SPECTRUM_RATIO_1_00,		// 1.00%
-	SPREAD_SPECTRUM_RATIO_1_25,		// 1.25%
-	SPREAD_SPECTRUM_RATIO_1_50,		// 1.50%
-	SPREAD_SPECTRUM_RATIO_1_75,
-} SPREAD_SPECTRUM_RATIO_T;
 
 typedef enum
 {
@@ -92,30 +55,37 @@ typedef enum
 /******************************************************************************
         Function Declaration
 ******************************************************************************/
-DTV_STATUS_T HAL_SYS_SetDramBWEnable(BOOLEAN bOnOff);
-DTV_STATUS_T HAL_SYS_GetDramBWInfo(DRAM_BW_INFO_T *pstBWInfo);
+/* Enable/Disable debug port(T32, register tool, debug tool)
+ * requester: jeonghyeon.joo
+ */
 DTV_STATUS_T HAL_SYS_LockDebugPort(BOOLEAN bLock);
-DTV_STATUS_T HAL_SYS_SetSpreadSpectrum(SPREAD_SPRECTRUM_MODULE_T module, SPREAD_SPECTRUM_RATIO_T ratio);
 
-/* WOL */
+/* WOL
+ * requester: jaesung5.lee
+ */
 DTV_STATUS_T HAL_SYS_SetWolOnOff(BOOLEAN bOnOff);
 DTV_STATUS_T HAL_SYS_GetWolStatus(BOOLEAN *Status);
-DTV_STATUS_T HAL_SYS_InitEthernet(void);//reset PHY
-DTV_STATUS_T HAL_SYS_SetWarmWolOnOff(BOOLEAN bOnOff);
-DTV_STATUS_T HAL_SYS_GetWarmWolStatus(BOOLEAN *Status);
-DTV_STATUS_T HAL_SYS_ResetWol(void);
-DTV_STATUS_T HAL_SYS_InitEthernet(void);
 
-/* SUSPEND/RESUME, SIC chip only used */
+/* SUSPEND/RESUME, SIC chip only used
+ * requester: donghwan.jung(request for instant boot)
+ */
 DTV_STATUS_T HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
 DTV_STATUS_T HAL_SYS_Resume (void);
 
-/* WAKE Up Internal Micom, RTK chip only used */
+/* WAKE Up Internal Micom, RTK chip only used
+ * requester: kwangseok.kim
+ */
 DTV_STATUS_T HAL_SYS_WakeUpInternalMicom(void);
 
-/* Internal Micom ?, Mstar chip only used */
+/* Read/Write for boot area, MStar chip only used
+ * requester: jeonghyeon.joo
+ */
 DTV_STATUS_T HAL_SYS_ReadBootData(unsigned char *pBootData, unsigned int bootDataSize);
 DTV_STATUS_T HAL_SYS_WriteBootData(unsigned char *pBootDataPath, unsigned int bootDataSize);
+
+/* Internal Micom, Mstar chip only used
+ * requester: sunghoon.jang
+ */
 DTV_STATUS_T HAL_SYS_ReadPMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
 DTV_STATUS_T HAL_SYS_WritePMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
 
