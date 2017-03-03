@@ -12,29 +12,32 @@
  *
  * This source file defines the HAL functions related to crypto driver control
  *
- *  @author	    Stan Kim (stan.kim@lge.com)
- *  @author	    Seonho Park (seonho.park@lge.com)
- *  @author	    Yongjoon Cho (seonho.park@lge.com)
- *  @version	4.0
- *  @date		2010.08.09
- *  @note
- *  @see
+ *  @author     Seonho Park (seonho.park@lge.com)
+ *  @author     Seulki Kim  (seulki329.kim@lge.com)
+ *  @version	5.0
+ *  @date		2017.03.03
  */
 
 /******************************************************************************
  	Header File Guarder
-******************************************************************************/
+ ******************************************************************************/
 #ifndef	_HAL_CRYPTO_H_
 #define	_HAL_CRYPTO_H_
 
 /******************************************************************************
- #include ÆÄ?Ïµé (File Inclusions)
-******************************************************************************/
+  #include  (File Inclusions)
+ ******************************************************************************/
 #include "hal_common.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
 /******************************************************************************
-	Çü Á¤?Ç (Type Definitions)
-******************************************************************************/
+	Type Definitions
+ ******************************************************************************/
 #define HAL_CRYPTO_ARG_MAX 8
 
 typedef struct _HAL_CRYPTO_ARG {
@@ -46,49 +49,20 @@ typedef struct _HAL_CRYPTO_ARG {
 } HAL_CRYPTO_ARG_T;
 
 /******************************************************************************
-    ¸ÅÅ©·Î ÇÔ¼ö Á¤?Ç (Macro Definitions)
-******************************************************************************/
+    Macro Definitions
+ ******************************************************************************/
 
 /******************************************************************************
-   ·ÎÄÃ »ó¼ö Á¤?Ç (Local Constant Definitions)
-******************************************************************************/
+    Global Type Definitions
+ ******************************************************************************/
 
 /******************************************************************************
-    ·ÎÄÃ Çü Á¤?Ç (Local Type Definitions)
-******************************************************************************/
+    Global Variables & Function Prototypes Declarations
+ ******************************************************************************/
 
 /******************************************************************************
-    ?ü¿ª Çü Á¤?Ç (Global Type Definitions)
-******************************************************************************/
-typedef enum {
-	CRYPTO_HDCP_14,  //HDCP 1.4
-	CRYPTO_HDCP_22,  //HDCP 2.2
-	CRYPTO_HDCP_MAX,
-} CRYPTO_HDCP_T;	// For HAL_CRYPTO_WriteHDCPOnSecure()/HAL_CRYPTO_ReadHDCPFromSecure()
-
-/******************************************************************************
-    Extern ?ü¿ªº¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
-    (Extern Variables & Function Prototype Declarations)
-******************************************************************************/
-
-/******************************************************************************
-    Static º¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
-    (Static Variables & Function Prototypes Declarations)
-******************************************************************************/
-
-/******************************************************************************
-    ·ÎÄÃ º¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
-    (Local Variables & Function Prototypes Declarations)
-******************************************************************************/
-
-/******************************************************************************
-    ?ü¿ª º¯¼ö¿Í ÇÔ¼ö prototype ¼±¾ð
-    (Global Variables & Function Prototypes Declarations)
-******************************************************************************/
-
-/******************************************************************************
-	ÇÔ¼ö Á¤?Ç (Function Definitions)
-******************************************************************************/
+    Extern Variables & Function Prototype Declarations
+ ******************************************************************************/
 
 /* Netflix */
 /******************************************************************************
@@ -390,16 +364,16 @@ DTV_STATUS_T HAL_CRYPTO_NYX_RSA_Crypt(unsigned char *pSecureKey, int keyLength, 
 DTV_STATUS_T HAL_CRYPTO_NYX_RSA_ExportPublicKey(unsigned char *pPublicKey, int *pPublicKeyLength,
 	unsigned char *pSecureKey, int keyLength);
 
-/* Dummy for Compatablity */
+/* Debug Menu API (debug - g2 ) */
 DTV_STATUS_T HAL_CRYPTO_Debug(void);
 
 /* Secure Firmware Update */
-DTV_STATUS_T HAL_CRYPTO_SFU_Initialize(char *pSeedPath);
+DTV_STATUS_T HAL_CRYPTO_SFU_Initialize(void);
 DTV_STATUS_T HAL_CRYPTO_SFU_Finalize(void);
 DTV_STATUS_T HAL_CRYPTO_SFU_GetRSAKey(UINT8 *pRsaKey);
 DTV_STATUS_T HAL_CRYPTO_SFU_GetAESKey(UINT8 *pAesKey);
 
-/* Read/Write Secret Values */
+/* Read/Write Secret keys */
 DTV_STATUS_T HAL_CRYPTO_ReadMskToSecureStore(UINT8 *pData, int *pLength);
 DTV_STATUS_T HAL_CRYPTO_WriteMskToSecureStore(UINT8 *pData, int length);
 DTV_STATUS_T HAL_CRYPTO_ReadNLPSecret(UINT8 *pSecret, char *pSecretID);
@@ -426,410 +400,19 @@ DTV_STATUS_T HAL_CRYPTO_ReadFreeViewPrivateKey(unsigned char *pKeyBuf, int *pSiz
 DTV_STATUS_T HAL_CRYPTO_ReadMVPDSecret(char *pPath, UINT8 *pData);
 DTV_STATUS_T HAL_CRYPTO_WriteMVPDSecret(char *pPath, UINT8 *pData, int length);
 
+/*
+    NOTE:
+        CRYPTO_HDCP_T type is not used for extern APIs,
+        therefore it has to be included in hal_crypto source code.
+        typedef enum {
+            CRYPTO_HDCP_14,  //HDCP 1.4
+            CRYPTO_HDCP_22,  //HDCP 2.2
+            CRYPTO_HDCP_MAX,
+        } CRYPTO_HDCP_T;	// For HAL_CRYPTO_WriteHDCPOnSecure()/HAL_CRYPTO_ReadHDCPFromSecure()
+*/
 DTV_STATUS_T HAL_CRYPTO_WriteHDCPOnSecure(unsigned int hdcpType, unsigned char *pHDCPKey, unsigned int hdcpSize);
 DTV_STATUS_T HAL_CRYPTO_ReadHDCPFromSecure(unsigned int hdcpType, unsigned char *pHDCPKey, unsigned int *pHDCPSize);
 
-
-/* Vudu */
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_OpenM2mKeySlot
-
-Function Description
-    Allocate Memory to Memory Keyslot Handle
-
-Function Parameters
-    None
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_OpenM2mKeySlot(void);
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_CloseM2mKeySlot
-
-Function Description
-    Free Memory to Memory Keyslot Handle
-
-Function Parameters
-    None
-
-Return Value
-    If the function succeeds, the return value is OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_CloseM2mKeySlot(void);
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_SelectM2mKeyAlgorithm
-
-Function Description
-    Select Encryption/Decryption Algorithm
-
-Function Parameters
-    alg	[IN] 		Select Algorithm
-    dir	[IN]		Select Mode
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_SelectM2mKeyAlgorithm(UINT8 alg, UINT8 dir);
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_LoadClearM2mKey
-
-Function Description
-    Loads a Clear Key and a Clear IV to KeySlot.
-
-Function Parameters
-    keyLen	[IN] 		Key Length
-    pKeyData	[IN]		Key Data
-    ivLen		[IN]		Initial Vector Length
-    pIvData	[IN]		Initial Vector Data
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_LoadClearM2mKey(const UINT32 keyLen, const UINT8 *pKeyData, const UINT32 ivLen, const UINT8 *pIvData);
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_LoadWrappedM2mKey
-
-Function Description
-    Loads a Wrapped Key and a Wrapped IV to KeySlot
-
-Function Parameters
-    keyLen	[IN] 		Key Length of pKey4Data and pIvData
-    pKey3Data	[IN]		Seed of Session Key
-    pKey4Data	[IN]		Seed of Control Word
-    pIvData	[IN]		Initial Vector Data
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_LoadWrappedM2mKey(const UINT32 keyLen, const UINT8 *pKey3Data, const UINT8 *pKey4Data, const UINT8 *pIvData);
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_LoadWrappedM2mKeyClearIv
-
-Function Description
-    Loads a Wrapped Key and a Clear IV to KeySlot
-
-Function Parameters
-    keyLen	[IN] 		Key Length of pKey4Data and pIvData
-    pKey3Data	[IN]		Seed of Session Key
-    pKey4Data	[IN]		Seed of Control Word
-    ivLen		[IN]		Initial Vector Length
-    pIvData	[IN]		Initial Vector Data
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_LoadWrappedM2mKeyClearIv(const UINT32 keyLen, 	const UINT8 *pKey3Data, const UINT8 *pKey4Data, const UINT32 ivLen, const UINT8 *pIvData);
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_RunM2mKey
-
-Function Description
-    Start the Cipher Process
-
-Function Parameters
-    length		[IN] 		Length of Both Src and Dst
-    pSrc		[IN]		Source Pointer
-    pDst		[OUT]	Destination Pointer
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_RunM2mKey(const UINT32 length, const UINT8 *pSrc, UINT8 *pDst);
-
-
-/* Play API */
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_OpenCAKeySlotHandle
-
-Function Description
-    Allocate VUDU CA Descramble Handle
-
-Function Parameters
-    None
-
-Return Value
-    If the function succeeds, the return value is handle value.
-    If the function fails, the return value is 0.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_OpenCAKeySlotHandle(void);
-
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_CloseCAKeySlotHandle
-
-Function Description
-    Free VUDU CA Descramble Handle
-
-Function Parameters
-    None
-
-Return Value
-    If the function succeeds, the return value is 0.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_CloseCAKeySlotHandle(void);
-
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_GetCAKeySlotHandle
-
-Function Description
-    Allocate VUDU CA Descramble Handle
-
-Function Parameters
-    None
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_GetCAKeySlotHandle(void);
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_SetWrappedCAKey
-
-Function Description
-    Load Wrapping Key to CA Descrambler
-
-Function Parameters
-    pKey			[IN]		CA Initial Vector
-    pUniqueKey	[IN]		CA Wrapping Key
-    keyType		[IN]		CA Key Type
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_SetWrappedCAKey(const UINT8 *pKey, const UINT8 *pUniqueKey, UINT8 keyType);
-
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_SetWrappedAllCAKey
-
-Function Description
-    Load Wrapping Keys to CA Descrambler
-
-Function Parameters
-    pOddKey		[IN]		CA Initial Odd Vector
-    pEvenKey		[IN]		CA Initial Even Vector
-    pUniqueKey	[IN]		CA Wrapping Key
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_SetWrappedAllCAKey(const UINT8 *pOddKey, const UINT8 *pEvenKey, const UINT8 *pUniqueKey);
-
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_LoadCAClearKey
-
-Function Description
-    Load Clear Key to CA Descrambler
-
-Function Parameters
-    pKey			[IN]		CA Initial Vector
-    keyType		[IN]		CA Key Type
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_LoadCAClearKey(const UINT8 *pKey, UINT8 keyType);
-
-
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_VUDU_StartTSDecrypt
-
-Function Description
-    Start the TS Decrypt
-
-Function Parameters
-    srcLength	[IN] 		Length of Src
-    pSrc		[IN]		Source Pointer (Encrypeted VUDU TS stream)
-    pDstLength	[OUT]	Length of Dst
-    pDst		[OUT]	Destination Pointer (the Result should be clear TS)
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
-DTV_STATUS_T HAL_CRYPTO_VUDU_StartTSDecrypt(const UINT32 srcLength, const UINT8 *pSrc, UINT32 *pDstLength, UINT8 *pDst);
-
-DTV_STATUS_T HAL_CRYPTO_VUDU_SetOddEvenCAKey(const UINT8 *pOddKey, const UINT8 *pEvenKey, UINT8 keyType);
-//DTV_STATUS_T HAL_CRYPTO_VUDU_StartCADecrypt(void);
-
-/* Vudu SVP : Security Level 1 */
-
-// Call Sequnce Note :
-//
-//	[1. Initialize]
-//
-//	... Allocate and set CPB from/to VDEC (Note : Size must be 8 MBytes, and align value also must be 8 MBytes)
-//	HAL_CRYPTO_VUDU_SVP_Init(base, size);
-//
-//
-//	[2. Decrypt -> Reformatting -> Put into Secure CPB]
-//
-//	while (...) {	// Playback Loop
-//
-//		HAL_CRYPTO_VUDU_SVP_TSDecrypt(...);	// Decyrption
-//
-//  again :
-//		... Get rPtr, wPtr from VDEC
-//		switch (HAL_CRYPTO_VUDU_SVP_GetAU(...)) {	// Reformatting & Put into CPB
-//			case HAL_CRYPTO_VUDU_SVP_OK : // Get AU
-//				... Send AU and CPB Update Info to VDEC
-//				goto again;
-//
-//			case HAL_CRYPTO_VUDU_SVP_NO_AU :
-//				break;	// Get next data packet
-//
-//			case HAL_CRYPTO_VUDU_SVP_WAIT :
-//				... sleep to give vdec a delay to decode and display
-//				goto again;	// Try to put CPB again.
-//
-//			default :	// Error
-//				... Error Handling
-//		}
-//		... Do others
-//	}	// Playback Loop
-//
-//
-//	[3. Release]
-//
-//	HAL_CRYPTO_VUDU_SVP_Release();
-//
-//
-//	[4. Flush]
-//
-//	... Flush VDEC
-//	HAL_CRYPTO_VUDU_SVP_Flush();
-
-typedef enum {
-	HAL_CRYPTO_VUDU_SVP_ERROR	= -1,
-	HAL_CRYPTO_VUDU_SVP_OK		= 0,
-	HAL_CRYPTO_VUDU_SVP_NO_AU	= 1,
-	HAL_CRYPTO_VUDU_SVP_WAIT	= 2,
-} HAL_CRYPTO_VUDU_SVP_T;
-
-/**
- *	Initialize SVP for VUDU.
- *
- *	@param	base	[in]	Secure CPB base.
- *	@param	size	[in]	Secure CPB size.
- *	@return	success : OK, failure : NOT_OK.
- */
-DTV_STATUS_T HAL_CRYPTO_VUDU_SVP_Init(UINT32 base, int size);
-
-/**
- *	SVP TS Decrypt for VUDU.
- *
- *	@param	srcLength	[in]	Length of Src.
- *	@param	pSrc		[in]	Source Pointer (Encrypeted VUDU TS stream).
- *	@param	pDstLength	[out]	Length of Dst.
- *	@param	pDst		[out]	Destination Pointer (the Result should be clear TS and be removed Video ES Data).
- *	@return succeeded - OK, if not - NOT_OK.
- */
-DTV_STATUS_T HAL_CRYPTO_VUDU_SVP_TSDecrypt(const UINT32 srcLength, const UINT8 *pSrc, UINT32 *pDstLength, UINT8 *pDst);
-
-/**
- *	Get AU for VUDU
- *
- *	@param	pAuAddr		[out]		physical AU address in secure CPB.
- *	@param	pAuLength	[out]		physical AU length in secure CPB.
- *	@param	pAuType		[out]		AU type (It is not available in TVP_REFORMATTER_NONE).
- *	@param	pWPtr		[in/out]	Secure CPB Write Pointer.
- *	@param	rPtr		[in]		Secure CPB Read Pointer.
- *	@param	pPTS		[out]		Representative PTS value.
- *	@return HAL_CRYPTO_VUDU_SVP_NO_AU	: Proceed next.
- *			HAL_CRYPTO_VUDU_SVP_OK		: AU Out.
- *			HAL_CRYPTO_VUDU_SVP_WAIT	: Wait because of not enough CPB.
- *			HAL_CRYPTO_VUDU_SVP_ERROR	: Error.
- */
-HAL_CRYPTO_VUDU_SVP_T HAL_CRYPTO_VUDU_SVP_GetAU(unsigned int *pAuAddr, int *pAuLength, int *pAuType,
-	unsigned int *pWPtr, unsigned int rPtr, unsigned long long *pPTS);
-
-/**
- *	Flush Reformatter & TS Parser for VUDU
- *
- *	@return	success : TVP_OK, failure : TVP_ERROR.
- */
-DTV_STATUS_T HAL_CRYPTO_VUDU_SVP_Flush(void);
-
-/**
- *	Release SVP for VUDU.
- *
- *	@return	success : OK, failure : NOT_OK.
- */
-DTV_STATUS_T HAL_CRYPTO_VUDU_SVP_Release(void);
 
 
 /* webOS Secure Store Support APIs */
@@ -870,36 +453,43 @@ DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
 DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
 /*
+ * RSA Padding Type
+ */
+typedef enum {
+    HAL_CRYPTO_RSA_NO_PADDING,
+    HAL_CRYPTO_RSA_PKCS1_OAEP_PADDING
+} HAL_CRYPTO_RSA_PADDING_T;
+/*
  * Perform RSA encryption.
- * OAEP padding scheme is used.
  * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and encoded by either DER or PEM. So, the encoding type should be passed via the parameter pszKeyType.
  *
  *  @param   pSrcLen         [IN]     Size of data to be encrypted
  *  @param   pSrcData        [IN]     Buffer for data to be encrypted
  *  @param   pDstLen         [OUT]    Size of output data (the result of encryption)
  *  @param   pDstData        [OUT]    Buffer for output data (the result of encryption)
+ *  @param   padding         [IN]     Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
  *  @param   pszKeyType      [IN]     Key Encoding Type. ("PEM" or "DER")
  *  @param   pKey            [IN]     SecureData of cipher key
  *  @param   nKeySize        [IN]     Size of pKey data
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA decryption.
- * OAEP padding scheme is used.
  * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and encoded by either DER or PEM. So, the encoding type should be passed via the parameter pszKeyType.
  *
  *  @param   pSrcLen          [IN]      Size of data to be decrypted
  *  @param   pSrcData         [IN]      Buffer for data to be decrypted
  *  @param   pDstLen          [OUT]     Size of output data (the result of decryption)
  *  @param   pDstData         [OUT]     Buffer for output data (the result of encryption/decryption)
+ *  @param   padding         [IN]     Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
  *  @param   pszKeyType       [IN]      Key Encoding Type. ("PEM" or "DER")
  *  @param   pKey             [IN]      SecureData of cipher key
  *  @param   nKeySize         [IN]      Size of pKey data
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize)
 
 /*
  * Perform RSA Signing in TEE
@@ -931,6 +521,9 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLe
 */
 DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
-#endif		//_HAL_CRYPTO_H_
+#ifdef __cplusplus
+}
+#endif
 
+#endif		//_HAL_CRYPTO_H_
 
