@@ -46,16 +46,10 @@
 /******************************************************************************
   Function Declaration
 ******************************************************************************/
-DTV_STATUS_T HAL_USB_Open(void);
-DTV_STATUS_T HAL_USB_OvpSetting(void);
 /*USB 3.0 Enable,Disable*/
 DTV_STATUS_T HAL_USB_SuperSpeedPortUp(UINT32 busNum, UINT32 portNum);
 DTV_STATUS_T HAL_USB_SuperSpeedPortOff(UINT32 busNum, UINT32 portNum);
 DTV_STATUS_T HAL_USB_SuperSpeedVBusControl(BOOLEAN bOn, UINT32 busNum, UINT32 portNum);
 DTV_STATUS_T HAL_USB_SuperSpeedDisable(UINT32 busNum, UINT32 portNum);
-UINT32 HAL_USB_SuperSpeedGetPortStatus(BOOLEAN bSSport,UINT32 busNum, UINT32 portNum);
-/* Dummy functions to prevent compatability issue for webos 1.0 */
-DTV_STATUS_T HAL_USB_RecoveryUSB30(void);
-DTV_STATUS_T HAL_USB_SuperSpeedDCControl(BOOLEAN bOn);
 #endif  /* _HAL_USB_H_ */
 
