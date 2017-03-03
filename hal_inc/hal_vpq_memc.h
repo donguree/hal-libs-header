@@ -117,21 +117,11 @@ typedef enum {
 	Local Variables & Function Prototypes Declarations
 ------------------------------------------------------------------------------*/
 DTV_STATUS_T HAL_VPQ_MEMC_Initialize(void);
-DTV_STATUS_T HAL_VPQ_MEMC_Uninitialize(void);
 DTV_STATUS_T HAL_VPQ_MEMC_SetMotionComp(UINT8 blurLevel, UINT8 judderLevel, HAL_MEMC_TYPE_T motion);
-DTV_STATUS_T HAL_VPQ_MEMC_SetBlurLevel(UINT8 blurLevel);
-DTV_STATUS_T HAL_VPQ_MEMC_SetJudderLevel(UINT8 judderLevel);
 DTV_STATUS_T HAL_VPQ_MEMC_MotionCompOnOff(BOOLEAN bOnOff);
-DTV_STATUS_T HAL_VPQ_MEMC_LowDelayMode(UINT8 type);
 DTV_STATUS_T HAL_VPQ_MEMC_SetRGBYUVMode(UINT8 mode);
 DTV_STATUS_T HAL_VPQ_MEMC_GetFrameDelay (UINT16 *pFrameDelay);
 DTV_STATUS_T HAL_VPQ_MEMC_SetVideoBlock(MEMC_MUTE_TYPE_T type, BOOLEAN bOnOff);
-DTV_STATUS_T HAL_VPQ_MEMC_SetTrueMotionDemo(BOOLEAN bOnOff);
-DTV_STATUS_T HAL_VPQ_MEMC_GetFirmwareVersion(UINT16 *pVersion);
 DTV_STATUS_T HAL_VPQ_MEMC_SetBypassRegion(BOOLEAN bOnOff, HAL_BYPASS_REGION_T region, HAL_BYPASS_REGION_RECT_T rect);
-DTV_STATUS_T HAL_VPQ_MEMC_SetReverseControl(UINT8 u8Mode);
-DTV_STATUS_T HAL_VPQ_MEMC_Freeze(UINT8 type);
-DTV_STATUS_T HAL_VPQ_MEMC_SetDemoBar(BOOLEAN bOnOff, UINT8 r, UINT8 g, UINT8 b);
-DTV_STATUS_T HAL_VPQ_MEMC_DEBUG(void);
 
 #endif /* _HAL_VPQ_MEMC_DDI_H_ */
