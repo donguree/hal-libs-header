@@ -1,3 +1,21 @@
+/******************************************************************************
+ *   DTV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
+ *   Copyright(c) 1999 by LG Electronics Inc.
+ *
+ *   All rights reserved. No part of this work may be reproduced, stored in a
+ *   retrieval system, or transmitted by any means without prior written
+ *   permission of LG Electronics Inc.
+ *****************************************************************************/
+
+/** @file SDec_Common.h
+ *
+ *  Header file for SDEC Driver common usage.
+ *
+ *  @author		YoungKi Son (yk.son@lge.com)
+ *  @version	1.1
+ *  @date		2017-3-03
+ *  @note		Additional information.
+ */
 
 #ifndef __SDEC_COMMON_HEADER__
 #define __SDEC_COMMON_HEADER__

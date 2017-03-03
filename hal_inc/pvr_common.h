@@ -11,9 +11,10 @@
  *
  *  Header file for PVR Driver common usage.
  *
- *  @author		Juyoung Jo ( juyoung.jo@lge.com)
- *  @version	1.0
- *  @date		2013-05-10
+ *  @author		YoungKi Son (yk.son@lge.com)
+ *  @version	1.1
+ *  @date		2013-05-10  Juyoung Jo ( juyoung.jo@lge.com)
+ *  @date		2017-3-03
  *  @note		Additional information.
  */
 
@@ -281,6 +282,19 @@ typedef struct _PVR_THUMBNAIL_T
 	UINT32	outLength;
 	UINT16	consumedTime;
 } PVR_THUMBNAIL_T;
+
+typedef enum {
+    PVR_SDEC_CH_MIN =0,
+    PVR_SDEC_CH_A = PVR_SDEC_CH_MIN,
+    PVR_SDEC_CH_B,
+    PVR_SDEC_CH_C,
+    PVR_SDEC_CH_CHB,
+    PVR_SDEC_CH_PLAYER_A,
+    PVR_SDEC_CH_PLAYER_B,
+    PVR_SDEC_CH_PLAYER_C,
+    PVR_SDEC_CH_UHD, /* For D1x. Currently not used */
+    PVR_SDEC_CH_MAX
+}PVR_SDEC_CH_T;
 
 /*----------------------------------------------------------------------------------------
 	Function Prototype Declaration

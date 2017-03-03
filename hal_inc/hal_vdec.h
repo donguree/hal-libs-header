@@ -9,12 +9,12 @@
 
 /** @file 		hal_vdec.h
  *
- *  header of Mpeg2 Video Decoder DDI Fuction.
+ *  header of Mpeg2 Video Decoder Fuction.
  *
- *  @author		Oh, Kyong-Joo (kjoh@lge.com)
- *  @version	1.0
- *  @date		2007.8.1     porting on GNSS platform
- *  @date		2007.12.27   Y2DTV
+ *  @author		YoungKi Son (yk.son@lge.com)
+ *  @version	1.1
+ *  @date		2007.8.1     Oh, Kyong-Joo (kjoh@lge.com)
+ *  @date		2017.3.03
  *  @note		Additional information.
  *  @see
  */
@@ -524,12 +524,7 @@ DTV_STATUS_T HAL_VDEC_SetFrameAdvanceNoSync(UINT8 nPort, BOOLEAN bFrameAdvanceOn
  **/
 DTV_STATUS_T HAL_VDEC_Reset(UINT8 nPort);
 
-
-/* [L8] kangsik.yoon (2011/04/13)
- * vdec internal buffer flush
- */
 DTV_STATUS_T HAL_VDEC_Flush(UINT8 nPort, VDEC_FLUSH_MODE_T vFlushMode);
-
 /**
  * Get Current PTS of video decoder.
  *
