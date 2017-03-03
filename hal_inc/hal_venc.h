@@ -17,9 +17,10 @@
  *  Video Encoder HAL function header file.
  *	HAL VENC API Functions(video encoder, recoding and codec encoding)
  *
- *	@author		Jaeseop So (jaeseop.so@lge.com)
- *  @version	1.0
- *  @date		2013.03.13
+ *	@author		YoungKi Son (yk.son@lge.com)
+ *  @version	1.1
+ *  @date		2013.03.13 Jaeseop So (jaeseop.so@lge.com)
+ *  @date		2017.03.03
  *  @see
  */
 

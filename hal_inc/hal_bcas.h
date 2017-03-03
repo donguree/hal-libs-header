@@ -7,15 +7,16 @@
  *   permission of LG Electronics Inc.
  *****************************************************************************/
 
-/** @file 		bcas_ddi.h
+/** @file 		hal_bcas.h
  *
- *  header of BCAS DDI Fuction.
+ *  header of BCAS HAL Fuction.
  *
  *
- *  @author		Yunam Kim (yunam.kim@lge.com)
+ *  @author		YoungKi Son (yk.son@lge.com)
  *  @author
- *  @version	1.0
- *  @date		2011.2.18
+ *  @version	1.1
+ *  @date		2011.2.18 Yunam Kim (yunam.kim@lge.com)
+ *  @date		2017.3.03
  *  @date
  *  @note		Additional information.
  *  @see

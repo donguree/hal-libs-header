@@ -11,9 +11,10 @@
  *
  *  System Decoder HAL function header file.
  *
- *	@author		Kim, Soon-Tae(iamsoontae@lge.com)
- *  @version	1.0
- *  @date		2007.04.16
+ *	@author		YoungKi Son(yk.son@lge.com)
+ *  @version	1.1
+ *  @date		2007.04.16 Kim, Soon-Tae(iamsoontae@lge.com)
+ *  @date		2017.3.03
  *  @see		hal_sdec.c
  */
 

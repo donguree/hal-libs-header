@@ -11,9 +11,10 @@
  *
  *  Header file for PVR HAL
  *
- *  @author   Juyoung Jo (juyoung.jo@lge.com)
- *  @version  1.0
- *  @date     2013.03.14
+ *  @author   YoungKi Son (yk.son@lge.com)
+ *  @version  1.1
+ *  @date     2013.03.14 Juyoung Jo (juyoung.jo@lge.com)
+ *  @date     2017.3.03
  *
  *  @note      none
  *  @see
