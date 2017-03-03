@@ -32,7 +32,6 @@
 #include "hal_common.h"
 #include "hal_vsc.h"
 #include "hal_gpio_index.h"
-#include "hal_cmnio.h"
 #ifdef __cplusplus
 extern "C"
 {
