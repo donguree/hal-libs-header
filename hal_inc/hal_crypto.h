@@ -217,30 +217,29 @@ Return Value
     If the function fails, the return value is NOT_OK.
 
 Remarks
-    /*
     typedef enum
     {
         nfTOB_UNDEFINED = 0,
-        /*
+        *
          * Some messages are for TEE (or VM) management. Those start at offset 0
          *
         nfTOB_TEE_MGMT = 1,
-        /*
+        *
          * We're not implementing REE/TEE session management in the first revision, but we'll
          * need it later, so let's allocate a slot for that.
          *
         nfTOB_TEE_SESSION = 2048,
-        /*
+        *
          * The first TA we'll implement is the crypto agent. This agent is used for all
          * webcrypto/msl operations, and also can provide secure store crypto services.
          *
         nfTOB_CRYPTO_AGENT = 4096,
-        /*
+        *
          * PlayReady integration is a stretch goal for the first revision, so let's
          * allocate a slot for it.
          *
         nfTOB_DRM_AGENT = 6144,
-        /*
+        *
          * The storage agent only manages the manufacturing secure store
          * in the first release.
          *
@@ -489,7 +488,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
  *  @param   pKey             [IN]      SecureData of cipher key
  *  @param   nKeySize         [IN]      Size of pKey data
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize)
+DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA Signing in TEE

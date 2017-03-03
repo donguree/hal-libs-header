@@ -1332,7 +1332,7 @@ typedef struct
 	UINT32 g_gain;					///< green gain : 0~255
 	UINT32 b_gain;					///< blue gain : 0~255
 }
-CHIP_COLOR_WHITE_T
+CHIP_COLOR_WHITE_T;
 
 /**
 *	DC2P de-saturation
@@ -2946,7 +2946,6 @@ typedef struct
     HAL_LED_LUT_INFO uiHdrLow;
     HAL_LED_LUT_INFO uiHdrMedium;
     HAL_LED_LUT_INFO uiHdrHigh;
-} HAL_LED_UI_LUT_INFO_T;
 } HAL_LED_UI_LUT_INFO_T;
 
 typedef struct

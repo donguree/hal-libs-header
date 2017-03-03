@@ -79,19 +79,19 @@ SVP_STATUS_T HAL_SVP_CheckAuTypeIsDolbyHdrMeta(UINT32 auWritePoSINT32, SINT32 au
 SVP_STATUS_T HAL_SVP_FlushSecureDecryptBuffer(void);
 SVP_STATUS_T HAL_SVP_FlushSecureDecryptBufferEx(UINT32 secCpbAddr);
 
-SVP_STATUS_T HAL_SVP_Widevine_DecryptVideo(UNIT8 *pIv, UNIT8 *pSrc, UINT32 srcLength,
+SVP_STATUS_T HAL_SVP_Widevine_DecryptVideo(UINT8 *pIv, UINT8 *pSrc, UINT32 srcLength,
 	UINT32 secDecBufHandle, UINT32 secDecBufwriteOffset, UINT32 *pOutputLength);
-SVP_STATUS_T HAL_SVP_Widevine_DecryptAudio(UNIT8 *pIv, UNIT8 *pSrc, UINT32 srcLength,
-	UNIT8 *pOutput, UINT32 *pOutputLength);
+SVP_STATUS_T HAL_SVP_Widevine_DecryptAudio(UINT8 *pIv, UINT8 *pSrc, UINT32 srcLength,
+	UINT8 *pOutput, UINT32 *pOutputLength);
 
-SVP_STATUS_T HAL_SVP_WidevineSelectKey(UINT32 session, const UNIT8 *key_id, size_t key_id_length);
-SVP_STATUS_T HAL_SVP_WidevineDecryptCTR(UINT32 session, const UNIT8 *data_addr, size_t data_length, SINT8 is_encrypted,
-	const UNIT8 *iv, size_t block_offset, const void *out_buffer, UNIT8 subsample_flags);
+SVP_STATUS_T HAL_SVP_WidevineSelectKey(UINT32 session, const UINT8 *key_id, size_t key_id_length);
+SVP_STATUS_T HAL_SVP_WidevineDecryptCTR(UINT32 session, const UINT8 *data_addr, size_t data_length, SINT8 is_encrypted,
+	const UINT8 *iv, size_t block_offset, const void *out_buffer, UINT8 subsample_flags);
 
 SVP_STATUS_T HAL_SVP_CopyToSecureDecryptBuffer(UINT32 secDecBufHandle, UINT32 secDecBufwriteOffset,
-	UNIT8 *pSrc, SINT32 length);
+	UINT8 *pSrc, SINT32 length);
 
-SVP_STATUS_T HAL_SVP_CopyFromSecureBuffer(UINT32 srcHandle, UNIT8 *pOutput, SINT32 length);
+SVP_STATUS_T HAL_SVP_CopyFromSecureBuffer(UINT32 srcHandle, UINT8 *pOutput, SINT32 length);
 
 #endif /* _HAL_SVP_H_ */
 
