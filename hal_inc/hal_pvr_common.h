@@ -7,7 +7,7 @@
  *   permission of LG Electronics Inc.
  *****************************************************************************/
 
-/** @file pvr_common.h
+/** @file hal_pvr_common.h
  *
  *  Header file for PVR Driver common usage.
  *

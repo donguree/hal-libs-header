@@ -40,7 +40,7 @@
 	#include ÆÄÀÏµé (File Inclusions)
 ******************************************************************************/
 #include "hal_common.h"
-#include "SDec_Common.h"
+#include "hal_sdec_common.h"
 //#include "hal_sdec.h"
 
 #ifdef __cplusplus
