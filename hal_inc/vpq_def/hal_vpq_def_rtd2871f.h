@@ -1,5 +1,5 @@
-#ifndef	_HAL_VPQ_DEF_H_
-#define	_HAL_VPQ_DEF_H_
+#ifndef	_HAL_VPQ_DEF_RTD2871F_H_
+#define	_HAL_VPQ_DEF_RTD2871F_H_
 
 /**********************************************************************
 	CM

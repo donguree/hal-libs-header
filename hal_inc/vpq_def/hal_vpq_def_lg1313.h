@@ -18,8 +18,8 @@
  *  @see
  */
 
-#ifndef	_HAL_VPQ_DEF_H_
-#define	_HAL_VPQ_DEF_H_
+#ifndef	_HAL_VPQ_DEF_LG1313_H_
+#define	_HAL_VPQ_DEF_LG1313_H_
 
 /******************************************************************
 	#include ÆÄÀÏµé
