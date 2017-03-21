@@ -383,19 +383,6 @@ typedef struct
 }
 CHIP_CM_DATA_T;
 
-/**
- *	set color temperature type
- */
-typedef struct
-{
-	UINT16 uCtRedGain;
-	UINT16 uCtGreenGain;
-	UINT16 uCtBlueGain;
-	UINT16 uCtRedOffset;
-	UINT16 uCtGreenOffset;
-	UINT16 uCtBlueOffset;
-}
-CHIP_CT_GAIN_OFFSET_T;
 
 /**
  *	structure for HAL_VPQ_LED_LDSetDBLUT
@@ -473,6 +460,10 @@ typedef struct
 #endif
 }
 CHIP_NOISE_REDUCTION_T;
+
+typedef struct {
+	UINT8 uNullVal;
+} CHIP_DC2P_DYNAMIC_CONTRAST_T;
 
 
 /******************************************************************************
