@@ -61,7 +61,6 @@ extern DTV_STATUS_T	HAL_GPIO_Init (UINT8 boardType);
 extern DTV_STATUS_T	HAL_GPIO_InitEx( UINT8 boardType, UINT8 resolution );
 
 extern DTV_STATUS_T	HAL_GPIO_SetPortDirection(UINT32 portIndex, BOOLEAN direction);
-extern DTV_STATUS_T	HAL_GPIO_SetPortDirection_SP(UINT32 portIndex, BOOLEAN direction);
 extern DTV_STATUS_T	HAL_GPIO_SetOutputPort(UINT32 portIndex, UINT8 data);
 extern DTV_STATUS_T	HAL_GPIO_GetInputPort(UINT32 portIndex, UINT8 *pData);
 
@@ -72,8 +71,10 @@ extern DTV_STATUS_T	HAL_GPIO_SetOutputPhysicalPort( UINT32 portNum, UINT8 data, 
 extern DTV_STATUS_T	HAL_GPIO_GetInputPhysicalPort( UINT32 portNum, UINT8 *pData, UINT32 mode );
 extern DTV_STATUS_T	HAL_GPIO_SetPhysicalPortDirection( UINT32 portNum, BOOLEAN direction, UINT32 mode );
 
+/* SIC only */
 extern DTV_STATUS_T	HAL_GPIO_SetIntrCallBack(UINT32 portIndex, void (*pfnGPIO_CB)(UINT32), UINT32 enable);
 extern DTV_STATUS_T	HAL_GPIO_GetIntrCount(UINT32 portIndex, UINT32 *pcount, UINT32 *pmsec);
+/* SIC only */
 
 
 #endif	/* _HAL_GPIO_H_ */
