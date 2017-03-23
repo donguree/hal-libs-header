@@ -298,7 +298,7 @@ DTV_STATUS_T	HAL_VENC_ReleaseData(UINT8 port, UINT8 *pBufAddr,UINT32 datasize);
  */
 DTV_STATUS_T	HAL_VENC_GetThumbnail(UINT8 port, UINT32 width, UINT32 height, UINT8 *pBufAddr, UINT32 datasize);
 
-void HAL_VENC_DEBUG_Menu(void);
+void HAL_VENC_DebugMenu(void);
 
 #ifdef	__cplusplus
 }

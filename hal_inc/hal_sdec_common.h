@@ -135,7 +135,8 @@ typedef enum {
 */
 typedef enum {
 	SDEC_WITHOUT_CAS = 0,
-	SDEC_WITH_CAS
+	SDEC_WITH_CAS,
+	SDEC_WITH_CIP_CAS
 } SDEC_CAS_TYPE_T;
 
 /**
@@ -149,26 +150,12 @@ typedef enum {
 	SDEC_PORT_EXT_INPUT1,			/* SoC EXT Input ( such as External Demodulator or Channel Browser Chip */
 	SDEC_PORT_EXT_INPUT2,			/* SoC EXT Input ( such as External Demodulator or Channel Browser Chip */
 	SDEC_PORT_FROM_MEM,				/* TS Input From Memory */
+	SDEC_PORT_IP0,
+	SDEC_PORT_IP1,
 	SDEC_PORT_NUM,
 
 	SDEC_PORT_NULL //temp
 } SDEC_INPUT_PORT_T;
-
-/**
- * IO Port Type
-*/
-typedef enum {
-	SDEC_IO_PORT_PARALLEL0 = 0,		/* Parallel Output Port 0 */
-	SDEC_IO_PORT_SERIAL0			/* Serial Output Port 0 */
-} SDEC_IO_PORT_T;
-
-/**
- * IO Type
-*/
-typedef enum {
-	SDEC_IOPORT_INPUT = 0,
-	SDEC_IOPORT_OUTPUT
-} SDEC_IO_TYPE_T;
 
 /**
  * PID filter cleaning scope.
@@ -282,66 +269,6 @@ typedef struct ACAP_SECF_INFO
 #ifndef INCLUDED_BY_FILTER
 typedef DTV_STATUS_T (*pfnSDECDataHandlingCB)(SDEC_MSG_TYPE_T *pMsg);
 #endif /* INCLUDED_BY_FILTER */
-
-
-/* Commercial Stub */
-/**
- * Define SDEC Output Path to DRM
- */
-typedef enum SDEC_RMX_PATH
-{
-	SDEC_RMX_PATH_INIT = 0,
-	SDEC_RMX_PATH_RF_DRM,
-	SDEC_RMX_PATH_SERIAL_OUT,
-	SDEC_RMX_PATH_IP_DRM = SDEC_RMX_PATH_SERIAL_OUT,
-	SDEC_RMX_PATH_MAX
-} SDEC_RMX_PATH_T;
-
-/**
- * Define SDEC Output Path Transition for Some SoC
- */
-typedef enum SDEC_RMX_PATH_TRANSITION
-{
-	SDEC_RMX_PATH_TRANSITION_RF_TO_IP = 0,
-	SDEC_RMX_PATH_TRANSITION_IP_TO_RF,
-	SDEC_RMX_PATH_TRANSITION_MAX
-} SDEC_RMX_PATH_TRANSITION_T;
-
-/**
- * Define SDEC Data Channel
- */
-typedef enum SDEC_DATA_CH_PATH
-{
-	SDEC_DATA_CH_PATH_RF = 0,
-	SDEC_DATA_CH_PATH_IP,
-	SDEC_DATA_CH_PATH_MAX
-} SDEC_DATA_CH_PATH_T;
-
-/**
- * Define UDP Packet Destination
- */
-typedef enum IPM_PACKET_DESTINATION_TYPE
-{
-	IPM_PACKET_DESTINATION_DRM = 0,
-	IPM_PACKET_DESTINATION_CH_B,
-	IPM_PACKET_DESTINATION_BUFFER = IPM_PACKET_DESTINATION_CH_B,	// backward compatibility
-	IPM_PACKET_DESTINATION_CH_A,
-	IPM_PACKET_DESTINATION_MAX
-} IPM_PACKET_DESTINATION_TYPE_T;
-
-
-/**
- * Define Data Pump Path
- */
-typedef enum SDEC_DATA_PUMP_PATH
-{
-	SDEC_DATA_PUMP_PATH_INTERNAL = 0,
-	SDEC_DATA_PUMP_PATH_EXTERNAL,
-	SDEC_DATA_PUMP_PATH_EXTERNAL0 = SDEC_DATA_PUMP_PATH_EXTERNAL,
-	SDEC_DATA_PUMP_PATH_EXTERNAL1,
-	SDEC_DATA_PUMP_PATH_MAX
-} SDEC_DATA_PUMP_PATH_T;
-
 
 /*-----------------------------------------------------------------------
    Descrambler STUB
