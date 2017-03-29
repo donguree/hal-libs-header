@@ -741,6 +741,7 @@ DTV_STATUS_T HAL_VFE_HDMI_WriteHDCP22(UINT8 *pData, UINT32 size);
 
 // for repeater (W series)
 DTV_STATUS_T HAL_VFE_HDMI_HPD_Control_Port(UINT8 port, BOOLEAN value);
+DTV_STATUS_T HAL_VFE_HDMI_SetHDCPModeToRepeater(UINT8 enable);
 DTV_STATUS_T HAL_VFE_HDMI_RpRx_SetTopology(UINT8 slot, UINT8 deviceCount, UINT8 depth, UINT8 *topology);
 
 #ifdef __cplusplus
