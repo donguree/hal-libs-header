@@ -29,10 +29,6 @@
  ******************************************************************************/
 #include "hal_common.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 
 /******************************************************************************
@@ -520,9 +516,6 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLe
 */
 DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif		//_HAL_CRYPTO_H_
 

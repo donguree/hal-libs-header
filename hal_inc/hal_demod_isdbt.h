@@ -24,10 +24,6 @@
 #ifndef _HAL_DEMOD_ISDB_H_
 #define _HAL_DEMOD_ISDB_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 /******************************************************************************
     Control Constants
 ******************************************************************************/
@@ -81,7 +77,4 @@ extern int HAL_DEMOD_VQI_ISDBT_GetSNR(UINT32 *pSNR);
 extern BOOLEAN HAL_DEMOD_GetEmergencyAlertFlagStatus(void);
 extern int HAL_DEMOD_ISDBT_DebugMenu(void);
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* End of _HAL_DEMOD_ISDB_H_ */

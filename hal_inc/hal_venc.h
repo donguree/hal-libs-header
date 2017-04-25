@@ -49,10 +49,6 @@
 #include "common_win32.h"
 #endif
 
-#ifdef __cplusplus
-    extern "C"
-    {
-#endif
 
 /**
  * @brief infomation of recored frame
@@ -300,9 +296,6 @@ DTV_STATUS_T	HAL_VENC_GetThumbnail(UINT8 port, UINT32 width, UINT32 height, UINT
 
 void HAL_VENC_DebugMenu(void);
 
-#ifdef	__cplusplus
-}
-#endif /* __cplusplus */
 
 #endif  /*_HAL_VENC_H_ */
 

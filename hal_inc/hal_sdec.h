@@ -26,10 +26,6 @@
 ******************************************************************************/
 #include "hal_sdec_common.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 /******************************************************************************
  	상수 정의(Constant Definitions)
@@ -82,8 +78,5 @@ DTV_STATUS_T HAL_SDEC_GetPidFilterIndex(SDEC_CHANNEL_T ch, UINT32 *p_pid_filter_
 /* 20150612 for debug Menu*/
 void HAL_SDEC_DebugMenu(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif  /*_HAL_SDEC_H_ */

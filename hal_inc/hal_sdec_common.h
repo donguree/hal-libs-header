@@ -20,9 +20,6 @@
 #ifndef __SDEC_COMMON_HEADER__
 #define __SDEC_COMMON_HEADER__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /******************************************************************************
  	상수 정의(Constant Definitions)
@@ -354,9 +351,6 @@ typedef enum
 /******************************************************************************
 	Extern 전역변수와 함수 prototype 선언
 	(Extern Variables & Function Prototype Declarations)
-*******************************************************************************/
-#ifdef __cplusplus
-	}
-#endif
+******************************************************************************/
 
 #endif

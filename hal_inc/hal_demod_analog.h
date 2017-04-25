@@ -24,10 +24,6 @@
 #ifndef _TU_DEMOD_ANALOG_H_
 #define _TU_DEMOD_ANALOG_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 /******************************************************************************
     Control Constants
 ******************************************************************************/
@@ -69,9 +65,6 @@ extern int HAL_DEMOD_PAL_GetFWVersion(UINT32 *pFWVersion);
 extern int HAL_DEMOD_NTSC_GetFWVersion(UINT32 *pFWVersion);
 extern void HAL_ADEMOD_DebugMenu(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* End of _TU_DEMOD_ANALOG_H_ */
 

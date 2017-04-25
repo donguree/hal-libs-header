@@ -24,10 +24,6 @@
 #ifndef _HAL_DEMOD_DTMB_H_
 #define _HAL_DEMOD_DTMB_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 /******************************************************************************
     Control Constants
 ******************************************************************************/
@@ -79,7 +75,4 @@ extern int HAL_DEMOD_DTMB_GetAGC(UINT32 *pAGC);
 extern int HAL_DEMOD_DTMB_GetSNR(UINT32 *pSNR);
 extern int HAL_DEMOD_DTMB_DebugMenu(void);
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* End of _HAL_DEMOD_DTMB_H_ */

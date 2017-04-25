@@ -24,10 +24,6 @@
 #ifndef _HAL_DEMOD_COMMON_H_
 #define _HAL_DEMOD_COMMON_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 /******************************************************************************
 	Control Constants
 ******************************************************************************/
@@ -536,9 +532,6 @@ typedef struct
     Function Declaration
 ******************************************************************************/
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _HAL_AUDIO_H_ */
 

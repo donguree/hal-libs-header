@@ -27,10 +27,6 @@
 ----------------------------------------------------------------------------------------*/
 #include "hal_common.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 /*----------------------------------------------------------------------------------------
   Control Constants
@@ -509,9 +505,6 @@ DTV_STATUS_T HAL_DELIVERY_DebugCommand(const char* pszCmd,const char *pszParam,c
 
 
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 

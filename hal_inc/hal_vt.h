@@ -31,9 +31,6 @@
 /*----------------------------------------------------------------------------------------
 	Extern Function Prototype Declaration
 ----------------------------------------------------------------------------------------*/
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "hal_common.h"
@@ -548,7 +545,4 @@ DTV_STATUS_T HAL_VTV_SetOutputBufferIndex(unsigned int index, unsigned int vendo
 DTV_STATUS_T HAL_VTV_GetInputBufferFreeze(unsigned int bufferIndex, unsigned int *pbFreeze);
 DTV_STATUS_T HAL_VTV_SetInputBufferFreeze(unsigned int bufferIndex, unsigned int bFreeze);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

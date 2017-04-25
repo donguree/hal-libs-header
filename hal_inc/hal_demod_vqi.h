@@ -24,10 +24,6 @@
 #ifndef _HAL_DEMOD_VQI_H_
 #define _HAL_DEMOD_VQI_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 /******************************************************************************
     Control Constants
 ******************************************************************************/
@@ -74,7 +70,4 @@ extern int HAL_DEMOD_VQI_GetAGC(UINT32 *pAGC);
 extern int HAL_DEMOD_VQI_GetSNR(UINT32 *pSNR);
 extern int HAL_DEMOD_VQI_DebugMenu(void);
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* End of _HAL_DEMOD_VQI_H_ */

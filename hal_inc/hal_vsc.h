@@ -40,10 +40,6 @@
 #endif
 //#include "global_configurations.h"
 
-#ifdef	__cplusplus
-	extern "C"
-	{
-#endif /* __cplusplus */
 
 //#include "dil_vsc.h"
 
@@ -603,8 +599,5 @@ DTV_STATUS_T    HAL_VSC_HDR_Disconnect(void);
  /*-----------------------------------------------------------------------------
 	Local Variables & Function Prototypes Declarations
 ------------------------------------------------------------------------------*/
-#ifdef	__cplusplus
-	}
-#endif /* __cplusplus */
 
 #endif /* _HAL_VIDEO_DDI_H_ */

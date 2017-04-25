@@ -19,9 +19,6 @@
 #ifndef _HAL_VO_H_
 #define _HAL_VO_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include "hal_common.h"
 
@@ -283,7 +280,4 @@ DTV_STATUS_T HAL_VO_FB_UpdateFrameBuffer(const unsigned int ch, const HAL_VO_FB_
  **/
 DTV_STATUS_T HAL_VO_FB_UpdateFrameBufferProperty(const unsigned int ch, const HAL_VO_FB_FRAMEBUFFER_T* framebuffer, const HAL_VO_FB_FRAMEBUFFER_PROPERTY_T* property);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 #endif /* _HAL_VO_H_ */

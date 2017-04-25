@@ -34,10 +34,6 @@
 ------------------------------------------------------------------------------*/
 #include "hal_common.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 /*-----------------------------------------------------------------------------
 	Constant Definitions
@@ -411,8 +407,5 @@ DTV_STATUS_T HAL_VBE_DISP_GetPixelGainLimit (UINT16 *nPixelGainLimit);
 DTV_STATUS_T HAL_VBE_DISP_SetInnerPattern(UINT8 bOnOff, UINT8 ip, UINT8 type);
 
 
-#ifdef	__cplusplus
-	}
-#endif /* __cplusplus */
 
 #endif /* _HAL_VBE_DISP_H_ */

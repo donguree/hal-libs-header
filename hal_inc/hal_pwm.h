@@ -30,9 +30,6 @@
 
 #include <hal_common.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 /******************************************************************************
  	Constant Definitions
 ******************************************************************************/
@@ -112,7 +109,4 @@ extern DTV_STATUS_T HAL_PWM_SetParam(PWM_PIN_SEL_T pwmIndex, PWM_PARAM_T* pstPWM
 extern DTV_STATUS_T HAL_PWM_GetParam(PWM_PIN_SEL_T pwmIndex, PWM_PARAM_T* pstPWMParam);
 extern DTV_STATUS_T HAL_PWM_ApplyParamSet(PWM_PIN_SEL_MASK_T pwmIndex_mask);
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* _HAL_PWM_H_ */

@@ -31,10 +31,6 @@
 ******************************************************************************/
 #include "hal_common.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 
 /******************************************************************************
@@ -117,9 +113,6 @@ DTV_STATUS_T HAL_AUDIO_DIRECT_GetRawBufferInfo(HAL_AUDIO_DIRECT_CONTEXT *pCtx, U
 DTV_STATUS_T HAL_AUDIO_DIRECT_SetNoDelayParam(HAL_AUDIO_DIRECT_CONTEXT *pCtx, UINT32 bOnOff, UINT32 upperThreshold, UINT32 lowerThreshold);
 DTV_STATUS_T HAL_AUDIO_DIRECT_Start(HAL_AUDIO_DIRECT_CONTEXT *pCtx, HAL_AUDIO_DIRECT_CODEC_TYPE_T audioType, UINT32 samplingFreq, UINT32 numOfChannel, UINT32 bitsPerSample);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _HAL_AUDIO_DIRECT_H_ */
 

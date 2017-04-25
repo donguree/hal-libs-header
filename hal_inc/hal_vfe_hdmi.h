@@ -32,10 +32,6 @@
 #include "hal_common.h"
 #include "hal_vsc.h"
 #include "hal_gpio_index.h"
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 /******************************************************************************
     매크로 함수 정의 (Macro Definitions)
 ******************************************************************************/
@@ -744,7 +740,4 @@ DTV_STATUS_T HAL_VFE_HDMI_HPD_Control_Port(UINT8 port, BOOLEAN value);
 DTV_STATUS_T HAL_VFE_HDMI_SetHDCPModeToRepeater(UINT8 enable);
 DTV_STATUS_T HAL_VFE_HDMI_RpRx_SetTopology(UINT8 slot, UINT8 deviceCount, UINT8 depth, UINT8 *topology);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

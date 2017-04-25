@@ -300,10 +300,6 @@ typedef void (*DDI_VDEC_MHP_AFD_CALLBACK_PTR_T) (UINT8 afdValue);
 
 
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 typedef struct VDEC_USERDATA_CALLBACK
 {
@@ -792,9 +788,6 @@ typedef enum
 } VDEC_DECODER_TYPE_T;
 
 
-#ifdef __cplusplus
-}
-#endif
 
 /* vim:set ts=4 sw=4: */
 #endif /*_hal_vdec.h_ */

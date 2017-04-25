@@ -24,10 +24,6 @@
 #ifndef _HAL_DEMOD_DVB_H_
 #define _HAL_DEMOD_DVB_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 /******************************************************************************
     Control Constants
 ******************************************************************************/
@@ -118,8 +114,5 @@ extern int HAL_DEMOD_DVB_DVBS_GetBER(UINT32 *pBER);
 extern int HAL_DEMOD_DVB_DVBS_GetAGC(UINT32 *pAGC);
 extern int HAL_DEMOD_DVB_DVBS_GetSNR(UINT32 *pSNR);
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* End of _DEMOD_LG115X_DVB_H_ */
 

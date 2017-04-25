@@ -49,9 +49,6 @@
 	Çü Á¤ÀÇ (Type Definitions)
 ******************************************************************************/
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /**
 * CIPLUS_DATARATE_T
@@ -356,8 +353,5 @@ DTV_STATUS_T HAL_CI_PLUS14_RemoveAllPIDsFromPIDFilter(CIPLUS_CI_CH_T ciMuxInputC
 DTV_STATUS_T HAL_CI_PLUS14_GetAllPIDsFromPIDFilter(CIPLUS_CI_CH_T ciMuxInputCh, UINT16 *pNumOfPids, UINT16** ppPids);
 
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /*_CI_HAL_H_ */

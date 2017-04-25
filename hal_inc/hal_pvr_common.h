@@ -29,10 +29,6 @@
 #include "hal_vdec.h"
 #include "hal_audio.h"
 
-#ifdef	__cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
 
 /*----------------------------------------------------------------------------------------
 	Control Constants
@@ -304,9 +300,6 @@ typedef enum {
 	Extern Variables
 ----------------------------------------------------------------------------------------*/
 
-#ifdef	__cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* _PVR_COMMON_HEADER_H_ */
 

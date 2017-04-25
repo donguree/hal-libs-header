@@ -34,10 +34,6 @@
 ------------------------------------------------------------------------------*/
 #include "hal_common.h"
 
-#ifdef	__cplusplus
-	extern "C"
-	{
-#endif /* __cplusplus */
 
 /*-----------------------------------------------------------------------------
 	Constant Definitions
@@ -330,9 +326,6 @@ DTV_STATUS_T HAL_VFE_AVD_SetChannelChange(void);
 /*-----------------------------------------------------------------------------
 	Local Variables & Function Prototypes Declarations
 ------------------------------------------------------------------------------*/
-#ifdef	__cplusplus
-	}
-#endif /* __cplusplus */
 
 #endif /* _VIDEO_SOC_VBI_DDI_H_ */
 

@@ -30,10 +30,6 @@
 
 /*#include "common.h"*/
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 /*----------------------------------------------------------------------------------------
   Control Constants
@@ -154,8 +150,5 @@ DTV_STATUS_T HAL_PVR_SetSDECUploadCh(PVR_UP_CH_T upChId, PVR_SDEC_CH_T sdecChId)
 
 void HAL_PVR_DEBUG_Menu(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _HAL_PVR_H_ */

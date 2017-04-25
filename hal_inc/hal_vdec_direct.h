@@ -13,10 +13,6 @@
 
 #include "hal_common.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 
 typedef enum
@@ -62,9 +58,6 @@ DTV_STATUS_T HAL_VDEC_DIRECT_SetCallback(HAL_DVDEC_T *vdec,
 DTV_STATUS_T HAL_VDEC_DIRECT_PlayWithCallback(HAL_DVDEC_T *vdec,
 	void *data, int size, UINT64 buffID);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 

@@ -30,10 +30,6 @@
 ******************************************************************************/
 #include "hal_common.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 /******************************************************************************
  	상수 정의(Constant Definitions)
@@ -1744,8 +1740,5 @@ DTV_STATUS_T HAL_AUDIO_SetDecoderOutputGain(HAL_AUDIO_ADEC_INDEX_T adecIndex, HA
 DTV_STATUS_T HAL_AUDIO_SetMixerOutputGain(HAL_AUDIO_MIXER_INDEX_T mixerIndex, HAL_AUDIO_VOLUME_T volume); //function body is empty
 
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _HAL_AUDIO_H_ */

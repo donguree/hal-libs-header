@@ -31,9 +31,6 @@
 /*----------------------------------------------------------------------------------------
 	Extern Function Prototype Declaration
 ----------------------------------------------------------------------------------------*/
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #include "hal_common.h"
@@ -994,7 +991,4 @@ HAL_GAL_STATE_T HAL_GAL_SetCursorPosition(HAL_GAL_CURSOR_POSITION_INFO_T* pCurso
 
 HAL_GAL_STATE_T HAL_GAL_SetCursorResolution(HAL_GAL_RESOLUTION_T cursorCoordinateResolution, HAL_GAL_RESOLUTION_T cursorImageResolution);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

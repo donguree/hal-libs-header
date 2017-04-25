@@ -43,10 +43,6 @@
 #include "hal_sdec_common.h"
 //#include "hal_sdec.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 /******************************************************************************
  	상수 정의(Constant Definitions)
@@ -82,9 +78,6 @@ int HAL_BCAS_SMARTCARD_IsCardInserted(void);
 DTV_STATUS_T HAL_BCAS_SMARTCARD_SmartCardTransferAPDU(UINT8 cardIndex, UINT8 *commandAPDU, UINT32 commandAPDULen, UINT8 *responseAPDU, UINT32 *responseAPDULen, UINT32 maxresponseAPDULen);
 DTV_STATUS_T HAL_BCAS_SMARTCARD_RegisterEvent_CardAction(UINT32 (*pfn)(UINT8, UINT32));
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /*_BCAS_HAL_H_ */
 

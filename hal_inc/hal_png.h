@@ -18,9 +18,6 @@
 #ifndef _HAL_PNG_H_
 #define _HAL_PNG_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #include "hal_common.h"
 
@@ -115,7 +112,4 @@ DTV_STATUS_T HAL_PNG_Decode(HAL_PNG_IMAGE_T *src, HAL_PNG_IMAGE_T *dst, HAL_PNG_
  **/
 DTV_STATUS_T HAL_PNG_Close(void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 #endif /* _HAL_PNG_H_ */

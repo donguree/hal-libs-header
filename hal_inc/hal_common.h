@@ -30,10 +30,6 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 
 // Common type definitions
 
@@ -191,9 +187,6 @@ typedef struct HAL_OUT_ENUM{
 	int    PostEnum; // packet size
 } sHAL_OUT_ENUM;
 
-#ifdef __cplusplus
-}
-#endif
 
 /* below definitions should be removed ? */
 
@@ -231,10 +224,6 @@ typedef struct HAL_OUT_ENUM{
 ----------------------------------------------------------------------------------------*/
 
 
-#ifdef	__cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
 
 /*----------------------------------------------------------------------------------------
 	Constant Definitions
@@ -301,9 +290,6 @@ typedef struct HAL_Status_Flag {
 	Extern Variables
 ----------------------------------------------------------------------------------------*/
 
-#ifdef	__cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* _PROTOS_H_ */
 
