@@ -25,13 +25,8 @@
 	(File Inclusions)
 *******************************************************************/
 
-#if (PLATFORM_TYPE == LG_PLATFORM)
-	#include "vpq_def/hal_vpq_def_lg1313.h"
-#elif (PLATFORM_TYPE == RTK_PLATFORM)
-	#include "vpq_def/hal_vpq_def_rtd2871f.h"
-#elif (PLATFORM_TYPE == MSTAR_PLATFORM)
-	#include "vpq_def/hal_vpq_def_msd93xbg.h"
-#endif
+#include "hal_vpq_def_common.h"
+
 
 /*******************************************************************
 	상수 정의
