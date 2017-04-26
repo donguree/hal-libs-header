@@ -86,7 +86,8 @@ typedef enum _PVR_DOWN_CH_T
 {
     PVR_DOWN_CH_A = 0,
     PVR_DOWN_CH_B = 1,
-	PVR_DOWN_CH_MAX = PVR_DOWN_CH_B
+	PVR_DOWN_CH_C = 2,
+	PVR_DOWN_CH_MAX = PVR_DOWN_CH_C
 #define	PVR_DOWN_CH_NR	(PVR_DOWN_CH_MAX+1)
 } PVR_DOWN_CH_T;
 
@@ -98,7 +99,8 @@ typedef enum _PVR_UP_CH_T
 {
     PVR_UP_CH_A = 0,
     PVR_UP_CH_B = 1,
-	PVR_UP_CH_MAX = PVR_UP_CH_B
+	PVR_UP_CH_C = 2,
+	PVR_UP_CH_MAX = PVR_UP_CH_C
 #define	PVR_UP_CH_NR	(PVR_UP_CH_MAX+1)
 } PVR_UP_CH_T;
 
