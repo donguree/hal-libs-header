@@ -50,19 +50,7 @@
 /*-----------------------------------------------------------------------------
 	Macro Definitions
 ------------------------------------------------------------------------------*/
-#if !defined(BIT0) && !defined(BIT1)
-#define		BIT0		0x00000001
-#define		BIT1		0x00000002
-#define		BIT2		0x00000004
-#define		BIT3		0x00000008
-#define		BIT4		0x00000010
-#define		BIT5		0x00000020
-#define		BIT6		0x00000040
-#define		BIT7		0x00000080
-#define		BIT8		0x00000100
-#endif
-
-#define FRC_MUTE_MASK (BIT7)
+#define __NEW_HAL_VSC__ 0
 #define VIDEO_DDI_RECT_T VIDEO_RECT_T
 
 /**
@@ -417,88 +405,37 @@ typedef enum VIDEO_EMF_SRC_ATTR
 
 } VIDEO_EMF_SRC_ATTR_T;
 
-#ifndef TRIDTV_SC_OUTPUT_TYPE_T
-typedef enum
-{
-	SC_OUT_SINGLE_2D  = 0 ,///< single nomal
-	SC_OUT_SINGLE_TB      ,///< top and bottom
-	SC_OUT_SINGLE_SS      ,///< side by side
-	SC_OUT_SINGLE_FS      ,///< Frame Sequential(Interleaving)
+#if __NEW_HAL_VSC__
+typedef enum VSC_SUB_MODE{
+    VSC_SUB_MODE_NONE = 0,
+    VSC_SUB_MODE_PIP,
+    VSC_SUB_MODE_PBP,
+    VSC_SUB_MODE_RESERVED1,
+    VSC_SUB_MODE_RESERVED2,
+    VSC_SUB_MODE_MAX = VSC_SUB_MODE_RESERVED2,
+    VSC_SUB_MODE_MAXN
+} VSC_SUB_MODE_T;
 
-	SC_OUT_DUAL_FHD       ,///< dual screen
-	SC_OUT_DUAL_TB        ,///< dual top and bottom for H13 internal type
-	SC_OUT_DUAL_SS        ,///< dual side by side for H13 internal type
-	SC_OUT_SINGLE_T       ,///< h13 internal type
-	SC_OUT_SINGLE_LA      ,///< line alternative
-	SC_OUT_MAX            ,//MAX
-}__TRIDTV_SC_OUTPUT_TYPE_T;
-#define TRIDTV_SC_OUTPUT_TYPE_T __TRIDTV_SC_OUTPUT_TYPE_T
-#endif
+typedef enum VSC_SUB_CONNECT_TYPE{
+    VSC_SUB_CONNECT_TYPE_NONE = 0,
+    VSC_SUB_CONNECT_TYPE_MIRROR,
+    VSC_SUB_CONNECT_TYPE_NON_MIRROR,
+    VSC_SUB_CONNECT_TYPE_RESERVED1,
+    VSC_SUB_CONNECT_TYPE_RESERVED2,
+    VSC_SUB_CONNECT_TYPE_MAX = VSC_SUB_CONNECT_TYPE_RESERVED2,
+    VSC_SUB_CONNECT_TYPE_MAXN
+} VSC_SUB_CONNECT_TYPE_T;
 
-#ifndef TRIDTV_INPUT_TYPE_T
-typedef enum
-{
-	/*	Drive에서 아래 value 사용 안함.	*/
-	INPUT_TYPE_3DOFF = 0,			//VIDEO_3D_FORMAT_2D,
-
-	//interim format - half
-	INPUT_TYPE_TOPNBOTTOM,		//VIDEO_3D_FORMAT_TOP_BOTTOM,
-	INPUT_TYPE_SIDEBYSIDE,		//VIDEO_3D_FORMAT_SIDEBYSIDE_HALF,
-	INPUT_TYPE_CHECKERBOARD,	//VIDEO_3D_FORMAT_CHECKER_BOARD,
-	INPUT_TYPE_FRAMESEQ,		//VIDEO_3D_FORMAT_FRAME_SEQ
-	INPUT_TYPE_COLUMN_INTERLEAVE,	/**< for H.264*/
-	INPUT_TYPE_LINE_INTERLEAVE_HALF,	/**< for H.264*/
-
-	//Full format
-	INPUT_TYPE_FRAMEPAC,			//VIDEO_3D_FORMAT_FRAME_PACKING
-	INPUT_TYPE_FIELD_ALTERNATIVE,	//VIDEO_3D_FORMAT_FIELD_ALTERNATIVE
-	INPUT_TYPE_LINE_ALTERNATIVE,	//VIDEO_3D_FORMAT_LINE_ALTERNATIVE
-	INPUT_TYPE_SIDEBYSIDE_FULL,		//VIDEO_3D_FORMAT_SIDEBYSIDE_FULL,
-	INPUT_TYPE_DUALSTREAM, 	/**< Full format*/
-
-	/*	Drive에서 아래 value 사용 안함. */
-	INPUT_TYPE_2DTO3D,			//VIDEO_3D_FORMAT_2DTO3D,
-
-	INPUT_TYPE_MAX,
-}__TRIDTV_INPUT_TYPE_T;
-#define TRIDTV_INPUT_TYPE_T __TRIDTV_INPUT_TYPE_T
-#endif
-/**
- * Define 3D Input LR Type.
- */
-#ifndef  TRIDTV_INPUT_LR_SEQ_T
-typedef enum
-{
-	INPUT_LR_SEQ = 0,
-	INPUT_RL_SEQ,
-	INPUT_LR_MAX,
-} __TRIDTV_INPUT_LR_SEQ_T;
-#define TRIDTV_INPUT_LR_SEQ_T __TRIDTV_INPUT_LR_SEQ_T
-#endif
-
-#ifndef TRIDTV_3DMODE_FLAG_T
-typedef enum
-{
-	TRIDTV_3DMODE_OFF= 0,
-	TRIDTV_3DMODE_ON 	,
-	TRIDTV_3DMODE_2DTO3D,
-	TRIDTV_3DMODE_3DTO2D,
-	TRIDTV_3DMODE_MAX,
-} __TRIDTV_3DMODE_FLAG_T;
-#define TRIDTV_3DMODE_FLAG_T __TRIDTV_3DMODE_FLAG_T
-#endif
-
-#ifndef TRIDTV_SCALER_CTRL_T
-typedef struct {
-
-	TRIDTV_3DMODE_FLAG_T     mode;		///< select formatter operation mode. it controls 3D mode ON/OFF.
-	TRIDTV_INPUT_TYPE_T		 in_fmt;	///< input image format(top/bottom, sidebyside, checkboard, frame, field seq, dual 2d)
-	TRIDTV_SC_OUTPUT_TYPE_T  out_fmt;	///< output image format(top/bottom, sidebyside, checkboard, frame, field seq)
-	TRIDTV_INPUT_LR_SEQ_T    lr;		///< output left/right first order
-}__TRIDTV_SCALER_CTRL_T;
-#define TRIDTV_SCALER_CTRL_T __TRIDTV_SCALER_CTRL_T
-#endif
-
+typedef enum VSC_SUB_MEMORY_USE {
+    VSC_SUB_MEMORY_USE_NONE = 0,
+    VSC_SUB_MEMORY_USE_SINGLE,
+    VSC_SUB_MEMORY_USE_MULTI,
+    VSC_SUB_MEMORY_USE_RESERVED1,
+    VSC_SUB_MEMORY_USE_RESERVED2,
+    VSC_SUB_MEMORY_USE_MAX = VSC_SUB_MEMORY_USE_RESERVED2,
+    VSC_SUB_MEMORY_USE_MAXN
+} VSC_SUB_MEMORY_USE_T;
+#else
 typedef enum {
 	VSC_SUB_MODE_PIP,
 	VSC_SUB_MODE_PBP,
@@ -514,6 +451,7 @@ typedef enum VSC_SUB_PURPOSE
    VSC_SUB_PURPOSE_MAX = VSC_SUB_PURPOSE_MAGNIFIER,
    VSC_SUB_PURPOSE_MAXN
 } VSC_SUB_PURPOSE_T;
+#endif
 
 typedef enum {
 	VSC_MGF_TYPE_CIRCLE = 0,
@@ -535,12 +473,131 @@ typedef struct VSC_ACTIVE_VIDEO_WINDOW {
 
 typedef void (*PFN_VSC_NOTIFY_ACTIVE_VIDEO_WINDOW_T) (VIDEO_WID_T wId, VSC_ACTIVE_VIDEO_WINDOW_T *window);
 
+#if __NEW_HAL_VSC__
+typedef enum {
+    VSC_ROTATE_0,
+    VSC_ROTATE_90,
+    VSC_ROTATE_180,
+    VSC_ROTATE_270
+} VSC_ROTATE_T;
+
+typedef void (*PFN_VSC_NOTIFY_MUTE_OFF_T) (VIDEO_WID_T wId);
+
+typedef enum VSC_VDO_PORT
+{
+    VSC_VDO_PORT_MIN = 0,
+    VSC_VDO_PORT_0 = VSC_VDO_PORT_MIN,
+    VSC_VDO_PORT_1,
+    VSC_VDO_PORT_MAX = VSC_VDO_PORT_1,
+    VSC_VDO_PORT_MAXN,
+}VSC_VDO_PORT_T;
+
+typedef enum
+{
+    VIDEO_PATTERN_MUX = 0,
+    VIDEO_PATTERN_DI_NR,
+    VIDEO_PATTERN_SCALER,
+    VIDEO_PATTERN_MEMC,
+    VIDEO_PATTERN_DISPLAY,
+    VIDEO_PATTERN_RESERVED0,
+    VIDEO_PATTERN_RESERVED1,
+    VIDEO_PATTERN_RESERVED2,
+    VIDEO_PATTERN_RESERVED3,
+    VIDEO_PATTERN_MAX,
+}VIDEO_PATTERN_LOCATION_T;
+
+typedef struct VSC_SCALER_RATIO
+{
+    int h_scaleup_ratio,
+    int v_scaleup_ratio,
+    int h_scaledown_ratio,
+    int v_scaledown_ratio,
+}VSC_SCALER_RATIO_T;
+#else
+#ifndef TRIDTV_SC_OUTPUT_TYPE_T
+typedef enum
+{
+        SC_OUT_SINGLE_2D  = 0 ,///< single nomal
+        SC_OUT_SINGLE_TB      ,///< top and bottom
+        SC_OUT_SINGLE_SS      ,///< side by side
+        SC_OUT_SINGLE_FS      ,///< Frame Sequential(Interleaving)
+
+        SC_OUT_DUAL_FHD       ,///< dual screen
+        SC_OUT_DUAL_TB        ,///< dual top and bottom for H13 internal type
+        SC_OUT_DUAL_SS        ,///< dual side by side for H13 internal type
+        SC_OUT_SINGLE_T       ,///< h13 internal type
+        SC_OUT_SINGLE_LA      ,///< line alternative
+        SC_OUT_MAX            ,//MAX
+}__TRIDTV_SC_OUTPUT_TYPE_T;
+#define TRIDTV_SC_OUTPUT_TYPE_T __TRIDTV_SC_OUTPUT_TYPE_T
+#endif
+#ifndef TRIDTV_INPUT_TYPE_T
+typedef enum
+{
+        /*      Drive에서 아래 value 사용 안함. */
+        INPUT_TYPE_3DOFF = 0,                   //VIDEO_3D_FORMAT_2D,
+
+        //interim format - half
+        INPUT_TYPE_TOPNBOTTOM,          //VIDEO_3D_FORMAT_TOP_BOTTOM,
+        INPUT_TYPE_SIDEBYSIDE,          //VIDEO_3D_FORMAT_SIDEBYSIDE_HALF,
+        INPUT_TYPE_CHECKERBOARD,        //VIDEO_3D_FORMAT_CHECKER_BOARD,
+        INPUT_TYPE_FRAMESEQ,            //VIDEO_3D_FORMAT_FRAME_SEQ
+        INPUT_TYPE_COLUMN_INTERLEAVE,   /**< for H.264*/
+        INPUT_TYPE_LINE_INTERLEAVE_HALF,        /**< for H.264*/
+
+        //Full format
+        INPUT_TYPE_FRAMEPAC,                    //VIDEO_3D_FORMAT_FRAME_PACKING
+        INPUT_TYPE_FIELD_ALTERNATIVE,   //VIDEO_3D_FORMAT_FIELD_ALTERNATIVE
+        INPUT_TYPE_LINE_ALTERNATIVE,    //VIDEO_3D_FORMAT_LINE_ALTERNATIVE
+        INPUT_TYPE_SIDEBYSIDE_FULL,             //VIDEO_3D_FORMAT_SIDEBYSIDE_FULL,
+        INPUT_TYPE_DUALSTREAM,  /**< Full format*/
+
+        /*      Drive에서 아래 value 사용 안함. */
+        INPUT_TYPE_2DTO3D,                      //VIDEO_3D_FORMAT_2DTO3D,
+
+        INPUT_TYPE_MAX,
+}__TRIDTV_INPUT_TYPE_T;
+#define TRIDTV_INPUT_TYPE_T __TRIDTV_INPUT_TYPE_T
+#endif
+/**
+ * Define 3D Input LR Type.
+ */
+#ifndef  TRIDTV_INPUT_LR_SEQ_T
+typedef enum
+{
+        INPUT_LR_SEQ = 0,
+        INPUT_RL_SEQ,
+        INPUT_LR_MAX,
+} __TRIDTV_INPUT_LR_SEQ_T;
+#define TRIDTV_INPUT_LR_SEQ_T __TRIDTV_INPUT_LR_SEQ_T
+#endif
+#ifndef TRIDTV_3DMODE_FLAG_T
+typedef enum
+{
+        TRIDTV_3DMODE_OFF= 0,
+        TRIDTV_3DMODE_ON        ,
+        TRIDTV_3DMODE_2DTO3D,
+        TRIDTV_3DMODE_3DTO2D,
+        TRIDTV_3DMODE_MAX,
+} __TRIDTV_3DMODE_FLAG_T;
+#define TRIDTV_3DMODE_FLAG_T __TRIDTV_3DMODE_FLAG_T
+#endif
+#ifndef TRIDTV_SCALER_CTRL_T
+typedef struct {
+
+        TRIDTV_3DMODE_FLAG_T     mode;          ///< select formatter operation mode. it controls 3D mode ON/OFF.
+        TRIDTV_INPUT_TYPE_T              in_fmt;        ///< input image format(top/bottom, sidebyside, checkboard, frame, field seq, dual 2d)
+        TRIDTV_SC_OUTPUT_TYPE_T  out_fmt;       ///< output image format(top/bottom, sidebyside, checkboard, frame, field seq)
+        TRIDTV_INPUT_LR_SEQ_T    lr;            ///< output left/right first order
+}__TRIDTV_SCALER_CTRL_T;
+#define TRIDTV_SCALER_CTRL_T __TRIDTV_SCALER_CTRL_T
+#endif
+#endif
 
 /*-----------------------------------------------------------------------------
 	Extern Variables & Function Prototype Declarations
 ------------------------------------------------------------------------------*/
 DTV_STATUS_T	HAL_VSC_Initialize(void);
-DTV_STATUS_T	HAL_VSC_Uninitialize(void);
 DTV_STATUS_T	HAL_VSC_Open(VIDEO_WID_T wId);
 DTV_STATUS_T	HAL_VSC_Close(VIDEO_WID_T wId);
 DTV_STATUS_T	HAL_VSC_Connect(VIDEO_WID_T wId, VSC_INPUT_SRC_INFO_T vscInput, VSC_OUTPUT_MODE_T outputmode);
@@ -548,8 +605,12 @@ DTV_STATUS_T	HAL_VSC_Disconnect(VIDEO_WID_T wId, VSC_INPUT_SRC_INFO_T vscInput, 
 
 DTV_STATUS_T	HAL_VSC_SetWinBlank(VIDEO_WID_T wId, BOOLEAN bOnOff, VIDEO_DDI_WIN_COLOR_T color);
 DTV_STATUS_T	HAL_VSC_GetInputRegion(VIDEO_WID_T wId, VIDEO_RECT_T *pInRegion);
+#if __NEW_HAL_VSC__
+DTV_STATUS_T    HAL_VSC_SetInputRegion(VIDEO_WID_T wId, VIDEO_RECT_T inRegion, VIDEO_RECT_T originalInput);
+#else
 DTV_STATUS_T	HAL_VSC_SetInputRegion(VIDEO_WID_T wId, VIDEO_RECT_T inRegion);
 DTV_STATUS_T    HAL_VSC_SetInputRegion_ForAdaptive(VIDEO_WID_T wId, VIDEO_RECT_T inRegion);
+#endif
 DTV_STATUS_T	HAL_VSC_GetOutputRegion(VIDEO_WID_T wId, VIDEO_RECT_T *pOutRegion);
 DTV_STATUS_T	HAL_VSC_SetOutputRegion(VIDEO_WID_T wId, VIDEO_RECT_T outRegion);
 DTV_STATUS_T    HAL_VSC_SetVENCMode (UINT16 frame_rate, UINT16 scan_type);
@@ -561,15 +622,17 @@ DTV_STATUS_T	HAL_VSC_ReadVideoFrameBuffer(VIDEO_WID_T wId, VIDEO_RECT_T *pIn, VI
 DTV_STATUS_T	HAL_VSC_WriteVideoFrameBuffer(VIDEO_WID_T wId, VIDEO_RECT_T *pIn, VIDEO_DDI_PIXEL_STANDARD_COLOR_T *pWrite);
 
 DTV_STATUS_T	HAL_VSC_SetRGB444Mode(BOOLEAN bOnOff);
-DTV_STATUS_T	HAL_VSC_GetVideoDelayedTime (VIDEO_WID_T eWinId, UINT16 *pDelayedTime);
 DTV_STATUS_T 	HAL_VSC_SetAdaptiveStream(BOOLEAN bOnOff);
 
 DTV_STATUS_T    HAL_VSC_SetDelayBuffer(VIDEO_WID_T wId, UINT8 ubuffer);
+#if __NEW_HAL_VSC__
+DTV_STATUS_T    HAL_VSC_SetSubWinModeEx(VSC_SUB_MODE_T mode, VSC_SUB_CONNECT_TYPE_T connectType, VSC_SUB_MEMORY_USE_T memoryUse);
+#else
 DTV_STATUS_T    HAL_VSC_SetSubWinMode(VSC_SUB_MODE_T mode);
+#endif
 DTV_STATUS_T    HAL_VSC_SetSubWinShape(VSC_SUB_SHAPE_T shape, VIDEO_RECT_T rect);
 DTV_STATUS_T    HAL_VSC_SetZorder(VSC_ZORDER_T *zOrder, UINT8 uWindowNo);
 DTV_STATUS_T    HAL_VSC_SetDualMode(BOOLEAN bOnOff);
-DTV_STATUS_T    HAL_VSC_SetTwinZoom(BOOLEAN bOnOff);
 
 DTV_STATUS_T	HAL_VSC_RegisterActiveVideoWindowCallback(VIDEO_WID_T wId, PFN_VSC_NOTIFY_ACTIVE_VIDEO_WINDOW_T callback);
 DTV_STATUS_T	HAL_VSC_MakeColoredVideo(VSC_VIDEO_COLOR_TYPE_T videoColor);
@@ -579,6 +642,20 @@ DTV_STATUS_T    HAL_VSC_HDR_Close(void);
 DTV_STATUS_T    HAL_VSC_HDR_Connect(VSC_HDR_TYPE_T eHdrMode);
 DTV_STATUS_T    HAL_VSC_HDR_Disconnect(void);
 
+#if __NEW_HAL_VSC__
+DTV_STATUS_T    HAL_VSC_RotateVideo(VIDEO_WID_T wId, VSC_ROTATE_T rotation);
+DTV_STATUS_T    HAL_VSC_RegisterMuteOffCallback(PFN_VSC_NOTIFY_MUTE_OFF_T pfnMuteOffCB);
+
+DTV_STATUS_T    HAL_VSC_VDO_Connect(VSC_VDO_PORT_T vdo_port, UINT16 vdec_port);
+DTV_STATUS_T    HAL_VSC_VDO_Disconnect(VSC_VDO_PORT_T vdo_port, UINT16 vdec_port);
+
+DTV_STATUS_T    HAL_VSC_GetLimitedWindow(VIDEO_WID_T wId, VSC_SCALER_RATIO_T *scalerRatio);
+DTV_STATUS_T    HAL_VSC_SetPattern(BOOLEAN bOnOff, VIDEO_WID_T wId, VIDEO_PATTERN_LOCATION_T pattern_location);
+#else
+DTV_STATUS_T    HAL_VSC_Uninitialize(void);
+DTV_STATUS_T    HAL_VSC_GetVideoDelayedTime (VIDEO_WID_T eWinId, UINT16 *pDelayedTime);
+DTV_STATUS_T    HAL_VSC_SetTwinZoom(BOOLEAN bOnOff);
+#endif
 
 /*-----------------------------------------------------------------------------
 	Local Constant Definitions
