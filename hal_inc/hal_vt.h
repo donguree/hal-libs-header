@@ -126,7 +126,7 @@ typedef struct
 /**
  * @brief This structure describes the capability of video frame buffer.
  */
-typedef struct 
+typedef struct
 {
 	unsigned int numOfVideoFrameBuffer;
 	HAL_VT_VIDEO_FRAME_BUFFER_PLANE_NUMBER_T numOfPlane;
@@ -253,6 +253,14 @@ typedef struct
 DTV_STATUS_T HAL_VT_Init(void);
 
 /**
+ *	@brief	Initializes Video module related to.
+ *			Call Chipset driver initialization function and create resources for Video module related to VT according to bufferNum.
+ *	@return	if success API_OK, else API_ERROR.
+ *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
+ */
+DTV_STATUS_T HAL_VT_InitEx(unsigned int bufferNum);
+
+/**
  *	@brief	Finalize Video module related to VT.
  *	@return	if success API_OK, else API_ERROR.
  *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
@@ -278,7 +286,7 @@ DTV_STATUS_T HAL_VT_GetDeviceCapability(HAL_VT_DEVICE_CAPABILITY_INFO_T *pDevice
  *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
  */
 DTV_STATUS_T HAL_VT_GetVideoFrameBufferCapability(HAL_VT_VIDEO_WINDOW_TYPE_T videoWindowID, HAL_VT_VIDEO_FRAME_BUFFER_CAPABILITY_INFO_T *pVideoFrameBufferCapabilityInfo);
-	
+
 /**
  *	@brief	Gets the capability of Video Frame Output Device.
  * 	@param	videoWindowID 						[IN]		video window ID
@@ -517,9 +525,9 @@ typedef struct
     unsigned int    stride;
     unsigned int    width;
     unsigned int    height;
-    unsigned int    yFrame[3];
-    unsigned int    uFrame[3];
-    unsigned int    vFrame[3];
+    unsigned int    yFrame[5];
+    unsigned int    uFrame[5];
+    unsigned int    vFrame[5];
 } HAL_VTV_VFB_PROPERTY_INFO_T;
 
 typedef struct {
