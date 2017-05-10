@@ -14,15 +14,15 @@
  *
  *  @author     Seonho Park (seonho.park@lge.com)
  *  @author     Seulki Kim  (seulki329.kim@lge.com)
- *  @version	5.0
- *  @date		2017.03.03
+ *  @version    5.0
+ *  @date       2017.03.03
  */
 
 /******************************************************************************
- 	Header File Guarder
+    Header File Guarder
  ******************************************************************************/
-#ifndef	_HAL_CRYPTO_H_
-#define	_HAL_CRYPTO_H_
+#ifndef _HAL_CRYPTO_H_
+#define _HAL_CRYPTO_H_
 
 /******************************************************************************
   #include  (File Inclusions)
@@ -32,7 +32,7 @@
 
 
 /******************************************************************************
-	Type Definitions
+    Type Definitions
  ******************************************************************************/
 #define HAL_CRYPTO_ARG_MAX 8
 
@@ -156,9 +156,9 @@ Function Description
     Write App Data to Secure Store
 
 Function Parameters
-    char *pDataId	    [IN]			Data Identifier
-    UINT8 *pData		[IN]			Data to be encrypted
-    int	length		    [IN]			Data length
+    char *pDataId       [IN]            Data Identifier
+    UINT8 *pData        [IN]            Data to be encrypted
+    int length          [IN]            Data length
 
 Return Value
     If the function succeeds, the return value is OK.
@@ -177,9 +177,9 @@ Function Description
     Read App Data to Secure Store.
 
 Function Parameters
-    char *pDataId 		[IN]			Data Identifier
-    UINT8 *pData		[IN/OUT]		Decrypted data
-    int	length		    [IN]			Data length
+    char *pDataId       [IN]            Data Identifier
+    UINT8 *pData        [IN/OUT]        Decrypted data
+    int length          [IN]            Data length
 
 Return Value
     If the function succeeds, the return value is OK.
@@ -191,7 +191,7 @@ Remarks
 DTV_STATUS_T HAL_CRYPTO_NF_ReadAppData(char *pDataId, UINT8 *pData, int length);
 
 
-/*	LG TEE Implementation		 */
+/*  LG TEE Implementation        */
 /******************************************************************************
 Function Name
     HAL_CRYPTO_NF_Operate
@@ -351,13 +351,13 @@ DTV_STATUS_T HAL_CRYPTO_NF_DestroyContext(void *pContext);
 /* NYX */
 DTV_STATUS_T HAL_CRYPTO_NYX_AES_GenerateSecureKey(unsigned char *pSecureKey, int keyLength);
 DTV_STATUS_T HAL_CRYPTO_NYX_AES_CryptCBC(unsigned char *pSecureKey, int keyLength, int bEncrypt,
-	unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
+    unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
 DTV_STATUS_T HAL_CRYPTO_NYX_RSA_TransformSecureKey(unsigned char *pSecureKey, int *pKeyLength,
-	unsigned char *pRSAKey, int rsaKeyLength);
+    unsigned char *pRSAKey, int rsaKeyLength);
 DTV_STATUS_T HAL_CRYPTO_NYX_RSA_Crypt(unsigned char *pSecureKey, int keyLength, int bEncrypt,
-	unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
+    unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
 DTV_STATUS_T HAL_CRYPTO_NYX_RSA_ExportPublicKey(unsigned char *pPublicKey, int *pPublicKeyLength,
-	unsigned char *pSecureKey, int keyLength);
+    unsigned char *pSecureKey, int keyLength);
 
 /* Debug Menu API (debug - g2 ) */
 DTV_STATUS_T HAL_CRYPTO_Debug(void);
@@ -403,7 +403,7 @@ DTV_STATUS_T HAL_CRYPTO_WriteMVPDSecret(char *pPath, UINT8 *pData, int length);
             CRYPTO_HDCP_14,  //HDCP 1.4
             CRYPTO_HDCP_22,  //HDCP 2.2
             CRYPTO_HDCP_MAX,
-        } CRYPTO_HDCP_T;	// For HAL_CRYPTO_WriteHDCPOnSecure()/HAL_CRYPTO_ReadHDCPFromSecure()
+        } CRYPTO_HDCP_T;    // For HAL_CRYPTO_WriteHDCPOnSecure()/HAL_CRYPTO_ReadHDCPFromSecure()
 */
 DTV_STATUS_T HAL_CRYPTO_WriteHDCPOnSecure(unsigned int hdcpType, unsigned char *pHDCPKey, unsigned int hdcpSize);
 DTV_STATUS_T HAL_CRYPTO_ReadHDCPFromSecure(unsigned int hdcpType, unsigned char *pHDCPKey, unsigned int *pHDCPSize);
@@ -413,9 +413,13 @@ DTV_STATUS_T HAL_CRYPTO_ReadHDCPFromSecure(unsigned int hdcpType, unsigned char 
 /* webOS Secure Store Support APIs */
 /**
  * Perform TEE AES encryption.
- * 128 and 256 bits key size should be supported, and PKCS#5 padding should be used. The pKey is a SecureData.
- * ECB and CBC mode should be supported. The mode of operation is specified by the parameter pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
- * When using CBC, IV value should be generated randomly in TEE and attached in front of the encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes in front of the encrypted data).
+ * 128 and 256 bits key size should be supported, and PKCS#5 padding should be used.
+ * The pKey is a SecureData.
+ * ECB and CBC mode should be supported. The mode of operation is specified by the parameter
+ * pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
+ * When using CBC, IV value should be generated randomly in TEE and attached in front of the
+ * encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes
+ * in front of the encrypted data).
  *
  *  @param   nSrcLen    [IN]        Size of data to be encrypted
  *  @param   pSrcData   [IN]        Buffer for data to be encrypted
@@ -427,14 +431,19 @@ DTV_STATUS_T HAL_CRYPTO_ReadHDCPFromSecure(unsigned int hdcpType, unsigned char 
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
+DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
+                                    UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform TEE AES decryption.
- * 128 and 256 bits key size should be supported, and PKCS#5 padding should be used. The pKey is a SecureData.
- * ECB and CBC mode should be supported. The mode of operation is specified by the parameter pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
- * When using CBC, IV value should be generated randomly in TEE and attached in front of the encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes in front of the encrypted data).
-
+ * 128 and 256 bits key size should be supported, and PKCS#5 padding should be used.
+ * The pKey is a SecureData.
+ * ECB and CBC mode should be supported. The mode of operation is specified by the parameter
+ * pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
+ * When using CBC, IV value should be generated randomly in TEE and attached in front of the
+ * encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes
+ * in front of the encrypted data).
+ *
  *  @param   nSrcLen     [IN]        Size of data to be decrypted
  *  @param   pSrcData    [IN]        Buffer for data to be decrypted
  *  @param   pDstLen     [OUT]       Size of output data (the result of decryption)
@@ -445,7 +454,8 @@ DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
+DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
+                                    UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * RSA Padding Type
@@ -456,7 +466,9 @@ typedef enum {
 } HAL_CRYPTO_RSA_PADDING_T;
 /*
  * Perform RSA encryption.
- * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and encoded by either DER or PEM. So, the encoding type should be passed via the parameter pszKeyType.
+ * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and
+ * encoded by either DER or PEM. So, the encoding type should be passed via the parameter
+ * pszKeyType.
  *
  *  @param   pSrcLen         [IN]     Size of data to be encrypted
  *  @param   pSrcData        [IN]     Buffer for data to be encrypted
@@ -469,27 +481,34 @@ typedef enum {
  *  @return  If the function succeeds, the return value is OK.
  *           If the function fails, the return value is NOT_OK.
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
+                                     UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding,
+                                     char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA decryption.
- * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and encoded by either DER or PEM. So, the encoding type should be passed via the parameter pszKeyType.
+ * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and
+ * encoded by either DER or PEM. So, the encoding type should be passed via the parameter
+ * pszKeyType.
  *
- *  @param   pSrcLen          [IN]      Size of data to be decrypted
- *  @param   pSrcData         [IN]      Buffer for data to be decrypted
- *  @param   pDstLen          [OUT]     Size of output data (the result of decryption)
- *  @param   pDstData         [OUT]     Buffer for output data (the result of encryption/decryption)
- *  @param   padding         [IN]     Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
- *  @param   pszKeyType       [IN]      Key Encoding Type. ("PEM" or "DER")
- *  @param   pKey             [IN]      SecureData of cipher key
- *  @param   nKeySize         [IN]      Size of pKey data
+ *  @param   pSrcLen        [IN]      Size of data to be decrypted
+ *  @param   pSrcData       [IN]      Buffer for data to be decrypted
+ *  @param   pDstLen        [OUT]     Size of output data (the result of decryption)
+ *  @param   pDstData       [OUT]     Buffer for output data (the result of encryption/decryption)
+ *  @param   padding        [IN]     Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
+ *  @param   pszKeyType     [IN]      Key Encoding Type. ("PEM" or "DER")
+ *  @param   pKey           [IN]      SecureData of cipher key
+ *  @param   nKeySize       [IN]      Size of pKey data
  */
-DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
+                                     UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding,
+                                     char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
 /*
  * Perform RSA Signing in TEE
  * Signing message encoding scheme is "SHA256 / EMSA-PKCS1-v1_5 Encoding"
- * pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by DER or PEM.
+ * pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by
+ * DER or PEM.
  *
  *  @param   nDataSize         [IN]      Size of data to be signed
  *  @param   pData             [IN]      Data to be signed
@@ -499,12 +518,14 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
 */
-DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeyLen);
+DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, UINT8 *pSig,
+                                  char *pszKeyType, UINT8 *pKey, UINT32 nKeyLen);
 
 /*
  * Perform RSA signature verification in TEE
  * Signing message encoding scheme is "SHA256 / EMSA-PKCS1-v1_5 Encoding"
- * pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by DER or PEM.
+ * pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by
+ * DER or PEM.
  *
  *  @param   nDataSize         [IN]      Size of data to be verified
  *  @param   pData             [IN]      Data to be verified
@@ -514,8 +535,35 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLe
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
 */
-DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
+DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig,
+                                    char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
+/*
+ * HAL_CRYPTO_EncryptDbgData
+ * Encrypt debug status data.
+ *
+ * @param   pInData         [IN]    Input data  (plaintext data)
+ * @param   nInL            [IN]    Input data size
+ * @param   pOutData        [IN]    Output data (encrypted data)
+ * @param   pOutL           [IN]    Output data size
+ * @return  If the function succeeds, the return value is OK.
+ *          If the function fails, the return value is NOT_OK.
+ */
 
-#endif		//_HAL_CRYPTO_H_
+DTV_STATUS_T HAL_CRYPTO_EncryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL);
+
+/*
+ * HAL_CRYPTO_DecryptDbgData
+ * Decrypt debug status data.
+ *
+ * @param   pInData         [IN]    Input data  (Encrypted data)
+ * @param   nInL            [IN]    Input data size
+ * @param   pOutData        [IN]    Output data (Plaintext data)
+ * @param   pOutL           [IN]    Output data size
+ * @return  If the function succeeds, the return value is OK.
+ *          If the function fails, the return value is NOT_OK.
+ */
+DTV_STATUS_T HAL_CRYPTO_DecryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL);
+
+#endif      //_HAL_CRYPTO_H_
 

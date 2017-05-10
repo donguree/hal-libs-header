@@ -177,8 +177,7 @@ HAL_SSTR_R_T HAL_SSTR_GenAESKey(UINT32 nSize, UINT8 *pKey);
  *  @param   pszMode    [IN]        Block cipher Mode ("ECB" / "CBC")
  *  @param   pKey       [IN]        SecureData of cipher key
  *  @param   nKeySize   [IN]        Size of pKey data
- *  @return  If the function succeeds, the return value is OK.
- *           If the function fails, the return value is NOT_OK.
+ *  @return Common Error Code.
  */
 HAL_SSTR_R_T HAL_SSTR_AES_Encrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                           UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
@@ -199,8 +198,7 @@ HAL_SSTR_R_T HAL_SSTR_AES_Encrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstL
  *  @param   pszMode     [IN]        Block cipher Mode (ECB / CBC)
  *  @param   pKey        [IN]        SecureData of cipher key
  *  @param   nKeySize    [IN]        Size of pKey data
- *  @return  If the function succeeds, the return value is OK.
- *           If the function fails, the return value is NOT_OK.
+ *  @return Common Error Code.
  */
 HAL_SSTR_R_T HAL_SSTR_AES_Decrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                           UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
@@ -226,8 +224,7 @@ typedef enum {
  *  @param   pszKeyType      [IN]     Key Encoding Type. ("PEM" or "DER")
  *  @param   pKey            [IN]     SecureData of cipher key
  *  @param   nKeySize        [IN]     Size of pKey data
- *  @return  If the function succeeds, the return value is OK.
- *           If the function fails, the return value is NOT_OK.
+ *  @return Common Error Code.
  */
 HAL_SSTR_R_T HAL_SSTR_RSA_Encrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                           UINT8 *pDstData, HAL_SSTR_RSA_PADDING_T padding, char *pszKeyType,
@@ -247,6 +244,7 @@ HAL_SSTR_R_T HAL_SSTR_RSA_Encrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstL
  *  @param   pszKeyType     [IN]      Key Encoding Type. ("PEM" or "DER")
  *  @param   pKey           [IN]      SecureData of cipher key
  *  @param   nKeySize       [IN]      Size of pKey data
+ *  @return Common Error Code.
  */
 HAL_SSTR_R_T HAL_SSTR_RSA_Decrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                           UINT8 *pDstData, HAL_SSTR_RSA_PADDING_T padding, char *pszKeyType,
@@ -265,6 +263,7 @@ HAL_SSTR_R_T HAL_SSTR_RSA_Decrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstL
  *  @param   pszKeyType        [IN]      Key Encoding Type. ("PEM" or "DER")
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
+ *  @return Common Error Code.
 */
 HAL_SSTR_R_T HAL_SSTR_RSA_Sign(UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, UINT8 *pSig,
                           char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
@@ -282,6 +281,7 @@ HAL_SSTR_R_T HAL_SSTR_RSA_Sign(UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, 
  *  @param   pszKeyType        [IN]      Key Encoding Type. ("PEM" or "DER")
  *  @param   pKey              [IN]      SecureData of cipher key
  *  @param   nKeyLen           [IN]      Size of pKey data
+ *  @return Common Error Code.
 */
 HAL_SSTR_R_T HAL_SSTR_RSA_Verify(UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig,
                           char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
