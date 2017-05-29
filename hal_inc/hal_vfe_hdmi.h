@@ -642,6 +642,15 @@ typedef enum
 }HAL_VFE_HDMI_3D_LR_TYPE_T;
 
 
+typedef enum
+{
+    HAL_VFE_HDMI_DOLBY_HDR_TYPE_SDR = 0,
+    HAL_VFE_HDMI_DOLBY_HDR_TYPE_STANDARD_VSIF_1 = 1,
+    HAL_VFE_HDMI_DOLBY_HDR_TYPE_STANDARD_VSIF_2 = 2,
+    HAL_VFE_HDMI_DOLBY_HDR_TYPE_LOW_LATENCY = 3,
+} HAL_VFE_HDMI_DOLBY_HDR_TYPE_T;
+
+
 //=============================================================
 //							 HDMI TIMING Info.
 //=============================================================
@@ -667,6 +676,8 @@ typedef struct
 
 	HAL_VFE_HDMI_3D_FORMAT_TYPE_T full_3d_timing;	// 3D format information base on timing info
 	HAL_VFE_HDMI_3D_LR_TYPE_T	video_LR_order;
+
+	HAL_VFE_HDMI_DOLBY_HDR_TYPE_T eDolbyHDRType;
 
 } HAL_VFE_HDMI_TIMING_INFO_T;
 
