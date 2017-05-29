@@ -12,10 +12,9 @@
  *  HAL Audio Direct 함수 header 파일.
  *
  *
- *  @author		Minho Hwang(minho.hwang@lge.com)
- *  @reviser	Jong-Sang Oh(jongsang.oh@lge.com)
- *  @version	1.0
- *  @date		2013.10.21
+ *  @author		dongsun.kim(dongsun.kim@lge.com)
+ *  @version	4.0
+ *  @date		2017.06.03
  *  @note
  *  @see		hal_audio_direct.c
  */
@@ -89,14 +88,16 @@ typedef  enum
 {
 	HAL_AUDIO_DIRECT_ADEC0		= 0,	/* Decoder 0			*/
 	HAL_AUDIO_DIRECT_ADEC1		= 1,	/* Decoder 1			*/
-	HAL_AUDIO_DIRECT_MIXER0		= 2,	/* G-Streamer Mixer 0	*/
-	HAL_AUDIO_DIRECT_MIXER1		= 3,	/* G-Streamer Mixer 1	*/
-	HAL_AUDIO_DIRECT_MIXER2		= 4,	/* G-Streamer Mixer 2	*/
-	HAL_AUDIO_DIRECT_MIXER3		= 5,	/* G-Streamer Mixer 3	*/
-	HAL_AUDIO_DIRECT_MIXER4		= 6,	/* G-Streamer Mixer 4	*/
-	HAL_AUDIO_DIRECT_MIXER5		= 7,	/* HAL AUDIO Mixer 0	*/
-	HAL_AUDIO_DIRECT_MIXER6		= 8,	/* ALSA AUDIO Mixer 0	*/
-	HAL_AUDIO_DIRECT_MIXER7		= 9,	/* ALSA AUDIO Mixer 1	*/
+	HAL_AUDIO_DIRECT_ADEC2		= 2,	/* Decoder 2			*/
+	HAL_AUDIO_DIRECT_ADEC3		= 3,	/* Decoder 3			*/
+	HAL_AUDIO_DIRECT_MIXER0		= 4,	/* G-Streamer Mixer 0	*/
+	HAL_AUDIO_DIRECT_MIXER1		= 5,	/* G-Streamer Mixer 1	*/
+	HAL_AUDIO_DIRECT_MIXER2		= 6,	/* G-Streamer Mixer 2	*/
+	HAL_AUDIO_DIRECT_MIXER3		= 7,	/* G-Streamer Mixer 3	*/
+	HAL_AUDIO_DIRECT_MIXER4		= 8,	/* G-Streamer Mixer 4	*/
+	HAL_AUDIO_DIRECT_MIXER5		= 9,	/* HAL  AUDIO Mixer 0	*/
+	HAL_AUDIO_DIRECT_MIXER6		= 10,	/* ALSA AUDIO Mixer 0	*/
+	HAL_AUDIO_DIRECT_MIXER7		= 11,	/* ALSA AUDIO Mixer 1	*/
 	HAL_AUDIO_DIRECT_INDEX_MAX	= HAL_AUDIO_DIRECT_MIXER7,
 } HAL_AUDIO_DIRECT_INDEX_T;
 

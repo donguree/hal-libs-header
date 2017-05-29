@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	2.5
- *  @date		2017.03.09
+ *  @version	4.0
+ *  @date		2017.06.03
  *  @note
  *  @see
  */
@@ -75,7 +75,9 @@ typedef  enum
 {
 	HAL_AUDIO_ADEC0		= 0,
 	HAL_AUDIO_ADEC1		= 1,
-	HAL_AUDIO_ADEC_MAX	= HAL_AUDIO_ADEC1,
+	HAL_AUDIO_ADEC2		= 2,
+	HAL_AUDIO_ADEC3		= 3,
+	HAL_AUDIO_ADEC_MAX	= HAL_AUDIO_ADEC3,
 } HAL_AUDIO_ADEC_INDEX_T;
 
 /**
@@ -86,15 +88,17 @@ typedef  enum
 {
 	HAL_AUDIO_INDEX0	= 0, /*Audio Decoder Input 0*/
 	HAL_AUDIO_INDEX1	= 1, /*Audio Decoder Input 1*/
-	HAL_AUDIO_INDEX2	= 2, /*Audio Mixer Input 0*/
-	HAL_AUDIO_INDEX3	= 3, /*Audio Mixer Input 1*/
-	HAL_AUDIO_INDEX4	= 4, /*Audio Mixer Input 2*/
-	HAL_AUDIO_INDEX5	= 5, /*Audio Mixer Input 3*/
-	HAL_AUDIO_INDEX6	= 6, /*Audio Mixer Input 4*/
-	HAL_AUDIO_INDEX7	= 7, /*Audio Mixer Input 5*/
-	HAL_AUDIO_INDEX8	= 8, /*Audio Mixer Input 6*/
-	HAL_AUDIO_INDEX9	= 9, /*Audio Mixer Input 7*/
-	HAL_AUDIO_INDEX_MAX	= HAL_AUDIO_INDEX9,
+	HAL_AUDIO_INDEX2	= 2, /*Audio Decoder Input 2*/
+	HAL_AUDIO_INDEX3	= 3, /*Audio Decoder Input 3*/
+	HAL_AUDIO_INDEX4	= 4, /*Audio Mixer Input 0*/
+	HAL_AUDIO_INDEX5	= 5, /*Audio Mixer Input 1*/
+	HAL_AUDIO_INDEX6	= 6, /*Audio Mixer Input 2*/
+	HAL_AUDIO_INDEX7	= 7, /*Audio Mixer Input 3*/
+	HAL_AUDIO_INDEX8	= 8, /*Audio Mixer Input 4*/
+	HAL_AUDIO_INDEX9	= 9, /*Audio Mixer Input 5*/
+	HAL_AUDIO_INDEX10	= 10, /*Audio Mixer Input 6*/
+	HAL_AUDIO_INDEX11	= 11, /*Audio Mixer Input 7*/
+	HAL_AUDIO_INDEX_MAX	= HAL_AUDIO_INDEX11,
 } HAL_AUDIO_INDEX_T;
 
 
@@ -209,6 +213,8 @@ typedef  enum
 	HAL_AUDIO_RESOURCE_HDMI2			= 31,	/* Audio HDMI Input 2. */
 	HAL_AUDIO_RESOURCE_HDMI3			= 32,	/* Audio HDMI Input 3. */
 	HAL_AUDIO_RESOURCE_SWITCH			= 33,	/* Audio HDMI Input with switch. */
+	HAL_AUDIO_RESOURCE_ADEC2			= 34 ,
+	HAL_AUDIO_RESOURCE_ADEC3			= 35 ,
 	HAL_AUDIO_RESOURCE_NO_CONNECTION 	= 0XFF,
 } HAL_AUDIO_RESOURCE_T;
 
@@ -242,6 +248,8 @@ typedef  enum
 	HAL_AUDIO_SRC_TYPE_MPEG_H		= 21,
 	HAL_AUDIO_SRC_TYPE_MAT		    = 22,
 	HAL_AUDIO_SRC_TYPE_MAT_ATMOS    = 23,
+	HAL_AUDIO_SRC_TYPE_TRUEHD       = 24,
+	HAL_AUDIO_SRC_TYPE_TRUEHD_ATMOS = 25,
 } HAL_AUDIO_SRC_TYPE_T;
 
 /**
@@ -285,6 +293,7 @@ typedef  enum
 	HAL_AUDIO_SPDIF_AUTO_AAC		= 3,
 	HAL_AUDIO_SPDIF_HALF_AUTO		= 4,
 	HAL_AUDIO_SPDIF_HALF_AUTO_AAC	= 5,
+	HAL_AUDIO_SPDIF_FORCED_AC3      = 6,
 } HAL_AUDIO_SPDIF_MODE_T;
 
 /**
@@ -303,6 +312,8 @@ typedef  enum
 	HAL_AUDIO_ARC_HALF_AUTO_AAC			= 7,
 	HAL_AUDIO_ARC_HALF_AUTO_EAC3		= 8,
 	HAL_AUDIO_ARC_HALF_AUTO_EAC3_AAC	= 9,
+	HAL_AUDIO_ARC_FORCED_AC3            = 10,
+	HAL_AUDIO_ARC_FORCED_EAC3           = 11,
 } HAL_AUDIO_ARC_MODE_T;
 
 /**
@@ -326,6 +337,8 @@ typedef enum
 	HAL_AUDIO_HDMI_EAC3_ATMOS	= 15,
 	HAL_AUDIO_HDMI_MAT		    = 16,
 	HAL_AUDIO_HDMI_MAT_ATMOS    = 17,
+	HAL_AUDIO_HDMI_TRUEHD       = 18,
+	HAL_AUDIO_HDMI_TRUEHD_ATMOS = 19,
 } HAL_AUDIO_HDMI_TYPE_T;
 
 /**
@@ -1623,6 +1636,7 @@ DTV_STATUS_T HAL_AUDIO_LGSE_SetFN008(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN009(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN010(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_ACCESS_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN014(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN016(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN017(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN019(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN022(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
@@ -1679,6 +1693,31 @@ DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetRegulator(HAL_AUDIO_LGSE_DAP_REGULATOR_T *pst
 DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetRegulator(HAL_AUDIO_LGSE_DAP_REGULATOR_T *pstRegulator);																	/* Get current DAP Regulator stauts */
 DTV_STATUS_T HAL_AUDIO_LGSE_DAP_SetSysParam(HAL_AUDIO_LGSE_DAP_SYS_PARAM_T *pstDapSysParam);																/* Set DAP System Param */
 DTV_STATUS_T HAL_AUDIO_LGSE_DAP_GetSysParam(HAL_AUDIO_LGSE_DAP_SYS_PARAM_T *pstDapSysParam);																/* Get current DAP System Param stauts */
+
+/**
+ * HAL AUDIO DTS Virtual:X (VX) API define
+ *
+ * 20170531 kwangshik.kim
+ */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_EnableVx(BOOLEAN bEnable);                               /* Enable or disable Virtual:X Lib1 processing */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetVxStatus(BOOLEAN *pEnable);                           /* Get status if Virtual:X is enabled or not  */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetProcOutputGain(SINT32 procOutGain);                   /*  Processing output gain */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetProcOutputGain(SINT32 *pProcOutGain);                 /* Get Processing output gain */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_EnableTsx(BOOLEAN bEnable);                              /* Enable or disable TruSurround:X processing */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxStatus(BOOLEAN *pEnable);                          /* Get status if TruSurround:X processing is enabled or not */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxPassiveMatrixUpmix(BOOLEAN bEnable);               /* Enable or disable TruSurround:X Passive Matrix upmix for stereo input signals. */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxPassiveMatrixUpmix(BOOLEAN *pEnable);              /* Get status if TruSurround:X Passive Matrix upmix is enabled or not */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHeightUpmix(BOOLEAN bEnable);                      /* Enable or disable TruSurround:X Height upmix for non-immersive channel layout (= inputs without discrete height channels) */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHeightUpmix(BOOLEAN *pEnable);                     /* Get status if TruSurround:X Height upmix is enabled or not */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxLPRGain(SINT32 lprGain);                           /* Controls phantom center mix level to the center channel */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxLPRGain(SINT32 *pLprGain);                         /* Get phantom center mix level to the center channel */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHorizVirEff(BOOLEAN bEnable);                      /* Controls virtualization effect strengths for horizontal plane sources */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHorizVirEff(BOOLEAN *pEnable);                     /* Get virtualization effect strengths for horizontal plane sources */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHeightMixCoeff(SINT32 heightCoeff);                /* Controls the level of height signal in downmix to horizontal plane channels */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHeightMixCoeff(SINT32 *pHeightCoeff);              /* Get the level of height signal in downmix to horizontal plane channels */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetCenterGain(SINT32 centerGain);                        /* Control center singal gain */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetCenterGain(SINT32 *pCenterGain);                      /* Get center signal gain */
+
 
 /* AAD */
 DTV_STATUS_T HAL_AUDIO_SIF_SetInputSource(HAL_AUDIO_SIF_INPUT_T sifSource);
