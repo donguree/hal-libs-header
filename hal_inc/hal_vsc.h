@@ -208,7 +208,9 @@ typedef enum {
         VSC_HDR_DOLBY,
         VSC_HDR_VP9,
         VSC_HDR_HLG,
-        VSC_HDR_MAX = VSC_HDR_HLG,
+        VSC_HDR_PRIME,
+        VSC_HDR_DOLBY_LL,
+        VSC_HDR_MAX = VSC_HDR_DOLBY_LL,
         VSC_HDR_MAXN,
 }VSC_HDR_TYPE_T;
 
@@ -508,10 +510,10 @@ typedef enum
 
 typedef struct VSC_SCALER_RATIO
 {
-    int h_scaleup_ratio,
-    int v_scaleup_ratio,
-    int h_scaledown_ratio,
-    int v_scaledown_ratio,
+    int h_scaleup_ratio;
+    int v_scaleup_ratio;
+    int h_scaledown_ratio;
+    int v_scaledown_ratio;
 }VSC_SCALER_RATIO_T;
 #else
 #ifndef TRIDTV_SC_OUTPUT_TYPE_T
@@ -616,14 +618,17 @@ DTV_STATUS_T	HAL_VSC_SetOutputRegion(VIDEO_WID_T wId, VIDEO_RECT_T outRegion);
 DTV_STATUS_T    HAL_VSC_SetVENCMode (UINT16 frame_rate, UINT16 scan_type);
 DTV_STATUS_T	HAL_VSC_SetWinFreeze(VIDEO_WID_T wId, BOOLEAN bOnOff, BOOLEAN bAll); // Add "BOOLEAN bAll" parameter, by choonghoon.park 20170203
 
-DTV_STATUS_T	HAL_VSC_CaptureVideoFrame(VIDEO_DDI_CAPTURE_PLACE_T place, VIDEO_DDI_CAPTURE_INFO_T* pCaptureInfo);
-DTV_STATUS_T	HAL_VSC_FreezeVideoFrameBuffer(BOOLEAN bFreezeOn);
+DTV_STATUS_T    HAL_VSC_CaptureVideoFrame(VIDEO_DDI_CAPTURE_PLACE_T place, VIDEO_DDI_CAPTURE_INFO_T* pCaptureInfo);
+DTV_STATUS_T    HAL_VSC_FreezeVideoFrameBuffer(BOOLEAN bFreezeOn);
 DTV_STATUS_T	HAL_VSC_ReadVideoFrameBuffer(VIDEO_WID_T wId, VIDEO_RECT_T *pIn, VIDEO_DDI_PIXEL_STANDARD_COLOR_T *pRead, VIDEO_DDI_COLOR_STANDARD_T *pcolor_standard, VIDEO_DDI_PIXEL_COLOR_FORMAT_T * pPixelColorFormat);
 DTV_STATUS_T	HAL_VSC_WriteVideoFrameBuffer(VIDEO_WID_T wId, VIDEO_RECT_T *pIn, VIDEO_DDI_PIXEL_STANDARD_COLOR_T *pWrite);
 
 DTV_STATUS_T	HAL_VSC_SetRGB444Mode(BOOLEAN bOnOff);
+#if __NEW_HAL_VSC__
+DTV_STATUS_T    HAL_VSC_SetAdaptiveStream(VIDEO_WID_T wId, BOOLEAN bOnOff);
+#else
 DTV_STATUS_T 	HAL_VSC_SetAdaptiveStream(BOOLEAN bOnOff);
-
+#endif
 DTV_STATUS_T    HAL_VSC_SetDelayBuffer(VIDEO_WID_T wId, UINT8 ubuffer);
 #if __NEW_HAL_VSC__
 DTV_STATUS_T    HAL_VSC_SetSubWinModeEx(VSC_SUB_MODE_T mode, VSC_SUB_CONNECT_TYPE_T connectType, VSC_SUB_MEMORY_USE_T memoryUse);
@@ -632,15 +637,21 @@ DTV_STATUS_T    HAL_VSC_SetSubWinMode(VSC_SUB_MODE_T mode);
 #endif
 DTV_STATUS_T    HAL_VSC_SetSubWinShape(VSC_SUB_SHAPE_T shape, VIDEO_RECT_T rect);
 DTV_STATUS_T    HAL_VSC_SetZorder(VSC_ZORDER_T *zOrder, UINT8 uWindowNo);
-DTV_STATUS_T    HAL_VSC_SetDualMode(BOOLEAN bOnOff);
 
 DTV_STATUS_T	HAL_VSC_RegisterActiveVideoWindowCallback(VIDEO_WID_T wId, PFN_VSC_NOTIFY_ACTIVE_VIDEO_WINDOW_T callback);
 DTV_STATUS_T	HAL_VSC_MakeColoredVideo(VSC_VIDEO_COLOR_TYPE_T videoColor);
 
+#if __NEW_HAL_VSC__
+DTV_STATUS_T    HAL_VSC_HDR_Open(VIDEO_WID_T wId);
+DTV_STATUS_T    HAL_VSC_HDR_Close(VIDEO_WID_T wId);
+DTV_STATUS_T    HAL_VSC_HDR_Connect(VIDEO_WID_T wId, VSC_HDR_TYPE_T eHdrMode);
+DTV_STATUS_T    HAL_VSC_HDR_Disconnect(VIDEO_WID_T wId);
+#else
 DTV_STATUS_T    HAL_VSC_HDR_Open(void);
 DTV_STATUS_T    HAL_VSC_HDR_Close(void);
 DTV_STATUS_T    HAL_VSC_HDR_Connect(VSC_HDR_TYPE_T eHdrMode);
 DTV_STATUS_T    HAL_VSC_HDR_Disconnect(void);
+#endif
 
 #if __NEW_HAL_VSC__
 DTV_STATUS_T    HAL_VSC_RotateVideo(VIDEO_WID_T wId, VSC_ROTATE_T rotation);
@@ -655,6 +666,7 @@ DTV_STATUS_T    HAL_VSC_SetPattern(BOOLEAN bOnOff, VIDEO_WID_T wId, VIDEO_PATTER
 DTV_STATUS_T    HAL_VSC_Uninitialize(void);
 DTV_STATUS_T    HAL_VSC_GetVideoDelayedTime (VIDEO_WID_T eWinId, UINT16 *pDelayedTime);
 DTV_STATUS_T    HAL_VSC_SetTwinZoom(BOOLEAN bOnOff);
+DTV_STATUS_T    HAL_VSC_SetDualMode(BOOLEAN bOnOff);
 #endif
 
 /*-----------------------------------------------------------------------------
