@@ -662,6 +662,7 @@ DTV_STATUS_T    HAL_VSC_RegisterMuteOffCallback(PFN_VSC_NOTIFY_MUTE_OFF_T pfnMut
 
 DTV_STATUS_T    HAL_VSC_GetLimitedWindow(VIDEO_WID_T wId, VSC_SCALER_RATIO_T *scalerRatio);
 DTV_STATUS_T    HAL_VSC_SetPattern(BOOLEAN bOnOff, VIDEO_WID_T wId, VIDEO_PATTERN_LOCATION_T pattern_location);
+void HAL_VIDEO_DebugMenu (void);
 #else
 DTV_STATUS_T    HAL_VSC_Uninitialize(void);
 DTV_STATUS_T    HAL_VSC_GetVideoDelayedTime (VIDEO_WID_T eWinId, UINT16 *pDelayedTime);
