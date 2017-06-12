@@ -475,6 +475,15 @@ typedef struct VSC_ACTIVE_VIDEO_WINDOW {
 
 typedef void (*PFN_VSC_NOTIFY_ACTIVE_VIDEO_WINDOW_T) (VIDEO_WID_T wId, VSC_ACTIVE_VIDEO_WINDOW_T *window);
 
+typedef enum VSC_VDO_PORT
+{
+    VSC_VDO_PORT_MIN = 0,
+    VSC_VDO_PORT_0 = VSC_VDO_PORT_MIN,
+    VSC_VDO_PORT_1,
+    VSC_VDO_PORT_MAX = VSC_VDO_PORT_1,
+    VSC_VDO_PORT_MAXN,
+}VSC_VDO_PORT_T;
+
 #if __NEW_HAL_VSC__
 typedef enum {
     VSC_ROTATE_0,
@@ -484,15 +493,6 @@ typedef enum {
 } VSC_ROTATE_T;
 
 typedef void (*PFN_VSC_NOTIFY_MUTE_OFF_T) (VIDEO_WID_T wId);
-
-typedef enum VSC_VDO_PORT
-{
-    VSC_VDO_PORT_MIN = 0,
-    VSC_VDO_PORT_0 = VSC_VDO_PORT_MIN,
-    VSC_VDO_PORT_1,
-    VSC_VDO_PORT_MAX = VSC_VDO_PORT_1,
-    VSC_VDO_PORT_MAXN,
-}VSC_VDO_PORT_T;
 
 typedef enum
 {
@@ -653,12 +653,12 @@ DTV_STATUS_T    HAL_VSC_HDR_Connect(VSC_HDR_TYPE_T eHdrMode);
 DTV_STATUS_T    HAL_VSC_HDR_Disconnect(void);
 #endif
 
+DTV_STATUS_T    HAL_VSC_VDO_Connect(VSC_VDO_PORT_T vdo_port, UINT16 vdec_port);
+DTV_STATUS_T    HAL_VSC_VDO_Disconnect(VSC_VDO_PORT_T vdo_port, UINT16 vdec_port);
+
 #if __NEW_HAL_VSC__
 DTV_STATUS_T    HAL_VSC_RotateVideo(VIDEO_WID_T wId, VSC_ROTATE_T rotation);
 DTV_STATUS_T    HAL_VSC_RegisterMuteOffCallback(PFN_VSC_NOTIFY_MUTE_OFF_T pfnMuteOffCB);
-
-DTV_STATUS_T    HAL_VSC_VDO_Connect(VSC_VDO_PORT_T vdo_port, UINT16 vdec_port);
-DTV_STATUS_T    HAL_VSC_VDO_Disconnect(VSC_VDO_PORT_T vdo_port, UINT16 vdec_port);
 
 DTV_STATUS_T    HAL_VSC_GetLimitedWindow(VIDEO_WID_T wId, VSC_SCALER_RATIO_T *scalerRatio);
 DTV_STATUS_T    HAL_VSC_SetPattern(BOOLEAN bOnOff, VIDEO_WID_T wId, VIDEO_PATTERN_LOCATION_T pattern_location);
