@@ -300,13 +300,6 @@ Return Value
 Remarks
     None
 ******************************************************************************/
-DTV_STATUS_T  HAL_CI_PLUS_SetCipherKeys(SINT32 deviceHandle,
-                                                  CIPLUS_CRYPTOGRAPHY_T eCryptography,
-                                                  CIPLUS_CIPHER_KEY_T eKey,
-                                                  UINT32* pUINT32CipherKeys);
-
-
-void HAL_CI_PLUS_SetCipherKeyByPID( UINT8 scrammode, UINT8 keyregister, UINT8 type, UINT16 pid );
 UINT32 HAL_CI_PLUS_ReadVersion( SINT32 deviceHandle );
 UINT32 HAL_CI_PLUS_ReadCiprof( SINT32 deviceHandle );
 
@@ -316,6 +309,14 @@ DTV_STATUS_T HAL_CI_PLUS_SetCipherKeysByChannel( SINT32 deviceHandle,
 					   CIPLUS_CRYPTOGRAPHY_T eCryptography,
 					   CIPLUS_CIPHER_KEY_T eKey,
 					   UINT32* pu32CipherKeys );
+
+DTV_STATUS_T HAL_CI_PLUS_SetCipherKeysByPIDs( SINT32 deviceHandle,
+                                           CIPLUS_DECRYPT_KEY_DST_T eDecryptKeyDst,
+                                           CIPLUS_CRYPTOGRAPHY_T eCryptography,
+                                           CIPLUS_CIPHER_KEY_T eKey,
+                                           UINT32* pu32CipherKeys,
+                                           UINT16 *pPIDs,
+                                           UINT16 numOfPIDs);
 
 DTV_STATUS_T HAL_CI_SetErrorCheckMode(SINT32 deviceHandle, CI_ERROR_CHECK_MODE_T errCheckMode);
 DTV_STATUS_T HAL_CI_GetErrorCheckMode(SINT32 deviceHandle, CI_ERROR_CHECK_MODE_T *perrCheckMode);
