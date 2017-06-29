@@ -596,6 +596,11 @@ typedef struct {
 #endif
 #endif
 
+typedef enum {
+     VSC_PATTERN_BLACK,
+     VSC_PATTERN_WHITE
+} VSC_PATTERN_TYPE_T;
+
 /*-----------------------------------------------------------------------------
 	Extern Variables & Function Prototype Declarations
 ------------------------------------------------------------------------------*/
@@ -669,6 +674,8 @@ DTV_STATUS_T    HAL_VSC_GetVideoDelayedTime (VIDEO_WID_T eWinId, UINT16 *pDelaye
 DTV_STATUS_T    HAL_VSC_SetTwinZoom(BOOLEAN bOnOff);
 DTV_STATUS_T    HAL_VSC_SetDualMode(BOOLEAN bOnOff);
 #endif
+
+DTV_STATUS_T    HAL_VSC_SetVideoLatencyPattern (BOOLEAN bOnOff, VSC_PATTERN_TYPE_T bPatternType, VIDEO_RECT_T overlayWindow);
 
 /*-----------------------------------------------------------------------------
 	Local Constant Definitions
