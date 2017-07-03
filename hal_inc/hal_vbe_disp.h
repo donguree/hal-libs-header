@@ -405,6 +405,10 @@ DTV_STATUS_T HAL_VBE_DISP_GetPixelGainLimit (UINT16 *nPixelGainLimit);
 
 /* Test Pattern */
 DTV_STATUS_T HAL_VBE_DISP_SetInnerPattern(UINT8 bOnOff, UINT8 ip, UINT8 type);
+/* TSCIC Load 
+* requester: roy.noh
+*/
+DTV_STATUS_T HAL_VBE_TSCIC_Load(UINT32 *pTSCICdata, UINT32 u32Size);
 
 
 
