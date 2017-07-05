@@ -755,7 +755,8 @@ typedef enum
 	VDEC_PARAM_VSYNC_THRESHOLD,	/**< set display match range in milliseconds
 								  unit */
 	VDEC_PARAM_PVR_MODE_INFO,	/**< true for PVR mode */
-
+	VDEC_PARAM_FAST_IFRAME,		/**< set first I Frame displaying time. if set 1, first I frame 
+								  should be displayed as soon as decoded */
 	VDEC_PARAM_MAX
 } VDEC_PARAM_T;
 
