@@ -63,7 +63,7 @@ typedef enum {
 ******************************************************************************/
 
 SVP_STATUS_T HAL_SVP_OpenSecureCpb(UINT32 secCpbAddr, SINT32 secCpbSize);
-SVP_STATUS_T HAL_SVP_OpenSecureCpbEx(UINT32 secCpbAddr, SINT32 secCpbSize, SINT32 align);
+SVP_STATUS_T HAL_SVP_OpenSecureCpbEx(UINT32 secCpbAddr, SINT32 secCpbSize,SINT32 align);
 SVP_STATUS_T HAL_SVP_CloseSecureCpb(void);
 SVP_STATUS_T HAL_SVP_CloseSecureCpbEx(UINT32 secCpbAddr, SINT32 secCpbSize);
 BOOLEAN HAL_SVP_IsSecureReformatterSupported(void);
@@ -73,9 +73,9 @@ SVP_STATUS_T HAL_SVP_GetSecureCpbInformation (ULONG vdecHandle,
 	ULONG *pSecCpbAddr, SINT32 *pSecCpbSize, SINT32 *pReadOffset, SINT32 *pWriteOffset);
 SVP_STATUS_T HAL_SVP_GetSecureDecryptBufferHandle(UINT32 *pSecDecBufHandle, UINT32 *pSecDecBufSize);
 SVP_STATUS_T HAL_SVP_GetSecureDecryptBufferHandleEx(UINT32 secCpbAddr, UINT32 *pSecDecBufHandle, UINT32 *pSecDecBufSize);
-SVP_STATUS_T HAL_SVP_GetAuInformation(UINT32 *pAuWritePoSINT32, SINT32 *pAuWriteLength,
-	UINT32 *pWritePoSINT32, UINT32 readPoSINT32, UINT32 secDecBufHandle, UINT32 srcLength);
-SVP_STATUS_T HAL_SVP_CheckAuTypeIsDolbyHdrMeta(UINT32 auWritePoSINT32, SINT32 auWriteLength, BOOLEAN *pIsMetaType);
+SVP_STATUS_T HAL_SVP_GetAuInformation(UINT32 *pAuWritePosition, SINT32 *pAuWriteLength,
+	UINT32 *pWritePosition, UINT32 readPosition, UINT32 secDecBufHandle, UINT32 srcLength);
+SVP_STATUS_T HAL_SVP_CheckAuTypeIsDolbyHdrMeta(UINT32 *auWritePosition, SINT32 auWriteLength, BOOLEAN *pIsMetaType);
 SVP_STATUS_T HAL_SVP_FlushSecureDecryptBuffer(void);
 SVP_STATUS_T HAL_SVP_FlushSecureDecryptBufferEx(UINT32 secCpbAddr);
 
@@ -85,8 +85,11 @@ SVP_STATUS_T HAL_SVP_Widevine_DecryptAudio(UINT8 *pIv, UINT8 *pSrc, UINT32 srcLe
 	UINT8 *pOutput, UINT32 *pOutputLength);
 
 SVP_STATUS_T HAL_SVP_WidevineSelectKey(UINT32 session, const UINT8 *key_id, size_t key_id_length);
-SVP_STATUS_T HAL_SVP_WidevineDecryptCTR(UINT32 session, const UINT8 *data_addr, size_t data_length, SINT8 is_encrypted,
+SVP_STATUS_T HAL_SVP_WidevineDecryptCTR(UINT32 session, const UINT8 *data_addr, size_t data_length, BOOLEAN is_encrypted,
 	const UINT8 *iv, size_t block_offset, const void *out_buffer, UINT8 subsample_flags);
+
+SVP_STATUS_T HAL_SVP_WidevineDecryptCENC(UINT32 session, const UINT8 *data_addr, size_t data_length, BOOLEAN is_encrypted,
+	const UINT8 *iv, size_t block_offset, const void *out_buffer, const void *pattern, UINT8 subsample_flags);
 
 SVP_STATUS_T HAL_SVP_CopyToSecureDecryptBuffer(UINT32 secDecBufHandle, UINT32 secDecBufwriteOffset,
 	UINT8 *pSrc, SINT32 length);
