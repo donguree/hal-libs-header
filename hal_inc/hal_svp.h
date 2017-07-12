@@ -75,7 +75,7 @@ SVP_STATUS_T HAL_SVP_GetSecureDecryptBufferHandle(UINT32 *pSecDecBufHandle, UINT
 SVP_STATUS_T HAL_SVP_GetSecureDecryptBufferHandleEx(UINT32 secCpbAddr, UINT32 *pSecDecBufHandle, UINT32 *pSecDecBufSize);
 SVP_STATUS_T HAL_SVP_GetAuInformation(UINT32 *pAuWritePosition, SINT32 *pAuWriteLength,
 	UINT32 *pWritePosition, UINT32 readPosition, UINT32 secDecBufHandle, UINT32 srcLength);
-SVP_STATUS_T HAL_SVP_CheckAuTypeIsDolbyHdrMeta(UINT32 *auWritePosition, SINT32 auWriteLength, BOOLEAN *pIsMetaType);
+SVP_STATUS_T HAL_SVP_CheckAuTypeIsDolbyHdrMeta(UINT32 auWritePosition, SINT32 auWriteLength, BOOLEAN *pIsMetaType);
 SVP_STATUS_T HAL_SVP_FlushSecureDecryptBuffer(void);
 SVP_STATUS_T HAL_SVP_FlushSecureDecryptBufferEx(UINT32 secCpbAddr);
 
