@@ -366,6 +366,16 @@ typedef enum {
 	DISP_MLE_MODE_MAX
 } DISP_MPLUS_MODE_T;
 
+/**
+ * LSR user mode
+**/
+typedef enum{
+	DISP_LOGO_LUMY_ADJUST_OFF = 0,
+	DISP_LOGO_LUMY_ADJUST_LIGHT,
+	DISP_LOGO_LUMY_ADJUST_STRONG,
+	DISP_LOGO_LUMY_ADJUST_MAX
+}DISP_LSR_ADJUST_MODE_T;
+
 
 /*-----------------------------------------------------------------------------
 	Local Variables & Function Prototypes Declarations
@@ -389,7 +399,9 @@ DTV_STATUS_T HAL_VBE_DISP_SetBackgroundColor(UINT8 red, UINT8 green, UINT8 blue)
 
 /* Below functions are releated with OLED  */
 DTV_STATUS_T HAL_VBE_DISP_SetOrbit (BOOLEAN bOnOff, BOOLEAN bAutoMode);
-DTV_STATUS_T HAL_VBE_DISP_SetLSRMode (BOOLEAN bOnOff);
+DTV_STATUS_T HAL_VBE_DISP_SetOLEDLSR(DISP_LSR_ADJUST_MODE_T nStep, UINT8 *LSRTbl);
+DTV_STATUS_T HAL_VBE_DISP_SetCPC(BOOLEAN bOnOff);
+
 
 /* Below functions are releated with  M+ Model  */
 DTV_STATUS_T HAL_VBE_DISP_SetBOEMode(UINT8 *pFwData, UINT32 size);
