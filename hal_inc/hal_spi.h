@@ -51,8 +51,13 @@
 /* SPI Read Write function
  * requester: roy.noh
  */
+DTV_STATUS_T HAL_SPI_Init(void);
+DTV_STATUS_T HAL_SPI_SetConfig(UINT8 u8Channel,  UINT32 u32speed) ;
 DTV_STATUS_T HAL_SPI_Write (UINT8 u8Channel, UINT32 u32addrToWrite, UINT32 u32dataToWrite);
 DTV_STATUS_T HAL_SPI_Read(UINT8 u8Channel, UINT32 u32addrToRead, UINT8* u8dataToRead, UINT32 u32size);
+
+
+
 
 
 #endif  /* _HAL_SPI_H_ */
