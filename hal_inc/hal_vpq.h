@@ -191,4 +191,8 @@ DTV_STATUS_T HAL_VPQ_SetDolbyPwmRatio(UINT8 u8Percent);
 void HAL_VPQ_InitDolbyPictureConfig(char* configFilePath[]);
 DTV_STATUS_T HAL_VPQ_GetDolbySWVersion(char* pstVersion);
 
+/* Smart Color Contrast */
+DTV_STATUS_T HAL_VPQ_SetDominantColorDetectRun(BOOLEAN bIsActivated, BOOLEAN bIsSecured);
+DTV_STATUS_T HAL_VPQ_GetDominantColorGain(float *pfColorGain, UINT8 *pColorNum);
+
 #endif	/* _HAL_VPQ_H_ */

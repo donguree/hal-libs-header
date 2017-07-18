@@ -260,4 +260,7 @@ DTV_STATUS_T HAL_VPQ_LED_HDRSetSceneChange(BOOLEAN bIsSceneChange);
 /* DEBUG Function */
 DTV_STATUS_T HAL_VPQ_LED_Debug(void);
 
+/* Smart Local Dimming */
+DTV_STATUS_T HAL_VPQ_LED_LDSetSmartRun(BOOLEAN bIsActivated, BOOLEAN bIsSecured);
+
 #endif /* _HAL_VPQ_LED_DDI_H_ */
