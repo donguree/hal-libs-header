@@ -120,4 +120,5 @@ DTV_STATUS_T HAL_VPQ_MEMC_Initialize(void);
 DTV_STATUS_T HAL_VPQ_MEMC_SetMotionComp(UINT8 blurLevel, UINT8 judderLevel, HAL_MEMC_TYPE_T motion);
 DTV_STATUS_T HAL_VPQ_MEMC_MotionCompOnOff(BOOLEAN bOnOff);
 DTV_STATUS_T HAL_VPQ_MEMC_LowDelayMode(UINT8 type);
+DTV_STATUS_T HAL_VPQ_MEMC_SetMotionPro(BOOLEAN bMotionPro);
 #endif /* _HAL_VPQ_MEMC_DDI_H_ */
