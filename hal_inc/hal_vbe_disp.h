@@ -376,6 +376,16 @@ typedef enum{
 	DISP_LOGO_LUMY_ADJUST_MAX
 }DISP_LSR_ADJUST_MODE_T;
 
+/**
+ * TSCIC data structure
+ **/
+typedef struct {
+	UINT8 *u8pControlTbl;
+	UINT32 u32Ctrlsize;
+	UINT32 *u32pTSCICTbl;
+	UINT32 u32Tscicsize;
+}DISP_PANEL_TSCIC_T;
+
 
 /*-----------------------------------------------------------------------------
 	Local Variables & Function Prototypes Declarations
@@ -420,7 +430,7 @@ DTV_STATUS_T HAL_VBE_DISP_SetInnerPattern(UINT8 bOnOff, UINT8 ip, UINT8 type);
 /* TSCIC Load 
 * requester: roy.noh
 */
-DTV_STATUS_T HAL_VBE_TSCIC_Load(UINT32 *pTSCICdata, UINT32 u32Size);
+DTV_STATUS_T HAL_VBE_TSCIC_Load(DISP_PANEL_TSCIC_T *tscicTbl);
 
 
 
