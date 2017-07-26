@@ -199,9 +199,9 @@ typedef enum{
 */
 typedef struct{
 	HAL_VPQ_HDRPATH_T hdrpath;
-	UINT16 uRdata[66];	///<0~65535, 33point x,y data
-	UINT16 uGdata[66];	///<0~65535, 33point x,y data
-	UINT16 uBdata[66];	///<0~65535, 33point x,y data
+	UINT32 uRdata[66];	///<0~4294967295, 33point x,y data
+	UINT32 uGdata[66];	///<0~4294967295, 33point x,y data
+	UINT32 uBdata[66];	///<0~4294967295, 33point x,y data
 } HAL_VPQ_HDR_TONEMAP_T;
 
 /**
