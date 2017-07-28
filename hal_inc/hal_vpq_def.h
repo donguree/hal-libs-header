@@ -185,8 +185,14 @@ typedef struct
 *	COLOR_CORRECTION
 */
 typedef struct{
-	UINT8 uHueBlend;	///< 0~255
-	UINT8 uSatBlend;	///< 0~255
+	UINT32 uHueBlend;	///< 0~1023
+	UINT32 uSatBlend;	///< 0~1023
+
+	UINT32 uLgainx[8];	//L gain LUT x point
+	UINT32 uLgainy[8];	//L gain LUT y point
+
+	UINT32 uSgainx[8];	//S gain LUT x point
+	UINT32 uSgainy[8];	//S gain LUT y point
 } HAL_VPQ_COLOR_CORRECTION_T;
 
 typedef enum{
