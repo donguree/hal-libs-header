@@ -376,6 +376,28 @@ typedef enum{
 }DISP_LSR_ADJUST_MODE_T;
 
 /**
+ * LSR tunning factor
+ **/
+typedef struct{
+	UINT8	IIR;
+	UINT8	APL_LUT[8];
+	UINT16	GB_LUT[8];
+	UINT16	OFFSET[15];
+	UINT32	COUNT[3];
+}DISP_LSR_TUNNING_VAL_T; 
+
+/**
+ * CPC tunning factor
+ **/
+typedef struct{
+	UINT16	APL_LUT[4];
+	UINT16	EDGE_LUT[4];
+	UINT8	STEP[2];
+}DISP_CPC_TUNNING_VAL_T; 
+
+
+
+/**
  * TSCIC data structure
  **/
 typedef struct {
@@ -411,7 +433,9 @@ DTV_STATUS_T HAL_VBE_DISP_SetBackgroundColor(UINT8 red, UINT8 green, UINT8 blue)
 
 /* Below functions are releated with OLED  */
 DTV_STATUS_T HAL_VBE_DISP_SetOrbit (BOOLEAN bOnOff, BOOLEAN bAutoMode);
-DTV_STATUS_T HAL_VBE_DISP_SetOLEDLSR(DISP_LSR_ADJUST_MODE_T nStep, UINT8 *LSRTbl);
+DTV_STATUS_T HAL_VBE_DISP_SetOLEDLSR(DISP_LSR_ADJUST_MODE_T nStep, UINT32 *LSRTbl);
+DTV_STATUS_T HAL_VBE_DISP_SetOLEDLSRTunning(DISP_LSR_TUNNING_VAL_T *stLSRdata);
+DTV_STATUS_T HAL_VBE_DISP_SetOLEDCPCTunning(DISP_CPC_TUNNING_VAL_T *stCPCdata);
 DTV_STATUS_T HAL_VBE_DISP_SetCPC(BOOLEAN bOnOff);
 
 
