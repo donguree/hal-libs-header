@@ -197,7 +197,7 @@ DTV_STATUS_T HAL_VPQ_SetDominantColorDetectRun(BOOLEAN bIsActivated, BOOLEAN bIs
 DTV_STATUS_T HAL_VPQ_GetDominantColorGain(float *pfColorGain, UINT8 *pColorNum);
 
 /* OBC */
-DTV_STATUS_T HAL_VPQ_SetOBC(CHIP_DC2P_OBC_APL_T *pstData);
-DTV_STATUS_T HAL_VPQ_GetOBCData(CHIP_DC2P_OBC_DATA_T *pstData);
+DTV_STATUS_T HAL_VPQ_SetOBC(HAL_VPQ_DATA_T *pstData);
+DTV_STATUS_T HAL_VPQ_GetOBCData(HAL_VPQ_DATA_T *pstData);
 
 #endif	/* _HAL_VPQ_H_ */
