@@ -31,6 +31,7 @@
 //#include "common.h"
 #include "hal_common.h"
 #include "hal_vsc.h"
+#include "hal_audio.h"
 #include "hal_gpio_index.h"
 /******************************************************************************
     매크로 함수 정의 (Macro Definitions)
@@ -45,6 +46,9 @@
 #define HAL_VFE_HDMI_SPD_IF_VENDOR_LEN          8
 #define HAL_VFE_HDMI_SPD_IF_DESC_LEN            16
 
+#define MAX_NUMBER_OF_CHANNEL 3
+#define MAX_LENGTH_OF_DRIVER_VERSION 32
+#define MAX_LENGTH_OF_DEBUG_MESSAGE 128
 
 /******************************************************************************
    로컬 상수 정의 (Local Constant Definitions)
@@ -641,6 +645,14 @@ typedef enum
 	HAL_VFE_HDMI_3D_RL,
 }HAL_VFE_HDMI_3D_LR_TYPE_T;
 
+typedef enum
+{
+    HAL_VFE_HDMI_HDR_TYPE_SDR = 0,
+    HAL_VFE_HDMI_HDR_TYPE_HDR10,
+    HAL_VFE_HDMI_HDR_TYPE_HLG,
+    HAL_VFE_HDMI_HDR_TYPE_DOLBYVISION,
+    HAL_VFE_HDMI_HDR_TYPE_DOLBYVISION_LL,
+} HAL_VFE_HDMI_HDR_TYPE_T;
 
 typedef enum
 {
@@ -681,6 +693,153 @@ typedef struct
 
 } HAL_VFE_HDMI_TIMING_INFO_T;
 
+//=============================================================
+//                          HDMI Diagnostics Info.
+//=============================================================
+
+typedef enum
+{
+	HAL_VFE_HDMI_3G,
+	HAL_VFE_HDMI_6G,
+} HAL_VFE_HDMI_CHANNEL_BANDWIDTH_T;
+
+typedef enum
+{
+	HAL_VFE_HDMI_HDCP_VERSION_1_4 = 0x14,
+	HAL_VFE_HDMI_HDCP_VERSION_2_2 = 0x22,
+	HAL_VFE_HDMI_HDCP_VERSION_2_3 = 0x23,
+} HAL_VFE_HDMI_HDCP_VERSION_T;
+
+typedef enum
+{
+	HAL_VFE_HDMI_COLOR_DEPTH_8BIT,
+	HAL_VFE_HDMI_COLOR_DEPTH_10BIT,
+	HAL_VFE_HDMI_COLOR_DEPTH_12BIT,
+	HAL_VFE_HDMI_COLOR_DEPTH_16BIT,
+} HAL_VFE_HDMI_COLOR_DEPTH_T;
+
+typedef enum {
+    HAL_VFE_HDMI_COLORIMETRY_BT601,
+    HAL_VFE_HDMI_COLORIMETRY_BT709,
+    HAL_VFE_HDMI_COLORIMETRY_BT2020,
+} HAL_VFE_HDMI_COLORIMETRY_T;
+
+typedef struct
+{
+	UINT8 port;
+	BOOLEAN hdmi_5v;
+	BOOLEAN hpd;
+	BOOLEAN RxSense;
+	HAL_VFE_HDMI_MODE_T eHDMIMode;
+	HAL_VFE_HDMI_CHANNEL_BANDWIDTH_T channel_bandwidth;
+	HAL_VFE_HDMI_HDCP_VERSION_T hdcp_version;
+	UINT16 video_width;
+	UINT16 video_height;
+	UINT32 frame_rate_x100_hz;
+	HAL_VFE_HDMI_AVI_CSC_T color_space;
+	HAL_VFE_HDMI_COLOR_DEPTH_T color_depth;
+	HAL_VFE_HDMI_COLORIMETRY_T colorimetry;
+	HAL_AUDIO_HDMI_TYPE_T audio_format;
+	UINT8 audio_channel_number;
+	HAL_VFE_HDMI_HDR_TYPE_T hdr_type;
+} HAL_VFE_HDMI_GENERAL_INFO_T;
+
+typedef struct
+{
+	BOOLEAN lockStaus;
+	UINT32 tmdsClockKHz;
+	UINT32 tmdsBandwidthMbps;
+
+	UINT32 phyCtleEQMinRage[MAX_NUMBER_OF_CHANNEL];
+	UINT32 phyCtleEQMaxRage[MAX_NUMBER_OF_CHANNEL];
+	UINT32 phyCtleEQResult[MAX_NUMBER_OF_CHANNEL];
+	UINT32 phyError[MAX_NUMBER_OF_CHANNEL];
+
+	UINT32 elapse_5v_to_hpd_msec;
+	UINT32 elapse_hpd_to_phyLocked_msec;
+	UINT32 elapse_hpd_to_hdcpInit_msec;
+	UINT32 elapse_hpd_to_hdcpDone_msec;
+	UINT32 elapse_hpd_to_unmute_msec;
+} HAL_VFE_HDMI_PHY_INFO_T;
+
+typedef struct
+{
+	UINT16 video_width_real;
+	UINT16 video_height_real;
+	UINT16 video_htotal_real;
+	UINT16 video_vtotal_real;
+	HAL_VFE_HDMI_COLOR_DEPTH_T color_depth;
+	UINT8 bit_ratio;
+	BOOLEAN set_avmute;
+	BOOLEAN clear_avmute;
+ } HAL_VFE_HDMI_LINK_INFO_T;
+
+typedef struct
+{
+	HAL_AUDIO_HDMI_TYPE_T audio_format;
+	HAL_AUDIO_SAMPLING_FREQ_T sampling_freq;
+	UINT8 audio_channel_number;
+	UINT32 pcm_N;
+	UINT32 pcm_CTS;
+} HAL_VFE_HDMI_AUDIO_INFO_T;
+
+typedef struct
+{
+	HAL_VFE_HDMI_HDCP_VERSION_T hdcpVersion;
+	UINT8 status[4]; /* string NA/B0/B1/B2/B3 */
+	UINT32 An;
+	UINT32 Aksv;
+	UINT32 Bksv;
+	UINT32 Ri;
+	UINT32 Bcaps;
+	UINT32 Bstatus;
+} HAL_VFE_HDMI_HDCP14_INFO_T;
+
+typedef struct
+{
+	UINT8 status[4]; /* string NA/B0/B1/B2/B3 */
+	UINT16 syncLostCount;
+} HAL_VFE_HDMI_HDCP22_INFO_T;
+
+typedef struct
+{
+	UINT8 sink_version;
+	UINT8 source_version;
+	UINT8 bit_ratio;
+	BOOLEAN scramble_enable;
+	BOOLEAN scramble_status;
+	BOOLEAN clock_detect;
+	BOOLEAN ch_locked[MAX_NUMBER_OF_CHANNEL];
+	UINT16 ch_error_count[MAX_NUMBER_OF_CHANNEL];
+} HAL_VFE_HDMI_SCDC_INFO_T;
+
+typedef struct
+{
+	UINT8 hdmiKdrvVer[MAX_LENGTH_OF_DRIVER_VERSION];
+	UINT8 hdmiKadpVer[MAX_LENGTH_OF_DRIVER_VERSION];
+	UINT8 hdmiHalVer[MAX_LENGTH_OF_DRIVER_VERSION];
+} HAL_VFE_HDMI_SW_VERSION_INFO_T;
+
+typedef struct
+{
+	UINT8 message1[MAX_LENGTH_OF_DEBUG_MESSAGE];
+	UINT8 message2[MAX_LENGTH_OF_DEBUG_MESSAGE];
+	UINT8 message3[MAX_LENGTH_OF_DEBUG_MESSAGE];
+	UINT8 message4[MAX_LENGTH_OF_DEBUG_MESSAGE];
+} HAL_VFE_HDMI_MESSAGE_INFO_T;
+
+typedef struct
+{
+	HAL_VFE_HDMI_GENERAL_INFO_T general;
+	HAL_VFE_HDMI_PHY_INFO_T phy;
+	HAL_VFE_HDMI_LINK_INFO_T link;
+	HAL_VFE_HDMI_AUDIO_INFO_T audio;
+	HAL_VFE_HDMI_HDCP14_INFO_T hdcp14;
+	HAL_VFE_HDMI_HDCP22_INFO_T hdcp22;
+	HAL_VFE_HDMI_SCDC_INFO_T scdc;
+	HAL_VFE_HDMI_SW_VERSION_INFO_T swversion;
+	HAL_VFE_HDMI_MESSAGE_INFO_T msg;
+} HAL_VFE_HDMI_DIAGNOSTICS_INFO_T;
 
 /******************************************************************************
     전역 형 정의 (Global Type Definitions)
@@ -723,6 +882,9 @@ DTV_STATUS_T	HAL_VFE_HDMI_GetPortVSIInfo(UINT8 port, HAL_VFE_HDMI_VSI_T *pPacket
 DTV_STATUS_T	HAL_VFE_HDMI_GetPortSPDInfo(UINT8 port, HAL_VFE_HDMI_SPD_T *pPacket);
 DTV_STATUS_T	HAL_VFE_HDMI_GetPortAVIInfo(UINT8 port, HAL_VFE_HDMI_AVI_T *pPacket);
 DTV_STATUS_T	HAL_VFE_HDMI_GetPortPacketInfo(UINT8 port, HAL_VFE_HDMI_ALL_PACKET_T *pPacket);
+DTV_STATUS_T	HAL_VFE_HDMI_GetDiagnosticsInfo(UINT8 port, HAL_VFE_HDMI_DIAGNOSTICS_INFO_T *pInfo);
+DTV_STATUS_T    HAL_VFE_HDMI_GetScdcInfo(UINT8 port, HAL_VFE_HDMI_SCDC_INFO_T *pInfo);
+DTV_STATUS_T    HAL_VFE_HDMI_GetGeneralInfo(UINT8 port, HAL_VFE_HDMI_GENERAL_INFO_T *pInfo);
 
 DTV_STATUS_T HAL_VFE_HDMI_GetHDMISW5V(UINT8 port, UINT8 *pData);
 DTV_STATUS_T HAL_VFE_HDMI_GetConnectionState(UINT8 port, UINT8 *pData);
