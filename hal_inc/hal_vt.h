@@ -267,6 +267,13 @@ DTV_STATUS_T HAL_VT_InitEx(unsigned int bufferNum);
  */
 DTV_STATUS_T HAL_VT_Finalize(void);
 
+/**
+ *      @brief Enable or disable FRC mode.
+ *      @return if success API_OK, else API_ERROR.
+ *      @author dain.jeong (dain.jeong@lge.com)
+ */
+DTV_STATUS_T HAL_VT_EnableFRCMode(BOOLEAN bEnableFRC);
+
 /*----------------------------------------------------------------------------------------
     Provide Capability of Device
 ----------------------------------------------------------------------------------------*/
