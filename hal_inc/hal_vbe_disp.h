@@ -459,6 +459,8 @@ DTV_STATUS_T HAL_VBE_DISP_SetInnerPattern(UINT8 bOnOff, UINT8 ip, UINT8 type);
 /* TSCIC Load  */
 DTV_STATUS_T HAL_VBE_TSCIC_Load(DISP_PANEL_TSCIC_T *tscicTbl);
 
+DTV_STATUS_T HAL_VBE_DISP_MplusSet(void * pRegisterSet, UINT8 nPanelMaker);
+DTV_STATUS_T HAL_VBE_DISP_MplusGet(void * pRegisterSet, UINT8 nPanelMaker);
 
 
 #endif /* _HAL_VBE_DISP_H_ */
