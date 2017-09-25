@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.0
- *  @date		2017.06.03
+ *  @version	4.1
+ *  @date		2017.09.25
  *  @note
  *  @see
  */
@@ -1717,6 +1717,7 @@ DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHeightMixCoeff(SINT32 heightCoeff);        
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHeightMixCoeff(SINT32 *pHeightCoeff);              /* Get the level of height signal in downmix to horizontal plane channels */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetCenterGain(SINT32 centerGain);                        /* Control center singal gain */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetCenterGain(SINT32 *pCenterGain);                      /* Get center signal gain */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetCertParam(BOOLEAN bEnable);                             /* Set Parameters for DTS VX certification */
 
 
 /* AAD */
