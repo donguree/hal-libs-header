@@ -991,4 +991,20 @@ HAL_GAL_STATE_T HAL_GAL_SetCursorPosition(HAL_GAL_CURSOR_POSITION_INFO_T* pCurso
 
 HAL_GAL_STATE_T HAL_GAL_SetCursorResolution(HAL_GAL_RESOLUTION_T cursorCoordinateResolution, HAL_GAL_RESOLUTION_T cursorImageResolution);
 
+/**
+ * @brief Get sharpness (0~255) of specific framebuffer hw controller
+ * @param fbHWControllerIndex  [in] Identifier of framebuffer hw controller(number)
+ * @param sharpness            [in] Sharpness value (0~255)
+ * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
+ */
+HAL_GAL_STATE_T HAL_GAL_GetFBHWControllerSharpness(UINT32 fbHWControllerIndex, UINT8* sharpness);
+
+/**
+ * @brief Set sharpness (0~255) of specific framebuffer hw controller
+ * @param fbHWControllerIndex  [in] Identifier of framebuffer hw controller(number)
+ * @param sharpness            [in] Sharpness value (0~255)
+ * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
+ */
+HAL_GAL_STATE_T HAL_GAL_SetFBHWControllerSharpness(UINT32 fbHWControllerIndex, UINT8 sharpness);
+
 #endif
