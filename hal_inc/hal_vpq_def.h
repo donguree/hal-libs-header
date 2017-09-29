@@ -292,4 +292,13 @@ typedef struct
 }
 HAL_VPQ_CHIP_FILM_T;
 
+/**
+*      set POD/PCID LUT
+*/
+typedef struct {
+  UINT8 extType;  ///< 0: POD, 1: PCID, 2: NONE
+  UINT8 *pExtData; ///< LUT data
+  UINT32 extLength; ///< LUT data size
+
+} HAL_VPQ_OD_EXTENSION_T;
 #endif	/* _HAL_VPQ_DEF_H_ */
