@@ -199,5 +199,6 @@ DTV_STATUS_T HAL_VPQ_GetDominantColorGain(float *pfColorGain, UINT8 *pColorNum);
 /* OBC */
 DTV_STATUS_T HAL_VPQ_SetOBC(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_GetOBCData(HAL_VPQ_DATA_T *pstData);
-
+DTV_STATUS_T HAL_VPQ_SetOBCLUT(HAL_VPQ_DATA_T *pstData);
+DTV_STATUS_T HAL_VPQ_SetOBCCtrl(HAL_VPQ_DATA_T *pstData);
 #endif	/* _HAL_VPQ_H_ */
