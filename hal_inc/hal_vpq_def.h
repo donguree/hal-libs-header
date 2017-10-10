@@ -301,4 +301,41 @@ typedef struct {
   UINT32 extLength; ///< LUT data size
 
 } HAL_VPQ_OD_EXTENSION_T;
+
+
+/**
+*	dolby global dimming delay data
+*/
+
+typedef struct
+{
+    UINT16 uOtt_24;
+    UINT16 uOtt_30;
+    UINT16 uOtt_50;
+    UINT16 uOtt_60;
+
+    UINT16 uHdmi_24;
+    UINT16 uHdmi_30;
+    UINT16 uHdmi_50;
+    UINT16 uHdmi_60;
+} HAL_DOLBY_GD_DELAY_T;
+
+typedef struct
+{
+    HAL_DOLBY_GD_DELAY_T standard_frc_off;
+    HAL_DOLBY_GD_DELAY_T standard_frc_on;
+
+    HAL_DOLBY_GD_DELAY_T vivid_frc_off;
+    HAL_DOLBY_GD_DELAY_T vivid__frc_on;
+
+    HAL_DOLBY_GD_DELAY_T cinema_home_frc_off;
+    HAL_DOLBY_GD_DELAY_T cinema_home_frc_on;
+
+    HAL_DOLBY_GD_DELAY_T cinema_frc_off;
+    HAL_DOLBY_GD_DELAY_T cinema_frc_on;
+
+    HAL_DOLBY_GD_DELAY_T game_frc_off;
+    HAL_DOLBY_GD_DELAY_T game_frc_on;
+} HAL_DOLBY_GD_DELAY_LUT_T;
+
 #endif	/* _HAL_VPQ_DEF_H_ */

@@ -191,6 +191,7 @@ DTV_STATUS_T HAL_VPQ_SetDolbyPictureMenu(HAL_VPQ_DOLBY_PICTURE_DATA_T pictureDat
 DTV_STATUS_T HAL_VPQ_SetDolbyPwmRatio(UINT8 u8Percent);
 void HAL_VPQ_InitDolbyPictureConfig(char* configFilePath[]);
 DTV_STATUS_T HAL_VPQ_GetDolbySWVersion(char* pstVersion);
+DTV_STATUS_T HAL_VPQ_SetDolbyGDDelay(HAL_DOLBY_GD_DELAY_LUT_T dolby_GDDelay_standard, HAL_DOLBY_GD_DELAY_LUT_T dolby_GDDelay_latency);
 
 /* Smart Color Contrast */
 DTV_STATUS_T HAL_VPQ_SetDominantColorDetectRun(BOOLEAN bIsActivated, BOOLEAN bIsSecured);
