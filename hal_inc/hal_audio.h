@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.1
- *  @date		2017.09.25
+ *  @version	4.2
+ *  @date		2017.10.19
  *  @note
  *  @see
  */
@@ -1462,6 +1462,17 @@ typedef struct HAL_AUDIO_LGSE_DAP_SYS_PARAM								/* Set All DAP system param*/
 	HAL_AUDIO_LGSE_DAP_VIRTUAL_BASS_T				stVirtualBass;				/* Set Virtual Bass parameters */
 } HAL_AUDIO_LGSE_DAP_SYS_PARAM_T;
 
+/**
+ * HAL AUDIO DTS Virtual:X (VX) input channel information Definition
+ *
+ */
+
+typedef enum
+{
+    HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_20 = 0,
+    HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_51 = 1,
+} HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T;
+
 
 /******************************************************************************
 	함수 선언 (Function Declaration)
@@ -1711,14 +1722,19 @@ DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHeightUpmix(BOOLEAN bEnable);              
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHeightUpmix(BOOLEAN *pEnable);                     /* Get status if TruSurround:X Height upmix is enabled or not */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxLPRGain(SINT32 lprGain);                           /* Controls phantom center mix level to the center channel */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxLPRGain(SINT32 *pLprGain);                         /* Get phantom center mix level to the center channel */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxLPRGainAsInputChannel(HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T inputChannel, SINT32 lprGain);                           /* Controls phantom center mix level to the center channel for selected input channel */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxLPRGainAsInputChannel(HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T inputChannel, SINT32 *pLprGain);                         /* Get phantom center mix level to the center channel for selected input channel */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHorizVirEff(BOOLEAN bEnable);                      /* Controls virtualization effect strengths for horizontal plane sources */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHorizVirEff(BOOLEAN *pEnable);                     /* Get virtualization effect strengths for horizontal plane sources */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHorizVirEffAsInputChannel(HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T inputChannel, BOOLEAN bEnable);                      /* Controls virtualization effect strengths for horizontal plane sources for selected input channel */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHorizVirEffAsInputChannel(HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T inputChannel, BOOLEAN *pEnable);                     /* Get virtualization effect strengths for horizontal plane sources for selected input channel */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHeightMixCoeff(SINT32 heightCoeff);                /* Controls the level of height signal in downmix to horizontal plane channels */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHeightMixCoeff(SINT32 *pHeightCoeff);              /* Get the level of height signal in downmix to horizontal plane channels */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetTsxHeightMixCoeffAsInputChannel(HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T inputChannel, SINT32 heightCoeff);                /* Controls the level of height signal in downmix to horizontal plane channels for selected input channel */
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetTsxHeightMixCoeffAsInputChannel(HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T inputChannel, SINT32 *pHeightCoeff);              /* Get the level of height signal in downmix to horizontal plane channels for selected input channel */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetCenterGain(SINT32 centerGain);                        /* Control center singal gain */
 DTV_STATUS_T HAL_AUDIO_LGSE_VX_GetCenterGain(SINT32 *pCenterGain);                      /* Get center signal gain */
-DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetCertParam(BOOLEAN bEnable);                             /* Set Parameters for DTS VX certification */
-
+DTV_STATUS_T HAL_AUDIO_LGSE_VX_SetCertParam(BOOLEAN bEnable);                           /* Set Parameters for DTS VX certification */
 
 /* AAD */
 DTV_STATUS_T HAL_AUDIO_SIF_SetInputSource(HAL_AUDIO_SIF_INPUT_T sifSource);
