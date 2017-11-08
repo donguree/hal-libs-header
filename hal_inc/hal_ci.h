@@ -142,6 +142,18 @@ typedef struct CIPLUS_EVENT_HANDLER_INFO {
     PFN_CIPLUS_EVENT_CB			pfnUnderflowHandler;
     PFN_CIPLUS_EVENT_CB			pfnOverflowHandler;
 } CIPLUS_EVENT_HANDLER_INFO_T;
+
+/**
+* CISTPL_DATA_T
+*
+* @see
+*/
+typedef struct CISTPL_DATA
+{
+    UINT8 numOfRealData;
+    UINT8 data[255];
+}CISTPL_DATA_T;
+
 /******************************************************************************
 	함수 선언 (Function Declaration)
 ******************************************************************************/
@@ -153,6 +165,7 @@ DTV_STATUS_T HAL_CI_Disconnect(SINT32 deviceHandle);
 UINT8 HAL_CI_DetectCard(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_Reset(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_CheckCIS(SINT32 deviceHandle);
+DTV_STATUS_T HAL_CI_ReadCIS(UINT8 tupleCode, CISTPL_DATA_T *pCISTPL_Data);
 DTV_STATUS_T HAL_CI_WriteCOR(SINT32 deviceHandle);
 DTV_STATUS_T HAL_CI_Read(SINT32 deviceHandle, UINT8 *pData, UINT16 *pSize);
 DTV_STATUS_T HAL_CI_Write(SINT32 deviceHandle, UINT8 *pData, UINT16 size);
