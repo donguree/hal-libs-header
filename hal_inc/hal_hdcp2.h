@@ -121,6 +121,7 @@ int HAL_HDCP2_GetRootPublicKey(unsigned char *pRootPublicKey,
  *  argv[0] = LC128 value (16bytes)
  *  argv[1] = Km value (16bytes)
  *  argv[2] = Ks value (16bytes)
+ *  argv[3] = seed for EME-OAEP encoding (32bytes)
  * Returns: Zero(0) if the function success, non-Zero otherwise.
  *
  * If the argc param is not 0, some HAL_HDCP2* functions should not make the values
@@ -165,6 +166,25 @@ int HAL_HDCP2_GetCertInfo2(unsigned char *pReceiverID, unsigned char *pPubKey,
  * The execution time of the function (=performance) should be less than 50ms.
  */
 int HAL_HDCP2_Decrypt_RSAES_OAEP(unsigned char *pEkpub_km);
+
+/**
+ * HAL_HDCP2_Encrypt_RSAES_OAEP
+ * @pEkpub_km: [out] Encrypted km with kpubrx (128byte).
+ * @pKpubrx: [in] kpubrx value (131byte).
+ * Returns: Zero(0) if the function success, non-Zero otherwise.
+ *
+ * Encrypts km with kpubrx (Ekpub (km)).
+ * RSAES-OAEP encryption scheme must be used as defined by PKCS #1 V2.1:
+ * RSA Cryptography Standard. SHA-256 is the underlying hash function.
+ * The mask generation function used is MGF1 which uses SHA-256 as its
+ * underlying hash function.
+ *
+ * If HAL_HDCP2_UseTestVector with argv != 0 is already called, use 'km'
+ * (i.e. argv[1] in HAL_HDCP2_UseTestVector) instead of generating
+ * random km value and 'seed' (i.e. argv[3] in HAL_HDCP2_UseTestVector)
+ * when making the dkmask by MGF1.
+ */
+int HAL_HDCP2_Encrypt_RSAES_OAEP(unsigned char *pEkpub_km, unsigned char *pKpubrx);
 
 /**
  * HAL_HDCP2_Kd_Key_Derivation
@@ -284,6 +304,18 @@ int HAL_HDCP2_Decrypt_Km_using_Kh(unsigned char *pM, unsigned char *ekh_km);
 int HAL_HDCP2_Decrypt_EKs(unsigned char *pEKs, unsigned char *pRtx,
 			  unsigned char *pRrx, unsigned char *pRn,
 			  unsigned int version);
+
+/**
+ * HAL_HDCP2_HMAC_SHA256_with_kd
+ * @pDest: [out] Output buffer.
+ * @pSrc: [in] data to HAMC-SHA256.
+ * @srcLength: [in] The length of the pSrc.
+ * Returns: Zero(0) if the function success, non-Zero otherwise.
+ *
+ * pDest = HMAC-SHA256(pSrc, kd)
+ * Compute HMAC-SHA256 using the kd value as key
+ */
+int HAL_HDCP2_HMAC_SHA256_with_kd(unsigned char *pDest, unsigned char *pSrc, int srcLength);
 
 /**
  * HAL_HDCP2_XOR_Ks_with_LC128
