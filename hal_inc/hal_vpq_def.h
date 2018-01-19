@@ -200,8 +200,17 @@ typedef enum{
 	HDRPATH_SDR2HDR = 1,	///< SDR2HDR
 } HAL_VPQ_HDRPATH_T;
 
+typedef enum{
+	HAL_VPQ_HDR_MODE_SDR,
+	HAL_VPQ_HDR_MODE_DOLBY,
+	HAL_VPQ_HDR_MODE_HDR10,
+	HAL_VPQ_HDR_MODE_HLG,
+	HAL_VPQ_HDR_MODE_TECHNICOLOR,
+	HAL_VPQ_HDR_MODE_HDREFFECT,
+	HAL_VPQ_HDR_MODE_MAX
+} HAL_VPQ_HDR_MODE_T;
 /**
-*	HDR_TONEMA
+*	HDR_TONEMAP
 */
 typedef struct{
 	HAL_VPQ_HDRPATH_T hdrpath;
@@ -209,6 +218,13 @@ typedef struct{
 	UINT32 uGdata[66];	///<0~4294967295, 33point x,y data
 	UINT32 uBdata[66];	///<0~4294967295, 33point x,y data
 } HAL_VPQ_HDR_TONEMAP_T;
+
+typedef struct{
+	HAL_VPQ_HDR_MODE_T hdrMode;
+	UINT32 uRdata[66];	///<0~4294967295, 33point x,y data
+	UINT32 uGdata[66];	///<0~4294967295, 33point x,y data
+	UINT32 uBdata[66];	///<0~4294967295, 33point x,y data
+} HAL_VPQ_HDR_TONEMAP_NEW_T;
 
 /**
 *	VPQ_DATA
