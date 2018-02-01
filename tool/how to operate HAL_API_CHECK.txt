@@ -1,0 +1,22 @@
+** 사용법.
+
+설치 필요 라이브러리.
+re : 텍스트 파싱
+openpyxl : 엑셀문석 작성
+paramiko : ssh 통신
+
+1. 터미널에서 실행시키는 방법.
+ - pip install <라이브러리 이름>  --> 라이브러리 설치.
+ - 파일이 저장된 위치로 이동.
+ - python <파일이름> ID PW 리눅스서버  
+	--> 리눅스 서버는 OE에 자신이 할당받은 서버 주소.
+	--> PW에 특수문자가 있다면 'PW'로 하면 된다.
+	--> ex.)python HAL_API_CHECK.py sangwoo.ahn '@1234' 156.147.69.68
+
+2. 파이썬 프로그래밍 툴에서 실행시키는 방법.
+ - 각자 툴에 맞게 라이브러리 path 설정 진행.
+	- 파이참을 사용하는 경우는..
+		- file -> settings -> project:project -> project interpreter -> 오른쪽 초록색 + 클릭 -> 라이브러리 검색해서 아래 install버튼으로 진행.
+ - GIT class에 __init__함수를 보면 매계변수가 (self,ID=None, PW=None, URL=None) 로 되어 있다.
+   None으로 된 부분에 자신의 정보를 입력.
+   ex.) def __init__(self, ID='sangwoo.ahn', PW='@1234', URL='156.147.69.68'):
