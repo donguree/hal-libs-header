@@ -497,9 +497,15 @@ typedef struct VSC_SCALER_RATIO
 }VSC_SCALER_RATIO_T;
 
 typedef enum {
-     VSC_PATTERN_BLACK,
-     VSC_PATTERN_WHITE
+    VSC_PATTERN_BLACK,
+    VSC_PATTERN_WHITE
 } VSC_PATTERN_TYPE_T;
+
+typedef struct VSC_INPUT_REGION
+{
+    VIDEO_RECT_T  inRegion;  // video input size to set
+    VIDEO_RECT_T  originalInput;  // original source resolution
+} VSC_INPUT_REGION_T;
 
 /*-----------------------------------------------------------------------------
 	Extern Variables & Function Prototype Declarations
@@ -515,6 +521,7 @@ DTV_STATUS_T	HAL_VSC_GetInputRegion(VIDEO_WID_T wId, VIDEO_RECT_T *pInRegion);
 DTV_STATUS_T    HAL_VSC_SetInputRegion(VIDEO_WID_T wId, VIDEO_RECT_T inRegion, VIDEO_RECT_T originalInput);
 DTV_STATUS_T	HAL_VSC_GetOutputRegion(VIDEO_WID_T wId, VIDEO_RECT_T *pOutRegion);
 DTV_STATUS_T	HAL_VSC_SetOutputRegion(VIDEO_WID_T wId, VIDEO_RECT_T outRegion);
+DTV_STATUS_T	HAL_VSC_SetInputOutputRegion (VIDEO_WID_T wId, VSC_ROTATE_T rotation, VSC_INPUT_REGION_T *pInputRegion, VIDEO_RECT_T *pOutputRegion);
 DTV_STATUS_T    HAL_VSC_SetVENCMode (UINT16 frame_rate, UINT16 scan_type);
 DTV_STATUS_T	HAL_VSC_SetWinFreeze(VIDEO_WID_T wId, BOOLEAN bOnOff, BOOLEAN bAll); // Add "BOOLEAN bAll" parameter, by choonghoon.park 20170203
 
