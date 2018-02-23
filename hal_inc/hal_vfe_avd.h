@@ -255,8 +255,6 @@ typedef struct {
 /*-----------------------------------------------------------------------------
 	Extern Variables & Function Prototype Declarations
 ------------------------------------------------------------------------------*/
-extern DTV_STATUS_T HAL_VFE_AVD_VBI_SetMessageIDOfACC(OSA_MSGQ_T qid4ACCTx, UINT32 oddMsgID, UINT32 evenMsgID,UINT32 mainSrcID, UINT32 subSrcID);
-
 DTV_STATUS_T 		HAL_VFE_AVD_Initialize(VFE_AVD_CC_TTX_STATUS_T supportingVBI);
 DTV_STATUS_T 		HAL_VFE_AVD_Uninitialize(void);
 DTV_STATUS_T  		HAL_VFE_AVD_Open(void);
@@ -265,19 +263,10 @@ DTV_STATUS_T  		HAL_VFE_AVD_Connect(VFE_AVD_SRC_TYPE_T SrcType, UINT8 PinPortNum
 DTV_STATUS_T  		HAL_VFE_AVD_Disconnect(void);
 DTV_STATUS_T		HAL_VFE_AVD_SetSyncDetectionForTuning(BOOLEAN bEnable);
 
-#if 0
-DTV_STATUS_T 		HAL_VFE_AVD_GetSignalStrengthLevel(UINT8 u1Type, UINT8 *pu1Level);
-#endif
-
 BOOLEAN 			HAL_VFE_AVD_DoesSyncExist(void);
 DTV_STATUS_T		HAL_VFE_AVD_SetColorSystem(VFE_AVD_COLOR_SYSTEM_T colorSystem);
 DTV_STATUS_T		HAL_VFE_AVD_GetColorSystem(VFE_AVD_AVDECODER_VIDEO_MODE_T *pColorSystem);
 DTV_STATUS_T 		HAL_VFE_AVD_GetTimingInfo(VFE_AVD_TIMING_INFO_T *pInfo);
-
-#if 0
-DTV_STATUS_T 		HAL_VFE_AVD_SetVdecTuning(VFE_AVD_VDEC_TUNE_T * pstVdecTuneInfo, VFE_AVD_COLOR_SYSTEM_T colorSystem);
-DTV_STATUS_T 		HAL_VFE_AVD_SetATVChannelChange(void);
-#endif
 
 extern DTV_STATUS_T HAL_VFE_AVD_EnableVBI(VFE_AVD_CC_TTX_STATUS_T supportingVBI);
 extern DTV_STATUS_T HAL_VFE_AVD_DisableVBI(VFE_AVD_CC_TTX_STATUS_T supportingVBI);
@@ -288,8 +277,6 @@ DTV_STATUS_T  		HAL_VFE_AVD_Get576iWSS14Bits(UINT16 * pWss);
 DTV_STATUS_T 		HAL_VFE_AVD_GetPhysicalSignalStatusOfCopyProtect(VFE_AVD_PHYSICAL_COPY_PROTECT *pPhysical_Copy);
 
 extern DTV_STATUS_T HAL_VFE_AVD_FlushVBIData(VFE_AVD_VBI_TYPE_T type);
-
-extern void 		HAL_VFE_AVD_SendCCData(unsigned char *buf, UINT32 len);	// 2013.02.19 yongsu.yoo Reconstructing Source Code for WebOS
 
 DTV_STATUS_T HAL_AVD_SetDemodType (VFE_AVD_DEMOD_TYPE demodType);
 

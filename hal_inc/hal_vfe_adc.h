@@ -201,10 +201,6 @@ DTV_STATUS_T    HAL_VFE_ADC_AdjustCalibration(ADC_CAL_TYPE_T adcType);
 DTV_STATUS_T 	HAL_VFE_ADC_ResetCALData(void);
 DTV_STATUS_T  	HAL_VFE_ADC_FastSwitchingMode(BOOLEAN  bEnable);
 
-/*
-DTV_STATUS_T    HAL_VFE_ADC_SelectMEMType(ADC_CAL_MEMORY_TYPE_T memType );
-DTV_STATUS_T    HAL_VFE_ADC_GetMEMType(ADC_CAL_MEMORY_TYPE_T *pMemType );
-*/
 DTV_STATUS_T 	HAL_VFE_ADC_Resume(void);
 
 
@@ -214,73 +210,6 @@ DTV_STATUS_T  	HAL_VFE_ADC_AdjustPCAuto(void *pfnAdjustPCAuto);
 DTV_STATUS_T  	HAL_VFE_ADC_SetPCResolution(SINT32 remapResolution);
 DTV_STATUS_T  	HAL_VFE_ADC_ReadExternalEDID(UINT8 port, UINT8 *pData);
 DTV_STATUS_T  	HAL_VFE_ADC_WriteExternalEDID(UINT8 port, UINT8 *pData);
-
-#if 0
-/**
- * Each component of adjustment RGB-PC.
- *
- * @see DDI Implementation Guide
-*/
-typedef struct
-{
-	SINT16	pcHDelay;	   /**< Horizontal Sync Delay 값 */
-	SINT16	pcVDelay;	   /**< Vertical Sync Delay 값 */
-	SINT8	pcClock;		 /**< Clock 값 */
-	UINT8	pcPhase;		 /**< Phase 값 */
-} VIDEO_DDI_ADJ_PC_T;
-
-/**
- * pixel grab color.
- *
- * @see DDI Implementation Guide
-*/
-typedef struct
-{
-	UINT8 pixelGrabCb;	/**< Cb */
-	UINT8 pixelGrabY;	/**< Y */
-	UINT8 pixelGrabCr;	/**< CR */
-}VIDEO_DDI_PIXEL_GRAB_COLOR_T;
-
-/**
- * pixel grab region.
- *
- * @see DDI Implementation Guide
-*/
-typedef struct
-{
-	VIDEO_WID_T wID;	/**< select main or sub window */
-	UINT32 pixelGrabX;	/**< x position */
-	UINT32 pixelGrabY;	/**< y position */
-	UINT32 pixelGrabW;	/**< capture width */
-	UINT32 pixelGrabH;	/**< capture h */
-
-	UINT32 realPixelGrabW;	/**< real W in memory */
-	UINT32 realPixelGrabH;	/**< real H in memory */
-	UINT8 colorSpace;	/**< 0: YUV 1:RGB */
-}VIDEO_DDI_PIXEL_GRAB_REGION_T;
-
-/**
- * Video RGB-PC Index
- *
- */
-typedef enum {
-	PC_INDEX_1 = 0,
-	NUM_PC_INPUTS
-} VIDEO_PC_INDEX_T;
-
-
-/**
- * Video Component Index
- *
- */
-typedef enum {
-	COMP_INDEX_1 = 0,
-	COMP_INDEX_2,
-	COMP_INDEX_3,	// 20091111 drmyung : add
-	NUM_COMP_INPUTS
-} VIDEO_COMP_INDEX_T;
-
-#endif
 
 #endif
 
