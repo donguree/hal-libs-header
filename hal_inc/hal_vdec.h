@@ -265,6 +265,18 @@ typedef enum
 
 
 /**
+ * JAPAN 4K ES Push mode type
+ *
+*/
+
+typedef enum {
+	VDEC_ES_NORMAL        = 0,
+	VDEC_ES_ARIB_UHD      = 1
+}VDEC_ES_MODE_T;
+
+
+
+/**
  * Video decoder PTS
  *
  */
@@ -726,7 +738,6 @@ DTV_STATUS_T HAL_VDEC_RegisterFrameCallback (UINT8 port, PFN_VDEC_FRAME_CALLBACK
 
 /**
  * copy current displaying output to dest output port
- *
  * -1 for turn off mirror output.
  */
 DTV_STATUS_T HAL_VDEC_MirrorOutput (UINT8 port, int dest);
@@ -755,8 +766,11 @@ typedef enum
 	VDEC_PARAM_VSYNC_THRESHOLD,	/**< set display match range in milliseconds
 								  unit */
 	VDEC_PARAM_PVR_MODE_INFO,	/**< true for PVR mode */
-	VDEC_PARAM_FAST_IFRAME,		/**< set first I Frame displaying time. if set 1, first I frame 
+	VDEC_PARAM_FAST_IFRAME,		/**< set first I Frame displaying time. if set 1, first I frame
 								  should be displayed as soon as decoded */
+	VDEC_PARAM_HFR_CHANNEL,    /**< HFR Channel on/off 0:off 1:on default:0 */
+	VDEC_PARAM_TEMPORAL_ID_MAX, /**< set temporal ID max for HFR default:-1 */
+	VDEC_PARAM_SECURE_MEM, /**< o:off, 1:on for CI+ ECP * default:0*/
 	VDEC_PARAM_MAX
 } VDEC_PARAM_T;
 
@@ -788,6 +802,26 @@ typedef enum
 	VDEC_DECODER_TYPE_D14_MCU1,		/**< external UHD video decoder, MCU1 */
 } VDEC_DECODER_TYPE_T;
 
+/**
+JAPAN 4K VDEC
+1.API_VDEC_SetEsPushMode will be called before vdec start
+  Default setting should be FALSE.
+  If App call this function with esMode = 1, It means app will push ES data to VDEC.
+2.After App call VDEC Stop, ES Push mode should change to FALSE.
+
+@param nPort  [IN] specifies a video nPort on which a video decoder
+@param esMode [IN] specifies a ES Push Mode
+**/
+DTV_STATUS_T HAL_VDEC_SetEsPushMode( UINT8 nPort, VDEC_ES_MODE_T esMode);
+/**
+JAPAN 4K VDEC
+@param nPort  [IN] specifies a video nPort on which a video decoder
+@param pESDATA [IN] ptr in system memory containing ES data
+@param datasize [IN] byte size of ES data
+@param vPTS [IN] UINT64 PTS value for JP 4K
+@param bIsStart [IN] if pESData include IRAP, set to TRUE, else FALSE
+**/
+DTV_STATUS_T   HAL_VDEC_PushEsData(UINT8 nPort, UINT8* pESDATA, UINT32 datasize, UINT64 vPTS, BOOLEAN bIsStart);
 
 
 /* vim:set ts=4 sw=4: */
