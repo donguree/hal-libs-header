@@ -353,6 +353,38 @@ typedef enum
    20131031 jinhwan.bae Created. Requested to support C&M DVB-CSA
    -----------------------------------------------------------------------*/
 
+/**
+ * 20180227 Universal Descramble Interface to cover BCAS/PVR/CI+
+ * Descramble Type
+ */
+typedef enum
+{
+	SDEC_DESCRAMBLE_TYPE_NONE = 0,			/**< Clear Descramler */
+	SDEC_DESCRAMBLE_TYPE_BCAS,				/**< For ARIB Multi2 + CBC */
+	SDEC_DESCRAMBLE_TYPE_CI_AES,			/**< For CI+ AES+CBC */
+	SDEC_DESCRAMBLE_TYPE_CI_DES,			/**< For CI+ DES+EBC */
+	SDEC_DESCRAMBLE_TYPE_PVR,	 			/**< For PVR AES+EBC */
+	SDEC_DESCRAMBLE_TYPE_MAX
+}SDEC_DESCRAMBLE_TYPE_T;
+
+
+/**
+ * 20180227 Universal Descramble Interface to cover BCAS/PVR/CI+
+ * Descramble Key Type
+ */
+typedef enum
+{
+	SDEC_DESCRAMBLE_KEY_TYPE_EVEN = 0,			/**< Set Even Key for BCAS */
+	SDEC_DESCRAMBLE_KEY_TYPE_ODD,				/**< Set Odd Key for BCAS */
+	SDEC_DESCRAMBLE_KEY_TYPE_EVEN_ODD,			/**< Set Even&Odd Key for BCAS */
+	SDEC_DESCRAMBLE_KEY_TYPE_EVENIV,			/**< Set Even IV Key for CI+ */
+	SDEC_DESCRAMBLE_KEY_TYPE_ODDIV,				/**< Set Odd IV Key for CI+ */
+	SDEC_DESCRAMBLE_KEY_TYPE_CBC,	 			/**< Set CBC Key for BCAS */
+	SDEC_DESCRAMBLE_KEY_TYPE_SYSKEY,			/**< Set System Key Key for BCAS */
+	SDEC_DESCRAMBLE_KEY_TYPE_PVRKEY,			/**< Set PVR Key Key for PVR Playback */
+	SDEC_DESCRAMBLE_KEY_TYPE_MAX
+}SDEC_DESCRAMBLE_KEY_TYPE_T;
+
 
 /******************************************************************************
 	Extern 전역변수와 함수 prototype 선언

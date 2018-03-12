@@ -79,5 +79,9 @@ DTV_STATUS_T HAL_SDEC_GetPidFilterIndex(SDEC_CHANNEL_T ch, UINT32 *p_pid_filter_
 /* 20150612 for debug Menu*/
 void HAL_SDEC_DebugMenu(void);
 
+/* 20180227 Universal Descramble Interface to cover BCAS/PVR/CI+ */
+DTV_STATUS_T HAL_SDEC_SetDescrambler(SDEC_CHANNEL_T ch, SDEC_DESCRAMBLE_TYPE_T type);
+DTV_STATUS_T HAL_SDEC_SetDescramblePid(SDEC_CHANNEL_T ch, SDEC_PID_TYPE_T pidType, UINT16 pid, UINT8 bEnable);
+DTV_STATUS_T HAL_SDEC_SetDescrambleKey(SDEC_CHANNEL_T ch, SDEC_DESCRAMBLE_KEY_TYPE_T keytype, UINT8 *key, UINT32 key_size);
 
 #endif  /*_HAL_SDEC_H_ */
