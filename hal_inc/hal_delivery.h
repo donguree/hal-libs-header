@@ -410,11 +410,9 @@ typedef enum
 {
 	DELIVERY_PARAM_ROUTE_MODE = 0,
 	DELIVERY_PARAM_DEMOD_TYPE,
-	DELIVERY_PARAM_MAX,
+	DELIVERY_PARAM_TIMEOUT,
+	DELIVERY_PARAM_MAX
 } DELIVERY_PARAM_T;
-
-
-
 
 typedef struct
 {
@@ -425,6 +423,13 @@ typedef struct
     UINT8       *data;      /* directly accessible memory */
     UINT32      len;
 } DELIVERY_BB_FRAME_T;
+
+typedef enum
+{
+	DELIVERY_MODE_ATSC30 = 0,
+	DELIVERY_MODE_JAPAN4K,
+	DELIVERY_MODE_MAX
+} DELIVERY_MODE_T;
 
 /*----------------------------------------------------------------------------------------
   Function Prototype Declaration
@@ -497,6 +502,10 @@ DTV_STATUS_T HAL_DELIVERY_ReturnBBFrameBuffer(DELIVERY_CHANNEL_T ch,
 DTV_STATUS_T HAL_DELIVERY_ResetBBFrame(DELIVERY_CHANNEL_T ch);
 DTV_STATUS_T HAL_DELIVERY_CancelBBFrame(DELIVERY_CHANNEL_T ch);
 
+DTV_STATUS_T HAL_DELIVERY_SetMode(DELIVERY_MODE_T mode);
+DTV_STATUS_T HAL_DELIVERY_RequestData(DELIVERY_CHANNEL_T ch);
+DTV_STATUS_T HAL_DELIVERY_CancelData(DELIVERY_CHANNEL_T ch);
+SINT32 HAL_DELIVERY_Read(DELIVERY_CHANNEL_T ch, UINT8 *buffer, UINT32 buf_size);
 
 DTV_STATUS_T HAL_DELIVERY_DebugCommand(const char* pszCmd,const char *pszParam,char** buffer);
 /*----------------------------------------------------------------------------------------
