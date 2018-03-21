@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.2
- *  @date		2017.10.19
+ *  @version	4.3
+ *  @date		2018.03.12
  *  @note
  *  @see
  */
@@ -158,6 +158,7 @@ typedef  enum
 	HAL_AUDIO_SB_PCM		= 0x08,
 	HAL_AUDIO_SB_CANVAS		= 0x10,
 	HAL_AUDIO_HP			= 0x20,
+	HAL_AUDIO_ARC		= 0x40,
 	HAL_AUDIO_SPDIF_ES 		= 0x80,
 } HAL_AUDIO_SNDOUT_T;
 
@@ -198,6 +199,7 @@ typedef  enum
 	HAL_AUDIO_RESOURCE_OUT_SB_PCM		= 16,	/* Sound Bar(PCM)   : Mixer Output(Wireless) */
 	HAL_AUDIO_RESOURCE_OUT_SB_CANVAS	= 17,	/* Sound Bar(CANVAS): Sound Engine Output */
 	HAL_AUDIO_RESOURCE_OUT_HP			= 18,	/* Must be controlled by audio decoder.*/
+	HAL_AUDIO_RESOURCE_OUT_ARC			= 19,	/* ARC */
 
 	HAL_AUDIO_RESOURCE_MIXER0			= 20,	/* Audio Mixer Input 0. */
 	HAL_AUDIO_RESOURCE_MIXER1			= 21,	/* Audio Mixer Input 1. */
@@ -287,13 +289,15 @@ typedef enum
  */
 typedef  enum
 {
-	HAL_AUDIO_SPDIF_NONE			= 0,
-	HAL_AUDIO_SPDIF_PCM				= 1,
-	HAL_AUDIO_SPDIF_AUTO			= 2,
-	HAL_AUDIO_SPDIF_AUTO_AAC		= 3,
-	HAL_AUDIO_SPDIF_HALF_AUTO		= 4,
+	HAL_AUDIO_SPDIF_NONE		= 0,
+	HAL_AUDIO_SPDIF_PCM		= 1,
+	HAL_AUDIO_SPDIF_AUTO		= 2,
+	HAL_AUDIO_SPDIF_AUTO_AAC	= 3,
+	HAL_AUDIO_SPDIF_HALF_AUTO	= 4,
 	HAL_AUDIO_SPDIF_HALF_AUTO_AAC	= 5,
 	HAL_AUDIO_SPDIF_FORCED_AC3      = 6,
+	HAL_AUDIO_SPDIF_BYPASS		= 7,
+	HAL_AUDIO_SPDIF_BYPASS_AAC	= 8,
 } HAL_AUDIO_SPDIF_MODE_T;
 
 /**
@@ -302,18 +306,20 @@ typedef  enum
  */
 typedef  enum
 {
-	HAL_AUDIO_ARC_NONE					= 0,
-	HAL_AUDIO_ARC_PCM 					= 1,
-	HAL_AUDIO_ARC_AUTO					= 2,
-	HAL_AUDIO_ARC_AUTO_AAC				= 3,
-	HAL_AUDIO_ARC_AUTO_EAC3				= 4,
+	HAL_AUDIO_ARC_NONE			= 0,
+	HAL_AUDIO_ARC_PCM 			= 1,
+	HAL_AUDIO_ARC_AUTO			= 2,
+	HAL_AUDIO_ARC_AUTO_AAC			= 3,
+	HAL_AUDIO_ARC_AUTO_EAC3			= 4,
 	HAL_AUDIO_ARC_AUTO_EAC3_AAC 		= 5,
-	HAL_AUDIO_ARC_HALF_AUTO				= 6,
-	HAL_AUDIO_ARC_HALF_AUTO_AAC			= 7,
+	HAL_AUDIO_ARC_HALF_AUTO			= 6,
+	HAL_AUDIO_ARC_HALF_AUTO_AAC		= 7,
 	HAL_AUDIO_ARC_HALF_AUTO_EAC3		= 8,
 	HAL_AUDIO_ARC_HALF_AUTO_EAC3_AAC	= 9,
-	HAL_AUDIO_ARC_FORCED_AC3            = 10,
-	HAL_AUDIO_ARC_FORCED_EAC3           = 11,
+	HAL_AUDIO_ARC_FORCED_AC3            	= 10,
+	HAL_AUDIO_ARC_FORCED_EAC3           	= 11,
+	HAL_AUDIO_ARC_BYPASS			= 12,
+	HAL_AUDIO_ARC_BYPASS_AAC		= 13,
 } HAL_AUDIO_ARC_MODE_T;
 
 /**
@@ -517,7 +523,7 @@ typedef enum
 } HAL_AUDIO_SIF_MODE_GET_T;
 
 /**
- * HAL AUDIO Copy Protection Type
+ * HAL AUDIO Copy Protection Type for SPDIF
  *
  */
 typedef  enum
@@ -527,6 +533,18 @@ typedef  enum
 	HAL_AUDIO_SPDIF_COPY_ONCE		= 2,	/* cp-bit : 0, L-bit : 0 */
 	HAL_AUDIO_SPDIF_COPY_NEVER		= 3,	/* cp-bit : 0, L-bit : 1 */
 } HAL_AUDIO_SPDIF_COPYRIGHT_T;
+
+
+/**
+	* HAL AUDIO Copy Protection Type for ARC
+	*
+	*/
+typedef  enum{
+	HAL_AUDIO_ARC_COPY_FREE			= 0,	/* cp-bit : 1, L-bit : 0 */
+	HAL_AUDIO_ARC_COPY_NO_MORE		= 1,	/* cp-bit : 0, L-bit : 1 */
+	HAL_AUDIO_ARC_COPY_ONCE			= 2,	/* cp-bit : 0, L-bit : 0 */
+	HAL_AUDIO_ARC_COPY_NEVER		= 3,	/* cp-bit : 0, L-bit : 1 */
+} HAL_AUDIO_ARC_COPYRIGHT_T;
 
 /**
  * HAL AUDIO Volume Structure
@@ -1492,6 +1510,15 @@ typedef enum
     HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_51 = 1,
 } HAL_AUDIO_LGSE_VX_INPUT_CHANNEL_T;
 
+/**
+ * JAPAN 4K ES Push mode type
+ *
+ */
+typedef enum {
+	HAL_AUDIO_ES_NORMAL        = 0,
+	HAL_AUDIO_ES_ARIB_UHD      = 1
+} HAL_AUDIO_ES_MODE_T;
+
 
 /******************************************************************************
 	함수 선언 (Function Declaration)
@@ -1620,6 +1647,7 @@ DTV_STATUS_T HAL_AUDIO_SetMixerInputGain(HAL_AUDIO_MIXER_INDEX_T mixerIndex, HAL
 DTV_STATUS_T HAL_AUDIO_SetSPKOutVolume(HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetSPDIFOutVolume(HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetHPOutVolume(HAL_AUDIO_VOLUME_T volume, BOOLEAN bForced);
+DTV_STATUS_T HAL_AUDIO_SetARCOutVolume(HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetDecoderEaseVolume(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetAudioDescriptionVolume(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_VOLUME_T volume);
 DTV_STATUS_T HAL_AUDIO_SetDecoderInputMute(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bOnOff);
@@ -1629,15 +1657,19 @@ DTV_STATUS_T HAL_AUDIO_SetMixerInputMute(HAL_AUDIO_MIXER_INDEX_T mixerIndex, BOO
 DTV_STATUS_T HAL_AUDIO_SetSPKOutMute(BOOLEAN bOnOff);
 DTV_STATUS_T HAL_AUDIO_SetSPDIFOutMute(BOOLEAN bOnOff);
 DTV_STATUS_T HAL_AUDIO_SetHPOutMute(BOOLEAN bOnOff);
+DTV_STATUS_T HAL_AUDIO_SetARCOutMute(BOOLEAN bOnOff);
 
 
 DTV_STATUS_T HAL_AUDIO_GetSPKOutMuteStatus(BOOLEAN *pOnOff);
 DTV_STATUS_T HAL_AUDIO_GetSPDIFOutMuteStatus(BOOLEAN *pOnOff);
 DTV_STATUS_T HAL_AUDIO_GetHPOutMuteStatus(BOOLEAN *pOnOff);
+DTV_STATUS_T HAL_AUDIO_GetARCOutMuteStatus(BOOLEAN *pOnOff);
+
 
 DTV_STATUS_T HAL_AUDIO_SetSPKOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_SetSPDIFOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_SetHPOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
+DTV_STATUS_T HAL_AUDIO_SetARCOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_GetStatusInfo(HAL_AUDIO_COMMON_INFO_T *pAudioStatusInfo);
 DTV_STATUS_T HAL_AUDIO_SetInputOutputDelay(HAL_AUDIO_INPUT_DELAY_PARAM_T inputParam, HAL_AUDIO_OUTPUT_DELAY_PARAM_T outputParam);
 
@@ -1654,6 +1686,8 @@ DTV_STATUS_T HAL_AUDIO_SB_GetOpticalStatus(HAL_AUDIO_SB_GET_INFO_T *pInfo);
 DTV_STATUS_T HAL_AUDIO_SB_SetCommand(HAL_AUDIO_SB_SET_CMD_T info);
 DTV_STATUS_T HAL_AUDIO_SB_GetCommandStatus(HAL_AUDIO_SB_GET_CMD_T *pInfo);
 DTV_STATUS_T HAL_AUDIO_ARC_SetOutputType(HAL_AUDIO_ARC_MODE_T eARCMode, BOOLEAN bForced); // for TB24 ARC DD+ output 2016/06/4 by ykwang.kim
+DTV_STATUS_T HAL_AUDIO_ARC_SetCopyInfo(HAL_AUDIO_ARC_COPYRIGHT_T copyInfo);
+DTV_STATUS_T HAL_AUDIO_ARC_SetCategoryCode(UINT8 categoryCode);
 
 /* SE */
 DTV_STATUS_T HAL_AUDIO_LGSE_SetMode(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
@@ -1815,6 +1849,25 @@ DTV_STATUS_T HAL_AUDIO_SetDecoderChannelGain(HAL_AUDIO_ADEC_INDEX_T adecIndex, H
 DTV_STATUS_T HAL_AUDIO_SetDecoderOutputGain(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_VOLUME_T volume); //function body is empty
 DTV_STATUS_T HAL_AUDIO_SetMixerOutputGain(HAL_AUDIO_MIXER_INDEX_T mixerIndex, HAL_AUDIO_VOLUME_T volume); //function body is empty
 
+/**
+JAPAN 4K ADEC
+1.API_ADEC_SetEsPushMode will be called before adec start
+  Default setting should be FALSE.
+  If App call this function with esMode = 1, It means app will push ES data to ADEC.
+2.After App call ADEC Stop, ES Push mode should change to FALSE.
+@param adecIndex [IN] specifies an audio decoder index on which an audio decoder
+@param esMode [IN] specifies an ES Push Mode
+**/
+DTV_STATUS_T HAL_AUDIO_SetEsPushMode(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_ES_MODE_T esMode);
 
+
+/**
+JAPAN 4K ADEC
+@param adecIndex [IN] specifies an audio decoder index on which an audio decoder
+@param pESDATA [IN] ptr in system memory containing ES data
+@param dataSize [IN] byte size of ES data
+@param pts [IN] pts value in system memory of UINT64 PTS Value for JP 4K
+**/
+DTV_STATUS_T HAL_AUDIO_PushEsData(HAL_AUDIO_ADEC_INDEX_T adecIndex, UINT8 *pESDATA, UINT32 dataSize, UINT64 pts);
 
 #endif /* _HAL_AUDIO_H_ */
