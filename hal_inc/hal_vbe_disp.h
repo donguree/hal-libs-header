@@ -407,6 +407,23 @@ typedef struct {
 	UINT32 u32Tscicsize;
 }DISP_PANEL_TSCIC_T;
 
+/**
+ * VCOM Pattern Control
+ **/
+typedef enum{
+	DISP_PANEL_VCOM_PAT_CTRL_OFF=0,  // Mandatory Implementation
+	DISP_PANEL_VCOM_PAT_CTRL_ON,     // Mandatory Implementation
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM1, // Optional Implementation, PGEN_VCOM1 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM2, // Optional Implementation, PGEN_VCOM2 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM3, // Optional Implementation, PGEN_VCOM3 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM4, // Optional Implementation, PGEN_VCOM4 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM5, // Optional Implementation, PGEN_VCOM5 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM6, // Optional Implementation, PGEN_VCOM6 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM7, // Optional Implementation, PGEN_VCOM7 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_VCOM8, // Optional Implementation, PGEN_VCOM8 and CTRL_ON, for available SoC
+	DISP_PANEL_VCOM_PAT_CTRL_MAX    // Limit to control.
+} DISP_PANEL_VCOM_PAT_CTRL_T;
+
 
 /*-----------------------------------------------------------------------------
 	Local Variables & Function Prototypes Declarations
@@ -465,6 +482,11 @@ DTV_STATUS_T HAL_VBE_TSCIC_Load(DISP_PANEL_TSCIC_T *tscicTbl);
 
 DTV_STATUS_T HAL_VBE_DISP_MplusSet(void * pRegisterSet, UINT8 nPanelMaker);
 DTV_STATUS_T HAL_VBE_DISP_MplusGet(void * pRegisterSet, UINT8 nPanelMaker);
+
+
+/*VCOM Pattern for SoC Internal TCON*/
+DTV_STATUS_T HAL_VBE_DISP_VCOMPatternDraw(UINT16 *vcomPattern, UINT16 nSize);
+DTV_STATUS_T HAL_VBE_DISP_VCOMPatternCtrl(DISP_PANEL_VCOM_PAT_CTRL_T nCtrl);
 
 
 #endif /* _HAL_VBE_DISP_H_ */
