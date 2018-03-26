@@ -50,6 +50,5 @@
 DTV_STATUS_T HAL_USB_SuperSpeedPortUp(UINT32 busNum, UINT32 portNum);
 DTV_STATUS_T HAL_USB_SuperSpeedPortOff(UINT32 busNum, UINT32 portNum);
 DTV_STATUS_T HAL_USB_SuperSpeedVBusControl(BOOLEAN bOn, UINT32 busNum, UINT32 portNum);
-DTV_STATUS_T HAL_USB_SuperSpeedDisable(UINT32 busNum, UINT32 portNum);
 #endif  /* _HAL_USB_H_ */
 
