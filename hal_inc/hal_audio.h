@@ -892,6 +892,25 @@ typedef enum HAL_AUDIO_AC4_AD_TYPE
 	HAL_AUDIO_AC4_AD_TYPE_VO	= 5, 	/* Voice Over (VO) */
 } HAL_AUDIO_AC4_AD_TYPE_T;
 
+/**
+* HAL AUDIO Input Delay Param
+*
+* @see
+*/
+typedef struct HAL_AUDIO_INPUT_DELAY_PARAM{
+	HAL_AUDIO_ADEC_INDEX_T adecIndex;
+	SINT32 delayTime;
+}HAL_AUDIO_INPUT_DELAY_PARAM_T;
+
+/**
+* HAL AUDIO Output Delay Param
+*
+* @see
+*/
+typedef struct HAL_AUDIO_OUTPUT_DELAY_PARAM{
+	HAL_AUDIO_SNDOUT_T soundOutType;
+	SINT32 delayTime;
+}HAL_AUDIO_OUTPUT_DELAY_PARAM_T;
 
 /**
  * HAL AUDIO AC3 ES Info
@@ -1620,6 +1639,7 @@ DTV_STATUS_T HAL_AUDIO_SetSPKOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_SetSPDIFOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_SetHPOutDelayTime(UINT32 delayTime, BOOLEAN bForced);
 DTV_STATUS_T HAL_AUDIO_GetStatusInfo(HAL_AUDIO_COMMON_INFO_T *pAudioStatusInfo);
+DTV_STATUS_T HAL_AUDIO_SetInputOutputDelay(HAL_AUDIO_INPUT_DELAY_PARAM_T inputParam, HAL_AUDIO_OUTPUT_DELAY_PARAM_T outputParam);
 
 /* SPK Out LR Mode*/
 DTV_STATUS_T HAL_AUDIO_SetSPKOutLRMode(HAL_AUDIO_SNDOUT_LRMODE_T outputMode);
