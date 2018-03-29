@@ -582,8 +582,9 @@ typedef struct
 {
 	HAL_GAL_RECT_T viewRect;	/**< viewRect region on the framebuffer */
 	HAL_GAL_RECT_T dispRect;	/**< dispRect region on the framebuffer */
-	unsigned char bStereoscope;
+	unsigned char bStereoscope; /**< stereoscope on/off */
 	HAL_GAL_STEREOSCOPE_TYPE_T stereoscopeType;	/**< This enumeration describes flags for stereoscope mode setting */
+	BOOLEAN bScalerOff;         /**< Control scaler on/off to be scaled the OSD up by user. */
 } HAL_GAL_FRAMEBUFFER_PROPERTY_EXTENDED_INFO_T;
 
 
