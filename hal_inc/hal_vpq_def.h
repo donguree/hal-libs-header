@@ -253,16 +253,6 @@ typedef struct
 
 
 /**
-  * Set 3D Color Correction
-  */
-typedef struct
-{
-	UINT8 blackLevelOnoff;
-	UINT8 inputInfo;
-} HAL_VPQ_3D_COLOR_CORRECT_T;
-
-
-/**
 *	CM UI DATA
 */
 typedef struct {

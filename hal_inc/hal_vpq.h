@@ -64,9 +64,6 @@ DTV_STATUS_T HAL_VPQ_SetSuperResolution(VIDEO_WID_T wId,
 DTV_STATUS_T HAL_VPQ_SetSharpness(VIDEO_WID_T wId,
 								HAL_VPQ_DATA_T *pData,
 								CHIP_SHARPNESS_T *pstShp);
-DTV_STATUS_T HAL_VPQ_SetEdgeEnhance(VIDEO_WID_T wId,
-									UINT16 uEeVal,
-									CHIP_EDGE_ENHANCE_T *pstEdgeEnhance);
 DTV_STATUS_T HAL_VPQ_SetPsp(HAL_VPQ_DATA_T *pstData);
 
 /* Init, Open, Close */
@@ -95,9 +92,6 @@ DTV_STATUS_T HAL_VPQ_SetPreferredColor(VIDEO_WID_T wId,
 DTV_STATUS_T HAL_VPQ_SetClearWhite(VIDEO_WID_T wId,
                                   UINT8 uCwVal,
                                   CHIP_COLOR_WHITE_T *pColorWhiteData);
-
-/* 3D Color Correction */
-DTV_STATUS_T HAL_VPQ_Set3DColorCorrection(HAL_VPQ_3D_COLOR_CORRECT_T *pColorData);
 
 /* Noise Reduction */
 DTV_STATUS_T HAL_VPQ_SetNoiseReduction(VIDEO_WID_T wId,
@@ -133,25 +127,12 @@ DTV_STATUS_T HAL_VPQ_InvGammaEn(BOOLEAN bOnOff);
 /* Color Gamut */
 DTV_STATUS_T HAL_VPQ_SetGamutLUT(HAL_VPQ_GAMUT_LUT_T *pstGamutLut);
 
-DTV_STATUS_T HAL_VPQ_SelGamutSection(UINT8 uSecNum);
-
-DTV_STATUS_T HAL_VPQ_SetGamut(VIDEO_WID_T wId,
-                              UINT8 *pCgVal,
-                              CHIP_GAMUT_T *pGamutData);
-
-/* Color Filter */
-DTV_STATUS_T HAL_VPQ_SetColorFilter(UINT16 uCfVal);
-
 /* Color Manage */
 DTV_STATUS_T HAL_VPQ_InitColorForExpert(VIDEO_WID_T wId,
 										CHIP_CM_INIT_EXP_COLOR_T *pstData);
 DTV_STATUS_T HAL_VPQ_SetColorManagement(VIDEO_WID_T wId,
 										HAL_VPQ_CM_DATA_T *pCmData,
 										CHIP_CM_DATA_T *pChipCmData);
-
-
-/* TwinTv Mode */
-DTV_STATUS_T HAL_VPQ_SetAplMode(BOOLEAN bOnOff);
 
 /* Game Mode */
 DTV_STATUS_T HAL_VPQ_SetLowDelayMode(BOOLEAN bGameMode);
@@ -164,12 +145,8 @@ DTV_STATUS_T HAL_VPQ_SetColorGain(VIDEO_WID_T wId,
 DTV_STATUS_T HAL_VPQ_SetIREInnerPattern(UINT8 patternType,
 								HAL_VPQ_INNER_PATTERN_IRE_T patternIre);
 
-/* APL info */
-DTV_STATUS_T HAL_VPQ_GetApl(UINT32 *pStat);
-
 /* HDR */
 DTV_STATUS_T HAL_VPQ_HDR_GetPicInfo(HAL_VPQ_DATA_T *pData);
-DTV_STATUS_T HAL_VPQ_HDR_SetDemoMode(BOOLEAN bDemoMode);
 DTV_STATUS_T HAL_VPQ_SetHDR3DLUT(UINT16 *pLUT);
 DTV_STATUS_T HAL_VPQ_SetHDREotf(HAL_VPQ_DATA_T *pData);
 DTV_STATUS_T HAL_VPQ_SetHDROetf(HAL_VPQ_DATA_T *pData);
@@ -199,7 +176,6 @@ DTV_STATUS_T HAL_VPQ_SetDominantColorDetectRun(BOOLEAN bIsActivated, BOOLEAN bIs
 DTV_STATUS_T HAL_VPQ_GetDominantColorGain(float *pfColorGain, UINT8 *pColorNum);
 
 /* OBC */
-DTV_STATUS_T HAL_VPQ_SetOBC(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_GetOBCData(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_SetOBCLUT(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_SetOBCCtrl(HAL_VPQ_DATA_T *pstData);
