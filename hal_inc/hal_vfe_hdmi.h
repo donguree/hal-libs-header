@@ -51,6 +51,8 @@
 #define MAX_LENGTH_OF_DRIVER_VERSION 32
 #define MAX_LENGTH_OF_DEBUG_MESSAGE 128
 
+#define SIZE_OF_EM_PACKET 31
+
 /******************************************************************************
    로컬 상수 정의 (Local Constant Definitions)
 ******************************************************************************/
@@ -736,6 +738,15 @@ typedef enum {
     HAL_VFE_HDMI_COLORIMETRY_BT2020,
 } HAL_VFE_HDMI_COLORIMETRY_T;
 
+typedef enum
+{
+    HAL_VFE_HDMI_EMP_VSEMDS, /*vendor specific EM data set*/
+    HAL_VFE_HDMI_EMP_HDRDM, /*HDR Dynamic Metadata*/
+    HAL_VFE_HDMI_EMP_VTEM, /*Video Timing Extended Metadata*/
+    HAL_VFE_HDMI_EMP_CVTEM, /*Compressed Video Transport Extended Metadata*/
+}HAL_VFE_HDMI_EMP_TYPE_T;
+
+
 typedef struct
 {
 	UINT8 port;
@@ -952,5 +963,8 @@ DTV_STATUS_T HAL_VFE_HDMI_WriteHDCP22(UINT8 *pData, UINT32 size);
 DTV_STATUS_T HAL_VFE_HDMI_HPD_Control_Port(UINT8 port, BOOLEAN value);
 DTV_STATUS_T HAL_VFE_HDMI_SetHDCPModeToRepeater(UINT8 enable);
 DTV_STATUS_T HAL_VFE_HDMI_RpRx_SetTopology(UINT8 slot, UINT8 deviceCount, UINT8 depth, UINT8 *topology);
+void HAL_VFE_HDMI_GetEMPacketSize(HAL_VFE_HDMI_EMP_TYPE_T PacketType, UINT16 *numOfPacket);
+DTV_STATUS_T HAL_VFE_HDMI_GetEMPacket(HAL_VFE_HDMI_EMP_TYPE_T PacketType, UINT8 emPacket[][SIZE_OF_EM_PACKET]);
+
 
 #endif
