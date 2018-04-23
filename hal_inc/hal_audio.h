@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.2
- *  @date		2017.10.19
+ *  @version	4.2.1
+ *  @date		2018.4.23
  *  @note
  *  @see
  */
@@ -1795,6 +1795,21 @@ DTV_STATUS_T HAL_AUDIO_SetDecoderChannelGain(HAL_AUDIO_ADEC_INDEX_T adecIndex, H
 DTV_STATUS_T HAL_AUDIO_SetDecoderOutputGain(HAL_AUDIO_ADEC_INDEX_T adecIndex, HAL_AUDIO_VOLUME_T volume); //function body is empty
 DTV_STATUS_T HAL_AUDIO_SetMixerOutputGain(HAL_AUDIO_MIXER_INDEX_T mixerIndex, HAL_AUDIO_VOLUME_T volume); //function body is empty
 
+
+
+/**
+Set OTT Mode
+Netflix wants OTT mode and ATMOS Locking.  Refer to IIDK MS12 1.3.2(2.2.1) or later.
+ATMOS Locking can work after OTT mode is enabled.
+Default is bIsOTTEnable=FALSE and bIsATMOSLockingEnable=FALSE.
+If LGE MW call with bIsOTTEnable=FALSE and bIsATMOSLockingEnable=TRUE, the API should  returen FALSE without any action.
+This API can called in duplicate and BSP set and remain state as bIsOTTEnable and bIsATMOSLockingEnable.
+This API must support from Y19 Model (webOS4.5).
+This API should be supported on also Y18 model(webOS4.0) supporing TV ATMOS but ATMOS Locking will be not used for Y18 model.
+@param bIsOTTEnable [IN] enable/disable OTT Mode
+@param bIsATMOSLockingEnable [IN] enable/disable ATMOS Locking
+**/
+DTV_STATUS HAL_AUDIO_SetDolbyOTTMode(BOOLEAN bIsOTTEnable, BOOLEAN bIsATMOSLockingEnable);
 
 
 #endif /* _HAL_AUDIO_H_ */
