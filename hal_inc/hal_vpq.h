@@ -100,6 +100,7 @@ DTV_STATUS_T HAL_VPQ_SetNoiseReduction(VIDEO_WID_T wId,
 DTV_STATUS_T HAL_VPQ_SetMpegNoiseReduction(VIDEO_WID_T wId,
 										UINT16 uMpegNrVal,
 										CHIP_MPEG_NOISE_REDUCTION_T *pMpegNoiseReductionData);
+DTV_STATUS_T HAL_VPQ_SetDecontour(UINT16 uDeconVal, HAL_VPQ_DATA_T *pData);
 DTV_STATUS_T HAL_VPQ_GetNoiseLevel(UINT16 *uLevel);
 
 /* Deinterlace */
@@ -182,4 +183,8 @@ DTV_STATUS_T HAL_VPQ_SetOBCLUT(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_SetOBCCtrl(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_NotifySensorLuxValue(UINT16 ui16LuxVal);
 DTV_STATUS_T HAL_VPQ_SetExtInnerPattern(HAL_VPQ_DATA_T* pstExtPtnInfo);
+
+/* CNN SQM */
+DTV_STATUS_T HAL_VPQ_GetSQMData(HAL_VPQ_DATA_T *pData);
+DTV_STATUS_T HAL_VPQ_SetSQM(HAL_VPQ_DATA_T *pData);
 #endif	/* _HAL_VPQ_H_ */
