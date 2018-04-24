@@ -89,4 +89,10 @@ DTV_STATUS_T HAL_SYS_WriteBootData(unsigned char *pBootDataPath, unsigned int bo
 DTV_STATUS_T HAL_SYS_ReadPMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
 DTV_STATUS_T HAL_SYS_WritePMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
 
+/* temporary use, Internal Micom, Realtek chip only used
+ * requester: jinsuk.her
+ */
+DTV_STATUS_T HAL_IPC_Write(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf, UINT8 retry);
+DTV_STATUS_T HAL_IPC_Read(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf, UINT8 retry);
+
 #endif  /* _HAL_SYS_H_ */
