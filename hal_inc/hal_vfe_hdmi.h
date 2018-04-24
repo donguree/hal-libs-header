@@ -739,12 +739,9 @@ typedef enum {
 typedef struct
 {
 	UINT8 port;
-	BOOLEAN hdmi_5v;
 	BOOLEAN hpd;
+	BOOLEAN hdmi_5v;
 	BOOLEAN RxSense;
-	HAL_VFE_HDMI_MODE_T eHDMIMode;
-	HAL_VFE_HDMI_CHANNEL_BANDWIDTH_T channel_bandwidth;
-	HAL_VFE_HDMI_HDCP_VERSION_T hdcp_version;
 	UINT16 video_width;
 	UINT16 video_height;
 	UINT32 frame_rate_x100_hz;
@@ -752,53 +749,44 @@ typedef struct
 	HAL_VFE_HDMI_COLOR_DEPTH_T color_depth;
 	HAL_VFE_HDMI_COLORIMETRY_T colorimetry;
 	HAL_AUDIO_HDMI_TYPE_T audio_format;
+	UINT32 sampling_freq;
 	UINT8 audio_channel_number;
+	HAL_VFE_HDMI_MODE_T eHDMIMode;
 	HAL_VFE_HDMI_HDR_TYPE_T hdr_type;
 } HAL_VFE_HDMI_GENERAL_INFO_T;
+
+typedef struct
+{
+	UINT16 video_width_real;
+	UINT16 video_htotal_real;
+	UINT16 video_height_real;
+	UINT16 video_vtotal_real;
+	UINT31 video_pixel_clock;
+} HAL_VFE_HDMI_LINK_INFO_T;
+
+typedef struct
+{
+	UINT32 pcm_N;
+	UINT32 pcm_CTS;
+	UINT8 LayoutBitValue;
+	UINT8 ChannelStatusBits;
+} HAL_VFE_HDMI_AUDIO_INFO_T;
 
 typedef struct
 {
 	BOOLEAN lockStaus;
 	UINT32 tmdsClockKHz;
 	UINT32 tmdsBandwidthMbps;
-
 	UINT32 phyCtleEQMinRage[MAX_NUMBER_OF_CHANNEL];
 	UINT32 phyCtleEQMaxRage[MAX_NUMBER_OF_CHANNEL];
 	UINT32 phyCtleEQResult[MAX_NUMBER_OF_CHANNEL];
 	UINT32 phyError[MAX_NUMBER_OF_CHANNEL];
-
-	UINT32 elapse_5v_to_hpd_msec;
-	UINT32 elapse_hpd_to_phyLocked_msec;
-	UINT32 elapse_hpd_to_hdcpInit_msec;
-	UINT32 elapse_hpd_to_hdcpDone_msec;
-	UINT32 elapse_hpd_to_unmute_msec;
 } HAL_VFE_HDMI_PHY_INFO_T;
 
 typedef struct
 {
-	UINT16 video_width_real;
-	UINT16 video_height_real;
-	UINT16 video_htotal_real;
-	UINT16 video_vtotal_real;
-	HAL_VFE_HDMI_COLOR_DEPTH_T color_depth;
-	UINT8 bit_ratio;
-	BOOLEAN set_avmute;
-	BOOLEAN clear_avmute;
- } HAL_VFE_HDMI_LINK_INFO_T;
-
-typedef struct
-{
-	HAL_AUDIO_HDMI_TYPE_T audio_format;
-	HAL_AUDIO_SAMPLING_FREQ_T sampling_freq;
-	UINT8 audio_channel_number;
-	UINT32 pcm_N;
-	UINT32 pcm_CTS;
-} HAL_VFE_HDMI_AUDIO_INFO_T;
-
-typedef struct
-{
-	HAL_VFE_HDMI_HDCP_VERSION_T hdcpVersion;
-	UINT8 status[4]; /* string NA/B0/B1/B2/B3 */
+	BOOLEAN encEn_14;
+	UINT8 status;
 	UINT32 An;
 	UINT32 Aksv;
 	UINT32 Bksv;
@@ -809,36 +797,26 @@ typedef struct
 
 typedef struct
 {
-	UINT8 status[4]; /* string NA/B0/B1/B2/B3 */
-	UINT16 syncLostCount;
+	BOOLEAN encEn_22;
+	UINT8 status;
 } HAL_VFE_HDMI_HDCP22_INFO_T;
 
 typedef struct
 {
-	UINT8 sink_version;
-	UINT8 source_version;
-	UINT8 bit_ratio;
 	BOOLEAN scramble_enable;
+	UINT8 bit_ratio;
 	BOOLEAN scramble_status;
 	BOOLEAN clock_detect;
 	BOOLEAN ch_locked[MAX_NUMBER_OF_CHANNEL];
 	UINT16 ch_error_count[MAX_NUMBER_OF_CHANNEL];
+	UINT32 RS_Counter_Bits;
+	BOOLEAN DSCFailed;
+	UINT8 LTP_req[MAX_NUMBER_OF_CHANNEL];
+	UINT FRLMode;
+	UINT8 FFELevel;
+	BOOLEAN FRL_Start;
+	BOOLEAN FRL_Update;
 } HAL_VFE_HDMI_SCDC_INFO_T;
-
-typedef struct
-{
-	UINT8 hdmiKdrvVer[MAX_LENGTH_OF_DRIVER_VERSION];
-	UINT8 hdmiKadpVer[MAX_LENGTH_OF_DRIVER_VERSION];
-	UINT8 hdmiHalVer[MAX_LENGTH_OF_DRIVER_VERSION];
-} HAL_VFE_HDMI_SW_VERSION_INFO_T;
-
-typedef struct
-{
-	UINT8 message1[MAX_LENGTH_OF_DEBUG_MESSAGE];
-	UINT8 message2[MAX_LENGTH_OF_DEBUG_MESSAGE];
-	UINT8 message3[MAX_LENGTH_OF_DEBUG_MESSAGE];
-	UINT8 message4[MAX_LENGTH_OF_DEBUG_MESSAGE];
-} HAL_VFE_HDMI_MESSAGE_INFO_T;
 
 typedef struct
 {
@@ -849,9 +827,52 @@ typedef struct
 	HAL_VFE_HDMI_HDCP14_INFO_T hdcp14;
 	HAL_VFE_HDMI_HDCP22_INFO_T hdcp22;
 	HAL_VFE_HDMI_SCDC_INFO_T scdc;
-	HAL_VFE_HDMI_SW_VERSION_INFO_T swversion;
-	HAL_VFE_HDMI_MESSAGE_INFO_T msg;
 } HAL_VFE_HDMI_DIAGNOSTICS_INFO_T;
+
+typedef enum
+{
+	HDMI_ERROR_GCP_ERROR,		// 0x00000001
+	HDMI_ERROR_HDCP22_REAUTH,	// 0x00000002
+	HDMI_ERROR_TMDS_ERROR,		// 0x00000004
+	HDMI_ERROR_PHY_LOW_RANGE,	// 0x00000008
+	HDMI_ERROR_PHY_ABNORMAL,	// 0x00000010
+	HDMI_ERROR_CED_ERROR,		// 0x00000020
+	HDMI_ERROR_AUDIO_BUFFER,	// 0x00000040
+	HDMI_ERROR_UNSTABLE_SYNC,	// 0x00000080
+	HDMI_ERROR_MAXNUM,
+	HDMI_ERROR_FAILED = 0xFF,
+} HDMI_ERROR_TYPE_T;
+
+
+typedef struct
+{
+	UINT32 errorVal;
+	UINT32 param_A;
+	UINT32 param_B;
+} HDMI_ERROR_T;
+
+typedef enum
+{
+	HDMI_SETTING_HPD_LOW_DURATION,
+	HDMI_SETTING_TMDS_MANUAL_EQ_MODE,
+	HDMI_SETTING_TMDS_MANUAL_EQ_CH0,
+	HDMI_SETTING_TMDS_MANUAL_EQ_CH1,
+	HDMI_SETTING_TMDS_MANUAL_EQ_CH2,
+	HDMI_SETTING_TMDS_EQ_PERIOD,
+	HDMI_SETTING_VIDEO_STABLE_COUNT,
+	HDMI_SETTING_AUDIO_STABLE_COUNT,
+	HDMI_SETTING_DISABLE_HDCP22_PORT0,
+	HDMI_SETTING_DISABLE_HDCP22_PORT1,
+	HDMI_SETTING_DISABLE_HDCP22_PORT2,
+	HDMI_SETTING_DISABLE_HDCP22_PORT3,
+	HDMI_SETTING_REAUTH_HDCP22_PORT0,
+	HDMI_SETTING_REAUTH_HDCP22_PORT1,
+	HDMI_SETTING_REAUTH_HDCP22_PORT2,
+	HDMI_SETTING_REAUTH_HDCP22_PORT3
+	HDMI_SETTING_ON_TO_RXSENSE_TIME,
+	HDMI_SETTING_RXSENSE_TO_HPD_TIME,
+	HDMI_SETTING_MAXNUM,
+} HDMI_SETTING_TYPE_T;
 
 /******************************************************************************
     전역 형 정의 (Global Type Definitions)
@@ -898,6 +919,9 @@ DTV_STATUS_T	HAL_VFE_HDMI_GetPortPacketInfo(UINT8 port, HAL_VFE_HDMI_ALL_PACKET_
 DTV_STATUS_T	HAL_VFE_HDMI_GetDiagnosticsInfo(UINT8 port, HAL_VFE_HDMI_DIAGNOSTICS_INFO_T *pInfo);
 DTV_STATUS_T    HAL_VFE_HDMI_GetScdcInfo(UINT8 port, HAL_VFE_HDMI_SCDC_INFO_T *pInfo);
 DTV_STATUS_T    HAL_VFE_HDMI_GetGeneralInfo(UINT8 port, HAL_VFE_HDMI_GENERAL_INFO_T *pInfo);
+DTV_STATUS_T	HAL_VFE_HDMI_SetHDMIErrorInitValue(HDMI_ERROR_T *HDMIError);
+UINT32			HAL_VFE_HDMI_GetDiagnosticsErrorInfo(UINT8 port);
+DTV_STATUS_T	HAL_VFE_HDMI_SetHDMIFactor(HDMI_SETTING_TYPE_T type, UINT32 value1, UINT32 value2, UINT32 value3);
 
 DTV_STATUS_T HAL_VFE_HDMI_GetHDMISW5V(UINT8 port, UINT8 *pData);
 DTV_STATUS_T HAL_VFE_HDMI_GetConnectionState(UINT8 port, UINT8 *pData);
