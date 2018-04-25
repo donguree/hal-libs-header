@@ -761,7 +761,7 @@ typedef struct
 	UINT16 video_htotal_real;
 	UINT16 video_height_real;
 	UINT16 video_vtotal_real;
-	UINT31 video_pixel_clock;
+	UINT32 video_pixel_clock;
 } HAL_VFE_HDMI_LINK_INFO_T;
 
 typedef struct
@@ -812,7 +812,7 @@ typedef struct
 	UINT32 RS_Counter_Bits;
 	BOOLEAN DSCFailed;
 	UINT8 LTP_req[MAX_NUMBER_OF_CHANNEL];
-	UINT FRLMode;
+	UINT8 FRLMode;
 	UINT8 FFELevel;
 	BOOLEAN FRL_Start;
 	BOOLEAN FRL_Update;
