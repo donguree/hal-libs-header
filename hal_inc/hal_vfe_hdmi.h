@@ -792,12 +792,12 @@ typedef struct
 {
 	BOOLEAN encEn_14;
 	UINT8 status;
-	UINT32 An;
-	UINT32 Aksv;
-	UINT32 Bksv;
-	UINT32 Ri;
-	UINT32 Bcaps;
-	UINT32 Bstatus;
+	UINT8 An[8];
+	UINT8 Aksv[5];
+	UINT8 Bksv[5];
+	UINT8 Ri[2];
+	UINT8 Bcaps;
+	UINT8 Bstatus[2];
 } HAL_VFE_HDMI_HDCP14_INFO_T;
 
 typedef struct
@@ -813,6 +813,7 @@ typedef struct
 	BOOLEAN scramble_status;
 	BOOLEAN clock_detect;
 	BOOLEAN ch_locked[MAX_NUMBER_OF_CHANNEL];
+	BOOLEAN FLT_Ready;
 	UINT16 ch_error_count[MAX_NUMBER_OF_CHANNEL];
 	UINT32 RS_Counter_Bits;
 	BOOLEAN DSCFailed;
@@ -820,7 +821,7 @@ typedef struct
 	UINT8 FRLMode;
 	UINT8 FFELevel;
 	BOOLEAN FRL_Start;
-	BOOLEAN FRL_Update;
+	BOOLEAN FLT_Update;
 } HAL_VFE_HDMI_SCDC_INFO_T;
 
 typedef struct
