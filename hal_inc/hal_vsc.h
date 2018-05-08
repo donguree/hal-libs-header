@@ -507,6 +507,34 @@ typedef struct VSC_INPUT_REGION
     VIDEO_RECT_T  originalInput;  // original source resolution
 } VSC_INPUT_REGION_T;
 
+typedef enum
+
+{
+
+   HAL_VSC_SPLIT_MODE_NONE = 0,  // normal HDMI signal
+
+   HAL_VSC_SPLIT_MODE_1_2, // 1:2 split mode
+
+   HAL_VSC_SPLIT_MODE_1_4, // 1:4 split mode
+
+} HAL_VSC_SPLIT_MODE_T; // HDMI split mode enum value
+
+
+typedef struct
+
+{
+
+     HAL_VSC_SPLIT_MODE_T splitMode; // HDMI 2.1 switch split mode
+
+     UINT16 overlapSize; // overlap pixel size when split the HDMI video.
+
+     VIDEO_RECT_T resolution; // resolution.
+
+     UINT16 vFreq; // v frequency
+
+}HAL_VSC_SPLIT_INFO_T ; // HFR info structure
+
+
 /*-----------------------------------------------------------------------------
 	Extern Variables & Function Prototype Declarations
 ------------------------------------------------------------------------------*/
@@ -556,6 +584,8 @@ DTV_STATUS_T    HAL_VSC_SetPattern(BOOLEAN bOnOff, VIDEO_WID_T wId, VIDEO_PATTER
 void HAL_VIDEO_DebugMenu (void);
 
 DTV_STATUS_T    HAL_VSC_SetVideoLatencyPattern (BOOLEAN bOnOff, VSC_PATTERN_TYPE_T bPatternType, VIDEO_RECT_T overlayWindow);
+DTV_STATUS_T HAL_VSC_SetSplitInfoForHDMI(HAL_VSC_SPLIT_INFO_T  hfrInfo);
+
 
 /*-----------------------------------------------------------------------------
 	Local Constant Definitions
