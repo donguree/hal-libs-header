@@ -49,6 +49,15 @@
 /******************************************************************************
 	형 정의 (Type Definitions)
 ******************************************************************************/
+/**
+ * Set/Get Parameters
+ */
+typedef enum
+{
+	ACAS_PARAM_RESET_TIME = 0,
+	ACAS_PARAM_MAX
+} ACAS_PARAM_T;
+
 
 /******************************************************************************
 	함수 선언 (Function Declaration)
@@ -56,6 +65,6 @@
 DTV_STATUS_T HAL_ACAS_Init(UINT8 ubyChipIndex);
 DTV_STATUS_T HAL_ACAS_Reset(UINT8 ubyChipIndex);
 DTV_STATUS_T HAL_ACAS_TransferAPDU(UINT8 ubyChipIndex, UINT8 *commandAPDU, UINT32 commandAPDULen, UINT8 *responseAPDU, UINT32 *responseAPDULen, UINT32 maxresponseAPDULen);
-
+DTV_STATUS_T HAL_ACAS_SetParam(UINT8 ubyChipIndex, ACAS_PARAM_T param, SINT32 val);
+DTV_STATUS_T HAL_ACAS_GetParam(UINT8 ubyChipIndex, ACAS_PARAM_T param, SINT32 *val);
 #endif /*_ACAS_HAL_H_ */
-
