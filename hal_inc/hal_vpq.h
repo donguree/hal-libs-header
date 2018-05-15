@@ -180,4 +180,6 @@ DTV_STATUS_T HAL_VPQ_GetDominantColorGain(float *pfColorGain, UINT8 *pColorNum);
 DTV_STATUS_T HAL_VPQ_GetOBCData(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_SetOBCLUT(HAL_VPQ_DATA_T *pstData);
 DTV_STATUS_T HAL_VPQ_SetOBCCtrl(HAL_VPQ_DATA_T *pstData);
+DTV_STATUS_T HAL_VPQ_NotifySensorLuxValue(UINT16 ui16LuxVal);
+DTV_STATUS_T HAL_VPQ_SetExtInnerPattern(HAL_VPQ_DATA_T* pstExtPtnInfo);
 #endif	/* _HAL_VPQ_H_ */
