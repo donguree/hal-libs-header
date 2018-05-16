@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.5
- *  @date		2018.05.29
+ *  @version	4.6
+ *  @date		2018.06.04
  *  @note
  *  @see
  */
@@ -719,38 +719,49 @@ typedef enum
  */
 typedef enum
 {
-	HAL_AUDIO_LGSE_LGSEFN000		= 0,
-	HAL_AUDIO_LGSE_LGSEFN001		= 1,
-	HAL_AUDIO_LGSE_LGSEFN003		= 3,
-	HAL_AUDIO_LGSE_LGSEFN004		= 4,	//new webOS  2.0
-	HAL_AUDIO_LGSE_LGSEFN005		= 5,	//new webOS 1.0
-	HAL_AUDIO_LGSE_LGSEFN006		= 6,
-	HAL_AUDIO_LGSE_LGSEFN007		= 7,	//old
-	HAL_AUDIO_LGSE_LGSEFN008		= 8,
-	HAL_AUDIO_LGSE_LGSEFN009		= 9,
-	HAL_AUDIO_LGSE_LGSEFN010		= 10,
-	HAL_AUDIO_LGSE_LGSEFN011		= 11,
-	HAL_AUDIO_LGSE_LGSEFN012		= 12,
-	HAL_AUDIO_LGSE_LGSEFN013		= 13,
-	HAL_AUDIO_LGSE_LGSEFN014		= 14,	//new webOS 1.0
-	HAL_AUDIO_LGSE_LGSEFN016		= 16,	//new webOS 1.0
-	HAL_AUDIO_LGSE_LGSEFN017		= 17,	//new webOS  2.0
-	HAL_AUDIO_LGSE_LGSEFN018		= 18,	//new webOS   3.0
-	HAL_AUDIO_LGSE_LGSEFN019		= 19,	//new webOS  2.0
-	HAL_AUDIO_LGSE_LGSEFN020		= 20,	//new webOS  2.0
-	HAL_AUDIO_LGSE_LGSEFN022		= 22,	//new webOS  2.0
-	HAL_AUDIO_LGSE_LGSEFN023		= 23,	//new webOS  2.0
-	HAL_AUDIO_LGSE_LGSEFN024		= 24,	//new webOS  2.0
-	HAL_AUDIO_LGSE_LGSEFN025		= 25,	//new webOS   3.0
-	HAL_AUDIO_LGSE_LGSEFN026		= 26,	//new webOS   3.0
-	HAL_AUDIO_LGSE_LGSEFN027		= 27,	//new webOS   3.0
-	HAL_AUDIO_LGSE_LGSEFN028		= 28,	//new webOS   3.0
-	HAL_AUDIO_LGSE_LGSEFN029		= 29,	//new webOS   3.0
-	HAL_AUDIO_LGSE_LGSEFN004MODE1	= 41,
-	HAL_AUDIO_LGSE_LGSEFN004MODE2	= 42,
-	HAL_AUDIO_LGSE_LGSEFN004MODE3	= 43,
-	HAL_AUDIO_LGSE_MODE 			= 100,
-	HAL_AUDIO_LGSE_MAIN 			= 101,	//new webOS 1.0
+    HAL_AUDIO_LGSE_LGSEFN000        = 0,
+    HAL_AUDIO_LGSE_LGSEFN001        = 1,
+    HAL_AUDIO_LGSE_LGSEFN002        = 2,    // new webOS4.5 (multi channel process)
+    HAL_AUDIO_LGSE_LGSEFN003        = 3,    // deprecated
+    HAL_AUDIO_LGSE_LGSEFN004        = 4,    // new webOS2.0 - deprecated
+    HAL_AUDIO_LGSE_LGSEFN005        = 5,    // new webOS1.0 - deprecated
+    HAL_AUDIO_LGSE_LGSEFN006        = 6,    // deprecated
+    HAL_AUDIO_LGSE_LGSEFN007        = 7,    // old
+    HAL_AUDIO_LGSE_LGSEFN008        = 8,
+    HAL_AUDIO_LGSE_LGSEFN009        = 9,
+    HAL_AUDIO_LGSE_LGSEFN010        = 10,
+    HAL_AUDIO_LGSE_LGSEFN011        = 11,   // deprecated
+    HAL_AUDIO_LGSE_LGSEFN012        = 12,   // deprecated
+    HAL_AUDIO_LGSE_LGSEFN013        = 13,   // deprecated
+    HAL_AUDIO_LGSE_LGSEFN014        = 14,   // new webOS1.0
+    HAL_AUDIO_LGSE_LGSEFN016        = 16,   // new webOS1.0 - deprecated
+    HAL_AUDIO_LGSE_LGSEFN017        = 17,   // new webOS2.0
+    HAL_AUDIO_LGSE_LGSEFN018        = 18,   // new webOS3.0 - deprecated
+    HAL_AUDIO_LGSE_LGSEFN019        = 19,   // new webOS2.0
+    HAL_AUDIO_LGSE_LGSEFN020        = 20,   // new webOS2.0
+    HAL_AUDIO_LGSE_LGSEFN022        = 22,   // new webOS2.0
+    HAL_AUDIO_LGSE_LGSEFN023        = 23,   // new webOS2.0
+    HAL_AUDIO_LGSE_LGSEFN024        = 24,   // new webOS2.0
+    HAL_AUDIO_LGSE_LGSEFN025        = 25,   // new webOS3.0 - deprecated
+    HAL_AUDIO_LGSE_LGSEFN026        = 26,   // new webOS3.0
+    HAL_AUDIO_LGSE_LGSEFN027        = 27,   // new webOS3.0 - deprecated
+    HAL_AUDIO_LGSE_LGSEFN028        = 28,   // new webOS3.0
+    HAL_AUDIO_LGSE_LGSEFN029        = 29,   // new webOS3.0
+    HAL_AUDIO_LGSE_LGSEFN030        = 30,   // new webOS4.5 (AI sound, feature extraction)
+    HAL_AUDIO_LGSE_LGSEFN004MODE1   = 41,
+    HAL_AUDIO_LGSE_LGSEFN004MODE2   = 42,
+    HAL_AUDIO_LGSE_LGSEFN004MODE3   = 43,
+    HAL_AUDIO_LGSE_LGSEFN000_1      = 1001, // new webOS4.5 (clear voice for multi channel)
+    HAL_AUDIO_LGSE_LGSEFN002_1      = 201,  // new webOS4.5 (multi channel process for 2ch)
+    HAL_AUDIO_LGSE_LGSEFN004_1      = 401,  // new webOS4.5 (ssm for multi channel)
+    HAL_AUDIO_LGSE_LGSEFN008_1      = 801,  // new webOS4.5 (height channel for multi channel)
+    HAL_AUDIO_LGSE_LGSEFN017_2      = 1702, // new webOS4.5 (SXP for multi channel for 2ch)
+    HAL_AUDIO_LGSE_LGSEFN017_3      = 1703, // new webOS4.5 (SXP for multi channel)
+    HAL_AUDIO_LGSE_LGSEFN022_1      = 2201, // new webOS4.5 (SSC for multi channel for 2ch)
+    HAL_AUDIO_LGSE_LGSEFN022_2      = 2202, // new webOS4.5 (SSC for multi channel)
+    HAL_AUDIO_LGSE_LGSEFN030_1      = 3001, // new webOS4.5 (AI sound, synthesizer)
+    HAL_AUDIO_LGSE_MODE             = 100,
+    HAL_AUDIO_LGSE_MAIN             = 101,  // new webOS 1.0
 } HAL_AUDIO_LGSE_FUNCLIST_T;
 
 /**
@@ -1716,9 +1727,21 @@ DTV_STATUS_T HAL_AUDIO_LGSE_SetFN024(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN026(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN028(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetFN029(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN000_1(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN002(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN002_1(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN004_1(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN008_1(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN017_2(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN017_3(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN022_1(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN022_2(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN030(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetFN030_1(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_GetData(HAL_AUDIO_LGSE_FUNCLIST_T funcList, HAL_AUDIO_LGSE_DATA_ACCESS_T rw, 			\
 									UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_RegSmartSoundCallback(pfnLGSESmartSound pfnCallBack, UINT32 callbackPeriod);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetAISoundMode(BOOLEAN bEnable);
 
 /**
  * HAL AUDIO DAP API define
