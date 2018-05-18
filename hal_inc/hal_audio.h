@@ -855,6 +855,7 @@ typedef enum HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_MODE
 																When input content is 5.1 or 5.1.2(ATMOS), process mode-DAP_CPDP_PROCESS_5_1_2_SPEAKER and mix_matrix-speaker_5_1_2_to_2_0_mix_matrix */
 	HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_AUTO	= 2,     /* Virtualizer Auto: When input content is 5.1.2(ATMOS),  process mode-DAP_CPDP_PROCESS_5_1_2_SPEAKER and mix_matrix-speaker_5_1_2_to_2_0_mix_matrix
 																When input content is Non ATMOS, process mode-DAP_CPDP_PROCESS_2 and mix_matrix-NULL */
+	HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_ON_2_0_2	= 3,     /* Virtualizer on 2.0.2: When input content is 5.1.2(ATMOS),  process mode-DAP_CPDP_PROCESS_5_1_2_SPEAKER and mix_matrix-speaker_5_1_2_to_2_0_2_mix_matrix
 }HAL_AUDIO_LGSE_DAP_SURROUND_VIRTUALIZER_MODE_T;
 
 /**
