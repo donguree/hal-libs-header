@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.4
- *  @date		2018.04.30
+ *  @version	4.5
+ *  @date		2018.05.29
  *  @note
  *  @see
  */
@@ -61,9 +61,10 @@
  */
 typedef  enum
 {
-	HAL_AUDIO_MS12_1_3		= 0, /*MS12 v1.3 Dose not support TVATMOS, AC4*//*Default value*/
-	HAL_AUDIO_MS12_2_0		= 1, /*MS12 v2.0 Support TVATMOS, AC4*/
-	HAL_AUDIO_MS12_MAX	= HAL_AUDIO_MS12_2_0,
+	HAL_AUDIO_MS12_1_3					= 0, /*MS12 v1.3 Dose not support TVATMOS, AC4*//*Default value*/
+	HAL_AUDIO_MS12_2_0					= 1, /*MS12 v2.0 Support TVATMOS, AC4*/
+	HAL_AUDIO_MS12_2_0_ATMOS_FLAVOR		= 2, /*MS12 v2.0 is Supported without TVATMOS*/
+	HAL_AUDIO_MS12_MAX	= HAL_AUDIO_MS12_2_0_ATMOS_FLAVOR,
 } HAL_AUDIO_MS12_VERSION_T;
 
 
