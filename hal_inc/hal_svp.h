@@ -44,6 +44,8 @@
 /******************************************************************************
     Type Definitions
 ******************************************************************************/
+
+
 typedef enum {
   HAL_SVP_REFORMATTER_NONE           = 0,
   HAL_SVP_REFORMATTER_AVC            = 1,
@@ -85,6 +87,7 @@ SVP_STATUS_T HAL_SVP_Widevine_DecryptAudio(UINT8 *pIv, UINT8 *pSrc, UINT32 srcLe
 	UINT8 *pOutput, UINT32 *pOutputLength);
 
 SVP_STATUS_T HAL_SVP_WidevineSelectKey(UINT32 session, const UINT8 *key_id, size_t key_id_length);
+SVP_STATUS_T HAL_SVP_WidevineSelectKey_OverV14(UINT32 session, const UINT8 *key_id, size_t key_id_length, SINT32 cipherMode);
 SVP_STATUS_T HAL_SVP_WidevineDecryptCTR(UINT32 session, const UINT8 *data_addr, size_t data_length, BOOLEAN is_encrypted,
 	const UINT8 *iv, size_t block_offset, const void *out_buffer, UINT8 subsample_flags);
 
