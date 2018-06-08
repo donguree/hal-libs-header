@@ -584,8 +584,8 @@ DTV_STATUS_T    HAL_VSC_SetPattern(BOOLEAN bOnOff, VIDEO_WID_T wId, VIDEO_PATTER
 void HAL_VIDEO_DebugMenu (void);
 
 DTV_STATUS_T    HAL_VSC_SetVideoLatencyPattern (BOOLEAN bOnOff, VSC_PATTERN_TYPE_T bPatternType, VIDEO_RECT_T overlayWindow);
-DTV_STATUS_T HAL_VSC_SetSplitInfoForHDMI(HAL_VSC_SPLIT_INFO_T  hfrInfo);
-
+DTV_STATUS_T    HAL_VSC_SetSplitInfoForHDMI(HAL_VSC_SPLIT_INFO_T  hfrInfo);
+DTV_STATUS_T    HAL_VSC_SetHFRMode(BOOLEAN bOnOff);
 
 /*-----------------------------------------------------------------------------
 	Local Constant Definitions
