@@ -128,6 +128,9 @@ DTV_STATUS_T HAL_VPQ_InvGammaEn(BOOLEAN bOnOff);
 /* Color Gamut */
 DTV_STATUS_T HAL_VPQ_SetGamutLUT(HAL_VPQ_GAMUT_LUT_T *pstGamutLut);
 
+/* Color Filter */
+DTV_STATUS_T HAL_VPQ_SetColorFilter(UINT16 uCfVal);
+
 /* Color Manage */
 DTV_STATUS_T HAL_VPQ_InitColorForExpert(VIDEO_WID_T wId,
 										CHIP_CM_INIT_EXP_COLOR_T *pstData);
