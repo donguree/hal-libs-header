@@ -960,6 +960,7 @@ DTV_STATUS_T HAL_VFE_HDMI_SetHDCPModeToRepeater(UINT8 enable);
 DTV_STATUS_T HAL_VFE_HDMI_RpRx_SetTopology(UINT8 slot, UINT8 deviceCount, UINT8 depth, UINT8 *topology);
 DTV_STATUS_T HAL_VFE_HDMI_GetEMPacketSize(UINT8 port, HAL_VFE_HDMI_EMP_TYPE_T PacketType, UINT16 *numOfPacket);
 DTV_STATUS_T HAL_VFE_HDMI_GetEMPacket(UINT8 port, HAL_VFE_HDMI_EMP_TYPE_T PacketType, UINT8 emPacket[][SIZE_OF_EM_PACKET]);
+DTV_STATUS_T HAL_VFE_HDMI_GetCurrentVRRVFrequency(UINT8 port, UINT16 *vFreq);
 
 
 #endif
