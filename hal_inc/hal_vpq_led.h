@@ -80,11 +80,11 @@ typedef enum {
  * Backlight Type Enum.
 */
 typedef enum {
-	HAL_BL_DIRECT_M = 0,
-	HAL_BL_DIRECT_L,
+	HAL_BL_DIRECT_L = 0,
 	HAL_BL_EDGE_LED,
-	HAL_BL_ALEF_LED,
 	HAL_BL_OLED,
+	HAL_BL_DIRECT_VI,
+	HAL_BL_DIRECT_SKY,
 	HAL_BL_END,
 } HAL_BACKLIGHT_TYPE_T;
 
