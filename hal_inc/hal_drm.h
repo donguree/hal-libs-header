@@ -74,5 +74,9 @@ DTV_STATUS_T HAL_DRM_UHDCP_SetCW(UINT8 *KID, UINT8 *CW);
 DTV_STATUS_T HAL_DRM_UHDCP_Decrypt(UINT8 *pData, UINT32 data_size,
                                    UINT8 *pIV, UINT8 *pKID, ULONG block_offset, UINT16 byte_offset);
 
+DTV_STATUS_T HAL_DRM_HDMI_SetSecureDataforHDCP22(SINT8 *KeyID, UINT8 *pData, UINT32 DataLength);
+DTV_STATUS_T HAL_DRM_HDMI_GetSecureDataforHDCP22(SINT8 *KeyID, UINT8 *pData);
+DTV_STATUS_T HAL_DRM_VerifyHDCP22forHDMI(void);
+
 #endif /* _HAL_DRM_H_ */
 
