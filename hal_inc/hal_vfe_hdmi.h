@@ -705,6 +705,8 @@ typedef struct
 
 	HAL_VFE_HDMI_DOLBY_HDR_TYPE_T eDolbyHDRType;
 
+	UINT8 isALLM;
+
 } HAL_VFE_HDMI_TIMING_INFO_T;
 
 //=============================================================
