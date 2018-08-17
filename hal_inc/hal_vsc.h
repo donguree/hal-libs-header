@@ -534,6 +534,7 @@ typedef struct
 
 }HAL_VSC_SPLIT_INFO_T ; // HFR info structure
 
+typedef void (*PFN_VSC_NOTIFY_WINDOW_SETTING_DELAY_T) (VIDEO_WID_T wId, UINT16 delayTime, VIDEO_RECT_T *pOutputRegion);
 
 /*-----------------------------------------------------------------------------
 	Extern Variables & Function Prototype Declarations
@@ -586,6 +587,8 @@ void HAL_VIDEO_DebugMenu (void);
 DTV_STATUS_T    HAL_VSC_SetVideoLatencyPattern (BOOLEAN bOnOff, VSC_PATTERN_TYPE_T bPatternType, VIDEO_RECT_T overlayWindow);
 DTV_STATUS_T    HAL_VSC_SetSplitInfoForHDMI(HAL_VSC_SPLIT_INFO_T  hfrInfo);
 DTV_STATUS_T    HAL_VSC_SetHFRMode(BOOLEAN bOnOff);
+
+DTV_STATUS_T HAL_VSC_RegisterWindowSettingDelayCallback (PFN_VSC_NOTIFY_WINDOW_SETTING_DELAY_T pfnWindowSettingDelayCB);
 
 /*-----------------------------------------------------------------------------
 	Local Constant Definitions
