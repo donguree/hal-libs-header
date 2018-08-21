@@ -54,5 +54,10 @@ int HAL_AIRPLAY_MFi_VerifyKeySet(void);
 int HAL_AIRPLAY_MFi_GetKeyInfo(unsigned char **out_org_key_file_name,
 		unsigned char **out_index, unsigned char **out_mfi_obj_id,
 		unsigned char **out_ppid);
+int HAL_AIRPLAY_MFi_VerifyProvisioningObject(void);
+int HAL_AIRPLAY_MFi_GetCertificate(unsigned char **out_certificate,
+		size_t *out_certificate_len);
+int HAL_AIRPLAY_MFi_GetSignature(unsigned char *digest, size_t digest_len,
+		unsigned char **out_signature, size_t *out_signature_len);
 
 #endif				/* _COMMON_HAL_AIRPLAY_H_ */
