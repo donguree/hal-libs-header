@@ -59,5 +59,5 @@ int HAL_AIRPLAY_MFi_GetCertificate(unsigned char **out_certificate,
 		size_t *out_certificate_len);
 int HAL_AIRPLAY_MFi_GetSignature(unsigned char *digest, size_t digest_len,
 		unsigned char **out_signature, size_t *out_signature_len);
-
+int HAL_AIRPLAY_FairPlay_VerifyObject(void);
 #endif				/* _COMMON_HAL_AIRPLAY_H_ */
