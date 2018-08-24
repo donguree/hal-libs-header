@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.7
- *  @date		2018.06.08
+ *  @version	4.8
+ *  @date		2018.08.24
  *  @note
  *  @see
  */
@@ -1603,6 +1603,8 @@ DTV_STATUS_T HAL_AUDIO_SetMainAudioOutput(HAL_AUDIO_INDEX_T audioIndex);
 DTV_STATUS_T HAL_AUDIO_HDMI_GetPortAudioMode(HAL_AUDIO_HDMI_INDEX_T hdmiIndex, HAL_AUDIO_HDMI_TYPE_T *pHDMIMode);
 DTV_STATUS_T HAL_AUDIO_HDMI_SetPortAudioReturnChannel(HAL_AUDIO_HDMI_INDEX_T hdmiIndex, BOOLEAN bOnOff);
 DTV_STATUS_T HAL_AUDIO_HDMI_GetPortCopyInfo(HAL_AUDIO_HDMI_INDEX_T hdmiIndex, HAL_AUDIO_SPDIF_COPYRIGHT_T *pCopyInfo);
+DTV_STATUS_T HAL_AUDIO_HDMI_GetPortAudioDecodingInfo(HAL_AUDIO_HDMI_INDEX_T hdmiIndex, HAL_AUDIO_HDMI_TYPE_T *pHDMIMode, HAL_AUDIO_SAMPLING_FREQ_T *pSamplingFreq, UINT8 *pNumOfChannel);
+DTV_STATUS_T HAL_AUDIO_HDMI_GetPortAudioReturnChannelInfo(HAL_AUDIO_HDMI_INDEX_T hdmiIndex, HAL_AUDIO_HDMI_TYPE_T *pHDMIMode, HAL_AUDIO_SAMPLING_FREQ_T *pSamplingFreq, UINT8 *pNumOfChannel);
 
 /* Decoder */
 DTV_STATUS_T HAL_AUDIO_SetSyncMode(HAL_AUDIO_ADEC_INDEX_T adecIndex, BOOLEAN bOnOff);
