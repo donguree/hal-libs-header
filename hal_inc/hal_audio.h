@@ -13,8 +13,8 @@
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
- *  @version	4.9
- *  @date		2018.08.28
+ *  @version	4.10
+ *  @date		2018.09.03
  *  @note
  *  @see
  */
@@ -766,12 +766,12 @@ typedef enum
 
 typedef enum
 {
-    HAL_AUDIO_SE_MODE_NONE          = 0,
-    HAL_AUDIO_SE_MODE_LGSE          = 1,
-    HAL_AUDIO_SE_MODE_DAP           = 2,
-    HAL_AUDIO_SE_MODE_DTSVX         = 3,
-    HAL_AUDIO_SE_MODE_LGSE_AISOUND  = 4,
-} HAL_AUDIO_SE_MODE_T;
+    HAL_AUDIO_LGSE_MODE_NONE          = 0,
+    HAL_AUDIO_LGSE_MODE_LGSE          = 1,
+    HAL_AUDIO_LGSE_MODE_DAP           = 2,
+    HAL_AUDIO_LGSE_MODE_DTSVX         = 3,
+    HAL_AUDIO_LGSE_MODE_LGSE_AISOUND  = 4,
+} HAL_AUDIO_LGSE_MODE_T;
 
 /**
  * HAL AUDIO Encoder Index.
@@ -1754,9 +1754,9 @@ DTV_STATUS_T HAL_AUDIO_LGSE_GetData(HAL_AUDIO_LGSE_FUNCLIST_T funcList, HAL_AUDI
 									UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_RegSmartSoundCallback(pfnLGSESmartSound pfnCallBack, UINT32 callbackPeriod);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetAISoundMode(BOOLEAN bEnable);
-DTV_STATUS_T HAL_AUDIO_SE_SetSoundEngineMode(HAL_AUDIO_SE_MODE_T seMode);
-DTV_STATUS_T HAL_AUDIO_SE_GetSoundEngineMode(HAL_AUDIO_SE_MODE_T *pseMode);
-DTV_STATUS_T HAL_AUDIO_SE_SetLGSEDownMix(BOOLEAN bEnable);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetSoundEngineMode(HAL_AUDIO_LGSE_MODE_T seMode);
+DTV_STATUS_T HAL_AUDIO_LGSE_GetSoundEngineMode(HAL_AUDIO_LGSE_MODE_T *pSeMode);
+DTV_STATUS_T HAL_AUDIO_LGSE_SetLGSEDownMix(BOOLEAN bEnable);
 
 /**
  * HAL AUDIO DAP API define
