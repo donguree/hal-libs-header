@@ -721,10 +721,18 @@ typedef enum
 
 typedef enum
 {
-	HAL_VFE_HDMI_HDCP_VERSION_1_4 = 0x14,
-	HAL_VFE_HDMI_HDCP_VERSION_2_2 = 0x22,
-	HAL_VFE_HDMI_HDCP_VERSION_2_3 = 0x23,
+	HAL_VFE_HDMI_HDCP_VERSION_NO_HDCP = 0x00,
+	HAL_VFE_HDMI_HDCP_VERSION_1_4     = 0x14,
+	HAL_VFE_HDMI_HDCP_VERSION_2_2     = 0x22,
+	HAL_VFE_HDMI_HDCP_VERSION_2_3     = 0x23,
 } HAL_VFE_HDMI_HDCP_VERSION_T;
+
+typedef enum
+{
+    HAL_VFE_HDMI_HDCP_STATUS_AUTH_FAIL  = -1,
+    HAL_VFE_HDMI_HDCP_STATUS_IDLE       = 0,
+    HAL_VFE_HDMI_HDCP_STATUS_AUTH_PASS  = 1,
+} HAL_VFE_HDMI_HDCP_STATUS_T;
 
 typedef enum
 {
@@ -898,6 +906,12 @@ typedef enum
 	HAL_VFE_HDMI_SETTING_MAXNUM,
 } HAL_VFE_HDMI_SETTING_TYPE_T;
 
+typedef struct
+{
+    HAL_VFE_HDMI_HDCP_VERSION_T  hdcp_version;
+    HAL_VFE_HDMI_HDCP_STATUS_T   status;
+} HAL_VFE_HDMI_HDCP_INFO_T;
+
 /******************************************************************************
     전역 형 정의 (Global Type Definitions)
 ******************************************************************************/
@@ -980,5 +994,6 @@ DTV_STATUS_T HAL_VFE_HDMI_GetEMPacketSize(UINT8 port, HAL_VFE_HDMI_EMP_TYPE_T Pa
 DTV_STATUS_T HAL_VFE_HDMI_GetEMPacket(UINT8 port, HAL_VFE_HDMI_EMP_TYPE_T PacketType, UINT8 emPacket[][SIZE_OF_EM_PACKET]);
 DTV_STATUS_T HAL_VFE_HDMI_GetCurrentVRRVFrequency(UINT8 port, UINT16 *vFreq);
 
+DTV_STATUS_T HAL_VFE_HDMI_GetPortHDCPStatus(UINT8 port, HAL_VFE_HDMI_HDCP_INFO_T *pHdcp_status);
 
 #endif
