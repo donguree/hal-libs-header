@@ -836,10 +836,11 @@ typedef enum
  */
 typedef  enum
 {
-	HAL_AUDIO_PCM_SB_PCM		= 0,	/* Sound Bar Output : No SE Ouput */
-	HAL_AUDIO_PCM_SB_CANVAS		= 1,	/* Sound Bar Output : SE Ouput */
+	HAL_AUDIO_PCM_SB_PCM		= 0,	/* Sound Bar Output : No SE Output */
+	HAL_AUDIO_PCM_SB_CANVAS		= 1,	/* Sound Bar Output : SE Output */
 	HAL_AUDIO_PCM_I2S			= 2,	/* I2S(L/R) Input for AEC(Audio Echo Cancellation) */
-	HAL_AUDIO_PCM_INPUT_MAX		= 3,	/* PCM Input Max */
+	HAL_AUDIO_PCM_WISA			= 3,    /* WISA Speaker Output : No SE Output */
+	HAL_AUDIO_PCM_INPUT_MAX		= 4,	/* PCM Input Max */
 } HAL_AUDIO_PCM_INPUT_T;
 
 /**
