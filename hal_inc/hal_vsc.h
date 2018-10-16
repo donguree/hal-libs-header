@@ -516,6 +516,8 @@ typedef enum
    HAL_VSC_SPLIT_MODE_1_2, // 1:2 split mode
 
    HAL_VSC_SPLIT_MODE_1_4, // 1:4 split mode
+   
+   HAL_VSC_SPLIT_MODE_DUPLICATE, // duplicate split mode
 
 } HAL_VSC_SPLIT_MODE_T; // HDMI split mode enum value
 
