@@ -85,9 +85,13 @@ typedef enum
 ******************************************************************************/
 DTV_STATUS_T HAL_ACAS_LIB_Initialize( unsigned int dev_index );
 DTV_STATUS_T HAL_ACAS_LIB_DeInitialize( unsigned int dev_index );
+DTV_STATUS_T HAL_ACAS_LIB_Open( unsigned int dev_index );
+DTV_STATUS_T HAL_ACAS_LIB_Close( unsigned int dev_index );
 DTV_STATUS_T HAL_ACAS_LIB_GetScrambleKeyProtectCommandParam ( unsigned int dev_index, unsigned char *pOutParam, unsigned int* pOutParamSize );
 DTV_STATUS_T HAL_ACAS_LIB_SetScrambleKeyProtectCommandRes ( unsigned int dev_index, unsigned char *pInRes, unsigned int nInResSize );
 DTV_STATUS_T HAL_ACAS_LIB_UpdateKey( unsigned int dev_index, unsigned char *cs_key, unsigned int nKeyLength, unsigned char *ecm_data, unsigned int nLength );
+DTV_STATUS_T HAL_ACAS_LIB_SetDescrambleKey( unsigned int dev_index, unsigned char *cs_key, unsigned int nKeyLength, unsigned char *ecm_data, unsigned int nLength );
+DTV_STATUS_T HAL_ACAS_LIB_ClearDescrambleKey( unsigned int dev_index );
 DTV_STATUS_T HAL_ACAS_LIB_Descramble( unsigned int dev_index, unsigned char* pCounterValue, unsigned int pKeyFlag, unsigned char* pInOutData, unsigned int nLength );
 DTV_STATUS_T HAL_ACAS_LIB_ReadSecureData( void );
 DTV_STATUS_T HAL_ACAS_LIB_DEBUG_SetStatus( void *pStatus, int nLength );
