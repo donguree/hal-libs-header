@@ -172,7 +172,11 @@ typedef struct
 	UINT16					height;				/**< height of surface */
 	HAL_GAL_PIXEL_FORMAT_T	pixelFormat;		/**< pixel format of surface */
 	HAL_GAL_PALETTE_INFO_T	paletteInfo;		/**< palette information, this field is used when the surface's pixel format is based on indexed color. */
-	UINT32					property;			/**< reserved for future use */
+	union
+	{
+		UINT32 property; 						/**< reserved for future use */
+		UINT32 length;							/**< allocated size of the surface */
+	};
 	UINT32					vendorData;			/**< reserved for chip vendor */
 } HAL_GAL_SURFACE_INFO_T;
 
