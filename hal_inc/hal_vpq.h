@@ -43,7 +43,7 @@
    	 Çü Á¤ÀÇ
  	 (Type Definitions)
 *******************************************************************/
-
+typedef BOOLEAN (*PFN_VPQ_SUSPEND_CMO_CONTROL_T) (BOOLEAN suspendMode);
 
 /*******************************************************************/
 /**************** 	SOC DDI (defined in pql_soc.c)	****************/
@@ -190,4 +190,8 @@ DTV_STATUS_T HAL_VPQ_SetExtInnerPattern(HAL_VPQ_DATA_T* pstExtPtnInfo);
 /* CNN SQM */
 DTV_STATUS_T HAL_VPQ_GetSQMData(HAL_VPQ_DATA_T *pData);
 DTV_STATUS_T HAL_VPQ_SetSQM(HAL_VPQ_DATA_T *pData);
+
+/* CMO */
+DTV_STATUS_T HAL_VPQ_RegisterCallbackSuspendCmoControl(PFN_VPQ_SUSPEND_CMO_CONTROL_T  pfnSuspendCmoControlCB);
+DTV_STATUS_T HAL_VPQ_DoneSuspendCmoControl(void);
 #endif	/* _HAL_VPQ_H_ */
