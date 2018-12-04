@@ -1011,4 +1011,11 @@ HAL_GAL_STATE_T HAL_GAL_GetFBHWControllerSharpness(UINT32 fbHWControllerIndex, U
  */
 HAL_GAL_STATE_T HAL_GAL_SetFBHWControllerSharpness(UINT32 fbHWControllerIndex, UINT8 sharpness);
 
+/**
+ * @brief Get a framebuffer from the fbdev to a surface
+ * @param pSurfaceInfo	[in/out] The target surface to store the read framebuffer from the fbdev
+ * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
+ */
+HAL_GAL_STATE_T HAL_GAL_CaptureFrameBuffer(HAL_GAL_SURFACE_INFO_T *pSurfaceInfo);
+
 #endif
