@@ -1719,6 +1719,13 @@ DTV_STATUS_T HAL_AUDIO_ARC_SetOutputType(HAL_AUDIO_ARC_MODE_T eARCMode, BOOLEAN 
 DTV_STATUS_T HAL_AUDIO_ARC_SetCopyInfo(HAL_AUDIO_ARC_COPYRIGHT_T copyInfo);
 DTV_STATUS_T HAL_AUDIO_ARC_SetCategoryCode(UINT8 categoryCode);
 
+/* SPDIF(Furniture & Objet) */
+DTV_STATUS_T HAL_AUDIO_SB_SetAutoVolume(BOOLEAN bOnOff);
+DTV_STATUS_T HAL_AUDIO_SB_GetAutoVolume(BOOLEAN *pOnOff);
+DTV_STATUS_T HAL_AUDIO_SB_SetSoundMode(UINT32 soundMode);   // 0:Standard, 1:Bass Blast, 2:Cinema, 3:ASC
+DTV_STATUS_T HAL_AUDIO_SB_GetSoundMode(UINT32 *pSoundMode); // 0:Standard, 1:Bass Blast, 2:Cinema, 3:ASC
+
+
 /* SE */
 DTV_STATUS_T HAL_AUDIO_LGSE_SetMode(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
 DTV_STATUS_T HAL_AUDIO_LGSE_SetMain(UINT32 *pParams, UINT16 noParam, HAL_AUDIO_LGSE_DATA_MODE_T dataOption);
