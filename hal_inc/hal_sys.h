@@ -95,4 +95,9 @@ DTV_STATUS_T HAL_SYS_WritePMData(unsigned char *pPMDataPath, unsigned int PMData
 DTV_STATUS_T HAL_IPC_Write(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf, UINT8 retry);
 DTV_STATUS_T HAL_IPC_Read(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf, UINT8 retry);
 
+/* Check RPMB Partition
+ * requester: jongseong.kim
+ */
+DTV_STATUS_T HAL_SYS_CheckRPMBPartition(void);
+
 #endif  /* _HAL_SYS_H_ */
