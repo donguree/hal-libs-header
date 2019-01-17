@@ -374,7 +374,44 @@ DTV_STATUS_T HAL_CRYPTO_WriteMskToSecureStore(UINT8 *pData, int length);
 DTV_STATUS_T HAL_CRYPTO_ReadNLPSecret(UINT8 *pSecret, char *pSecretID);
 DTV_STATUS_T HAL_CRYPTO_BBC_ReadClientKey(UINT8 *pKey);
 DTV_STATUS_T HAL_CRYPTO_ReadPrsSecret(UINT8 *pSecret);
+
+/**
+ *  This API is needed for Legacy Tvservice, not SEETV
+ *  This API will output the CI+ Public Key from sestore to the parameter
+ *
+ *  @param  pPath  [in]  pPath // it's not used
+ *  @param  dKey  [out]  (ci_ssl_pub_key)
+ *  @return succeeded - OK, if not - NOT_OK.
+ */
 DTV_STATUS_T HAL_CRYPTO_CIPLUS_GetCiPlusSslPubKey(UINT8 *pPath, UINT8 *dKey);
+
+/**
+ *  This API is needed for SEETV
+ *  This API will output the CI+ Public Key from sestore to the parameter
+ *
+ *  @param  dKey  [out]  (ci_ssl_pub_key)
+ *  @return succeeded - OK, if not - NOT_OK.
+ */
+DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusSslPubKey(UINT8 *dKey);
+
+/**
+ *  This API is needed for SEETV
+ *  This API will output the CI+ Master Key from sestore to the parameter
+ *
+ *  @param  dKey  [out]  (ci_key)
+ *  @return succeeded - OK, if not - NOT_OK.
+ */
+DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusStdKey(UINT8 *dKey);
+
+/**
+ *  This API is needed for SEETV
+ *  This API will output the CI+ Credential Key from sestore to the parameter
+ *
+ *  @param  dKey  [out]  (ci_dh_key)
+ *  @return succeeded - OK, if not - NOT_OK.
+ */
+DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusDhKey(UINT8 *dKey);
+
 DTV_STATUS_T HAL_CRYPTO_GetDebugKey(UINT8 *pKey);
 
 DTV_STATUS_T HAL_CRYPTO_ReadDVRDeviceSecret(UINT8 *pSecret);
