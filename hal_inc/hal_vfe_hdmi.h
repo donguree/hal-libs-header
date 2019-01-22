@@ -996,4 +996,5 @@ DTV_STATUS_T HAL_VFE_HDMI_GetCurrentVRRVFrequency(UINT8 port, UINT16 *vFreq);
 
 DTV_STATUS_T HAL_VFE_HDMI_GetPortHDCPStatus(UINT8 port, HAL_VFE_HDMI_HDCP_INFO_T *pHdcp_status);
 
+BOOLEAN HAL_VFE_HDMI_GetTMDSSync(UINT8 port);
 #endif
