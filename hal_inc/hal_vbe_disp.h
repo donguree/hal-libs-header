@@ -438,6 +438,16 @@ typedef enum{
 	DISP_PANEL_VCOM_PAT_CTRL_MAX    // Limit to control.
 } DISP_PANEL_VCOM_PAT_CTRL_T;
 
+/**
+ * SOC Output mode
+**/
+typedef enum{
+	DISP_SOCOUTPUT_MODE_4K60 = 0,
+	DISP_SOCOUTPUT_MODE_4K120,
+	DISP_SOCOUTPUT_MODE_4KVRR,
+	DISP_SOCOUTPUT_MODE_4K4K60LR,
+	DISP_SOCOUTPUT_MODE_MAX
+}DISP_SOCOUTPUT_MODE_T;
 
 /*-----------------------------------------------------------------------------
 	Local Variables & Function Prototypes Declarations
@@ -504,5 +514,7 @@ DTV_STATUS_T HAL_VBE_DISP_MplusGet(void * pRegisterSet, UINT8 nPanelMaker);
 DTV_STATUS_T HAL_VBE_DISP_VCOMPatternDraw(UINT16 *vcomPattern, UINT16 nSize);
 DTV_STATUS_T HAL_VBE_DISP_VCOMPatternCtrl(DISP_PANEL_VCOM_PAT_CTRL_T nCtrl);
 
+/* Soc Output Mode setting */
+DTV_STATUS_T HAL_VBE_DISP_SetSocOutputMode(DISP_SOCOUTPUT_MODE_T socOutputMode);
 
 #endif /* _HAL_VBE_DISP_H_ */
