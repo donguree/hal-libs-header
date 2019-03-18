@@ -14,6 +14,8 @@
 extern "C" {
 #endif
 
+#define HAL_GFX_RELEASE_VERSION (2)
+
 #ifndef hal_gfx_ptr
 typedef	void *__hal_gfx_ptr;
 #define hal_gfx_ptr __hal_gfx_ptr
@@ -28,6 +30,9 @@ typedef	int __hal_gfx_int;
 typedef	signed int __hal_gfx_int32;
 #define hal_gfx_int32 __hal_gfx_int32
 #endif
+
+#define HG_OK       (0x00)  /* work well */
+#define HG_NOTOK    (0xff)  /* abnormal behavior */
 
 typedef enum {
     Surface_Format_Unknown = 0,
@@ -55,6 +60,11 @@ typedef struct {
     hal_gfx_ptr handle;
 } hal_gfx_surface;
 
+typedef struct {
+    hal_gfx_surface src;
+    hal_gfx_rect in_region;
+} hal_gfx_blit_param;
+
 hal_gfx_int
 hal_gfx_import_surface_by_fd(hal_gfx_int fd,
                              hal_gfx_surface_attr attr,
@@ -65,8 +75,8 @@ hal_gfx_release_surface(hal_gfx_ptr handle);
 
 hal_gfx_int
 hal_gfx_blit(hal_gfx_surface dst,
-             hal_gfx_surface *srcs,
-             hal_gfx_int src_len);
+             hal_gfx_blit_param *params,
+             hal_gfx_int params_len);
 
 #ifdef __cplusplus
 }
