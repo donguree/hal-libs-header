@@ -51,6 +51,7 @@
 ******************************************************************************/
 int HAL_AIRPLAY_MFi_WriteKeySet(unsigned int argc, void **argv);
 int HAL_AIRPLAY_MFi_VerifyKeySet(void);
+int HAL_AIRPLAY_MFi_DeleteKeySet(void);
 int HAL_AIRPLAY_MFi_GetKeyInfo(unsigned char **out_org_key_file_name,
 		unsigned char **out_index, unsigned char **out_mfi_obj_id,
 		unsigned char **out_ppid);
