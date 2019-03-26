@@ -50,6 +50,8 @@
 /******************************************************************************
     Function Declaration
 ******************************************************************************/
+DTV_STATUS_T HAL_ECP_CI_PLUS_Initialize(void);
+DTV_STATUS_T HAL_ECP_CI_PLUS_Finalize(void);
 int HAL_ECP_CA_CI_PLUS_ExecuteTEE(int func_id, void *ptr, int size);
 DTV_STATUS_T HAL_ECP_CI_PLUS_LoadKeyMaterials(void);
 DTV_STATUS_T HAL_ECP_CI_PLUS_LoadCertKey(void);
