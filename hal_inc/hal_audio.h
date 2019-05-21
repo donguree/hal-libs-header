@@ -1881,7 +1881,8 @@ DTV_STATUS_T HAL_AUDIO_PCM_SetVolume(HAL_AUDIO_PCM_INPUT_T apcmIndex, HAL_AUDIO_
 DTV_STATUS_T HAL_AUDIO_PCM_SetDataCount(HAL_AUDIO_PCM_INPUT_T apcmIndex, UINT8 count);	//for bluetooth, 1 count takes 5.3ms.
 DTV_STATUS_T HAL_AUDIO_PCM_SetInfo(HAL_AUDIO_PCM_INPUT_T apcmIndex, HAL_AUDIO_PCM_INFO_T info);
 DTV_STATUS_T HAL_AUDIO_PCM_GetInfo(HAL_AUDIO_PCM_INPUT_T apcmIndex, HAL_AUDIO_PCM_INFO_T *pInfo);
-DTV_STATUS_T HAL_AUDIO_PCM_SetReSampling(HAL_AUDIO_PCM_INPUT_T apcmIndex, UINT32 outputFreq);
+DTV_STATUS_T HAL_AUDIO_PCM_SetReSampling(HAL_AUDIO_PCM_INPUT_T apcmIndex, UINT32 outputFreq); //for wisa resampling
+DTV_STATUS_T HAL_AUDIO_PCM_GetInputTimeCount(HAL_AUDIO_PCM_INPUT_T apcmIndex, UINT32 *pTimeCount, UINT32 *pTimeBase); //for wisa resampling
 
 /* Debug */
 void HAL_AUDIO_DebugMenu(void);
