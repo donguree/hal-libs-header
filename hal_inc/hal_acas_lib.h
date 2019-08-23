@@ -79,6 +79,12 @@ typedef enum
 }   _ACAS_KEY_STATE_T;
 #define ACAS_KEY_STATE_T    _ACAS_KEY_STATE_T
 
+typedef struct {
+    unsigned int keyFlag;
+    unsigned char counterValue[ 20 ];
+    unsigned char *pInOutData;
+    unsigned int dataLen;
+} ACAS_LIB_DESCRAMBLE_INFO;
 
 /******************************************************************************
 	함수 선언 (Function Declaration)
@@ -96,4 +102,8 @@ DTV_STATUS_T HAL_ACAS_LIB_Descramble( unsigned int dev_index, unsigned char* pCo
 DTV_STATUS_T HAL_ACAS_LIB_ReadSecureData( void );
 DTV_STATUS_T HAL_ACAS_LIB_DEBUG_SetStatus( void *pStatus, int nLength );
 DTV_STATUS_T HAL_ACAS_LIB_DEBUG_GetStatus( void *pStatus, int *pLength );
+DTV_STATUS_T HAL_ACAS_LIB_Descramble_ext(
+    unsigned int dev_index,
+    ACAS_LIB_DESCRAMBLE_INFO *pDescrambleInfo,
+    unsigned int numInfo );
 #endif /*_ACAS_LIB_HAL_H_ */
