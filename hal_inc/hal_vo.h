@@ -58,6 +58,7 @@ typedef enum {
     HAL_VO_PANEL_TYPE_HD1024X768,   /* HD panel (1024x768) */
     HAL_VO_PANEL_TYPE_HD1280X720,   /* HD panel (1280x720) */
     HAL_VO_PANEL_TYPE_HD1366X768,   /* HD panel (1366x768) */
+    HAL_VO_PANEL_TYPE_8K_UHD,  /* 8K UHD panel (7680X4320) */
     HAL_VO_PANEL_TYPE_MAX,  /* maximum number of HAL_VO_PANEL_TYPE */
 } HAL_VO_PANEL_TYPE;
 
