@@ -55,6 +55,7 @@ typedef enum {
     HAL_VO_PANEL_TYPE_NONE = 0, /* none of these */
     HAL_VO_PANEL_TYPE_FHD,  /* full HD panel (1920x1080) */
     HAL_VO_PANEL_TYPE_UHD,  /* ultra HD panel (3840x2160) */
+    HAL_VO_PANEL_TYPE_8K_UHD,  /* 8K UHD panel (7680X4320) */
     HAL_VO_PANEL_TYPE_HD1024X768,   /* HD panel (1024x768) */
     HAL_VO_PANEL_TYPE_HD1280X720,   /* HD panel (1280x720) */
     HAL_VO_PANEL_TYPE_HD1366X768,   /* HD panel (1366x768) */
