@@ -148,6 +148,51 @@ Remarks
     None
 ******************************************************************************/
 DTV_STATUS_T HAL_CRYPTO_NF_Decrypt(UINT8 *pData, UINT32 nLength);
+
+/******************************************************************************
+Function Name
+    HAL_CRYPTO_NF_Encrypt_Ex
+
+Function Description
+    encrypt data with device unique key and integrity check
+
+Function Parameters
+    const UINT8 *pInput     [IN] clear data
+    UINT32 uInputSize       [IN] input data length
+    UINT8 **ppOutput        [OUT] encrypted data with integrity check
+    UINT32 *puOutputSize    [OUT] output data length
+
+Return Value
+    If the function succeeds, the return value is OK.
+    If the function fails, the return value is NOT_OK.
+
+Remarks
+    None
+******************************************************************************/
+DTV_STATUS_T HAL_CRYPTO_NF_Encrypt_Ex(const UINT8 *pInput, UINT32 uInputSize, UINT8 **ppOutput, UINT32 *puOutputSize );
+
+/******************************************************************************
+Function Name
+    HAL_CRYPTO_NF_Decrypt_Ex
+
+Function Description
+    decrypt data with device unique key and integrity check
+
+Function Parameters
+    UINT8 *pInput           [IN] encrypted data(via HAL_CRYPTO_NF_Encrypt_Ex) with integrity check to be decrypted
+    UINT32 uInputSize       [IN] input data length
+    UINT8 **ppOutput        [OUTPUT] clear data
+    UINT32 *puOutputSize    [OUTPUT] clear data length
+
+Return Value
+    If the function succeeds, the return value is OK.
+    If the function fails, the return value is NOT_OK.
+
+Remarks
+    None
+******************************************************************************/
+DTV_STATUS_T HAL_CRYPTO_NF_Decrypt_Ex(const UINT8 *pInput, UINT32 uInputSize, UINT8 **ppOutput, UINT32 *puOutputSize );
+
 /******************************************************************************
 Function Name
     HAL_CRYPTO_NF_WriteAppData
