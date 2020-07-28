@@ -1,6 +1,6 @@
 /******************************************************************************
  *   TV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 2013-2017 by LG Electronics Inc.
+ *   Copyright(c) 2013-2020 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -93,6 +93,11 @@ SVP_STATUS_T HAL_SVP_WidevineDecryptCTR(UINT32 session, const UINT8 *data_addr, 
 
 SVP_STATUS_T HAL_SVP_WidevineDecryptCENC(UINT32 session, const UINT8 *data_addr, size_t data_length, BOOLEAN is_encrypted,
 	const UINT8 *iv, size_t block_offset, const void *out_buffer, const void *pattern, UINT8 subsample_flags);
+SVP_STATUS_T HAL_SVP_WidevineDecryptCENC_V16(UINT32 session,
+                                             void *samples,
+                                             size_t samples_length,
+                                             void *pattern,
+                                             UINT32 *oec_return);
 
 SVP_STATUS_T HAL_SVP_CopyToSecureDecryptBuffer(UINT32 secDecBufHandle, UINT32 secDecBufwriteOffset,
 	UINT8 *pSrc, SINT32 length);
