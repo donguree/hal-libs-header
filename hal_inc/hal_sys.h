@@ -1,6 +1,6 @@
 /******************************************************************************
  *   DTV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 2008 by LG Electronics Inc.
+ *   Copyright(c) 2008-2021 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -52,6 +52,13 @@ typedef enum
 	SUSPEND_MODE_HIBERNATION	= 1,	// HIBERNATION/IBOOT mode
 } SUSPEND_MODE_T;
 
+typedef enum
+{
+	DFT_MEM_TEST_RESULT_OK = 0,
+	DFT_MEM_TEST_RESULT_NG = 1,
+	DFT_MEM_TEST_RESULT_BUSY = 2,
+}DFT_MEM_TEST_RESULT_T;
+
 /******************************************************************************
         Function Declaration
 ******************************************************************************/
@@ -99,5 +106,12 @@ DTV_STATUS_T HAL_IPC_Read(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf
  * requester: jongseong.kim
  */
 DTV_STATUS_T HAL_SYS_CheckRPMBPartition(void);
+
+/*
+ * DDR memory test in DFT process
+ * requester: kwangseok.kim
+ */
+DTV_STATUS_T HAL_SYS_StartDFTMemTest(void);
+DFT_MEM_TEST_RESULT_T HAL_SYS_GetDFTMemTestResult(void);
 
 #endif  /* _HAL_SYS_H_ */
