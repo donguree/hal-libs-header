@@ -62,6 +62,7 @@ typedef struct VENC_MSG_TYPE
 	UINT32	dataLen;	/**< Video Data Length */
 	UINT8	*pRStart;	/**< start pointer of buffer */
 	UINT8	*pREnd;		/**< end pointer of buffer */
+	UINT8	*pDataPhysical;
 }VENC_MSG_TYPE_T;
 
 /**
@@ -158,6 +159,7 @@ typedef enum {
 	VENC_INFO_GOPLENGTH,
 	VENC_INFO_QP,
 	VENC_INFO_SOURCE,
+	VENC_INFO_SECURE,
 	VENC_INFO_NUM
 }VENC_INFO_T;
 
