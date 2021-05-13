@@ -71,6 +71,8 @@ typedef enum {
     HAL_VO_CFG_TYPE_INPUT_RECT, /* set video input source */
     HAL_VO_CFG_TYPE_OUTPUT_RECT,    /* set video output source */
     HAL_VO_CFG_TYPE_PIXEL_FORMAT,   /* set pixel format of video source */
+    HAL_VO_CFG_TYPE_FRAME_RATE, /* set frame rate */
+    HAL_VO_CFG_TYPE_TIMES,      /* set frame rate magnification */
     HAL_VO_CFG_TYPE_MAX,    /* maximum number of HAL_VO_CONFIG_TYPE */
 } HAL_VO_CFG_TYPE;
 
@@ -152,6 +154,10 @@ typedef struct {
     unsigned int alpha; /* alpha blending factor (0~255) */
     HAL_VO_RECT_T rect; /* rectangular information for the video source */
     HAL_VO_PIXEL_FORMAT pixel_format;   /* pixel format of image */
+
+    unsigned int frame_rate;  /* input frame rate value */
+    unsigned int vsync_times; /* input frame rate magnification */
+
 } HAL_VO_CFG_VALUE_T;
 
 /**
@@ -204,6 +210,16 @@ typedef struct {
  * @return if success OK, else one of error in DTV_STATUS_T.
  **/
 DTV_STATUS_T HAL_VO_Open(unsigned int ch, HAL_VO_PANEL_TYPE def);
+
+
+/**
+ * @brief Connect VO with Scalar
+ * @param   ch  [in]    channel port number to connect with display engine
+ * @param   dest [in]   connected scalar index
+ * @return if success OK, else one of error in DTV_STATUS_T.
+ **/
+DTV_STATUS_T HAL_VO_Connect(unsigned int ch, unsigned int dest);
+
 
 /**
  * @brief Configure the video output

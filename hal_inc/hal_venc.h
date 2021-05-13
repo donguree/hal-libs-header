@@ -186,6 +186,28 @@ DTV_STATUS_T	HAL_VENC_Open(void);
  */
 DTV_STATUS_T	HAL_VENC_Close(void);
 
+
+
+/**
+ * VENC Open for multi encoding
+ *
+ * @param[in]	port		port of video encoder
+ * @return  DTV_STATUS_T
+ * @retval	OK
+ * @retval	NOT_OK
+ */
+DTV_STATUS_T	HAL_VENC_OpenEx(UINT8 port);
+
+/**
+ * VENC Finalizing for multi encoding
+ * @param[in]	port		port of video encoder
+ * @return  DTV_STATUS_T
+ * @retval	OK
+ * @retval	NOT_OK
+ */
+DTV_STATUS_T	HAL_VENC_CloseEx(UINT8 port);
+
+
 /**
  * Select Video source
  *
