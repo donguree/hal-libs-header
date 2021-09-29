@@ -33,6 +33,11 @@
 /******************************************************************************
         Constant Definitions
 ******************************************************************************/
+#define HAL_SYS_VERSION  1
+
+#define PWM_TYPE_NONE    0x0
+#define PWM_TYPE_FAN     0x1
+#define MAX_PWM_NUM      8
 
 /******************************************************************************
         Macro Definitions
@@ -41,11 +46,15 @@
 /******************************************************************************
         Type Definitions
 ******************************************************************************/
+typedef struct
+{
+	unsigned int pwm_type;
+	unsigned int period_ns; /* resolution=25Khz --> period=40,000ns */
+}HAL_SYS_PWM_CAPABILITY_INFO_T;
 
 /******************************************************************************
         Enum Definitions
 ******************************************************************************/
-
 typedef enum
 {
 	SUSPEND_MODE_SNAPSHOT		= 0,	// SNAPSHOT mode
@@ -113,5 +122,13 @@ DTV_STATUS_T HAL_SYS_CheckRPMBPartition(void);
  */
 DTV_STATUS_T HAL_SYS_StartDFTMemTest(void);
 DFT_MEM_TEST_RESULT_T HAL_SYS_GetDFTMemTestResult(void);
+
+/*
+ * PWM
+ * requester: kwangseok.kim
+ */
+DTV_STATUS_T HAL_SYS_GetPWMCapability(unsigned int *pNum_of_pwm, HAL_SYS_PWM_CAPABILITY_INFO_T *pstPWMCapability);
+DTV_STATUS_T HAL_SYS_SetPWM(unsigned int pwm_id, unsigned int period_ns, unsigned int duty_ns);
+DTV_STATUS_T HAL_SYS_GetPWMData(unsigned int pwm_id, void *pData);
 
 #endif  /* _HAL_SYS_H_ */
