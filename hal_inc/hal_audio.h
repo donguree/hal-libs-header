@@ -9,7 +9,6 @@
 
 /** @file hal_audio.h
  *
- *  HAL 함수 header 파일.
  *
  *
  *  @author		yong kwang kim(ykwang.kim@lge.com)
@@ -26,13 +25,11 @@
 #define _HAL_AUDIO_H_
 
 /******************************************************************************
- #include 파일들 (File Inclusions)
 ******************************************************************************/
 #include "hal_common.h"
 
 
 /******************************************************************************
- 	상수 정의(Constant Definitions)
 ******************************************************************************/
 /**
  * HAL AUDIO LGSE SMARTSOUND CALLBACK DATA Length(UINT32).
@@ -49,11 +46,9 @@
 
 
 /******************************************************************************
-    매크로 함수 정의 (Macro Definitions)
 ******************************************************************************/
 
 /******************************************************************************
-	형 정의 (Type Definitions)
 ******************************************************************************/
 /**
  * HAL AUDIO MS12 Version.
@@ -1122,7 +1117,7 @@ typedef struct HAL_AUDIO_PCM_INFO{
 typedef enum
 {
 	HAL_AUDIO_WARNING_DEFAULT 	  		= 0,
-	HAL_AUDIO_WARNING_PIP_OVERRUN 		= 1, //AAC5.1 ch X 2 decoding인 경우, performance이슈로 callback notify on H13
+	HAL_AUDIO_WARNING_PIP_OVERRUN 		= 1, //AAC5.1 ch X 2 decoding, performance callback notify on H13
 	HAL_AUDIO_WARNING_1KHZ_TONE_ON 		= 2, //ERP Power Requirement : 1KHz Tone Detect On(Woofer Amp PWM OFF)
 	HAL_AUDIO_WARNING_1KHZ_TONE_OFF		= 3, //ERP Power Requirement : 1KHz Tone Detect Off(Woofer Amp PWM ON)
 } HAL_AUDIO_WARNING_IDX;
@@ -1549,7 +1544,6 @@ typedef enum {
 
 
 /******************************************************************************
-	함수 선언 (Function Declaration)
 ******************************************************************************/
 DTV_STATUS_T HAL_AUDIO_SetMS12Version(HAL_AUDIO_MS12_VERSION_T eMS12Version);
 DTV_STATUS_T HAL_AUDIO_InitializeModule(HAL_AUDIO_SIF_TYPE_T eSifType);

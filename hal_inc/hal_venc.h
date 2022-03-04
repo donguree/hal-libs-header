@@ -24,17 +24,6 @@
  *  @see
  */
 
-/*! \mainpage HAL VENC APIs
- * \section recodring_sec Recoding APIs
- *
- * VENC supports Recoding APIs for DVR feature.
- *
- * \section codecapi_sec Codec APIs
- *
- * VENC supports Codec APIs for H264 and VP8 encoding.
- *
- */
-
 #ifndef _HAL_VENC_H_
 #define _HAL_VENC_H_
 

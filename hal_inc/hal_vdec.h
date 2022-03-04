@@ -39,9 +39,6 @@
 #define VDEC_NORMAL_PLAY_SPEED 1000
 #define	VDEC_MAX_CH_NUM			2
 
-/** UI Messaging System에 사용되어지는 Callback 함수를 위한 정의.
- *	API_UTIL_InitUIMessagingSystem 함수 호출 시 사용되어진다.
- */
 #define  MAX_VDEC2UI_MSG_PARAM 	4
 
 
@@ -102,9 +99,6 @@ typedef enum
 } VDEC_VIDEO_STATUS_T;
 
 
-/**
- * video의 size, bitrate등을 얻고자 할 경우에 쓰이는데 주로 메모리 MAP관련시에 쓰인다.
- */
 typedef enum {
 	VDEC_HDR_V_SIZE                    = 0,		/**< vertical size */
 	VDEC_HDR_H_SIZE                    = 1,		/**< horizontal size */
@@ -230,8 +224,7 @@ typedef enum VDEC_PIC_TYPE
 
 
 /**
- * userdata의 DCC type.
- * VIDEO_API.h에도 정의 됨.
+ * userdata DCC type.
  *
  * @ingroup ka_vdec_types
  */

@@ -26,7 +26,7 @@
 #define	_HAL_VFE_HDMI_H_
 
 /******************************************************************************
- #include 파일들 (File Inclusions)
+ #include (File Inclusions)
 ******************************************************************************/
 //#include "common.h"
 #include "hal_common.h"
@@ -34,7 +34,7 @@
 #include "hal_audio.h"
 #include "hal_gpio_index.h"
 /******************************************************************************
-    매크로 함수 정의 (Macro Definitions)
+	(Macro Definitions)
 ******************************************************************************/
 
 #define HAL_VFE_HDMI_PACKET_DATA_LENGTH 28
@@ -54,11 +54,11 @@
 #define SIZE_OF_EM_PACKET 31
 
 /******************************************************************************
-   로컬 상수 정의 (Local Constant Definitions)
+   (Local Constant Definitions)
 ******************************************************************************/
 
 /******************************************************************************
-    로컬 형 정의 (Local Type Definitions)
+    (Local Type Definitions)
 ******************************************************************************/
 #if 0
 /**
@@ -624,10 +624,8 @@ typedef struct
 /*  have to refer timing info, doesn't refer 3D tag or header info */
 typedef enum
 {
-	/*     아래 enum value는 관리 안함.  */
 	HAL_VFE_HDMI_3D_FORMAT_2D,					/**< for No 3D (OFF)..... INPUT_TYPE_2DTO3D */
 
-	/*      From UI, 3D ON이면서 아래 Format이 넘어오면 일반 3D ON이 됨.    */
 	//interim format - half
 	HAL_VFE_HDMI_3D_FORMAT_TOP_BOTTOM,			/**< for T/B, S/S, Checker, Frame Seq...INPUT_TYPE_TOPNBOTTOM*/
 	HAL_VFE_HDMI_3D_FORMAT_SIDEBYSIDE_HALF,	/**< for T/B, S/S, Checker, Frame Seq...INPUT_TYPE_SIDEBYSIDE*/
@@ -642,7 +640,6 @@ typedef enum
 	HAL_VFE_HDMI_3D_FORMAT_LINE_ALTERNATIVE,		/**< Full format (row interleave)*/
 	HAL_VFE_HDMI_3D_FORMAT_SIDEBYSIDE_FULL,		/**< Full format*/
 	HAL_VFE_HDMI_3D_FORMAT_DUALSTREAM,		/**< Full format*/
-	/*    From UI, 3D ON이면서 아래 Format이 넘어오면 2D to 3D 가 됨    */
 	HAL_VFE_HDMI_3D_FORMAT_2DTO3D,					/**< for2D TO  3D..... INPUT_TYPE_2DTO3D */
 	HAL_VFE_HDMI_3D_FORMAT_MAX,
 
@@ -655,7 +652,7 @@ typedef enum
 */
 typedef enum
 {
-	HAL_VFE_HDMI_3D_LR,	//Driver와 일치.
+	HAL_VFE_HDMI_3D_LR,
 	HAL_VFE_HDMI_3D_RL,
 }HAL_VFE_HDMI_3D_LR_TYPE_T;
 
@@ -725,7 +722,7 @@ typedef enum
 	HAL_VFE_HDMI_HDCP_VERSION_1_4     = 0x14,
 	HAL_VFE_HDMI_HDCP_VERSION_2_2     = 0x22,
 	HAL_VFE_HDMI_HDCP_VERSION_2_3     = 0x23,
-} HAL_VFE_HDMI_HDCP_VERSION_T;
+} HAL_VFE_HDMI_HDCP_VERdSION_T;
 
 typedef enum
 {
@@ -913,31 +910,27 @@ typedef struct
 } HAL_VFE_HDMI_HDCP_INFO_T;
 
 /******************************************************************************
-    전역 형 정의 (Global Type Definitions)
+    (Global Type Definitions)
 ******************************************************************************/
 
 /******************************************************************************
-    Extern 전역변수와 함수 prototype 선언
     (Extern Variables & Function Prototype Declarations)
 ******************************************************************************/
 
 /******************************************************************************
-    Static 변수와 함수 prototype 선언
     (Static Variables & Function Prototypes Declarations)
 ******************************************************************************/
 
 /******************************************************************************
-    로컬 변수와 함수 prototype 선언
     (Local Variables & Function Prototypes Declarations)
 ******************************************************************************/
 
 /******************************************************************************
-    전역 변수와 함수 prototype 선언
     (Global Variables & Function Prototypes Declarations)
 ******************************************************************************/
 
 /******************************************************************************
-	함수 정의 (Function Definitions)
+	(Function Definitions)
 ******************************************************************************/
 
 DTV_STATUS_T HAL_VFE_HDMI_Initialize(void);

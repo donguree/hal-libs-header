@@ -9,7 +9,7 @@
 
 /** @file hal_audio_direct.h
  *
- *  HAL Audio Direct 함수 header 파일.
+ *  HAL Audio Direct function header file.
  *
  *
  *  @author		dongsun.kim(dongsun.kim@lge.com)
@@ -26,26 +26,26 @@
 #define _HAL_AUDIO_DIRECT_H_
 
 /******************************************************************************
- #include 파일들 (File Inclusions)
+ #include (File Inclusions)
 ******************************************************************************/
 #include "hal_common.h"
 
 
 
 /******************************************************************************
- 	상수 정의(Constant Definitions)
+ 	(Constant Definitions)
 ******************************************************************************/
 
 
 /******************************************************************************
-    매크로 함수 정의 (Macro Definitions)
+	(Macro Definitions)
 ******************************************************************************/
 /* LOGM Debug Message File Descriptor */
 extern SINT32 gHalAudDirLogmFd;
 
 
 /******************************************************************************
-	형 정의 (Type Definitions)
+	(Type Definitions)
 ******************************************************************************/
 /**
  * HAL AUDIO DIRECT Codec Type.
@@ -72,7 +72,7 @@ typedef  enum
 
 
 /******************************************************************************
-	함수 선언 (Function Declaration)
+	(Function Declaration)
 ******************************************************************************/
 /**
  *  AUDIO Handler of Direct Player (Cloud Game)
