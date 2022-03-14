@@ -33,7 +33,6 @@
     File Inclusions
 ******************************************************************************/
 #include "hal_common.h"
-#include "hal_ci.h"
 
 /******************************************************************************
     Constant Definitions
@@ -46,7 +45,45 @@
 /******************************************************************************
     Type Definitions
 ******************************************************************************/
+/**
+* CIPLUS_CRYPTOGRAPHY_T
+*
+* @see
+*/
+typedef enum
+{
+	CIPLUS_CRYPTOGRAPHY_DES 				= 0,
+	CIPLUS_CRYPTOGRAPHY_AES 				= 1
+} CIPLUS_CRYPTOGRAPHY_T;
 
+/**
+* CIPLUS_CHIPHER_KEY
+*
+* @see
+*/
+typedef enum
+{
+	CIPLUS_CIPHER_KEY_EVEN					= 0,
+	CIPLUS_CIPHER_KEY_ODD					= 1
+} CIPLUS_CIPHER_KEY_T;
+
+/**
+* CIPLUS_DECRYPT_KEY_DST_T
+*
+* @see
+*/
+typedef enum
+{
+	CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_A		= 0x0,
+	CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_B		= 0x1,
+	CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_C		= 0x2,
+	CIPLUS_DECRYPT_KEY_DST_SDEC_INPUT_CH_D		= 0x3,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_0	= 0x10,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_1	= 0x11,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_2	= 0x12,
+	CIPLUS_DECRYPT_KEY_DST_DEMUX_OUT_CI_CH_3	= 0x13,
+	CIPLUS_DECRYPT_KEY_DST_MAX					= 0xff,
+} CIPLUS_DECRYPT_KEY_DST_T;
 /******************************************************************************
     Function Declaration
 ******************************************************************************/
