@@ -37,7 +37,8 @@ extensions = [
     "globalindex",
     "sphinx.ext.intersphinx",
     "breathe",
-    "exhale"
+    "exhale",
+	"sphinx_git"
 ]
 
 intersphinx_mapping = {'v4l-dvb-apis': ('https://linuxtv.org/downloads/v4l-dvb-apis', None)}

@@ -27,4 +27,6 @@ version:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 
 %: Makefile
+	rm source/release-notes.rst
+	python3 source/release-notes.py > source/release-notes.rst
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

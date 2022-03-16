@@ -51,3 +51,4 @@ Contents
   venc
   api/index
   documentation
+  release-notes
