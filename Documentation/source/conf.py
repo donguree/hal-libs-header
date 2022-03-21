@@ -24,9 +24,8 @@ copyright = '2019-2020, LGE'
 author = 'LGE'
 
 # The full version, including alpha/beta/rc tags
-version = os.getenv('LEH_DOC_VERSION', 'latest')
-release = '1.0.1'
-
+release = os.popen('git describe').read().strip().replace('submissions/', '').split('-')[0]
+version = release
 
 # -- General configuration ---------------------------------------------------
 
@@ -41,7 +40,7 @@ extensions = [
 	"sphinx_git"
 ]
 
-intersphinx_mapping = {'v4l-dvb-apis': ('https://linuxtv.org/downloads/v4l-dvb-apis', None)}
+#intersphinx_mapping = {'v4l-dvb-apis': ('https://linuxtv.org/downloads/v4l-dvb-apis', None)}
 
 breathe_projects = { "doxyxml": "../xml/" }
 breathe_default_project = "doxyxml"
