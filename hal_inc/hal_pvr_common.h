@@ -26,7 +26,7 @@
 ----------------------------------------------------------------------------------------*/
 #include "hal_common.h"
 //#include "hal_sdec.h"
-#include "hal_vdec.h"
+//#include "hal_vdec.h"
 #include "hal_audio.h"
 
 
