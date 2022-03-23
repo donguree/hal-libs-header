@@ -340,7 +340,38 @@ Function & ioctl() API
    * @endrst
    */
 
-참고:
 
-API exception guide
-^^^^^^^^^^^^^^^^^^^
+API exception for SoCTS
+^^^^^^^^^^^^^^^^^^^^^^^
+
+SoCTS Coverage(http://swdev.lge.com/coverage.html)에서는 header에 선언된 API 중 얼마나 SoCTS에 구현
+되었는가를 표시 하고 있다.
+이런 저런 사정에 의하여 SoCTS로의 구현이 불가능할 경우 Coverage에서 미구현된 API로 집계되는 것을 피
+해야 한다.
+|  그것을 위한 예외처리 방법을 아래에 설명한다.
+
+규칙은 Function Calls 함수 이름 옆에 '//except from socts, TAS schedule:년.월' 을 적는 것이다.
+|  TAS schedule은 파트의 TAS test 구현 일정을 말한다.
+|  년월은 2022.08과 같이 년은 4개, 월은 2개의 숫자기한다.
+
+.. code-block:: rst
+
+  API_NAME //except from socts, TAS schedule:2022.08
+
+실제 rst 파일의 예시이다.
+
+.. code-block:: rst
+
+  Function Calls
+  --------------
+
+  * Extended V4L2 Control ids
+
+    * :c:macro:`V4L2_CID_EXT_HDMI_HPD_LOW_DURATION_DC_ON`
+    * :c:macro:`V4L2_CID_EXT_HDMI_HDCP_REPEATER_TOPOLOGY` //except from socts, TAS schedule:2022.08
+    * :c:macro:`V4L2_CID_EXT_HDMI_HDCP_REPEATER_STREAM_MANAGE`  //except from socts, TAS schedule:2022.08
+
+위의 코드가 build가 완료되면 하기와 같이 html에서 표현된다.
+
+.. image:: exception_socts.PNG
+
