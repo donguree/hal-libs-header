@@ -247,11 +247,11 @@ Module
 
 .. seealso::
 
-  For example :doc:`/alsa/aenc`, :doc:`/alsa/adec`
+  For example :doc:`/v4l2/scaler`, :doc:`/alsa/aenc`
 
 **Hierarchy** should be common for all pages of the modules.
 
-#. Module Name
+**Module Name**
 
     #. History
 
@@ -263,22 +263,40 @@ Module
             * Changed by - Email address registered in LGE
             * Comment - Notes about modification without line-break
 
-    #. Overview
+    #. Overall Description
 
-        * Picture and description of the module.
+        * Overall description of the module.
 
-    #. Data Types
+        #. Terminology and Definitions
 
-        * Links to references of structure, define, enum, etc.
+            * Terminology and definitions of the module.
 
-    #. Function Calls
+        #. System Context
 
-        * Links to references of function call including ioctl() interfaces.
+            * Picture and description of the module.
 
-    #. Other Information
+        #. Performance Requirements
 
-        * Above section must be ordered strictly.
-          But this section and below is free document for module's maintainer.
+            * Performance requirements of the module.
+
+        #. Design Constraints
+
+            * Design constraints of the module.
+
+    #. Functional Requirements
+
+        #. Data Types
+
+            * Links to references of structure, define, enum, etc.
+
+        #. Function Calls
+
+            * Links to references of function call including ioctl() interfaces.
+
+        #. Other Information
+
+            * Above section must be ordered strictly.
+            But this section and below is free document for module's maintainer.
 
 .. code-block:: rst
 
@@ -288,17 +306,32 @@ Module
     History
     -------
 
-    Overview
-    --------
+    Overall Description
+    -------------------
+
+    Terminology and Definitions
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    System Context
+    ^^^^^^^^^^^^^^
+
+    Performance Requirements
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Design Constraints
+    ^^^^^^^^^^^^^^^^^^
+
+    Functional Requirements
+    -----------------------
 
     Data Types
-    ----------
+    ^^^^^^^^^^
 
     * No data types
     * :c:type:`acas_ext_control`
 
     Function Calls
-    --------------
+    ^^^^^^^^^^^^^^
 
     * no function calls
     * :c:macro:`ACAS_EXT_S_CTL`
@@ -311,21 +344,31 @@ Function & ioctl() API
 .. code-block:: rst
 
   /**
-   * @brief Connects VFE(Video Front End)
+   * @brief description (ex: Connects Video Front End)
    *
    * @rst
-   * desc
+   * Functional Requirements
+   *   description
    *
-   * Commands & Parameters
+   * Responses to abnormal situations, including
+   *   description
+   *
+   * Performance Requirements
+   *   description
+   *
+   * Constraints
+   *   description
+   *
+   * Functions & Parameters
    *   .. code-block:: cpp
    *
    *     code
    *
    * Return Value
-   *   desc
+   *   description
    *
    * Control Type
-   *   desc
+   *   description
    *
    * Example
    *   .. code-block:: cpp
@@ -333,13 +376,12 @@ Function & ioctl() API
    *     code
    *
    * Remark (optional)
-   *   desc
+   *   description
    *
    * Seealso (optional)
-   *   desc
+   *   description
    * @endrst
    */
-
 
 API exception for SoCTS
 ^^^^^^^^^^^^^^^^^^^^^^^
