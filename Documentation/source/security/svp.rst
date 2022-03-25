@@ -10,27 +10,68 @@ Version Date       Changed by     Comment
 0.0.0   ...        ...            ...
 ======= ========== ============== =======
 
-Overview
---------
+Overall Description
+--------------------
 
-svp
+We will update the content soon.
 
-Overview
-^^^^^^^^
+Terminology and Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-svp
+================================= ======================================
+Definition                        Description
+================================= ======================================
+We will update the content soon.  We will update the content soon.
+================================= ======================================
+
+System Context
+^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Performance Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Design Constraints
+^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Functional Requirements
+-----------------------
+
+The data types and functions used in this module are as follows.
 
 Data Types
-----------
+^^^^^^^^^^^^
+We will update the content soon.
 
 Function Calls
---------------
-  * :cpp:func:`HAL_AIRPLAY_MFi_WriteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_DeleteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo2`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyProvisioningObject`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetCertificate`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetSignature`
-  * :cpp:func:`HAL_AIRPLAY_FairPlay_VerifyObject`
+^^^^^^^^^^^^^^^
+
+  * :cpp:func:`HAL_SVP_OpenSecureCpb`
+  * :cpp:func:`HAL_SVP_OpenSecureCpbEx`
+  * :cpp:func:`HAL_SVP_CloseSecureCpb`
+  * :cpp:func:`HAL_SVP_CloseSecureCpbEx`
+  * :cpp:func:`HAL_SVP_IsSecureReformatterSupported`
+  * :cpp:func:`HAL_SVP_SetSecureReformatter`
+  * :cpp:func:`HAL_SVP_SetSecureReformatterEx`
+  * :cpp:func:`HAL_SVP_GetSecureCpbInformation`
+  * :cpp:func:`HAL_SVP_GetSecureDecryptBufferHandle`
+  * :cpp:func:`HAL_SVP_GetSecureDecryptBufferHandleEx`
+  * :cpp:func:`HAL_SVP_GetAuInformation`
+  * :cpp:func:`HAL_SVP_CheckAuTypeIsDolbyHdrMeta`
+  * :cpp:func:`HAL_SVP_FlushSecureDecryptBuffer`
+  * :cpp:func:`HAL_SVP_FlushSecureDecryptBufferEx`
+  * :cpp:func:`HAL_SVP_Widevine_DecryptVideo`
+  * :cpp:func:`HAL_SVP_Widevine_DecryptAudio`
+  * :cpp:func:`HAL_SVP_WidevineSelectKey`
+  * :cpp:func:`HAL_SVP_WidevineSelectKey_OverV14`
+  * :cpp:func:`HAL_SVP_WidevineDecryptCTR`
+  * :cpp:func:`HAL_SVP_WidevineDecryptCENC`
+  * :cpp:func:`HAL_SVP_WidevineDecryptCENC_V16`
+  * :cpp:func:`HAL_SVP_CopyToSecureDecryptBuffer`
+  * :cpp:func:`HAL_SVP_CopyFromSecureBuffer`
+

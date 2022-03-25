@@ -10,27 +10,51 @@ Version Date       Changed by     Comment
 0.0.0   ...        ...            ...
 ======= ========== ============== =======
 
-Overview
---------
+Overall Description
+--------------------
 
-mmc
+We will update the content soon.
 
-Overview
-^^^^^^^^
+Terminology and Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-mmc
+================================= ======================================
+Definition                        Description
+================================= ======================================
+We will update the content soon.  We will update the content soon.
+================================= ======================================
+
+System Context
+^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Performance Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Design Constraints
+^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Functional Requirements
+-----------------------
+
+The data types and functions used in this module are as follows.
 
 Data Types
-----------
+^^^^^^^^^^^^
+We will update the content soon.
 
 Function Calls
---------------
-  * :cpp:func:`HAL_AIRPLAY_MFi_WriteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_DeleteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo2`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyProvisioningObject`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetCertificate`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetSignature`
-  * :cpp:func:`HAL_AIRPLAY_FairPlay_VerifyObject`
+^^^^^^^^^^^^^^^
+
+  * :cpp:func:`HAL_MMC_Open`
+  * :cpp:func:`HAL_MMC_Close`
+  * :cpp:func:`HAL_MMC_PON_Short`
+  * :cpp:func:`HAL_MMC_PON_Long`
+  * :cpp:func:`HAL_MMC_Get_CID`
+  * :cpp:func:`HAL_MMC_Get_SMART_Report`
+  * :cpp:func:`HAL_MMC_Get_Register`

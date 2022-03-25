@@ -10,27 +10,57 @@ Version Date       Changed by     Comment
 0.0.0   ...        ...            ...
 ======= ========== ============== =======
 
-Overview
---------
+Overall Description
+--------------------
 
-vo
+We will update the content soon.
 
-Overview
-^^^^^^^^
+Terminology and Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-vo
+================================= ======================================
+Definition                        Description
+================================= ======================================
+We will update the content soon.  We will update the content soon.
+================================= ======================================
+
+System Context
+^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Performance Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Design Constraints
+^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Functional Requirements
+-----------------------
+
+The data types and functions used in this module are as follows.
 
 Data Types
-----------
+^^^^^^^^^^^^
+We will update the content soon.
 
 Function Calls
---------------
-  * :cpp:func:`HAL_AIRPLAY_MFi_WriteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_DeleteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo2`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyProvisioningObject`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetCertificate`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetSignature`
-  * :cpp:func:`HAL_AIRPLAY_FairPlay_VerifyObject`
+^^^^^^^^^^^^^^^
+
+  * :cpp:func:`HAL_VO_Open`
+  * :cpp:func:`HAL_VO_Connect`
+  * :cpp:func:`HAL_VO_Config`
+  * :cpp:func:`HAL_VO_DisplayPicture`
+  * :cpp:func:`HAL_VO_RedrawPicture`
+  * :cpp:func:`HAL_VO_Close`
+  * :cpp:func:`HAL_VO_GetDeviceCapability`
+  * :cpp:func:`HAL_VO_FB_Initialize`
+  * :cpp:func:`HAL_VO_FB_Finalize`
+  * :cpp:func:`HAL_VO_FB_GetTargetFrameBuffer`
+  * :cpp:func:`HAL_VO_FB_UpdateFrameBuffer`
+  * :cpp:func:`HAL_VO_FB_UpdateFrameBufferProperty`
+

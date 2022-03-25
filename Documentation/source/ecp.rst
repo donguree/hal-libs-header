@@ -10,21 +10,47 @@ Version Date       Changed by     Comment
 0.0.0   ...        ...            ...
 ======= ========== ============== =======
 
-Overview
---------
+Overall Description
+--------------------
 
-ecp
+We will update the content soon.
 
-Overview
-^^^^^^^^
+Terminology and Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-ecp
+================================= ======================================
+Definition                        Description
+================================= ======================================
+We will update the content soon.  We will update the content soon.
+================================= ======================================
+
+System Context
+^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Performance Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Design Constraints
+^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Functional Requirements
+-----------------------
+
+The data types and functions used in this module are as follows.
 
 Data Types
-----------
+^^^^^^^^^^^^
+We will update the content soon.
 
 Function Calls
---------------
+^^^^^^^^^^^^^^^
+
   * :cpp:func:`HAL_ECP_CI_PLUS_Initialize`
   * :cpp:func:`HAL_ECP_CI_PLUS_Finalize`
   * :cpp:func:`HAL_ECP_CA_CI_PLUS_ExecuteTEE`
@@ -33,9 +59,4 @@ Function Calls
   * :cpp:func:`HAL_ECP_CI_PLUS_WriteCertKey`
   * :cpp:func:`HAL_ECP_CI_PLUS_SetCryptographyByChannel`
   * :cpp:func:`HAL_ECP_CI_PLUS_SetCipherKeysByChannel`
-  * :cpp:func:`HAL_SVP_OpenSecureCpb`
-  * :cpp:func:`HAL_SVP_OpenSecureCpbEx`
-  * :cpp:func:`HAL_SVP_CloseSecureCpb`
-  * :cpp:func:`HAL_SVP_CloseSecureCpbEx`
-  * :cpp:func:`HAL_SVP_GetSecureCpbInformation`
 

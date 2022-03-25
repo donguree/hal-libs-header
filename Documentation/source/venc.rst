@@ -10,27 +10,59 @@ Version Date       Changed by     Comment
 0.0.0   ...        ...            ...
 ======= ========== ============== =======
 
-Overview
---------
+Overall Description
+--------------------
 
-Venc
+We will update the content soon.
 
-Overview
-^^^^^^^^
+Terminology and Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Venc
+================================= ======================================
+Definition                        Description
+================================= ======================================
+We will update the content soon.  We will update the content soon.
+================================= ======================================
+
+System Context
+^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Performance Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Design Constraints
+^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Functional Requirements
+-----------------------
+
+The data types and functions used in this module are as follows.
 
 Data Types
-----------
+^^^^^^^^^^^^
+We will update the content soon.
 
 Function Calls
---------------
-  * :cpp:func:`HAL_AIRPLAY_MFi_WriteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_DeleteKeySet`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo2`
-  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyProvisioningObject`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetCertificate`
-  * :cpp:func:`HAL_AIRPLAY_MFi_GetSignature`
-  * :cpp:func:`HAL_AIRPLAY_FairPlay_VerifyObject`
+^^^^^^^^^^^^^^^
+
+  * :cpp:func:`HAL_VENC_Open`
+  * :cpp:func:`HAL_VENC_Close`
+  * :cpp:func:`HAL_VENC_OpenEx`
+  * :cpp:func:`HAL_VENC_CloseEx`
+  * :cpp:func:`HAL_VENC_Connect`
+  * :cpp:func:`HAL_VENC_Start`
+  * :cpp:func:`HAL_VENC_Stop`
+  * :cpp:func:`HAL_VENC_SetParam`
+  * :cpp:func:`HAL_VENC_GetParam`
+  * :cpp:func:`HAL_VENC_RegisterEncoderCallback`
+  * :cpp:func:`HAL_VENC_CopyData`
+  * :cpp:func:`HAL_VENC_ReleaseData`
+  * :cpp:func:`HAL_VENC_GetThumbnail`
+  * :cpp:func:`HAL_VENC_ResetGOP`
+  * :cpp:func:`HAL_VENC_DebugMenu`

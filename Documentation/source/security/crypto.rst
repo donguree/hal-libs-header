@@ -10,21 +10,47 @@ Version Date       Changed by     Comment
 0.0.0   ...        ...            ...
 ======= ========== ============== =======
 
-Overview
---------
+Overall Description
+--------------------
 
-crypto
+We will update the content soon.
 
-Overview
-^^^^^^^^
+Terminology and Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-crypto
+================================= ======================================
+Definition                        Description
+================================= ======================================
+We will update the content soon.  We will update the content soon.
+================================= ======================================
+
+System Context
+^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Performance Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Design Constraints
+^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Functional Requirements
+-----------------------
+
+The data types and functions used in this module are as follows.
 
 Data Types
-----------
+^^^^^^^^^^^^
+We will update the content soon.
 
 Function Calls
---------------
+^^^^^^^^^^^^^^^
+
   * :cpp:func:`HAL_CRYPTO_WriteSecureData`
   * :cpp:func:`HAL_CRYPTO_NF_GetESN`
   * :cpp:func:`HAL_CRYPTO_NF_Encrypt`
@@ -44,4 +70,42 @@ Function Calls
   * :cpp:func:`HAL_CRYPTO_NYX_RSA_ExportPublicKey`
   * :cpp:func:`HAL_CRYPTO_Debug`
   * :cpp:func:`HAL_CRYPTO_SFU_Initialize`
-  
+  * :cpp:func:`HAL_CRYPTO_SFU_Finalize`
+  * :cpp:func:`HAL_CRYPTO_SFU_GetRSAKey`
+  * :cpp:func:`HAL_CRYPTO_SFU_GetAESKey`
+  * :cpp:func:`HAL_CRYPTO_ReadMskToSecureStore`
+  * :cpp:func:`HAL_CRYPTO_WriteMskToSecureStore`
+  * :cpp:func:`HAL_CRYPTO_ReadNLPSecret`
+  * :cpp:func:`HAL_CRYPTO_BBC_ReadClientKey`
+  * :cpp:func:`HAL_CRYPTO_ReadPrsSecret`
+  * :cpp:func:`HAL_CRYPTO_CIPLUS_GetCiPlusSslPubKey`
+  * :cpp:func:`HAL_CRYPTO_CI_PLUS_GetCiPlusSslPubKey`
+  * :cpp:func:`HAL_CRYPTO_CI_PLUS_GetCiPlusStdKey`
+  * :cpp:func:`HAL_CRYPTO_CI_PLUS_GetCiPlusDhKey`
+  * :cpp:func:`HAL_CRYPTO_GetDebugKey`
+  * :cpp:func:`HAL_CRYPTO_ReadDVRDeviceSecret`
+  * :cpp:func:`HAL_CRYPTO_WriteDVRDeviceSecret`
+  * :cpp:func:`HAL_CRYPTO_TNM_ReadSecretKey`
+  * :cpp:func:`HAL_CRYPTO_TNM_WriteSecretKey`
+  * :cpp:func:`HAL_CRYPTO_HYBRIDCAST_ReadSecret`
+  * :cpp:func:`HAL_CRYPTO_CIPLUS_GetCiCanalReadyKey`
+  * :cpp:func:`HAL_CRYPTO_Multiple_ReadClientKey`
+  * :cpp:func:`HAL_CRYPTO_ReadSkypeSecret`
+  * :cpp:func:`HAL_CRYPTO_ReadRemoteDiagSecret`
+  * :cpp:func:`HAL_CRYPTO_SDI_ReadPrivKeyAndID`
+  * :cpp:func:`HAL_CRYPTO_ReadRDXSecret`
+  * :cpp:func:`HAL_CRYPTO_SDP_ReadCommonKey`
+  * :cpp:func:`HAL_CRYPTO_TWINTV_ReadSecret`
+  * :cpp:func:`HAL_CRYPTO_ReadFreeViewPrivateKey`
+  * :cpp:func:`HAL_CRYPTO_ReadMVPDSecret`
+  * :cpp:func:`HAL_CRYPTO_WriteMVPDSecret`
+  * :cpp:func:`HAL_CRYPTO_WriteHDCPOnSecure`
+  * :cpp:func:`HAL_CRYPTO_ReadHDCPFromSecure`
+  * :cpp:func:`HAL_CRYPTO_AES_Encrypt`
+  * :cpp:func:`HAL_CRYPTO_AES_Decrypt`
+  * :cpp:func:`HAL_CRYPTO_RSA_Encrypt`
+  * :cpp:func:`HAL_CRYPTO_RSA_Decrypt`
+  * :cpp:func:`HAL_CRYPTO_RSA_Sign`
+  * :cpp:func:`HAL_CRYPTO_RSA_Verify`
+  * :cpp:func:`HAL_CRYPTO_EncryptDbgData`
+  * :cpp:func:`HAL_CRYPTO_DecryptDbgData`  
