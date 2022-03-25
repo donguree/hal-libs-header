@@ -367,9 +367,6 @@ Function & ioctl() API
    * Return Value
    *   description
    *
-   * Control Type
-   *   description
-   *
    * Example
    *   .. code-block:: cpp
    *
