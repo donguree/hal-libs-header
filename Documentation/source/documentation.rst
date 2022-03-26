@@ -296,7 +296,7 @@ Module
         #. Other Information
 
             * Above section must be ordered strictly.
-            But this section and below is free document for module's maintainer.
+            * But this section and below is free document for module's maintainer.
 
 .. code-block:: rst
 

@@ -1,4 +1,4 @@
-CI(ecp)
+CRIU
 ==========
 
 History
@@ -51,12 +51,6 @@ We will update the content soon.
 Function Calls
 ^^^^^^^^^^^^^^^
 
-  * :cpp:func:`HAL_ECP_CI_PLUS_Initialize`
-  * :cpp:func:`HAL_ECP_CI_PLUS_Finalize`
-  * :cpp:func:`HAL_ECP_CA_CI_PLUS_ExecuteTEE`
-  * :cpp:func:`HAL_ECP_CI_PLUS_LoadKeyMaterials`
-  * :cpp:func:`HAL_ECP_CI_PLUS_LoadCertKey`
-  * :cpp:func:`HAL_ECP_CI_PLUS_WriteCertKey`
-  * :cpp:func:`HAL_ECP_CI_PLUS_SetCryptographyByChannel`
-  * :cpp:func:`HAL_ECP_CI_PLUS_SetCipherKeysByChannel`
-
+  * :cpp:func:`HAL_CRIU_PreCheckpointNotify`
+  * :cpp:func:`HAL_CRIU_PostDumpNotify`
+  * :cpp:func:`HAL_CRIU_PostRestoreNotify`

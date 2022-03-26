@@ -39,8 +39,6 @@ Contents
   :maxdepth: 2
   :numbered:
 
-  airplay
-  ecp
   gal
   photo
   pvr

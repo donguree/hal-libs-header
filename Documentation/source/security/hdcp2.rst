@@ -1,4 +1,4 @@
-hdcp2
+HDCP2
 ==========
 
 History

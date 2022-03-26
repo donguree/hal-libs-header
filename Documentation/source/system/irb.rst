@@ -1,4 +1,4 @@
-irb
+IRB
 ==========
 
 History

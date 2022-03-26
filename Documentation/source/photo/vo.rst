@@ -1,4 +1,4 @@
-vo
+VO
 ==========
 
 History
@@ -63,4 +63,3 @@ Function Calls
   * :cpp:func:`HAL_VO_FB_GetTargetFrameBuffer`
   * :cpp:func:`HAL_VO_FB_UpdateFrameBuffer`
   * :cpp:func:`HAL_VO_FB_UpdateFrameBufferProperty`
-

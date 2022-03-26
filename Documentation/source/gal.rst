@@ -1,4 +1,4 @@
-Graphic(gal)
+GAL
 ============
 
 History

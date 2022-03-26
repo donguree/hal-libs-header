@@ -1,4 +1,4 @@
-jpeg
+JPEG
 ==========
 
 History

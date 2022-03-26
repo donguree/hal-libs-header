@@ -1,4 +1,4 @@
-criu
+Airplay
 ==========
 
 History
@@ -11,7 +11,7 @@ Version Date       Changed by     Comment
 ======= ========== ============== =======
 
 Overall Description
---------------------
+----------------------
 
 We will update the content soon.
 
@@ -48,9 +48,12 @@ Data Types
 ^^^^^^^^^^^^
 We will update the content soon.
 
-Function Calls
-^^^^^^^^^^^^^^^
-
-  * :cpp:func:`HAL_CRIU_PreCheckpointNotify`
-  * :cpp:func:`HAL_CRIU_PostDumpNotify`
-  * :cpp:func:`HAL_CRIU_PostRestoreNotify`
+  * :cpp:func:`HAL_AIRPLAY_MFi_WriteKeySet`
+  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyKeySet`
+  * :cpp:func:`HAL_AIRPLAY_MFi_DeleteKeySet`
+  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo`
+  * :cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo2`
+  * :cpp:func:`HAL_AIRPLAY_MFi_VerifyProvisioningObject`
+  * :cpp:func:`HAL_AIRPLAY_MFi_GetCertificate`
+  * :cpp:func:`HAL_AIRPLAY_MFi_GetSignature`
+  * :cpp:func:`HAL_AIRPLAY_FairPlay_VerifyObject`

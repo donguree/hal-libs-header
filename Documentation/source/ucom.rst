@@ -1,4 +1,4 @@
-micom
+UCOM
 ==========
 
 History
