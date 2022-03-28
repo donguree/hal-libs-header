@@ -7,46 +7,45 @@ History
 ======= ========== ============== =======
 Version Date       Changed by     Comment
 ======= ========== ============== =======
-0.0.0   ...        ...            ...
+1.0.0   22.03.28   kyungnam.bae
 ======= ========== ============== =======
 
 Overall Description
 --------------------
 
-We will update the content soon.
+To meet the requirements of confidentiality and integrity for values within
+HDCP2.x IIA specification. HAL_HDCP2 functions support that the a confidential
+value must never be revealed and the integrity of many values in the system is
+protected by fail-safe mechanisms of the protocol.
 
 Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-================================= ======================================
-Definition                        Description
-================================= ======================================
-We will update the content soon.  We will update the content soon.
-================================= ======================================
+Refer to the HDCP2.x IIA specifications
 
 System Context
 ^^^^^^^^^^^^^^
 
-We will update the content soon.
+Refer to the HDCP2.x IIA specifications
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+Check the requirements of each HAL_HDCP2 functions.
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Functional Requirements
 -----------------------
 
-The data types and functions used in this module are as follows.
+NA
 
 Data Types
 ^^^^^^^^^^^^
-We will update the content soon.
+NA
 
 Function Calls
 ^^^^^^^^^^^^^^^
