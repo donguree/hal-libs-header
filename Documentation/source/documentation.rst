@@ -239,64 +239,21 @@ will prints all warnings and errors.
 
 in ``html`` directory ``html/index.html`` is generated in doxygen output.
 
+
 Documentation Templates
 -----------------------
 
-Module
-^^^^^^
+BSP Implementation Guide
+^^^^^^^^^^^^^^^^^^^^^^^^^
+BSP Implementation Guide 문서에 필수로 필요한 항목에 대하여 IEEE Stdandard-830 문서를 참고하여 작성되었다.
+
+모듈 rst 파일 포맷 및 가이드
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+모듈의 BSP Implementation Guide 메인 페이지에 대한 내용을 작성하는 포맷 및 가이드이다.
 
 .. seealso::
 
-  For example :doc:`/v4l2/scaler`, :doc:`/alsa/aenc`
-
-**Hierarchy** should be common for all pages of the modules.
-
-**Module Name**
-
-    #. History
-
-        * Decending list of modification history about the module.
-        * Columns
-
-            * Version - Use `semver <https://www.semver.org/>`_
-            * Date - YYYY-MM-DD
-            * Changed by - Email address registered in LGE
-            * Comment - Notes about modification without line-break
-
-    #. Overall Description
-
-        * Overall description of the module.
-
-        #. Terminology and Definitions
-
-            * Terminology and definitions of the module.
-
-        #. System Context
-
-            * Picture and description of the module.
-
-        #. Performance Requirements
-
-            * Performance requirements of the module.
-
-        #. Design Constraints
-
-            * Design constraints of the module.
-
-    #. Functional Requirements
-
-        #. Data Types
-
-            * Links to references of structure, define, enum, etc.
-
-        #. Function Calls
-
-            * Links to references of function call including ioctl() interfaces.
-
-        #. Other Information
-
-            * Above section must be ordered strictly.
-            * But this section and below is free document for module's maintainer.
+  참고 :doc:`http://10.157.92.177:8000/linuxtv/master/latest_html/v4l2/scaler.html#`
 
 .. code-block:: rst
 
@@ -306,71 +263,122 @@ Module
     History
     -------
 
+    ======= ========== ================= =======
+    Version Date       Changed by        Comment
+    ======= ========== ================= =======
+    1.8.0   2022-03-29 seonghoon1128.do_ new kernel event CID : V4L2_CID_EXT_VSC_EVENT_KERNEL
+    0.0.0   ...        ...               ...
+    ======= ========== ================= =======
+
     Overall Description
     -------------------
+    Write overall description.
 
     Terminology and Definitions
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Definitions of terms and abbreviations used in this document are as follows.
+
+    ============= ============
+    Definition    Description
+    ============= ============
+    VFE           Video front end
+    VSC           Video scaler control
+    VDO           Video decoder output
+    AVD           Analog video decoder
+    ADC           Analog digital converter
+    Dest          Destination
+    ...           ....
+    ...           ....
+    ============= ============
 
     System Context
     ^^^^^^^^^^^^^^
+    BSP 모듈과 플랫폼 서비스 또는 라이브러리의 인터페이스에 관한 동작 등에 관계를 나타낼 수 있는 System Context Diagram과 Diagram의 설명을 작성한다.
+    Communication Diagram이 추천되나 다른 양식의 Diagram으로 작성될 수 있다.
 
     Performance Requirements
     ^^^^^^^^^^^^^^^^^^^^^^^^
+    소프트웨어 또는 소프트웨어와 사람의 상호작용에 대하여 수치화된 정적/동적 요구사항이 명시되어야 한다.
+    요구 사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
 
     Design Constraints
     ^^^^^^^^^^^^^^^^^^
+    다른 표준, 소프트웨어, 하드웨어 한계, 모듈의 특성 등에 의해 부과될 수 있는 제약사항을 명시해야 한다.
+    요구 사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
 
     Functional Requirements
     -----------------------
+    The data types and functions used in this module are as follows.
 
     Data Types
     ^^^^^^^^^^
 
+    * Parameter에 대한 data type 을 나열한다.
     * No data types
     * :c:type:`acas_ext_control`
 
     Function Calls
     ^^^^^^^^^^^^^^
 
+    * Function에 대한 List를 작성한다.
     * no function calls
     * :c:macro:`ACAS_EXT_S_CTL`
 
-Function & ioctl() API
-^^^^^^^^^^^^^^^^^^^^^^
+API function 요구사항 헤더 파일 포맷 및 작성 가이드
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+모듈의 각 API function에 대한 요구사항을 작성하는 포맷 및 가이드이다.
+
+.. seealso::
+
+  참고 :doc:`http://10.157.92.177:8000/linuxtv/master/latest_html/api/define_v4l2-controls-ext_8h_1a736a4e5b3fe4087edb9575898fcc6995.html#c.V4L2_CID_EXT_VSC_ORBIT_WINDOW`
 
 (based on v4l2 docs)
 
 .. code-block:: rst
 
   /**
-   * @brief description (ex: Connects Video Front End)
+   * @brief Connects Video Front End (간단한 설명을 작성한다.)
    *
    * @rst
    * Functional Requirements
-   *   description
+   *   API interface에 대한 요구사항을 작성한다.
    *
    * Responses to abnormal situations, including
-   *   description
+   *   Abnormal situations, negative 조건에서의 BSP 예외처리에 대해 작성한다.
    *
    * Performance Requirements
-   *   description
+   *   해당 Interface에 관련된 Performance Requirements 를 작성한다.
+   *   요구사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
    *
    * Constraints
-   *   description
+   *   다음과 같이 개발자의 선택을 제한할 모든 항목에 관한 일반적인 설명을 제공해야 한다.
+   *   Regulatory plocies
+   *   Hardware limitations (e.g., signal timing requirements)
+   *   Interfaces to other applications
+   *   Parallel operation
+   *   Audit functions
+   *   Control functions
+   *   Higher-order language requirements
+   *   Signal handshake protocols(e.g., XON-XOFF, ACK-NACK)
+   *   Reliability requirements
+   *   Criticality of the application
+   *   Safety and security considerations
+   *   요구사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
    *
    * Functions & Parameters
    *   .. code-block:: cpp
    *
-   *     code
+   *     // function or command 나열
+   *
+   *     // parameter 나열
    *
    * Return Value
-   *   description
+   *   Return Value에 관한 설명을 작성한다.
    *
    * Example
    *   .. code-block:: cpp
    *
-   *     code
+   *     // 유저의 API function 사용 샘플코드를 작성한다.
    *
    * Remark (optional)
    *   description
@@ -379,6 +387,15 @@ Function & ioctl() API
    *   description
    * @endrst
    */
+
+Status File
+^^^^^^^^^^^
+
+.. seealso::
+
+  For example :doc:`/status-files/scaler-status`, :doc:`/status-files/aenc-status`
+
+(Not yet)
 
 API exception for SoCTS
 ^^^^^^^^^^^^^^^^^^^^^^^
