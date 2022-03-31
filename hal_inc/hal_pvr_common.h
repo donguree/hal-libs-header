@@ -25,8 +25,6 @@
     File Inclusions
 ----------------------------------------------------------------------------------------*/
 #include "hal_common.h"
-#include "hal_sdec.h"
-#include "hal_vdec.h"
 #include "hal_audio.h"
 
 
@@ -122,6 +120,45 @@ typedef enum _PVR_FRAMERATE_T
 #define	MAX_SUPPORTED_FR_NR (PVR_FR_60HZ)
 	PVR_FR_UNKNOWN
 } PVR_FRAMERATE_T;
+
+
+
+/**
+ * codec type
+ */
+typedef enum
+{
+	VDEC_CODEC_NONE	= 0,
+	VDEC_CODEC_MPEG1,		/* deprecated */
+	VDEC_CODEC_MPEG2,
+	VDEC_CODEC_MPEG4_PART2,	/* deprecated */
+	VDEC_CODEC_H264_MPEG4AVC,
+	VDEC_CODEC_AVS,
+	VDEC_CODEC_VC1,			/* deprecated */
+	VDEC_CODEC_DIVX,		/* deprecated */
+	VDEC_CODEC_HEVC,
+
+	VDEC_CODEC_MIN = VDEC_CODEC_NONE,
+	VDEC_CODEC_MAX = VDEC_CODEC_HEVC,
+} VDEC_CODEC_T;
+
+
+/**
+ * SDEC PID Type For Filtering.
+*/
+typedef enum {
+	SDEC_PID_VIDEO = 0,
+	SDEC_PID_AUDIO,
+	SDEC_PID_AUDIO_DESCRIPTION = SDEC_PID_AUDIO,
+	SDEC_PID_PCR,
+	SDEC_PID_TELETEXT,
+	SDEC_PID_SUBTITLE ,
+	SDEC_PID_DCC = SDEC_PID_SUBTITLE,
+	SDEC_PID_PSI,
+	SDEC_PID_GP,
+	SDEC_PID_TYPE_NUM
+} SDEC_PID_TYPE_T;
+
 
 /**
  * Stream information
