@@ -44,14 +44,14 @@
 typedef enum
 {
 	HAL_GAL_OK						=	 0,
-	HAL_GAL_ERROR     				=	-1,		/* from ERROR				*/
-	HAL_GAL_INVALID_PARAM			=	-2,		/* from PARAMETER ERROR		*/
-	HAL_GAL_NOT_AVAILABLE			=	-3,		/* from NOT_ENOUGH_RESOURCE	*/
-	HAL_GAL_NOT_CALLABLE			=	-4,		/* from NOT_SUPPORTED		*/
-	HAL_GAL_ERR_LENGTH				=	-5,		/* from NOT_PERMITTED		*/
-	HAL_GAL_ERR_TIMEOUT				=	-6,		/* from TIMEOUT				*/
+	HAL_GAL_ERROR     				=	-1,		/**< General ERROR				*/
+	HAL_GAL_INVALID_PARAM			=	-2,		/**< PARAMETER ERROR		*/
+	HAL_GAL_NOT_AVAILABLE			=	-3,		/**< NOT_ENOUGH_RESOURCE	*/
+	HAL_GAL_NOT_CALLABLE			=	-4,		/**< NOT_SUPPORTED		*/
+	HAL_GAL_ERR_LENGTH				=	-5,		/**< NOT_PERMITTED		*/
+	HAL_GAL_ERR_TIMEOUT				=	-6,		/**< TIMEOUT				*/
 
-	HAL_GAL_ERR_OBJ_DELETED			=	-101
+	HAL_GAL_ERR_OBJ_DELETED			=	-101        /**< OBJ DELETED ERROR */
 
 } HAL_GAL_STATE_T;
 
@@ -408,7 +408,8 @@ typedef enum
 } HAL_GAL_DECODEIMAGE_FLAGS_T;
 
 /**
- * This enumeration describes the window ID.
+ * @brief This enumeration describes the window ID.
+ * This enum is deprecated.
  */
 typedef enum
 {
@@ -465,6 +466,7 @@ typedef enum
 
 /**
  * This enumeration describes flags for stereoscope mode setting.
+ * This enum is deprecated.
  */
 typedef enum
 {
@@ -475,6 +477,7 @@ typedef enum
 
 /**
  * This enumeration describes the flags controlling osd path.
+ * This enum is deprecated.
  */
 typedef enum
 {
@@ -484,6 +487,7 @@ typedef enum
 
 /**
  * This enumeration describes the flags controlling 3D mode of OSD.
+ * This enum is deprecated.
  */
 typedef enum
 {
@@ -493,6 +497,7 @@ typedef enum
 
 /**
  * This enumeration describes the flags controlling 3D type of OSD.
+ * This enum is deprecated.
  */
 typedef enum
 {
@@ -526,6 +531,7 @@ typedef enum
 
 /**
  * This enumeration describes flags for framebuffer property setting.
+ * This enum is deprecated.
  */
 typedef enum
 {
@@ -546,6 +552,10 @@ typedef enum
 	HAL_GAL_CURSOR_HOTSPOT_LAST				=	0x00000010,	/**< dispRect region on the framebuffer */
 } HAL_GAL_CURSOR_HOTSPOT_TYPES_T;
 
+
+/**
+* This structure is for a resolution info such as width and height.
+*/
 typedef struct
 {
 	unsigned short		width;
@@ -624,6 +634,9 @@ typedef struct
 	HAL_GAL_POSITION_T	cursorGapPosition;
 } HAL_GAL_CURSOR_PROPERTY_INFO_T;
 
+/**
+* This enum is deprecated.
+*/
 typedef enum
 {
 	HAL_GAL_OSD_ROTATE_NONE = 0,
@@ -632,6 +645,9 @@ typedef enum
 }
 HAL_GAL_OSD_ROTATE_TYPE_T;
 
+/**
+* This enum is deprecated.
+*/
 typedef enum
 {
     GAL_OSD_PORTRAIT_ARC_ORIGINAL_MODE = 0,
@@ -647,24 +663,111 @@ typedef enum
     Initialize / Finalize Operation
 ----------------------------------------------------------------------------------------*/
 /**
- *	@brief Initializes GPU module.
- *	@return	if success HAL_GAL_OK, else HAL_GAL_ERROR.
- *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
+ * @brief Initializes GAL module.
+ *
+ * @rst
+ * Functional Requirements
+ *  Initializes GFX driver which is 2D graphics hardware accelerator engine.
+ *  Call Chipset driver initialization function and create resources for GAL module such as OSD framebuffer.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *  None
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      if( HAL_GAL_Init() !=  HAL_GAL_OK) {
+ *          // Error handling
+ *      }
+ * @endrst
  */
 HAL_GAL_STATE_T  HAL_GAL_Init(void);
 
 /**
- *	@brief Finalize 2D graphics module.
- *	@return	if success HAL_GAL_OK, else HAL_GAL_ERROR.
- *	@author	jinhyuk.hong (jinhyuk.hong@lge.com)
+ * @brief Finalize GAL module.
+ *
+ * @rst
+ * Functional Requirements
+ *  Finalize GFX driver and free OSD framebuffer.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *  None
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      if( HAL_GAL_Finalize() !=  HAL_GAL_OK) {
+ *          // Error handling
+ *      }
+ * @endrst
  */
 HAL_GAL_STATE_T  HAL_GAL_Finalize(void);
 
-/**
- * 	@brief Gets 2D graphic capability of device.
- * 	@param	pDeviceCapabilityInfo [in]  2D graphic capability of device.
- *	@return if success HAL_GAL_OK, else HAL_GAL_ERROR.
- *	@author jinhyuk.hong (jinhyuk.hong@lge.com)
+ /**
+ * @brief Get the capabilities of GFX driver.
+ *
+ * @rst
+ * Functional Requirements
+ *  Get the capabilities of GFX driver.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pDeviceCapabilityInfo [IN]  2D graphic capability of device.
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Remarks
+ *  The "/dev/gfx" file that is mapping with gfx physical memory space is needed.
+ *  And that file is possible to mmap to mapping with virtual address.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_DEVICE_CAPABILITY_INFO_T deviceCapabilityInfo = {0,};
+ *
+ *      if( HAL_GAL_GetDeviceCapability(deviceCapabilityInfo) !=  HAL_GAL_OK) {
+ *          // Error handling
+ *      }
+
+ * @endrst
  */
 HAL_GAL_STATE_T  HAL_GAL_GetDeviceCapability(HAL_GAL_DEVICE_CAPABILITY_INFO_T *pDeviceCapabilityInfo);
 
@@ -674,97 +777,347 @@ HAL_GAL_STATE_T  HAL_GAL_GetDeviceCapability(HAL_GAL_DEVICE_CAPABILITY_INFO_T *p
 ----------------------------------------------------------------------------------------*/
 
 /**
- * 	@brief Allocates memory buffer for a surface in the video memory area. (for using H/W accerated graphics)
- * 	@param	width 		[in]  surface width in pixels
- * 	@param	height		[in]  surface height in pixels
- * 	@param	pixelFormat	[in]  pixel format
- * 	@param	pSurfaceInfo	[out]  Pointer to a HAL_GAL_SURFACE_INFO_T structure to information about newly allocated surface (video memory offset, pitch, height, etc.).
- *	@return if success HAL_GAL_OK, else HAL_GAL_ERROR.
- *	@author jinhyuk.hong (jinhyuk.hong@lge.com)
+ * @brief Create a surface
+ *
+ * @rst
+ * Functional Requirements
+ *  Allocates memory buffer for a surface in the video memory area. (for using H/W accerated graphics)
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 50ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      width 		[IN]  surface width in pixels
+ *      height		[IN]  surface height in pixels
+ *      pixelFormat	[IN]  pixel format
+ *      pSurfaceInfo	[OUT]  Pointer to a HAL_GAL_SURFACE_INFO_T structure to information about newly allocated surface
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Remarks
+ *  When called this API, do not need surface clear.
+ *  If pixel format is 8bpp, palette values must be initialized as NULL(0x0) using SetSurfacePalette().
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_DEVICE_CAPABILITY_INFO_T deviceCapabilityInfo = {0,};
+ *
+ *      if( HAL_GAL_GetDeviceCapability(deviceCapabilityInfo) !=  HAL_GAL_OK) {
+ *          // Error handling
+ *      }
+ * @endrst
  */
 HAL_GAL_STATE_T  HAL_GAL_CreateSurface(UINT16 width, UINT16 height, HAL_GAL_PIXEL_FORMAT_T pixelFormat, HAL_GAL_SURFACE_INFO_T *pSurfaceInfo);
 
-
 /**
-  *  @brief Dellocates buffer for a surface in the video memory area.
-  *  @param	pSurfaceInfo	[in]  handler
-  *  @param bufferId video memroy identifier for the surface.
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ * @brief Destroy the surface
+ *
+ * @rst
+ * Functional Requirements
+ *  Dellocates buffer for a surface in the video memory area.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pSurfaceInfo	[IN]  Pointer to a HAL_GAL_SURFACE_INFO_T structure to information
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      UINT16 w = 1920;
+ *      UINT16 h = 1080;
+ *      HAL_GAL_PIXEL_FORMAT_T pixelFormat = HAL_GAL_PIXEL_FORMAT_ARGB;
+ *      HAL_GAL_SURFACE_INFO_T surf;
+ *
+ *      if(HAL_GAL_CreateSurface(w, h, pixelFormat, &surf) != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_DestroySurface(HAL_GAL_SURFACE_INFO_T *pSurfaceInfo);
 
 /*----------------------------------------------------------------------------------------
     2D graphic drawing operation
 ----------------------------------------------------------------------------------------*/
 /**
-  *  @brief Blit an area from one surface to other surface based on blit flags.
-  *  @param	pSrcSurface	[in]  source surface handler
-  *  @param	pSrcRect		[in]  source rectangle which represent blited area in the source surface
-  *  @param	pDstSurface	[in]  destination surface handler
-  *  @param	dx			[in]  x in destination surface
-  *  @param	dy			[in]  y in destination surface
-  *  @param	pBlitFlags		[in] blitFlags blitting flags which indicate various blit operations
-  *  @param	pBlitSettings	[in] blitSettings settings for blit operation
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ * @brief Blit an area from one surface to other surface based on blit flags.
+ *
+ * @rst
+ * Functional Requirements
+ *  Blit an area from one surface to other surface based on blit flags.
+ *
+ *  This entire operation must be assured critical section (using Lock/Unlock) until the operation is completed.
+ *  Because some blitFlags may require operation more than twice internal operations.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pSrcSurface	[IN]  source surface handler
+ *      pSrcRect		[IN]  source rectangle which represent blited area in the source surface
+ *      pDstSurface	[IN]  destination surface handler
+ *      dx			[IN]  x in destination surface
+ *      dy			[IN]  y in destination surface
+ *      pBlitFlags		[IN] blitFlags blitting flags which indicate various blit operations
+ *      pBlitSettings	[IN] blitSettings settings for blit operation
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_SURFACE_INFO_T srcSurface, dstSurface;
+ *      HAL_GAL_CreateSurface(200, 200, HAL_GAL_PIXEL_FORMAT_ARGB, &srcSurface);
+ *      HAL_GAL_CreateSurface(200, 200, HAL_GAL_PIXEL_FORMAT_ARGB, &dstSurface);
+ *      HAL_GAL_RECT_T srcRect = {100, 100, 100, 100};
+ *      UINT16 dx=10, dy=10;
+ *      HAL_GAL_BLIT_FLAGS_T blitFlags = HAL_GAL_BLIT_BLEND_COLORALPHA| HAL_GAL_BLIT_BLEND_ALPHACHANNEL| HAL_GAL_BLIT_SRC_PREMULTIPLY;
+ *      blitSettings.srcBlend = HAL_GAL_BLEND_ONE;
+ *      blitSettings.dstBlend = HAL_GAL_BLEND_ INVSRCALPHA;
+ *      HAL_GAL_BLIT_SETTINGS_T blitSettings;
+ *      blitSettings.alpha = 0xe0; // almost opaque global alpha
+ *      blitSettings.srcColorkey = 0x0;
+ *      blitSettings.dstColorkey = 0x0;
+ *
+ *      retVal = HAL_GAL_Blit(&srcSurface, &srcRect, &dstSurface, dx, dy, &blitFlags, &blitSettings);
+ *      if (retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_Blit(HAL_GAL_SURFACE_INFO_T* pSrcSurface, HAL_GAL_RECT_T* pSrcRect, HAL_GAL_SURFACE_INFO_T* pDstSurface, UINT16 dx, UINT16 dy, HAL_GAL_BLIT_FLAGS_T* pBlitFlags, HAL_GAL_BLIT_SETTINGS_T* pBlitSettings);
 
 /**
-  *  @brief Stretch blit an area from one surface to other surface based on blit flags.
-  *  @param		pSrcSurface	[in]  source surface handler
-  *  @param		pSrcRect		[in]  source rectangle which represent blited area in the source surface
-  *  @param		pDstSurface	[in]  destination surface handler
-  *  @param		pDstRect		[in]  destination rectangle which represent blited area in the source surface
-  *  @param		pBlitFlags		[in]  blitting flags which indicate various blit operations
-  *  @param		pBlitSettings	[in]  settings for blit operation
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ * @brief Stretch blit an area from one surface to other surface based on blit flags.
+ *
+ * @rst
+ * Functional Requirements
+ *  Stretch blit an area from one surface to other surface based on blit flags.
+ *
+ *  This entire operation must be assured critical section (using Lock/Unlock) until the operation is completed.
+ *  Because some blitFlags may require operation more than twice internal operations.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pSrcSurface	[IN]  source surface handler
+ *      pSrcRect		[IN]  source rectangle which represent blited area in the source surface
+ *      pDstSurface	[IN]  destination surface handler
+ *      pDstRect		[IN]  destination rectangle which represent blited area in the source surface
+ *      pBlitFlags		[IN]  blitting flags which indicate various blit operations
+ *      pBlitSettings	[IN]  settings for blit operation
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_SURFACE_INFO_T srcSurface, dstSurface;
+ *      HAL_GAL_CreateSurface(200, 200, HAL_GAL_PIXEL_FORMAT_ARGB, &srcSurface);
+ *      HAL_GAL_CreateSurface(500, 500, HAL_GAL_PIXEL_FORMAT_ARGB, &dstSurface);
+ *
+ *      HAL_GAL_RECT_T srcRect, dstRect;
+ *      srcRect.x = 100;
+ *      srcRect.y = 100;
+ *      srcRect.w = 100;
+ *      srcRect.h = 100;
+ *      dstRect.x = 200;
+ *      dstRect.y = 200;
+ *      dstRect.w = 300;
+ *      dstRect.h = 300;
+ *
+ *      HAL_GAL_BLIT_FLAGS_T blitFlags = HAL_GAL_BLIT_BLEND_COLORALPHA| HAL_GAL_BLIT_BLEND_ALPHACHANNEL| HAL_GAL_BLIT_SRC_PREMULTIPLY;
+ *      HAL_GAL_BLIT_SETTINGS_T blitSettings;
+ *      blitSettings.srcBlend = HAL_GAL_BLEND_ONE;
+ *      blitSettings.dstBlend = HAL_GAL_BLEND_ INVSRCALPHA;
+ *      blitSettings.alpha = 0xe0; // almost opaque global alpha
+ *      blitSettings.srcColorkey = 0x0;
+ *      blitSettings.dstColorkey = 0x0;
+ *
+ *      retVal = HAL_GAL_StretchBlit(&srcSurface, &srcRect, &dstSurface, &dstRect, &blitFlags,&blitSettings);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_StretchBlit(HAL_GAL_SURFACE_INFO_T* pSrcSurface, HAL_GAL_RECT_T* pSrcRect, HAL_GAL_SURFACE_INFO_T* pDstSurface, HAL_GAL_RECT_T* pDstRect, HAL_GAL_BLIT_FLAGS_T* pBlitFlags, HAL_GAL_BLIT_SETTINGS_T* pBlitSettings);
 
-
 /**
-  *  @brief Fills a rectangle to a destination surface based on drawing flags.
-  *  @param		pDstSurface	[in]  destination surface handler
-  *  @param		pDstRect		[in]  rectangle which represent drawing area in the destination surface
-  *  @param		color		[in]  color value for the drawing
-  *  @param		pDrawFlags	[in]  drawing flags which indicate various blit operations
-  *  @param		pDrawSettings	[in]  settings for draw operation
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ * @brief Fill a rectangle to a destination surface based on drawing flags.
+ *
+ * @rst
+ * Functional Requirements
+ *  Fill a rectangle to a destination surface based on drawing flags.
+ *
+ *  This entire operation must be assured critical section (using Lock/Unlock) until the operation is completed.
+ *  Because some blitFlags may require operation more than twice internal operations.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pDstSurface	[IN]  destination surface handler
+ *      pDstRect		[IN]  rectangle which represent drawing area in the destination surface
+ *      color		[IN]  color value for the drawing
+ *      pDrawFlags	[IN]  drawing flags which indicate various blit operations
+ *      pDrawSettings	[IN]  settings for draw operation
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_SURFACE_INFO_T srcSurface, dstSurface;
+ *      HAL_GAL_CreateSurface(200, 200, HAL_GAL_PIXEL_FORMAT_ARGB, &srcSurface);
+ *      HAL_GAL_CreateSurface(500, 500, HAL_GAL_PIXEL_FORMAT_ARGB, &dstSurface);
+ *
+ *      HAL_GAL_RECT_T srcRect, dstRect;
+ *      srcRect.x = 100;
+ *      srcRect.y = 100;
+ *      srcRect.w = 100;
+ *      srcRect.h = 100;
+ *      dstRect.x = 200;
+ *      dstRect.y = 200;
+ *      dstRect.w = 300;
+ *      dstRect.h = 300;
+ *
+ *      HAL_GAL_BLIT_FLAGS_T blitFlags = HAL_GAL_BLIT_BLEND_COLORALPHA| HAL_GAL_BLIT_BLEND_ALPHACHANNEL| HAL_GAL_BLIT_SRC_PREMULTIPLY;
+ *      HAL_GAL_BLIT_SETTINGS_T blitSettings;
+ *      blitSettings.srcBlend = HAL_GAL_BLEND_ONE;
+ *      blitSettings.dstBlend = HAL_GAL_BLEND_ INVSRCALPHA;
+ *      blitSettings.alpha = 0xe0; // almost opaque global alpha
+ *      blitSettings.srcColorkey = 0x0;
+ *      blitSettings.dstColorkey = 0x0;
+ *
+ *      retVal = HAL_GAL_StretchBlit(&srcSurface, &srcRect, &dstSurface, &dstRect, &blitFlags,&blitSettings);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_FillRectangle(HAL_GAL_SURFACE_INFO_T* pDstSurface, HAL_GAL_RECT_T* pDstRect, UINT32 color, HAL_GAL_DRAW_FLAGS_T* pDrawFlags, HAL_GAL_DRAW_SETTINGS_T* pDrawSettings);
 
 /**
-  *  @brief Fills a rectangle to a destination surface based on drawing flags.
-  *  @param	pDstSurface	[in]  destination surface handler
-  *  @param	pDstRect		[in]  rectangle which represent drawing area in the destination surface
-  *  @param	color		[in]  color value for the drawing
-  *  @param	pDstRect		[in]  drawing flags which indicate various blit operations
-  *  @param	pDrawSettings	[in]  settings for draw operation
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Draw a rectangle to a destination surface based on drawing flags.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pDstSurface	[IN]  destination surface handler
+ *      pDstRect		[IN]  rectangle which represent drawing area in the destination surface
+ *      color		       [IN]  color value for the drawing
+ *      pDstRect		[IN]  drawing flags which indicate various blit operations
+ *      pDrawSettings	[IN]  settings for draw operation
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_DrawRectangle(HAL_GAL_SURFACE_INFO_T* pDstSurface, HAL_GAL_RECT_T* pDstRect, UINT32 color, HAL_GAL_DRAW_FLAGS_T* pDrawFlags, HAL_GAL_DRAW_SETTINGS_T* pDrawSettings);
 
-
 /**
-  *  @brief Draws a line to a destination surface based on drawing flags.
-  *  @param	pDSurface	[in]  destination surface handler
-  *  @param	pDstLine		[in]  line which represent drawing area in the surface
-  *  @param	color		[in]  color value for the drawing
-  *  @param	pDrawFlags	[in]  drawing flags which indicate various blit operations
-  *  @param	pDrawSettings	[in]  settings for draw operation
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Draws a line to a destination surface based on drawing flags.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pDSurface	[IN]  destination surface handler
+ *      pDstLine		[IN]  line which represent drawing area in the surface
+ *      color		[IN]  color value for the drawing
+ *      pDrawFlags	[IN]  drawing flags which indicate various blit operations
+ *      pDrawSettings	[IN]  settings for draw operation
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_DrawLine(HAL_GAL_SURFACE_INFO_T* pDSurface, HAL_GAL_LINE_T* pDstLine, UINT32 color, HAL_GAL_DRAW_FLAGS_T* pDrawFlags, HAL_GAL_DRAW_SETTINGS_T* pDrawSettings);
 
 
@@ -772,23 +1125,100 @@ HAL_GAL_STATE_T  HAL_GAL_DrawLine(HAL_GAL_SURFACE_INFO_T* pDSurface, HAL_GAL_LIN
     Set Operation
 ----------------------------------------------------------------------------------------*/
 /**
-  *  @brief set surface palette
-  *  @param pSurface		[in] surface handler
-  *  @param pPalette		[out] palette which is array of 32bit ARGB color entries
-  *  @param paletteLength	[in] number of entries of palette
-  *  @return	if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  @author	jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Get surface palette for 8bpp surface
+ *
+ * @rst
+ * Functional Requirements
+ *  Get surface palette for 8bpp surface
+ *  Read entries to the palette of a surface which is indexed color format such as CPU PIXEL_FORMAT_LUT8.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pSurface		[IN] surface handler
+ *      pPalette		[OUT] palette which is array of 32bit ARGB color entries
+ *      paletteLength	[IN] number of entries of palette
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_SURFACE_INFO_T surface;
+ *
+ *      UINT32 palette[256];
+ *      SINT32 paletteLegnth = 256;
+ *
+ *      HAL_GAL_CreateSurface(600, 400, HAL_GAL_PIXEL_FORMAT_LUT8, &surface);
+ *      retVal = HAL_GAL_GetSurfaceSetPalette(surface, palette, paletteLegnth);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_GetSurfacePalette(HAL_GAL_SURFACE_INFO_T* pSurface, UINT32* pPalette, SINT32 paletteLength);
 
 /**
-  *  @brief set surface palette
-  *  @param pSurface		[in] surface handler
-  *  @param pPalette		[in] palette which is array of 32bit ARGB color entries
-  *  @param paletteLength	[in] number of entries of palette
-  *  @return	if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  @author	jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Set surface palette for 8bpp surface
+ *
+ * @rst
+ * Functional Requirements
+ *  Set surface palette for 8bpp surface
+ *  Writes entries to the palette of a surface which is indexed color format such as CPU PIXEL_FORMAT_LUT8.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pSurface		[IN] surface handler
+ *      pPalette		[IN] palette which is array of 32bit ARGB color entries
+ *      paletteLength	[IN] number of entries of palette
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Remarks
+ *  1. You have to register the palette info to your own surface handler because palette info needs to be referred from your own surface handler in blit or fillrect function. 'Your own surface handler' means the handler that is implemented as 'hash table' or 'linked-list' or 'array' for maintaining surface allocation.
+ *  2. If pPalette is NULL, you have to do initialize as 0x0
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_SURFACE_INFO_T surface; *
+ *      UINT32 palette[256]= {
+ *         // Black, W, R, G, B, C, Y, M,
+ *         0xff000000, 0xffffffff, 0xffff0000, 0xff00ff00, 0xff0000ff, 0xff00ffff, 0xffffff00, 0xffff00ff,0x0 };
+ *      SINT32 paletteLegnth = 256;
+ *
+ *      HAL_GAL_CreateSurface(600, 400, HAL_GAL_PIXEL_FORMAT_LUT8, &surface);
+ *      retVal = HAL_GAL_SetSurfaceSetPalette(surface, palette, paletteLegnth);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetSurfacePalette(HAL_GAL_SURFACE_INFO_T* pSurface, UINT32* pPalette, SINT32 paletteLength);
 
 
@@ -797,223 +1227,967 @@ HAL_GAL_STATE_T  HAL_GAL_SetSurfacePalette(HAL_GAL_SURFACE_INFO_T* pSurface, UIN
     Control Operation
 ----------------------------------------------------------------------------------------*/
 /**
-  *  @brief mapping received surface and hw controller. And chip vendor need to consider to vsync wait to avoid flikerling problem.
-  *  @param pSurface				[in] pSurface
-  *  @param	fbHWControllerIndex	[in] identifier of framebuffer hw controller(number)
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Set surface as framebuffer
+ *
+ * @rst
+ * Functional Requirements
+ *  Set surface as framebuffer at specific hw controller such as fbdev0 or fbdev1.
+ *  And chip vendor need to consider to vsync wait to avoid flikerling problem.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 20ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pSurface		[IN] surface handler
+ *      fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_SURFACE_INFO_T surface;
+ *
+ *      HAL_GAL_CreateSurface(1920, 1080, HAL_GAL_PIXEL_FORMAT_ARGB, &surface);
+ *      ret = HAL_GAL_SetFrameBuffer(&surface, 0);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetFrameBuffer(HAL_GAL_SURFACE_INFO_T *pSurface, UINT32 fbHWControllerIndex);
 
 /**
-  * @brief Sets region(viewRect/dispRect) and Stereoscope(on/off, stereoscope type) about framebuffer.
-  * @param fbHWControllerIndex		[in] Identifier of framebuffer hw controller(number)
-  * @param fbPropertyFlags		[in] flags for framebuffer property setting
-  * @param pFbPropertyInfo		[in] information about framebuffer property
-  * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  * If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  * @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Sets region(viewRect/dispRect) about framebuffer.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  The response time of this function should be within 20ms.
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
+ *      fbPropertyFlags		[IN] flags for framebuffer property setting
+ *      pFbPropertyInfo		[IN] information about framebuffer property
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T  HAL_GAL_SetFrameBufferProperty(UINT32 fbHWControllerIndex, HAL_GAL_FRAMEBUFFER_PROPERTY_FLAGS_T fbPropertyFLags, HAL_GAL_FRAMEBUFFER_PROPERTY_INFO_T* pFbPropertyInfo);
+
+
+/**
+ * @brief Sets region(viewRect/dispRect) and Stereoscope(on/off, stereoscope type) about framebuffer.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  The response time of this function should be within 20ms.
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex		[IN] Identifier of framebuffer hw controller(number)
+ *      fbPropertyFlags		[IN] flags for framebuffer property setting
+ *      pFbPropertyInfo		[IN] information about framebuffer property
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetFrameBufferWithProperty(HAL_GAL_SURFACE_INFO_T *pSurface, UINT32 fbHWControllerIndex, HAL_GAL_FRAMEBUFFER_PROPERTY_FLAGS_T fbPropertyFlags,HAL_GAL_FRAMEBUFFER_PROPERTY_EXTENDED_INFO_T *pFbPropertyExInfo);
 
 /**
-  *  @brief Reset associated resource of FrameBuffer (=disable visibility of FrameBuffer). In case of this, maybe chip vendor dont need to consider to vsync wait.
-  *  @param	fbHWControllerIndex	[in] identifier of framebuffer hw controller(number)
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T  HAL_GAL_ResetFrameBuffer(UINT32 fbHWControllerIndex);
+ *  @brief Reset associated resource of FrameBuffer
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 20ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+ HAL_GAL_STATE_T  HAL_GAL_ResetFrameBuffer(UINT32 fbHWControllerIndex);
 
 /**
-  *  @brief conrol to visility of specified pChangedFbList according to number of changedFbNum
-  *  @param pChangedFbList		[in] changed the framebuffer list
-  *  @param changedFbNum		[in] changed the number of framebuffer list
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Conrol to visility of specified pChangedFbList according to number of changedFbNum
+ *
+ * @rst
+ * Functional Requirements
+ *  Conrol to visility of specified pChangedFbList according to number of changedFbNum.
+ *  Its operation must not have flikerling problem.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 20ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pChangedFbList		[IN] changed the framebuffer list
+ *      changedFbNum		[IN] changed the number of framebuffer list
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      ret = HAL_GAL_SetFrameBuffer(&surface, 0);
+ *
+ *      UINT32 changedFbNum = 2 ;
+ *      HAL_GAL_FRAMEBUFFER_VISIBILITY_INFO_T changedFBList[2];
+ *
+ *      changedFBList[0].fbHWControllerIndex = 0;
+ *      changedFBList[0].bVisibility = TRUE;
+ *
+ *      changedFBList[1].fbHWControllerIndex = 1;
+ *      changedFBList[1].bVisibility = FALSE;
+ *
+ *      retVal = HAL_GAL_SetFBHWControllerVisibility(changedFBList, changedFbNum);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetFBHWControllerVisibility(HAL_GAL_FRAMEBUFFER_VISIBILITY_INFO_T *pChangedFbList, UINT32 changedFbNum);
 
 /**
-  *  @brief Decide whether to use vsync operation of specified FBHWController or not.
-  *		   we will use this function to avoid flikerling problem when flipping between back of framebuffer and front of framebuffer
-  *  @param	fbHWControllerIndex	[in] identifier of framebuffer hw controller(number)
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Get visibility for frame buffer of H/W controllers
+ *
+ * @rst
+ * Functional Requirements
+ *  Get visibility for frame buffer of H/W controllers
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex             [IN]        Framebuffer index
+ *      pbVisibility                          [OUT]     Visibility on/off
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      BOOLEAN visibilty = FALSE;
+
+ *      ret = HAL_GAL_GetFBHWControllerVisibility(CURSOR_INDEX, &visibilty);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
+HAL_GAL_STATE_T  HAL_GAL_GetFBHWControllerVisibility(UINT32 fbHWControllerIndex, BOOLEAN *pbVisibility);
+/**
+ *  @brief Decide whether to use vsync operation of specified FBHWController or not.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
+ *      bVsync [IN] vsync usage state of framebuffer
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetFBHWControllerVsync(UINT32 fbHWControllerIndex, BOOLEAN bVsync);
 
 /**
-  *  @brief Waits for the all the H/W accelerated graphics operations to be done.
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T  HAL_GAL_SyncGraphic(void);
+ *  @brief Select output path mode of framebuffer HW controller between main chip and external FRC chip.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  The response time of this function should be within 50ms.
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
+ *      osdPathMode			[IN] select osd path mode
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T  HAL_GAL_SetFBHWControllerPathMode(UINT32 fbHWControllerIndex, HAL_GAL_OSD_PATH_MODE_FLAGS_T osdPathMode);
 
-
-/*----------------------------------------------------------------------------------------
-    Image Decode Operation
-----------------------------------------------------------------------------------------*/
 /**
-  *  @brief Draw an image from encoded image to destination surface based on imageFromBuffer flags.
-  *  @param	pImageInfo	[in]  source image information
-  *  @param	pDestSurface	[in]  destination surface handler
-  *  @param	decodeFlags	[in]	decode image flags
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T  HAL_GAL_DecodeImage(HAL_GAL_IMAGE_INFO_T* pImageInfo, HAL_GAL_SURFACE_INFO_T* pDestSurface, HAL_GAL_DECODEIMAGE_FLAGS_T decodeFlags);
-
+ *  @brief Waits for the all the H/W accelerated graphics operations to be done.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *  None
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T  HAL_GAL_SyncGraphic(void);
 
 /*----------------------------------------------------------------------------------------
     Additional Feautres (ex: 2D-to-3D OSD, Mirror Mode, VCOM pattern, Filter Attribute setting)
 ----------------------------------------------------------------------------------------*/
-
 /**
-  *  @brief Flip screen (all OSDs) vertically and/or horizontally.
-  *  @param	mirrorModeFlags	[in] mirror mode information
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Flip screen (all OSDs) vertically and/or horizontally.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      mirrorModeFlags	[IN] mirror mode information
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetScreenMirrorMode(HAL_GAL_MIRROR_FLAGS_T mirrorModeFlags);
 
 /**
-  *  @brief Select output path mode of framebuffer HW controller between main chip and external FRC chip.
-  *  @param	fbHWControllerIndex	[in] identifier of framebuffer hw controller(number)
-  *  @param	osdPathMode			[in] select osd path mode
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T  HAL_GAL_SetFBHWControllerPathMode(UINT32 fbHWControllerIndex, HAL_GAL_OSD_PATH_MODE_FLAGS_T osdPathMode);
-
-/**
-  *  @brief Sets 3D mode(3D on/off) and 3D type(top&bottom, SideBySide ...) of FrameBuffer.
-  *  @param	osd3DOnOffMode 		[in] select osd 3D on/off mode
-  *  @param	osd3DType			[in] select osd 3D type
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Sets 3D mode(3D on/off) and 3D type(top&bottom, SideBySide ...) of FrameBuffer.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      osd3DOnOffMode 		[IN] select osd 3D on/off mode
+ *      osd3DType			[IN] select osd 3D type
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_Set3DMode(HAL_GAL_3D_MODE_T osd3DOnOffMode, HAL_GAL_3D_TYPE_T osd3DType);
 
 /**
-  *  @brief Gets information of 2D Graphic Memory
-  *  @param	pGraphicMemInfo 		[in] information of 2D Graphic memory
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T  HAL_GAL_GetGraphicMemInfo(HAL_GAL_GRAPHIC_MEM_INFO_T *pGraphicMemInfo);
-
-/**
-  *  @brief Sets region(viewRect/dispRect) about framebuffer.
-  *  @param	fbHWControllerIndex 	[in] Identifier of framebuffer hw controller(number)
-  *  @param	fbPropertyFlags		[in] flags for framebuffer property setting
-  *  @param	pFbPropertyInfo		[in] information about framebuffer property
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T  HAL_GAL_SetFrameBufferProperty(UINT32 fbHWControllerIndex, HAL_GAL_FRAMEBUFFER_PROPERTY_FLAGS_T fbPropertyFLags, HAL_GAL_FRAMEBUFFER_PROPERTY_INFO_T* pFbPropertyInfo);
-
-/**
-  *  @brief Sets region(viewRect/dispRect) about framebuffer.
-  *  @param	fbHWControllerIndex 	[in] Identifier of framebuffer hw controller(number)
-  *  @param	bStereoscope			[in] stereoscope mode on/off
-  *  @param	stereoscopeType		[in] type of stereoscope (2D-to-3D, S3D)
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Sets region(viewRect/dispRect) about framebuffer.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
+ *      bStereoscope			[IN] stereoscope mode on/off
+ *      stereoscopeType		[IN] type of stereoscope (2D-to-3D, S3D)
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetFBHWControllerStereoscope(UINT32 fbHWControllerIndex, BOOLEAN bStereoscope, HAL_GAL_STEREOSCOPE_TYPE_T stereoscopeType);
 
 /**
-  *  @brief Change pixelFormat of framebuffer
-  *  @param	fbHWControllerIndex 	[in] Identifier of framebuffer hw controller(number)
-  *  @param  	pixelFormat 			[in]  pixel format
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Change pixelFormat of framebuffer
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
+ *      pixelFormat 			[IN]  pixel format
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetFrameBufferPixelFormat(UINT32 fbHWControllerIndex, HAL_GAL_PIXEL_FORMAT_EX_T pixelFormat);
 
 /**
-  *  @brief Get pixelFormat of framebuffer
-  *  @param	fbHWControllerIndex 	[in] Identifier of framebuffer hw controller(number)
-  *  @param  	pixelFormat 			[in]  pixel format
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *	If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
+ *  @brief Get pixelFormat of framebuffer
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
+ *      pixelFormat 			[OUT]  pixel format
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_GetFrameBufferPixelFormat(UINT32 fbHWControllerIndex, HAL_GAL_PIXEL_FORMAT_EX_T *pPixelFormat);
 
-
+/**
+ *  @brief Get currently enabled framebuffer list
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      ppSurfaceInfoList             [OUT]        information of framebuffer
+ *      pNumOfSurface               [OUT]        The number of enabled framebuffer
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_GetFrameBufferList( HAL_GAL_SURFACE_INFO_T** ppSurfaceInfoList, UINT32* pNumOfSurface );
 
 /**
-  * @brief Sets region(viewRect/dispRect) and Stereoscope(on/off, stereoscope type) about framebuffer.
-  * @param pOSDOutputResolution		[out] OSD Output resolution
-  * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  * If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  * @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T  HAL_GAL_GetOSDOutputResolution(HAL_GAL_RECT_T *pOSDOutputResolution);
-
-HAL_GAL_STATE_T  HAL_GAL_GetFBHWControllerVisibility(UINT32 fbHWControllerIndex, BOOLEAN *pbVisibility);
-
+ *  @brief Reset boot logo
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   None
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_ResetBootLogo(void);
 
-HAL_GAL_STATE_T	 HAL_GAL_SetOSDRotationMode(HAL_GAL_OSD_ROTATE_TYPE_T type);
+/**
+ *  @brief Set OSD rotation mode
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      type 	[IN] rotation degree
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T HAL_GAL_SetOSDRotationMode(HAL_GAL_OSD_ROTATE_TYPE_T type);
 
-HAL_GAL_STATE_T  HAL_GAL_SetOSDPortraitMode(HAL_GAL_OSD_ROTATE_TYPE_T rotate_type);
+/**
+ *  @brief Set OSD portrait mode
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      type 	[IN] rotation degree
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T  HAL_GAL_SetOSDPortraitMode(HAL_GAL_OSD_ROTATE_TYPE_T type);
 
+/**
+ *  @brief Set OSD portrait ARC mode
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      gal_osd_portrait_arc_mode 	[IN] portrait ARC mode
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
 HAL_GAL_STATE_T  HAL_GAL_SetOSDPortraitARCMode(HAL_GAL_OSD_PORTRAIT_ARC_MODE_T gal_osd_portrait_arc_mode);
 
 /**
- * @brief Set graphic output resolution of main SOC
+ *  @brief Get sharpness (0~255) of specific framebuffer hw controller
  *
- * @param width [IN] Width for graphic output resolution
- * @param height [IN] Height for graphic output resolution
- * @return If the function succeeds, the return value is HAL_GAL_OK. If the function fails, the return value is HAL_GAL_ERROR.
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
  *
- * This API set OSD resolution of main SOC thus there is no regard with external FRC
- */
-HAL_GAL_STATE_T	HAL_GAL_SetGraphicOutputResolution(HAL_GAL_RESOLUTION_T graphicOutputResolution);
-
-/**
-  *  @brief move position of cursor
-  *  @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
-  *  If the function fails, the return value is HAL_GAL_NOT_CALLABLE on un-supported request, HAL_GAL_ERROR on the other cases.
-  *  @author jinhyuk.hong (jinhyuk.hong@lge.com)
-  */
-HAL_GAL_STATE_T HAL_GAL_MoveCursor(UINT32 fbHWControllerIndex, HAL_GAL_CURSOR_PROPERTY_INFO_T *pCursorProperty);
-HAL_GAL_STATE_T HAL_GAL_SetCursorPosition(HAL_GAL_CURSOR_POSITION_INFO_T* pCursorPosition );
-
-HAL_GAL_STATE_T HAL_GAL_SetCursorResolution(HAL_GAL_RESOLUTION_T cursorCoordinateResolution, HAL_GAL_RESOLUTION_T cursorImageResolution);
-
-/**
- * @brief Get sharpness (0~255) of specific framebuffer hw controller
- * @param fbHWControllerIndex  [in] Identifier of framebuffer hw controller(number)
- * @param sharpness            [in] Sharpness value (0~255)
- * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex  [IN] Identifier of framebuffer hw controller(number)
+ *      sharpness            [OUT] Sharpness value (0~255)
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
  */
 HAL_GAL_STATE_T HAL_GAL_GetFBHWControllerSharpness(UINT32 fbHWControllerIndex, UINT8* sharpness);
 
 /**
- * @brief Set sharpness (0~255) of specific framebuffer hw controller
- * @param fbHWControllerIndex  [in] Identifier of framebuffer hw controller(number)
- * @param sharpness            [in] Sharpness value (0~255)
- * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
+ *  @brief Set sharpness (0~255) of specific framebuffer hw controller
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex  [IN] Identifier of framebuffer hw controller(number)
+ *      sharpness            [IN] Sharpness value (0~255)
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
  */
 HAL_GAL_STATE_T HAL_GAL_SetFBHWControllerSharpness(UINT32 fbHWControllerIndex, UINT8 sharpness);
 
 /**
+ *  @brief Draw an image from encoded image to destination surface based on imageFromBuffer flags.
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pImageInfo	[IN]  source image information
+ *      pDestSurface	[IN]  destination surface handler
+ *      decodeFlags	[IN]	decode image flags
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T  HAL_GAL_DecodeImage(HAL_GAL_IMAGE_INFO_T* pImageInfo, HAL_GAL_SURFACE_INFO_T* pDestSurface, HAL_GAL_DECODEIMAGE_FLAGS_T decodeFlags);
+
+/**
+ * @brief Set graphic output resolution of main OSD
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 20ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *       width [IN] Width for graphic output resolution
+ *       height [IN] Height for graphic output resolution
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T	HAL_GAL_SetGraphicOutputResolution(HAL_GAL_RESOLUTION_T graphicOutputResolution);
+
+/**
+ * @brief Get graphic output resolution of main OSD
+ *
+ * @rst
+ * Functional Requirements
+ *  This function is deprecated.
+ *
+ * Responses to abnormal situations, including
+ *  NA
+ *
+ * Performance Requirements
+ *  NA
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *       pOSDOutputResolution [OUT] OSD resolution
+ *
+ * Return Value
+ *  HAL_GAL_NOT_CALLABLE
+ *
+ * @endrst
+ */
+HAL_GAL_STATE_T  HAL_GAL_GetOSDOutputResolution(HAL_GAL_RECT_T *pOSDOutputResolution);
+
+/**
+ * @brief Get the information of GAL memory
+ *
+ * @rst
+ * Functional Requirements
+ *  Get the information of GAL memory
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pGraphicMemInfo [OUT] information of GAL memory
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_GRAPHIC_MEM_INFO_T graphicMemInfo ;
+ *
+ *      ret= HAL_GAL_ GetGraphicMemInfo(&graphicMemInfo );
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
+ HAL_GAL_STATE_T  HAL_GAL_GetGraphicMemInfo(HAL_GAL_GRAPHIC_MEM_INFO_T *pGraphicMemInfo);
+
+/**
+ * @brief Move position of cursor.
+ *
+ * @rst
+ * Functional Requirements
+ *  Move position of cursor.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 50ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      fbHWControllerIndex	[IN]	identifier of framebuffer hw controller(number)
+ *      pCursorPropert		[IN]	property information of cursor
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Remarks
+ *  Size of H/W cursor is 256x256 to be based on FHD OSD.
+ *  So it has to show as same size with FHD on all panel that include FHD, UHD , and so on.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      UINT32 fbHWControllerIndex = CURSOR_INDEX;
+ *      HAL_GAL_CURSOR_PROPERTY_INFO_T cursorProperty;
+ *      cursorProperty.position.x = 200;
+ *      cursorProperty.position.y = 200;
+ *      cursorProperty.panelWidth = 1920;
+ *      cursorProperty.panelHeight = 1080;
+ *      cursorProperty.width = 128;
+ *      cursorProperty.height = 128;
+ *      cursorProperty.hotspot = HAL_GAL_CURSOR_HOTSPOT_LEFTTOP;
+ *
+ *      retVal = HAL_GAL_MoveCursor(fbHWControllerIndex , &cursorProperty);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
+HAL_GAL_STATE_T HAL_GAL_MoveCursor(UINT32 fbHWControllerIndex, HAL_GAL_CURSOR_PROPERTY_INFO_T *pCursorProperty);
+
+/**
+ * @brief Set position of cursor.
+ *
+ * @rst
+ * Functional Requirements
+ *  Set cursor position and property to move position or change cursor status.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 50ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pCursorPosition	[IN]	position and property information of cursor
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Remarks
+ *  The cursor position is set on the basis of graphic input.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_CURSOR_POSITION_INFO_T cursorPosition;
+ *      cursorPosition.position.x = 200;
+ *      cursorPosition.position.y = 200;
+ *      cursorPosition.width = 128;
+ *      cursorPosition.height = 128;
+ *      cursorPosition.hotspot = HAL_GAL_CURSOR_HOTSPOT_LEFTTOP;
+ *
+ *      retVal = HAL_GAL_SetCursorPosition(&cursorPosition);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
+HAL_GAL_STATE_T HAL_GAL_SetCursorPosition(HAL_GAL_CURSOR_POSITION_INFO_T* pCursorPosition );
+
+/**
+ * @brief Set resolution of cursor.
+ *
+ * @rst
+ * Functional Requirements
+ *  This API determine cursor resolution to calculate like below fomular.
+ *  - cursor width of resolution on panel = cursorImageResolution.width / cursorCoordinateResolution.width
+ *  -cursor height of resolution on panel = cursorImageResolution.height/ cursorCoordinateResolution.height
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      cursorCoordinateResolution  [IN]    coordinate resolution
+ *      cursorImageResolution   [IN]    original cursor image resolution
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Remarks
+ *  We are going to invoke this APIS at initial time then you set cursor resolution.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_RESOLUTION_T cursorCoordinateResolution, cursorImageResolution;
+ *
+ *      cursorCoordinateResolution.width = 1920;
+ *      cursorCoordinateResolution.height = 1080;
+ *      cursorImageResolution = 1920;
+ *      cursorImageResolution = 1080;
+ *
+ *      retVal = HAL_GAL_SetCursorResolution(cursorCoordinateResolution, cursorImageResolution);
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
+ */
+HAL_GAL_STATE_T HAL_GAL_SetCursorResolution(HAL_GAL_RESOLUTION_T cursorCoordinateResolution, HAL_GAL_RESOLUTION_T cursorImageResolution);
+
+/**
  * @brief Get a framebuffer from the fbdev to a surface
- * @param pSurfaceInfo	[in/out] The target surface to store the read framebuffer from the fbdev
- * @return if success HAL_GAL_OK, else HAL_GAL_ERROR.
+ *
+ * @rst
+ * Functional Requirements
+ *  Get a framebuffer from the fbdev to a surface.
+ *	The surface is created by user and the driver do stretch blit from the framebuffer to the surface.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_GAL_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_GAL_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      pSurfaceInfo [IN/OUT]  The target surface to store the read framebuffer from the fbdev
+ *
+ * Return Value
+ *  If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
+ *
+ * Remarks
+ *  This function is supported from webOS4.5 and later and the SoC supports Linux framebuffer(fbdev).
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *      HAL_GAL_STATE_T retVal;
+ *      HAL_GAL_SURFACE_INFO_T surfaceInfo;
+ *
+ *      HAL_GAL_CreateSurface(1920, 1080, HAL_GAL_PIXEL_FORMAT_ARGB, &surfaceInfo);
+ *      if(HAL_GAL_CaptureFrameBuffer(&surfaceInfo) != GM_OK)
+ *      if(retVal != HAL_GAL_OK) {
+ *      	// Error handling
+ *      }
+ * @endrst
  */
 HAL_GAL_STATE_T HAL_GAL_CaptureFrameBuffer(HAL_GAL_SURFACE_INFO_T *pSurfaceInfo);
 
