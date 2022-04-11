@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (2b9b5b delete hal_sdec.h hal_vdec.h)
 /******************************************************************************
  *   DTV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
  *   Copyright(c) 1999 by LG Electronics Inc.
@@ -1933,3 +1934,5 @@ This API should be supported on also Y18 model(webOS4.0) supporing TV ATMOS but 
 DTV_STATUS HAL_AUDIO_SetDolbyOTTMode(BOOLEAN bIsOTTEnable, BOOLEAN bIsATMOSLockingEnable);
 
 #endif /* _HAL_AUDIO_H_ */
+=======
+>>>>>>> CHANGE (c5b663 Delete unused hal header files of audio modules)
