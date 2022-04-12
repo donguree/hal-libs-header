@@ -57,4 +57,4 @@ Data Types
 Function Calls
 ^^^^^^^^^^^^^^^
 
-  * :cpp:func:`HAL_IRB_GenerateUEIWaveform`
+  * :cpp:func:`HAL_IRB_GenerateUEIWaveform` //except from socts, external UEI test
