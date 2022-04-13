@@ -6,11 +6,12 @@ LG HAL libs Implementation Guide
 History
 -------
 
-======= ========== ===================== ================================== =======
-Version Date       Changed by            Changed Section                    Comment
-======= ========== ===================== ================================== =======
-1.0     2022-03-11 donghoon.keum@lge.com                                    Initial release
-======= ========== ===================== ================================== =======
+======= ========== ========================= ================================== =======
+Version Date       Changed by                Changed Section                    Comment
+======= ========== ========================= ================================== =======
+1.1     2022-04-25 seonghoon1128.do@lge.com  Add Behavioral Perspective
+1.0     2022-03-11 donghoon.keum@lge.com                                        Initial release
+======= ========== ========================= ================================== =======
 
 
 Goal
@@ -25,9 +26,9 @@ Contents
 
 .. warning::
 
-  아래 1-9장 순서는 추가/제거/변경하지 않습니다. 각 장의 하위 내용은 변경 가능합니다.
+  아래 1-10장 순서는 추가/제거/변경하지 않습니다. 각 장의 하위 내용은 변경 가능합니다.
 
-  Chapter 1-9 must not be modified(add/remove/re-order).
+  Chapter 1-10 must not be modified(add/remove/re-order).
   Contents in each chapter can be updated.
 
 .. only:: singlehtml
@@ -38,13 +39,15 @@ Contents
 .. toctree::
   :maxdepth: 2
   :numbered:
-
+  
+  Behavioral Viewpoint <behavioral-viewpoint>
   gal
   photo
   pvr
   security
   system
   ucom
+  ucom_behaviral_viewpoint
   usb
   venc
   api/index
