@@ -24,7 +24,16 @@ copyright = '2019-2020, LGE'
 author = 'LGE'
 
 # The full version, including alpha/beta/rc tags
-release = os.popen('git describe').read().strip().replace('submissions/', '').split('-')[0]
+branch  = os.popen('git branch').read().split('\n')
+active_branch = ""
+for br in branch:
+	if '*' in br:
+		active_branch = br.split('*')[-1].strip()
+
+if active_branch == 'master':
+	release = os.popen('git describe --abbrev=0 --match submissions/[0-9][0-9][0-9]').read().strip().replace('submissions/', '').split('-')[0]
+else:
+	release = os.popen('git describe').read().strip().replace('submissions/', '').split('-')[0]
 version = release
 
 # -- General configuration ---------------------------------------------------
