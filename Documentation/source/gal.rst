@@ -83,7 +83,7 @@ Data Types
  * :cpp:type:`HAL_GAL_SOURCE_MASK_T`
  * :cpp:type:`HAL_GAL_SURFACE_INFO_T`
  * :cpp:type:`HAL_GAL_SURFACE_POOL_INFO_T`
- * :cpp:type:`HAL_GAL_T`RAPEZOID_T`
+ * :cpp:type:`HAL_GAL_TRAPEZOID_T`
 
 Function Calls
 ^^^^^^^^^^^^^^^
