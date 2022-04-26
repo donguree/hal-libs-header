@@ -5,4 +5,4 @@ Behavioral Viewpoint
   :maxdepth: 1
   :glob:
 
-  behavioral-viewpoint/*
+  behavioral-perspective/*

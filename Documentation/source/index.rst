@@ -40,14 +40,12 @@ Contents
   :maxdepth: 2
   :numbered:
   
-  Behavioral Viewpoint <behavioral-viewpoint>
   gal
   photo
   pvr
   security
   system
   ucom
-  ucom_behaviral_viewpoint
   usb
   venc
   api/index
