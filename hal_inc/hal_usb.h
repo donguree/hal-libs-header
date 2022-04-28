@@ -1,6 +1,6 @@
 /******************************************************************************
  *   DTV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 1999 by LG Electronics Inc.
+ *   Copyright(c) 2022 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -10,11 +10,11 @@
 
 /** @file hal_usb.h
  *
- *  This header file declares the data types and DDI functions to control the USB
+ *  This header file declares the data types and HAL functions to control the USB
  *
- *  @author Shinhoe Kim (shnihoe.kim@lge.com)
+ *  @author Junmo Kang (jm0122.kang@lge.com)
  *  @version  1.0
- *  @date   2013.12.18
+ *  @date   2022.05.03
  *  @note   Additional information.
  *  @see
  */
@@ -46,9 +46,109 @@
 /******************************************************************************
   Function Declaration
 ******************************************************************************/
-/*USB 3.0 Enable,Disable*/
+/**
+ * @brief Enable USB3.0 (Super speed) by enable xhci controller
+ *
+ * @rst
+ * Functional Requirements
+ *   Turn on super speed port
+ *   Recovery USB 3.0 PHY to work on the super speed mode
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *   Implementation is required only if there is a USB3.0 (xhci) controller.
+ *
+ * Functions & Parameters
+ *   ============ ===========
+ *   type         name
+ *   ============ ===========
+ *   unsigned int busNumber
+ *   unsigned int portNumber
+ *   ============ ===========
+ *
+ * Return Value
+ *   If the function succeeds, the return value is Zero(0).
+ *   If the function fails, the return value is non-Zero(-1 or errno).
+ *
+ * Pseudo Code
+ *   .. code-block:: cpp
+ *
+ *   DTV_STATUS_T HAL_USB_SuperSpeedPortUp(unsigned int busNumber, unsigned int portNumber)
+ *   {
+ *       Turn on super speed port
+ *       IF any error occurred THEN
+ *           RETURN NOT_OK
+ *       END IF
+ *       RETURN OK
+ *   }
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T retVal;
+ *     retVal = HAL_USB_SuperSpeedPortUp(2, 1);
+ *     if (RetVal != OK) {
+ *         //error handling
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_USB_SuperSpeedPortUp(UINT32 busNum, UINT32 portNum);
+/**
+ * @brief Disable USB3.0 (Super speed) by disable xhci controller
+ *
+ * @rst
+ * Functional Requirements
+ *   Turn off super speed port
+ *   Disable USB 3.0 PHY to not work on the super speed mode
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *   Implementation is required only if there is a USB3.0 (xhci) controller.
+ *
+ * Functions & Parameters
+ *   ============ ===========
+ *   type         name
+ *   ============ ===========
+ *   unsigned int busNumber
+ *   unsigned int portNumber
+ *   ============ ===========
+ *
+ * Return Value
+ *   If the function succeeds, the return value is Zero(0).
+ *   If the function fails, the return value is non-Zero(-1 or errno).
+ *
+ * Pseudo Code
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T HAL_USB_SuperSpeedPortOff (unsigned int busNumber, unsigned int portNumber)
+ *     {
+ *         Turn off USB super speed port
+ *         IF any error occurred THEN
+ *             RETURN NOT_OK
+ *         END IF
+ *         RETURN OK
+ *     }
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T retVal;
+ *         retVal = HAL_USB_SuperSpeedPortOff(2, 1);
+ *         if (RetVal != OK) {
+ *             //error handling
+ *         }
+ * @endrst
+ */
 DTV_STATUS_T HAL_USB_SuperSpeedPortOff(UINT32 busNum, UINT32 portNum);
-DTV_STATUS_T HAL_USB_SuperSpeedVBusControl(BOOLEAN bOn, UINT32 busNum, UINT32 portNum);
 #endif  /* _HAL_USB_H_ */
 
