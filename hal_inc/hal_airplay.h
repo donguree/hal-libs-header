@@ -67,8 +67,8 @@
  * Functions & Parameters
  *   .. code-block:: cpp
  *
- *   argc [in] : currently it must be 8. it can be changed after release.
- *   argv [in] :
+ *	   argc [in] : currently it must be 8. it can be changed after release.
+ *	   argv [in] :
  *     argv[0] org_key_file_name (string): original MFi key file name. to track records.
  *     argv[1] index (string): index of the orginal MFi key file.
  *     argv[2] mfi_obj_id (string): MFi auth provisioning object ID.
@@ -128,12 +128,12 @@ int HAL_AIRPLAY_MFi_WriteKeySet(unsigned int argc, void **argv);
  * Example
  *   .. code-block:: cpp
  *
- *   if(HAL_AIRPLAY_MFi_VerifyKeySet() == 0) {
- *     printf("verified lgcrc32");
- *   }
- *   else {
- *     printf("verification fail of lgcrc32");
- *   }
+ *     if(HAL_AIRPLAY_MFi_VerifyKeySet() == 0) {
+ *       printf("verified lgcrc32");
+ *     }
+ *     else {
+ *       printf("verification fail of lgcrc32");
+ *     }
  *
  * @endrst
  */
@@ -208,27 +208,27 @@ int HAL_AIRPLAY_MFi_DeleteKeySet(void);
  * Example
  *   .. code-block:: cpp
  *
- *   unsigned char *out_org_key_file_name= NULL;
- *   unsigned char *out_index= NULL;
- *   unsigned char *out_mfi_obj_id= NULL;
- *   unsigned char *out_ppid= NULL;
- *   int ret = 0;
+ *     unsigned char *out_org_key_file_name= NULL;
+ *     unsigned char *out_index= NULL;
+ *     unsigned char *out_mfi_obj_id= NULL;
+ *     unsigned char *out_ppid= NULL;
+ *     int ret = 0;
  *
- *   ret = HAL_AIRPLAY_MFi_GetKeyInfo (&out_org_key_file_name, &out_index, &out_mfi_obj_id, &out_ppid);
+ *     ret = HAL_AIRPLAY_MFi_GetKeyInfo (&out_org_key_file_name, &out_index, &out_mfi_obj_id, &out_ppid);
  *
- *   if (ret == 0) {
- *     printf("%s, %s, %s, %s", out_org_key_file_name, out_index, out_mfi_obj_id, out_ppid);
- *     free(out_org_key_file_name);
- *     free(out_index);
- *     free(out_mfi_obj_id);
- *     free(out_ppid);
- *   } else if (ret == -1) {
- *     printf("there is no mfi key in the secure storage");
- *   } else if (ret == -3) {
- *     printf("there is no symmetric key in OTP area");
- *   } else {
- *     printf("unknown error");
- *   }
+ *     if (ret == 0) {
+ *       printf("%s, %s, %s, %s", out_org_key_file_name, out_index, out_mfi_obj_id, out_ppid);
+ *       free(out_org_key_file_name);
+ *       free(out_index);
+ *       free(out_mfi_obj_id);
+ *       free(out_ppid);
+ *     } else if (ret == -1) {
+ *       printf("there is no mfi key in the secure storage");
+ *     } else if (ret == -3) {
+ *       printf("there is no symmetric key in OTP area");
+ *     } else {
+ *       printf("unknown error");
+ *     }
  *
  * @endrst
  */
@@ -270,29 +270,29 @@ int HAL_AIRPLAY_MFi_GetKeyInfo(unsigned char **out_org_key_file_name,
  * Example
  *   .. code-block:: cpp
  *
- *   gchar *key_info = NULL;
- *   gint ret = HAL_AIRPLAY_MFi_GetKeyInfo2(&key_info);
+ *     gchar *key_info = NULL;
+ *     gint ret = HAL_AIRPLAY_MFi_GetKeyInfo2(&key_info);
  *
- *   if(ret == 0) {
- *     gchar **key_info_each = g_strsplit (key_info, "\n", 0);
+ *     if(ret == 0) {
+ *       gchar **key_info_each = g_strsplit (key_info, "\n", 0);
 
- *     // use org_key_file_name, index, mfi_obj_id, ppid, generation
+ *       // use org_key_file_name, index, mfi_obj_id, ppid, generation
 
- *     g_strfreev(key_info_each);
- *     g_free(key_info);
- *   }
- *   else if (ret == -1) {
- *     g_print("there is no mfi key in the secure storage");
- *   }
- *   else if (ret == -3) {
- *     g_print("there is no symmetric key in OTP area");
- *   }
- *   else if (ret == -5) {
- *     g_print("this soc doesn't support airplay");
- *   }
- *   else {
- *     g_print("unknown error");
- *   }
+ *       g_strfreev(key_info_each);
+ *       g_free(key_info);
+ *     }
+ *     else if (ret == -1) {
+ *       g_print("there is no mfi key in the secure storage");
+ *     }
+ *     else if (ret == -3) {
+ *       g_print("there is no symmetric key in OTP area");
+ *     }
+ *     else if (ret == -5) {
+ *       g_print("this soc doesn't support airplay");
+ *     }
+ *     else {
+ *       g_print("unknown error");
+ *     }
  *
  * @endrst
  */
@@ -329,12 +329,12 @@ int HAL_AIRPLAY_MFi_GetKeyInfo2(char **out_key_info);
  * Example
  *   .. code-block:: cpp
  *
- *   if (HAL_AIRPLAY_MFi_VerifyProvisioningObject() == 0) {
- *     printf("mfi obj is verified");
- *   }
- *   else {
- *     printf("mfi obj is not verified");
- *   }
+ *     if (HAL_AIRPLAY_MFi_VerifyProvisioningObject() == 0) {
+ *       printf("mfi obj is verified");
+ *     }
+ *     else {
+ *       printf("mfi obj is not verified");
+ *     }
  *
  * @endrst
  */
@@ -369,15 +369,15 @@ int HAL_AIRPLAY_MFi_VerifyProvisioningObject(void);
  * Example
  *   .. code-block:: cpp
  *
- *   unsigned char *certificate = NULL;
- *   size_t len;
- *   if (HAL_AIRPLAY_MFi_GetCertificate (&certificate, &len) == 0) {
- *     use certificate
- *     free(certificate);
- *   }
- *   else {
- *     print("cannot get certificate");
- *   }
+ *     unsigned char *certificate = NULL;
+ *     size_t len;
+ *     if (HAL_AIRPLAY_MFi_GetCertificate (&certificate, &len) == 0) {
+ *       use certificate
+ *       free(certificate);
+ *     }
+ *     else {
+ *       print("cannot get certificate");
+ *     }
  *
  * @endrst
  */
@@ -423,18 +423,18 @@ int HAL_AIRPLAY_MFi_GetCertificate(unsigned char **out_certificate,
  * Example
  *   .. code-block:: cpp
  *
- *   unsigned char *digest = { ... };
- *   size_t digest_len = sizeof(digest);
- *   unsigned char *signature = NULL;
- *   size_t signature_len;
+ *     unsigned char *digest = { ... };
+ *     size_t digest_len = sizeof(digest);
+ *     unsigned char *signature = NULL;
+ *     size_t signature_len;
  *
- *   if (HAL_AIRPLAY_MFi_GetSignature(digest, digest_len, &signature, &signature_len) == 0) {
- *     use signature
- *     free(signature);
- *   }
- *   else {
- *     print("cannot get signature");
- *   }
+ *     if (HAL_AIRPLAY_MFi_GetSignature(digest, digest_len, &signature, &signature_len) == 0) {
+ *       use signature
+ *       free(signature);
+ *     }
+ *     else {
+ *       print("cannot get signature");
+ *     }
  *
  * Remark (optional)
  *   If the private key(P) is shorter than correct length, the high order bytes should be padded with 0s to a length of correct bytes.
@@ -477,12 +477,12 @@ int HAL_AIRPLAY_MFi_GetSignature(unsigned char *digest, size_t digest_len,
  * Example
  *   .. code-block:: cpp
  *
- *   if(HAL_AIRPLAY_FairPlay_VerifyObjectt() == 0) {
- *     printf("Success");
- *   }
- *   else {
- *     printf("Fail");
- *   }
+ *     if(HAL_AIRPLAY_FairPlay_VerifyObjectt() == 0) {
+ *       printf("Success");
+ *     }
+ *     else {
+ *       printf("Fail");
+ *     }
  *
  * @endrst
  */
