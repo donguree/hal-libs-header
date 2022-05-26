@@ -33,13 +33,13 @@ Overview
 
 배포:
 
-https://ci.seetv.webos.io/doc/linuxtv/ 에 최신 버전을 매일 배포할 예정이며, 지난 버전 또한
+http://10.157.92.177/hal-libs 에 최신 버전을 매일 배포할 예정이며, 지난 버전 또한
 유지를 한다.
 
 도움:
 
 http://hlm.lge.com/issue/browse/TVPLAT 프로젝트에 Task로 이슈를 생성하여
-sean.lee@lge.com 또는 dy.jin@lge.com 에게 assign 한다.
+donghoon.keum@lge.com 또는 ashton.lee@lge.com 에게 assign 한다.
 
 Module
 ^^^^^^
