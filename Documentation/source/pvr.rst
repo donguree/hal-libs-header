@@ -30,7 +30,7 @@ trust zone                        Secure zone for only authorized process
 System Context
 ^^^^^^^^^^^^^^^
 
-.. image:: ./context.png
+.. image:: ./context_pvr.png
     :height: 400
     :width: 800
     :alt: system context for pvr_crypto
