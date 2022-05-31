@@ -64,8 +64,6 @@ Function Calls
   * :cpp:func:`HAL_DRM_GetHWID`
   * :cpp:func:`HAL_DRM_IsSecureDataExist`
   * :cpp:func:`HAL_DRM_InitDrv`
-  * :cpp:func:`HAL_DRM_JPMARLIN_CheckSecretData`
-  * :cpp:func:`HAL_DRM_JPMARLIN_WriteSecretData`
   * :cpp:func:`HAL_DRM_GetSecureDataProtected`
   * :cpp:func:`HAL_DRM_WriteWidevineKeyBox`
   * :cpp:func:`HAL_DRM_GetWidevineDeviceID`

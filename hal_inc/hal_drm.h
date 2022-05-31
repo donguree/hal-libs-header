@@ -61,10 +61,6 @@ DTV_STATUS_T HAL_DRM_AESHWFinish (UINT8 *pOutData, UINT32 *pOutDataSize);
 DTV_STATUS_T HAL_DRM_GetHWID(UINT8 *pOutData, UINT32 *pOutDataSize);
 DTV_STATUS_T HAL_DRM_IsSecureDataExist(SINT8 *pDataPath);
 DTV_STATUS_T HAL_DRM_InitDrv(void);
-DTV_STATUS_T HAL_DRM_JPMARLIN_CheckSecretData(SINT32 secretDataType);
-DTV_STATUS_T HAL_DRM_JPMARLIN_WriteSecretData(SINT32 secretDataType,
-	                                      UINT8 *pRootCert, SINT32 rootCertLen, UINT8 *pCaCert, SINT32 caCertLen,
-	                                      UINT8 *pClientCert, SINT32 clientCertLen, UINT8 *pClientKey, SINT32 clientKeyLen);
 DTV_STATUS_T HAL_DRM_GetSecureDataProtected(SINT8 *pID, UINT8 *pData, UINT32 *pLength);
 DTV_STATUS_T HAL_DRM_WriteWidevineKeyBox(UINT8 *pData, SINT32 dataLength);
 DTV_STATUS_T HAL_DRM_GetWidevineDeviceID(UINT8 *pDeviceID,  SINT32 *pIdLength);
