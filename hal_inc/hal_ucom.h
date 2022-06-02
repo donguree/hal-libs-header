@@ -73,8 +73,76 @@ typedef UINT32 (* UCOM_TV_LINK_CALLBACK_PTR_T) (UINT8* pData );
 	UCOM Interface Function ¼±¾ð (ucom_ddi.c)
 =======================================================*/
 
+/**
+ * @brief Initialize IR / Local Key process in this function.
+ *
+ * @rst
+ * Parameters
+ *   UCOM_KEY_CALLBACK_T pIRCallback, UCOM_KEY_CALLBACK_T pLKCallback
+ *
+ * Return Values
+ *   If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK
+ *
+ * Pseudocode
+ *
+ *     DTV_STATUS_T HAL_UCOM_Initialize(UCOM_KEY_CALLBACK_T pIRCallback, UCOM_KEY_CALLBACK_T pLKCallback) {
+ *       IF UCOM initialization succeeds THEN
+ *         RETURN OK
+ *       ELSE
+ *         RETURN NOT_OK
+ *       ENDIF
+ *     }
+ *
+ * @endrst
+ **/
 extern DTV_STATUS_T	HAL_UCOM_Initialize( UCOM_KEY_CALLBACK_T pIRCallback, UCOM_KEY_CALLBACK_T pLKCallback);
+
+/**
+ * @brief Set Read Command between MainSOC and PM.
+ *
+ * @rst
+ * Parameters
+ *   UINT8 cmd UINT16 dataSize UINT8 *pData
+ *
+ * Return Values
+ *   If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK
+ *
+ * Pseudocode
+ *
+ *     DTV_STATUS_T HAL_UCOM_ReadCommand(UINT8 cmd, UINT16 dataSize, UINT8 *pData) {
+ *       IF UCOM read succeeds THEN
+ *	       RETURN OK
+ *       ELSE
+ *	       RETURN NOT_OK
+ *       ENDIF
+ *     }
+ *
+ * @endrst
+ **/
 extern DTV_STATUS_T	HAL_UCOM_ReadCommand(  UINT8 cmd,   UINT16 dataSize, UINT8 *pData );
+
+/**
+ * @brief Set Write Command between MainSOC and PM.
+ *
+ * @rst
+ * Parameters
+ *   UINT8 *pCmd UINT16 size
+ *
+ * Return Values
+ *   If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK
+ *
+ * Pseudocode
+ *
+ *     DTV_STATUS_T HAL_UCOM_WriteCommand(UINT8 *pCmd, UINT16 size) {
+ *       IF UCOM write succeeds THEN
+ *	       RETURN OK
+ *       ELSE
+ *	       RETURN NOT_OK
+ *       ENDIF
+ *     }
+ *
+ * @endrst
+ **/
 extern DTV_STATUS_T	HAL_UCOM_WriteCommand( UINT8 *pCmd, UINT16 size );
 
 #ifdef	CEC_CONTROLLED_BY_CPU
@@ -104,6 +172,25 @@ DTV_STATUS_T	HAL_UCOM_GetADC_Value( UINT8 channel,UINT8 *pAdcData );
 void HAL_UCOM_PMStop(void);
 void HAL_UCOM_PMResume(void);
 void HAL_UCOM_PMReset(void);
+
+/**
+ * @brief Set Micom & SoC Reset Function.
+ *
+ * @rst
+ * Parameters
+ *   None
+ *
+ * Return Values
+ *   None
+ *
+ * Pseudocode
+ *
+ *     void HAL_UCOM_WholeChipReset(void) {
+ *       // Set PM & SoC Reset Operation Register
+ *     }
+ *
+ * @endrst
+ **/
 void HAL_UCOM_WholeChipReset(void);
 
 #endif /* #ifndef _HAL_UCOM_H_ */
