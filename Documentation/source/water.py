@@ -39,7 +39,7 @@ for i in range(number_of_pages):
 	ori.mergePage(mark.getPage(0))
 	merged_pdf.addPage(ori)
 
-merged_pdf.encrypt("linuxtv2021")
+#merged_pdf.encrypt("linuxtv2021")
 result = open('build/merged_singlepage.pdf','wb')
 merged_pdf.write(result)
 result.close()
