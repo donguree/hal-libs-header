@@ -78,14 +78,14 @@
  * Pseudo Code
  *   .. code-block:: cpp
  *
- *     DTV_STATUS_T HAL_USB_SuperSpeedPortUp(unsigned int busNumber, unsigned int portNumber)
- *     {
- *         Turn on super speed port
- *         IF any error occurred THEN
- *             RETURN NOT_OK
- *         END IF
- *         RETURN OK
- *     }
+ *   DTV_STATUS_T HAL_USB_SuperSpeedPortUp(unsigned int busNumber, unsigned int portNumber)
+ *   {
+ *       Turn on super speed port
+ *       IF any error occurred THEN
+ *           RETURN NOT_OK
+ *       END IF
+ *       RETURN OK
+ *   }
  *
  * Example
  *   .. code-block:: cpp
