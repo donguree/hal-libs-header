@@ -4,25 +4,35 @@ MMC
 History
 -------
 
-======= ========== ============== =======
-Version Date       Changed by     Comment
-======= ========== ============== =======
-0.0.0   ...        ...            ...
-======= ========== ============== =======
+======= ========== ===================== =============
+Version  Date        Changed by          Description
+======= ========== ===================== =============
+1.0.0   2022.6.8    `denis.hong`         First release
+======= ========== ===================== =============
 
 Overall Description
 --------------------
-
-We will update the content soon.
+MMC module is to support for the block devices associated with the MMC device.
+The main features provided are :
+  * Open MMC device
+  * Close MMC device
+  * Set PON with short time
+  * Set PON with long time
+  * Get MMC CID
+  * Get MMC usage information(SMART)
+  * Get MMC register's information
 
 Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-================================= ======================================
-Definition                        Description
-================================= ======================================
-We will update the content soon.  We will update the content soon.
-================================= ======================================
+================= ==================================================
+Definition                Description
+================= ==================================================
+MMC                Multi-Media Card
+PON                Power Off Notification
+CID                Card IDentificatoin
+SMART              Self Monitoring, Analysis and Reporting Technology
+================= ==================================================
 
 System Context
 ^^^^^^^^^^^^^^
