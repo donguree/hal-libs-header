@@ -67,4 +67,4 @@ Function Calls
   * :cpp:func:`HAL_MMC_PON_Long`
   * :cpp:func:`HAL_MMC_Get_CID`
   * :cpp:func:`HAL_MMC_Get_SMART_Report`
-  * :cpp:func:`HAL_MMC_Get_Register`
+  * :cpp:func:`HAL_MMC_Get_Register` //except from socts, it will be update if this function is to be tested.
