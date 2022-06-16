@@ -74,6 +74,40 @@ typedef enum
 /* Enable/Disable debug port(T32, register tool, debug tool)
  * requester: jeonghyeon.joo
  */
+ /**
+ * @brief Lock debug port(T32, register tool, debug tool)
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1.
+ *
+ * Performance Requirements
+ *   There are no performance requirements.
+ *
+ * Constraints
+ *   There must be symmetric key exchanged with Apple on the board.
+ *   If there is no symmetric key, this function cannot be tested.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS HAL_SYS_LockDebugPort(BOOLEAN bLock);
+ *
+ * Return Value
+ *   Success: 0
+ *   Fail: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T ret;
+ *     ret = HAL_SYS_LockDebugPort(1);
+ *
+ * @endrst
+ */
 DTV_STATUS_T HAL_SYS_LockDebugPort(BOOLEAN bLock);
 
 /* WOL
@@ -120,15 +154,198 @@ DTV_STATUS_T HAL_SYS_CheckRPMBPartition(void);
  * DDR memory test in DFT process
  * requester: kwangseok.kim
  */
+/**
+ * @brief DDR memory test in DFT process
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1.
+ *
+ * Performance Requirements
+ *   There are no performance requirements.
+ *
+ * Constraints
+ *   There must be symmetric key exchanged with Apple on the board.
+ *   If there is no symmetric key, this function cannot be tested.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS HAL_SYS_StartDFTMemTest(void);
+ *
+ * Return Value
+ *   Success: 0
+ *   Fail: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T ret;
+ *     ret = HAL_SYS_StartDFTMemTest();
+ *
+ * @endrst
+ */
 DTV_STATUS_T HAL_SYS_StartDFTMemTest(void);
+
+/**
+ * @brief Get DDR memory test results in DFT process
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1.
+ *
+ * Performance Requirements
+ *   There are no performance requirements.
+ *
+ * Constraints
+ *   There must be symmetric key exchanged with Apple on the board.
+ *   If there is no symmetric key, this function cannot be tested.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS HAL_SYS_GetDFTMemTestResult(void);
+ *
+ * Return Value
+ *   Success: 0
+ *   Fail: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DFT_MEM_TEST_RESULT_T ret;
+ *     ret = HAL_SYS_GetDFTMemTestResult();
+ *
+ * @endrst
+ */
 DFT_MEM_TEST_RESULT_T HAL_SYS_GetDFTMemTestResult(void);
 
 /*
  * PWM
  * requester: kwangseok.kim
  */
+/**
+ * @brief Get PWM capability from Fan controller,
+ *        The o22 machine of webOS22 only supports this functions.
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1.
+ *
+ * Performance Requirements
+ *   There are no performance requirements.
+ *
+ * Constraints
+ *   There must be symmetric key exchanged with Apple on the board.
+ *   If there is no symmetric key, this function cannot be tested.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS  HAL_SYS_GetPWMCapability(unsigned int *pNum_of_pwm, HAL_SYS_PWM_CAPABILITY_INFO_T *pstPWMCapability);
+ *
+ * Return Value
+ *   Success: 0
+ *   Fail: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T retVal = DILE_OK;
+ *     unsigned int *pNum_of_pwm
+ *     HAL_SYS_PWM_CAPABILITY_INFO_T stHalPWMCapability[MAX_PWM_NUM];
+ *     retVal = retVal = HAL_SYS_GetPWMCapability(pNum_of_pwm, stHalPWMCapability);
+ *
+ * @endrst
+ */
 DTV_STATUS_T HAL_SYS_GetPWMCapability(unsigned int *pNum_of_pwm, HAL_SYS_PWM_CAPABILITY_INFO_T *pstPWMCapability);
+
+/**
+ * @brief Set PWM for Fan controller,
+ *        The o22 machine of webOS22 only supports this functions.
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1.
+ *
+ * Performance Requirements
+ *   There are no performance requirements.
+ *
+ * Constraints
+ *   There must be symmetric key exchanged with Apple on the board.
+ *   If there is no symmetric key, this function cannot be tested.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS  HAL_SYS_SetPWM(unsigned int pwm_id, unsigned int period_ns, unsigned int duty_ns);
+ *
+ * Return Value
+ *   Success: 0
+ *   Fail: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T retVal = DILE_OK;
+ *     unsigned int pwm_id;
+ *     unsigned int period_ns;
+ *     unsigned int duty_ns;
+ *     retVal = HAL_SYS_SetPWM(pwm_id, period_ns, duty_ns);
+ *
+ * @endrst
+ */
 DTV_STATUS_T HAL_SYS_SetPWM(unsigned int pwm_id, unsigned int period_ns, unsigned int duty_ns);
+
+/**
+ * @brief Get PWM data from Fan controller,
+ *        The o22 machine of webOS22 only supports this functions.
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1.
+ *
+ * Performance Requirements
+ *   There are no performance requirements.
+ *
+ * Constraints
+ *   There must be symmetric key exchanged with Apple on the board.
+ *   If there is no symmetric key, this function cannot be tested.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS  HAL_SYS_GetPWMData(unsigned int pwm_id, void *pData);
+ *
+ * Return Value
+ *   Success: 0
+ *   Fail: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T retVal = DILE_OK;
+ *     unsigned int pwm_id;
+ *     void *pData;
+ *     retVal = HAL_SYS_GetPWMData(pwm_id, pData);
+ *
+ * @endrst
+ */
 DTV_STATUS_T HAL_SYS_GetPWMData(unsigned int pwm_id, void *pData);
 
 #endif  /* _HAL_SYS_H_ */
