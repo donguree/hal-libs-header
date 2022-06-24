@@ -65,8 +65,6 @@ Function Calls
   * :cpp:func:`HAL_SVP_CheckAuTypeIsDolbyHdrMeta`
   * :cpp:func:`HAL_SVP_FlushSecureDecryptBuffer`
   * :cpp:func:`HAL_SVP_FlushSecureDecryptBufferEx`
-  * :cpp:func:`HAL_SVP_Widevine_DecryptVideo`
-  * :cpp:func:`HAL_SVP_Widevine_DecryptAudio`
   * :cpp:func:`HAL_SVP_WidevineSelectKey`
   * :cpp:func:`HAL_SVP_WidevineSelectKey_OverV14`
   * :cpp:func:`HAL_SVP_WidevineDecryptCTR`
