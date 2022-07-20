@@ -935,11 +935,11 @@ int HAL_HDCP2_SHA256(unsigned char *pOutputBuf, unsigned char *pInputBuf,
              int length);
 
 /**
- * @brief Operate a AES_CTR function with CTR mode.
+ * @brief Deprecated. Operate a AES_CTR function with CTR mode.
  *
  * @rst
  * Functional Requirements
- *   Operate a AES_CTR function with CTR mode.
+ *   Deprecated. Operate a AES_CTR function with CTR mode.
  *
  * Responses to abnormal situations, including
  *   In abnormal case, the BSP should return an non-Zero.
