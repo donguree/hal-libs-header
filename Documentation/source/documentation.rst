@@ -410,6 +410,10 @@ SoCTS Coverage(http://swdev.lge.com/coverage.html)에서는 header에 선언된 
 |  TAS schedule은 파트의 TAS test 구현 일정을 말한다.
 |  년월은 2022.08과 같이 년은 4개, 월은 2개의 숫자기한다.
 
+이미 tas 구현이 완료되었거나 기타 사유등으로 socts test를 구현하지 않은 경우는
+| '//except from socts, it can be only verified by TAS' 와 같이 '//except from socts, 사유' 를
+| 영어로 작성하면 된다.
+
 .. code-block:: rst
 
   API_NAME //except from socts, TAS schedule:2022.08
