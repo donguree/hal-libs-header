@@ -51,6 +51,6 @@ We will update the content soon.
 Function Calls
 ^^^^^^^^^^^^^^^
 
-  * :cpp:func:`HAL_CRIU_PreCheckpointNotify`
-  * :cpp:func:`HAL_CRIU_PostDumpNotify`
-  * :cpp:func:`HAL_CRIU_PostRestoreNotify`
+  * :cpp:func:`HAL_CRIU_PreCheckpointNotify` //excep from socts, It does not be used.
+  * :cpp:func:`HAL_CRIU_PostDumpNotify` //excep from socts, It does not be used.
+  * :cpp:func:`HAL_CRIU_PostRestoreNotify` //excep from socts, It does not be used.

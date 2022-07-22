@@ -53,4 +53,4 @@ Function Calls
 
   * :cpp:func:`HAL_USB_SuperSpeedPortUp`
   * :cpp:func:`HAL_USB_SuperSpeedPortOff`
-  * :cpp:func:`HAL_USB_SuperSpeedVBusControl`
+  * :cpp:func:`HAL_USB_SuperSpeedVBusControl` //excep from socts, It does not be used.
