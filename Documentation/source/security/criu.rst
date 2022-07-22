@@ -7,50 +7,52 @@ History
 ======= ========== ============== =======
 Version Date       Changed by     Comment
 ======= ========== ============== =======
-0.0.0   ...        ...            ...
+1.0.0   22.07.22   jaeguk.lee
 ======= ========== ============== =======
 
 Overall Description
 --------------------
 
-We will update the content soon.
+CRIU is opensource software basically. ( https://criu.org/Main_Page )
+It include some modifications and extends for webos tv.
+HAL_CRIU functions is to exception handling about not supported operation
+such like device files, shm, rw files.
 
 Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-================================= ======================================
-Definition                        Description
-================================= ======================================
-We will update the content soon.  We will update the content soon.
-================================= ======================================
+Refer to criu lld documents.
+- http://collab.lge.com/main/pages/viewpage.action?pageId=1697529562
 
 System Context
 ^^^^^^^^^^^^^^
 
-We will update the content soon.
+Refer to criu lld documents.
+- http://collab.lge.com/main/pages/viewpage.action?pageId=1697529562
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Functional Requirements
 -----------------------
 
-The data types and functions used in this module are as follows.
+NA
 
 Data Types
 ^^^^^^^^^^^^
-We will update the content soon.
+
+NA
 
 Function Calls
 ^^^^^^^^^^^^^^^
 
-  * :cpp:func:`HAL_CRIU_PreCheckpointNotify` //excep from socts, It does not be used.
-  * :cpp:func:`HAL_CRIU_PostDumpNotify` //excep from socts, It does not be used.
-  * :cpp:func:`HAL_CRIU_PostRestoreNotify` //excep from socts, It does not be used.
+  * :cpp:func:`HAL_CRIU_PreCheckpointNotify`
+  * :cpp:func:`HAL_CRIU_PostDumpNotify` //except from socts, TAS test by criu feature bat
+  * :cpp:func:`HAL_CRIU_PostRestoreNotify` //except from socts, TAS test by criu feature bat
