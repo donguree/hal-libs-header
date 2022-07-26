@@ -55,10 +55,10 @@ Function Calls
   * :cpp:func:`HAL_SSTR_GetDataFromSecureData`
   * :cpp:func:`HAL_SSTR_GetHMAC`
   * :cpp:func:`HAL_SSTR_VerifyHMAC`
-  * :cpp:func:`HAL_SSTR_GenAESKey`
-  * :cpp:func:`HAL_SSTR_AES_Encrypt`
-  * :cpp:func:`HAL_SSTR_AES_Decrypt`
-  * :cpp:func:`HAL_SSTR_RSA_Encrypt`
-  * :cpp:func:`HAL_SSTR_RSA_Decrypt`
-  * :cpp:func:`HAL_SSTR_RSA_Sign`
-  * :cpp:func:`HAL_SSTR_RSA_Verify`
+  * :cpp:func:`HAL_SSTR_GenAESKey` //except from socts, deprecated
+  * :cpp:func:`HAL_SSTR_AES_Encrypt` //except from socts, deprecated
+  * :cpp:func:`HAL_SSTR_AES_Decrypt` //except from socts, deprecated
+  * :cpp:func:`HAL_SSTR_RSA_Encrypt` //except from socts, deprecated
+  * :cpp:func:`HAL_SSTR_RSA_Decrypt` //except from socts, deprecated 
+  * :cpp:func:`HAL_SSTR_RSA_Sign` //except from socts, deprecated
+  * :cpp:func:`HAL_SSTR_RSA_Verify` //except from socts, deprecated
