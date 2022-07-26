@@ -7,13 +7,15 @@ History
 ======= ========== ============== =======
 Version Date       Changed by     Comment
 ======= ========== ============== =======
-0.0.0   ...        ...            ...
+1.0.0   2022.07.28 hedaesik.kim   Add new document
 ======= ========== ============== =======
 
 Overall Description
 --------------------
 
-We will update the content soon.
+Provision the encrypted injection key injected from the factory to the TEE secure storage.
+TEE supports encryption and decryption.
+Trigger the operation of the specific TAs.
 
 Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

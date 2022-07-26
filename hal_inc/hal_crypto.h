@@ -490,51 +490,135 @@ DTV_STATUS_T HAL_CRYPTO_WriteMVPDSecret(char *pPath, UINT8 *pData, int length);
 DTV_STATUS_T HAL_CRYPTO_WriteHDCPOnSecure(unsigned int hdcpType, unsigned char *pHDCPKey, unsigned int hdcpSize);
 DTV_STATUS_T HAL_CRYPTO_ReadHDCPFromSecure(unsigned int hdcpType, unsigned char *pHDCPKey, unsigned int *pHDCPSize);
 
-
-
-/* webOS Secure Store Support APIs */
 /**
- * Perform TEE AES encryption.
- * 128 and 256 bits key size should be supported, and PKCS#5 padding should be used.
- * The pKey is a SecureData.
- * ECB and CBC mode should be supported. The mode of operation is specified by the parameter
- * pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
- * When using CBC, IV value should be generated randomly in TEE and attached in front of the
- * encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes
- * in front of the encrypted data).
+ * @brief Perform TEE AES encryption
  *
- *  @param   nSrcLen    [IN]        Size of data to be encrypted
- *  @param   pSrcData   [IN]        Buffer for data to be encrypted
- *  @param   pDstLen    [OUT]       Size of output data (the result of encryption)
- *  @param   pDstData   [OUT]       Buffer for output data (the result of encryption)
- *  @param   pszMode    [IN]        Block cipher Mode ("ECB" / "CBC")
- *  @param   pKey       [IN]        SecureData of cipher key
- *  @param   nKeySize   [IN]        Size of pKey data
- *  @return  If the function succeeds, the return value is OK.
- *           If the function fails, the return value is NOT_OK.
+ * @rst
+ * Functional Requirements
+ *   Perform TEE AES encryption. 128 and 256 bits key size should be supported, and PKCS#5 padding should be used.
+ *   The pKey is a SecureData which is made by HAL_SSTR_MakeSecureData.
+ *   ECB and CBC mode should be supported. The mode of operation is specified by the parameter.
+ *   pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
+ *   When using CBC, IV value should be generated randomly in TEE and attached in front of the
+ *   encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes
+ *   in front of the encrypted data).
+ *
+ * Responses to abnormal situations, including
+ *   If SecureData is invalid, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_AES_Encrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * nSrcLen     [in]    size of pSrcData
+ *   * pSrcData    [in]    buffer for data to be encrypted
+ *   * pDstLen     [out]   sizeof pDstData
+ *   * pDstData    [out]   buffer to store SecureData
+ *   * pszMode     [in]    Block cipher Mode ("ECB" / "CBC")
+ *   * pKey        [in]    SecureData of cipher key
+ *   * nKeySize    [in]    Size of pKey data
+ *
+ *   ============ ========== =============================================
+ *   PARAMETER    DATE TYPE  DESCRIPTION
+ *   ============ ========== =============================================
+ *   pszMode      Plaintext  "ECB" or "CBC"
+ *   pKey         SecureData SecureData which is made by HAL_SSTR_MakeSecureData
+ *   ============ ========== =============================================
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     // nSrcLen = 16;
+ *     UINT32 dstLen = 16; // (data size 16)
+ *     UINT8 *pDstData = (UINT8 *)malloc (dstLen);
+ *     if (0 != HAL_CRYPTO_AES_Encrypt(nSrcLen, pSrcData, &pDstLen,
+ *                                    pDstData, "ECB", pKey, nKeySize)) {
+ *         // handling error
+ *     }
+ *     dstLen = 32; // (iv size 16 + data size 16)
+ *     pDstData = (UINT8 *)malloc (dstLen);
+ *     if (0 != HAL_CRYPTO_AES_Encrypt(nSrcLen, pSrcData, &pDstLen,
+ *                                    pDstData, "CBC", pKey, nKeySize)) {
+ *         // handling error
+ *     } 
+ * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                                     UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
 
-/*
- * Perform TEE AES decryption.
- * 128 and 256 bits key size should be supported, and PKCS#5 padding should be used.
- * The pKey is a SecureData.
- * ECB and CBC mode should be supported. The mode of operation is specified by the parameter
- * pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
- * When using CBC, IV value should be generated randomly in TEE and attached in front of the
- * encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes
- * in front of the encrypted data).
+/**
+ * @brief Perform TEE AES decryption.
  *
- *  @param   nSrcLen     [IN]        Size of data to be decrypted
- *  @param   pSrcData    [IN]        Buffer for data to be decrypted
- *  @param   pDstLen     [OUT]       Size of output data (the result of decryption)
- *  @param   pDstData    [OUT]       Buffer for output data (the result of decryption)
- *  @param   pszMode     [IN]        Block cipher Mode (ECB / CBC)
- *  @param   pKey        [IN]        SecureData of cipher key
- *  @param   nKeySize    [IN]        Size of pKey data
- *  @return  If the function succeeds, the return value is OK.
- *           If the function fails, the return value is NOT_OK.
+ * @rst
+ * Functional Requirements
+ *   Perform TEE AES decryption.. 128 and 256 bits key size should be supported, and PKCS#5 padding should be used.
+ *   The pKey is a SecureData which is made by HAL_SSTR_MakeSecureData.
+ *   ECB and CBC mode should be supported. The mode of operation is specified by the parameter.
+ *   pszMode of which the type is char pointer type string. "ECB" or "CBC" can be passed.
+ *   When using CBC, IV value should be generated randomly in TEE and attached in front of the
+ *   encrypted result buffer. For decryption, the IV is retrieved from the source buffer (16bytes
+ *   in front of the encrypted data).
+ *
+ * Responses to abnormal situations, including
+ *   If SecureData is invalid, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_AES_Decrypt(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * nSrcLen     [in]    size of pSrcData
+ *   * pSrcData    [in]    buffer for data to be encrypted
+ *   * pDstLen     [out]   sizeof pDstData
+ *   * pDstData    [out]   buffer to store SecureData
+ *   * pszMode     [in]    Block cipher Mode ("ECB" / "CBC")
+ *   * pKey        [in]    SecureData of cipher key
+ *   * nKeySize    [in]    Size of pKey data
+ *
+ *   ============ ========== =============================================
+ *   PARAMETER    DATE TYPE  DESCRIPTION
+ *   ============ ========== =============================================
+ *   pSrcData     data       encrypted data by HAL_CRYPTO_AES_Encrypt. If mode is "CBC", data includes IV value (16 bytes in formt of data)
+ *   pszMode      Plaintext  "ECB" or "CBC"
+ *   pKey         SecureData SecureData which is made by HAL_SSTR_MakeSecureData
+ *   ============ ========== =============================================
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     // nSrcLen = 16;
+ *     UINT32 dstLen = 16; // (original data size 16)
+ *     UINT8 *pDstData = (UINT8 *)malloc (dstLen);
+ *     if (0 != HAL_CRYPTO_AES_Decrypt(nSrcLen, pSrcData, &pDstLen,
+ *                                    pDstData, "ECB", pKey, nKeySize)) {
+ *         // handling error
+ *     }
+ *     // nSrcLen = 32; // (iv size 16 + data size 16)
+ *     dstLen = 16; // (original data size 16) 
+ *     if (0 != HAL_CRYPTO_AES_Decrypt(nSrcLen, pSrcData, &pDstLen,
+ *                                    pDstData, "CBC", pKey, nKeySize)) {
+ *         // handling error
+ *     } 
+ * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                                     UINT8 *pDstData, char *pszMode, UINT8 *pKey, UINT32 nKeySize);
@@ -546,104 +630,310 @@ typedef enum {
     HAL_CRYPTO_RSA_NO_PADDING,
     HAL_CRYPTO_RSA_PKCS1_OAEP_PADDING
 } HAL_CRYPTO_RSA_PADDING_T;
-/*
- * Perform RSA encryption.
- * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and
- * encoded by either DER or PEM. So, the encoding type should be passed via the parameter
- * pszKeyType.
+/**
+ * @brief Perform TEE RSA encryption.
  *
- *  @param   pSrcLen         [IN]     Size of data to be encrypted
- *  @param   pSrcData        [IN]     Buffer for data to be encrypted
- *  @param   pDstLen         [OUT]    Size of output data (the result of encryption)
- *  @param   pDstData        [OUT]    Buffer for output data (the result of encryption)
- *  @param   padding         [IN]     Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
- *  @param   pszKeyType      [IN]     Key Encoding Type. ("PEM" or "DER")
- *  @param   pKey            [IN]     SecureData of cipher key
- *  @param   nKeySize        [IN]     Size of pKey data
- *  @return  If the function succeeds, the return value is OK.
- *           If the function fails, the return value is NOT_OK.
+ * @rst
+ * Functional Requirements
+ *   The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and
+ *   encoded by either DER or PEM. So, the encoding type should be passed via the parameter
+ *   pszKeyType.
+ *
+ * Responses to abnormal situations, including
+ *   If SecureData of cipher key is invalid, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   nSrcLen should be less than ((key size / 8) - 41). key size is 2048 or 1024.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * nSrcLen     [in]    Size of data to be encrypted
+ *   * pSrcData    [in]    Buffer for data to be encrypted
+ *   * pDstLen     [out]   Size of output data (the result of encryption)
+ *   * pDstData    [out]   Buffer for output data (the result of encryption)
+ *   * padding     [in]    Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
+ *   * pszKeyType  [in]    Key Encoding Type. ("PEM" or "DER")
+ *   * pKey        [in]    SecureData of cipher key
+ *   * nKeySize    [in]    Size of pKey data
+ *
+ *   ============ ========== =============================================
+ *   PARAMETER    DATE TYPE  DESCRIPTION
+ *   ============ ========== =============================================
+ *   padding      data       HAL_CRYPTO_RSA_NO_PADDING=0, HAL_CRYPTO_RSA_PKCS1_OAEP_PADDING=1
+ *   pszKeyType   Plaintext  "PEM" or "DER"
+ *   pKey         SecureData SecureData of cipher key which is made by HAL_SSTR_MakeSecureData
+ *   ============ ========== =============================================
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     UINT32 dstLen = 256;
+ *     UINT8 *pDstData = (UINT8 *)malloc (dstLen);
+ *     if (0 != HAL_CRYPTO_RSA_Encrypt(nSrcLen, pSrcData, &pDstLen,
+ *                                    pDstData, PKCS1_OAEP_PADDING, "PEM", pKey, nKeySize)) {
+ *         // handling error
+ *     }
+ * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                                      UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding,
                                      char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
-/*
- * Perform RSA decryption.
- * The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and
- * encoded by either DER or PEM. So, the encoding type should be passed via the parameter
- * pszKeyType.
+/**
+ * @brief Perform TEE RSA decryption.
  *
- *  @param   pSrcLen        [IN]      Size of data to be decrypted
- *  @param   pSrcData       [IN]      Buffer for data to be decrypted
- *  @param   pDstLen        [OUT]     Size of output data (the result of decryption)
- *  @param   pDstData       [OUT]     Buffer for output data (the result of encryption/decryption)
- *  @param   padding        [IN]     Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
- *  @param   pszKeyType     [IN]      Key Encoding Type. ("PEM" or "DER")
- *  @param   pKey           [IN]      SecureData of cipher key
- *  @param   nKeySize       [IN]      Size of pKey data
+ * @rst
+ * Functional Requirements
+ *   The passed pKey is a type of SecureData, and original key is has a format of PKCS#1 and
+ *   encoded by either DER or PEM. So, the encoding type should be passed via the parameter
+ *   pszKeyType.
+ *
+ * Responses to abnormal situations, including
+ *   If SecureData of cipher key is invalid, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   pSrcData should be data which is made by HAL_CRYPTO_RSA_Encrypt before.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding, char *pszKeyType, UINT8 *pKey, UINT32 nKeySize)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * nSrcLen     [in]    Size of data to be encrypted
+ *   * pSrcData    [in]    Buffer for data to be encrypted
+ *   * pDstLen     [out]   Size of output data (the result of encryption)
+ *   * pDstData    [out]   Buffer for output data (the result of encryption)
+ *   * padding     [in]    Padding Type (RSA_NO_PADDING or PKCS1_OAEP_PADDING)
+ *   * pszKeyType  [in]    Key Encoding Type. ("PEM" or "DER")
+ *   * pKey        [in]    SecureData of cipher key
+ *   * nKeySize    [in]    Size of pKey data
+ *
+ *   ============ ========== =============================================
+ *   PARAMETER    DATE TYPE  DESCRIPTION
+ *   ============ ========== =============================================
+ *   pSrcData     data		 Encrypted data by HAL_CRYPTO_RSA_Encrypt
+ *   padding      data       HAL_CRYPTO_RSA_NO_PADDING=0, HAL_CRYPTO_RSA_PKCS1_OAEP_PADDING=1
+ *   pszKeyType   Plaintext  "PEM" or "DER"
+ *   pKey         SecureData SecureData of cipher key which is made by HAL_SSTR_MakeSecureData
+ *   ============ ========== =============================================
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     UINT32 dstLen = 256;
+ *     UINT8 *pDstData = (UINT8 *)malloc (dstLen);
+ *     if (0 != HAL_CRYPTO_RSA_Decrypt(nSrcLen, pSrcData, &pDstLen,
+ *                                    pDstData, PKCS1_OAEP_PADDING, "PEM", pKey, nKeySize)) {
+ *         // handling error
+ *     }
+ * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_RSA_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
                                      UINT8 *pDstData, HAL_CRYPTO_RSA_PADDING_T padding,
                                      char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
-/*
- * Perform RSA Signing in TEE
- * Signing message encoding scheme is "SHA256 / EMSA-PKCS1-v1_5 Encoding"
- * pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by
- * DER or PEM.
+/**
+ * @brief Perform RSA Signing in TEE.
  *
- *  @param   nDataSize         [IN]      Size of data to be signed
- *  @param   pData             [IN]      Data to be signed
- *  @param   pSigLen           [OUT]     Size of signature (pSig)
- *  @param   pSig              [OUT]     Signature data
- *  @param   pszKeyType        [IN]      Key Encoding Type. ("PEM" or "DER")
- *  @param   pKey              [IN]      SecureData of cipher key
- *  @param   nKeyLen           [IN]      Size of pKey data
-*/
+ * @rst
+ * Functional Requirements
+ *   Signing message encoding scheme is "SHA256 / EMSA-PKCS1-v1_5 Encoding"
+ *   pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by DER or PEM.
+ *
+ * Responses to abnormal situations, including
+ *   If SecureData of cipher key is invalid, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeyLen)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * nDataSize     [in]    Size of data to be signed
+ *   * pData         [in]    Data to be signed
+ *   * pSigLen       [out]   Size of signature (pSig)
+ *   * pSig          [out]   Signature data
+ *   * pszKeyType    [in]    Key Encoding Type. ("PEM" or "DER")
+ *   * pKey          [in]    SecureData of cipher key
+ *   * nKeyLen       [in]    Size of pKey data
+ *
+ *   ============ ========== =============================================
+ *   PARAMETER    DATE TYPE  DESCRIPTION
+ *   ============ ========== =============================================
+ *   pszKeyType   Plaintext  "PEM" or "DER"
+ *   pKey         SecureData SecureData of cipher key which is made by HAL_SSTR_MakeSecureData
+ *   ============ ========== =============================================
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     UINT32 dstLen = 256;
+ *     UINT8 *pDstData = (UINT8 *)malloc (dstLen);
+ *     if (0 != HAL_CRYPTO_RSA_Sign(nDataSize, pData, &pSigLen,
+ *                                    pSig, "PEM", pKey, nKeyLen)) {
+ *         // handling error
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_CRYPTO_RSA_Sign (UINT32 nDataSize, UINT8 *pData, UINT32 *pSigLen, UINT8 *pSig,
                                   char *pszKeyType, UINT8 *pKey, UINT32 nKeyLen);
 
-/*
- * Perform RSA signature verification in TEE
- * Signing message encoding scheme is "SHA256 / EMSA-PKCS1-v1_5 Encoding"
- * pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by
- * DER or PEM.
+/**
+ * @brief Perform RSA signature verification in TEE
  *
- *  @param   nDataSize         [IN]      Size of data to be verified
- *  @param   pData             [IN]      Data to be verified
- *  @param   nSigLen           [IN]      Size of signature (pSig)
- *  @param   pSig              [IN]      Signature data
- *  @param   pszKeyType        [IN]      Key Encoding Type. ("PEM" or "DER")
- *  @param   pKey              [IN]      SecureData of cipher key
- *  @param   nKeyLen           [IN]      Size of pKey data
-*/
+ * @rst
+ * Functional Requirements
+ *   Signing message encoding scheme is "SHA256 / EMSA-PKCS1-v1_5 Encoding"
+ *   pKey is a SecureData type and its original key data is PKCS#1 format that is encoded by DER or PEM.
+ *
+ * Responses to abnormal situations, including
+ *   If SecureData of cipher key is invalid, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig, char *pszKeyType, UINT8 *pKey, UINT32 nKeyLen)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * nDataSize     [in]    Size of data to be signed
+ *   * pData         [in]    Data to be signed
+ *   * nSigLen       [in]    Size of signature (pSig)
+ *   * pSig          [in]    Signature data
+ *   * pszKeyType    [in]    Key Encoding Type. ("PEM" or "DER")
+ *   * pKey          [in]    SecureData of cipher key
+ *   * nKeyLen       [in]    Size of pKey data
+ *
+ *   ============ ========== =============================================
+ *   PARAMETER    DATE TYPE  DESCRIPTION
+ *   ============ ========== =============================================
+ *   pszKeyType   Plaintext  "PEM" or "DER"
+ *   pKey         SecureData SecureData of cipher key which is made by HAL_SSTR_MakeSecureData
+ *   ============ ========== =============================================
+ *
+ * Return Value
+ *   Zero(0) if the signature verifcation is success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     UINT32 dstLen = 256;
+ *     UINT8 *pDstData = (UINT8 *)malloc (dstLen);
+ *     if (0 != HAL_CRYPTO_RSA_Verify(nDataSize, pData, nSigLen,
+ *                                    pSig, "PEM", pKey, nKeyLen)) {
+ *         // handling error
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigLen, UINT8 *pSig,
                                     char *pszKeyType, UINT8 *pKey, UINT32 nKeySize);
 
-/*
- * HAL_CRYPTO_EncryptDbgData
- * Encrypt debug status data.
+/**
+ * @brief Perform encryption with a randomly generated encryption key on TEE for each device.
  *
- * @param   pInData         [IN]    Input data  (plaintext data)
- * @param   nInL            [IN]    Input data size
- * @param   pOutData        [IN]    Output data (encrypted data)
- * @param   pOutL           [IN]    Output data size
- * @return  If the function succeeds, the return value is OK.
- *          If the function fails, the return value is NOT_OK.
+ * @rst
+ * Functional Requirements
+ *   Input data should be encrypted with AES-ECB. And key size should be 16 bytes or 32 bytes. 
+ *
+ * Responses to abnormal situations, including
+ *   If error is occured, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   Input data's size should be 32 bytes. And also output data's size should be 32 bytes.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_EncryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pInData        [in]    Data to be encrypted
+ *   * nInL           [in]    Size of data to be encrypted
+ *   * pOutData       [out]   Encrypted data
+ *   * pOutL          [out]   Size of Encrypted data
+ *
+ * Return Value
+ *   Zero(0) if encryption is success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     int pOutL = 32;
+ *     UINT8 *outData = (UINT8 *)malloc(pOutL);
+ *     if (0 != HAL_CRYPTO_EncryptDbgData(pInData, nInL, outData, &pOutL)) {
+ *         // handling error
+ *     }  
+ * @endrst
  */
-
 DTV_STATUS_T HAL_CRYPTO_EncryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL);
 
-/*
- * HAL_CRYPTO_DecryptDbgData
- * Decrypt debug status data.
+/**
+ * @brief Perform decryption with a randomly generated encryption key on TEE for each device.
  *
- * @param   pInData         [IN]    Input data  (Encrypted data)
- * @param   nInL            [IN]    Input data size
- * @param   pOutData        [IN]    Output data (Plaintext data)
- * @param   pOutL           [IN]    Output data size
- * @return  If the function succeeds, the return value is OK.
- *          If the function fails, the return value is NOT_OK.
+ * @rst
+ * Functional Requirements
+ *   Input data should be decrypted with AES-ECB. And key size should be 16 bytes or 32 bytes.
+ *
+ * Responses to abnormal situations, including
+ *   If error is occured, return error (non-Zero or Error Code).
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   Input data's size should be 32 bytes. And also output data's size should be 32 bytes.
+ *
+ * Functions & Parameters
+ *   * HAL_SSTR_R_T HAL_CRYPTO_EncryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pInData        [in]    Data to be decrypted
+ *   * nInL           [in]    Size of data to be decrypted
+ *   * pOutData       [out]   Decrypted data
+ *   * pOutL          [out]   Size of decrypted data
+ *
+ * Return Value
+ *   Zero(0) if decryption is success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     int pOutL = 32;
+ *     UINT8 *outData = (UINT8 *)malloc(pOutL);
+ *     if (0 != HAL_CRYPTO_EncryptDbgData(pInData, nInL, outData, &pOutL)) {
+ *         // handling error
+ *     }
+ * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_DecryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL);
 

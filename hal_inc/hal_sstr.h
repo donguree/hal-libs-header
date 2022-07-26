@@ -82,17 +82,8 @@ typedef enum {
  *
  * @rst
  * Functional Requirements
- *   This API performs making SecureData (normal or in-memory protection),
- *   and storing sedata into the SoC secure store.
- *
- *   - SecureData format:
- *   - SecureData =  E_DUK(SDEK) || E_SDEK(Data), where size of SecureData = 32+size of Data
- *
- *       - E_K(data) : encrypting data with a key K
- *       - DUK : Device Unique Key (stored in OTP)
- *       - SDEK : SecureData Encryption Key. The key encryption key to be used to make a SecureData
- *         (encrypt data). This key is randomly generated each time that making SecureData
- *         is requested.
+ *   This API performs making SecureData, and storing SecureData into the SoC secure store or returning SecureData
+ *   to REE to store into webos store.
  *
  *   The "in-memory protection" means that data is protected by TEE-encryption and it never be
  *   able to be decrypted in REE side. (It doesn't mean any kernel or SoC level memory protection
@@ -100,15 +91,14 @@ typedef enum {
  *   decrypted *  only in SoC TEE internal side.
  *
  * Responses to abnormal situations, including
- *   ex) In abnormal case, the BSP should return an non-Zero.
+ *   If pDstData is NULL, set only pDstLen and return it. If you want to SecureData size to allocation memory,
+ *   call HAL_SSTR_MakeSecureData with NULL to pDstData
  *
  * Performance Requirements
- *   ex) The response time of this function should be within 100ms.
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
  *
  * Constraints
- *   ex) There is no constraints.
- *   ex) The scaler uses the subscription function of V4L2 events. When implementing the event of the V4L2 subscription function,
- *   it must be implemented using the epoll feature provided by the kernel. In case of other constraints, please refer to the each API description.
+ *   There is no constraints.
  *
  * Functions & Parameters
  *   * HAL_SSTR_R_T HAL_SSTR_MakeSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData, char *pszDataType)
@@ -125,22 +115,22 @@ typedef enum {
  *   DATA TYPE    pSrcData   pDstData
  *   ============ ========== =============================================
  *   general      Plaintext  SecureData
- *   general_tee  Plaintext  in-memory protection SecureData
  *   sedata       sedata     SecureData
  *   sedata_tee   sedata     in-memory protection SecureData
  *   {key_id}     sedata     NULL (storing data into SoC secure store)
  *   ============ ========== =============================================
  *
  * Return Value
- *   ex) Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
  *
  * Example
  *   .. code-block:: cpp
  *
- *     ex)
- *
- *     if (0 != HAL_SSTR_MakeSecureData(nSrcLen, *pSrcData, *pDstLen,
- *                                    *pDstData, *pszDataType)) {
+ *     UINT32 secureDataLen = 0;
+ *     HAL_SSTR_MakeSecureData(nSrcLen, pSrcData, &secureDataLen, NULL, *pszDataType);
+ *     UINT8 *secureData = (UINT8 *)malloc (pDstLen);
+ *     if (0 != HAL_SSTR_MakeSecureData(nSrcLen, *pSrcData, &secureDataLen,
+ *                                    secureData, *pszDataType)) {
  *         // handling error
  *     }
  * @endrst
@@ -150,22 +140,23 @@ HAL_SSTR_R_T HAL_SSTR_MakeSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
                                      UINT8 *pDstData, char *pszDataType);
 
 /**
- * @brief ex) brief contents
+ * @brief Decrypt encrypted data which is made by HAL_SSTR_MakeSecureData in Secure Store TA, and return REE decrypted data.
  *
  * @rst
  * Functional Requirements
- *   ex) This API performs ....................
+ *   This API performs decryption of Secure Data which is made by HAL_SSTR_MakeSecureData in Secure Store TA and return
+ *   decrypted data to REE.
  *
  * Responses to abnormal situations, including
- *   ex) In abnormal case, the BSP should return an non-Zero.
+ *   Verify HMAC for checking integrity and meta info also should be checked.
+ *   If pDstData is NULL, set only pDstLen and return it. If you want to get key size to allocation memory,
+ *   call HAL_SSTR_GetDataFromSecureData with NULL to pDstData
  *
  * Performance Requirements
- *   ex) The response time of this function should be within 100ms.
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
  *
  * Constraints
- *   ex) There is no constraints.
- *   ex) The scaler uses the subscription function of V4L2 events. When implementing the event of the V4L2 subscription function,
- *   it must be implemented using the epoll feature provided by the kernel. In case of other constraints, please refer to the each API description.
+ *   There is no constraints.
  *
  * Functions & Parameters
  *  * HAL_SSTR_R_T HAL_SSTR_GetDataFromSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen, UINT8 *pDstData)
@@ -173,19 +164,22 @@ HAL_SSTR_R_T HAL_SSTR_MakeSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
  *  For the data type, following data types are defined
  *
  *  * nSrcLen     [in]    size of pSrcData
- *  * pSrcData    [in]    buffer for data to be decrypted
+ *  * pSrcData    [in]    buffer for data to be decrypted (encpryted data which is made by HAL_SSTR_MakeSecureData)
  *  * pDstLen     [out]   sizeof pDstData
  *  * pDstData    [out]   buffer to store the decrypted data
  *
  * Return Value
- *   ex) Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
  *
  * Example
  *   .. code-block:: cpp
  *
  *     ex)
  *
- *     if (0 != HAL_SSTR_GetDataFromSecureData(nSrcLen, *pSrcData, *pDstLen, *pDstData)) {
+ *     UINT32 keySize = 0;
+ *     HAL_SSTR_GetDataFromSecureData(nSrcLen, pSrcData, &keySize,NULL);
+ *     UINT8 *pDstData = (UINT8 *)malloc (keySize);
+ *     if (0 != HAL_SSTR_GetDataFromSecureData(nSrcLen, *pSrcData, keySize, pDstData)) {
  *         // handling error
  *     }
  * @endrst
@@ -194,22 +188,22 @@ HAL_SSTR_R_T HAL_SSTR_GetDataFromSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UIN
                                             UINT8 *pDstData);
 
 /**
- * @brief ex) brief contents
+ * @brief Generate key and value for HMAC_SHA256
  *
  * @rst
  * Functional Requirements
- *   ex) This API performs ....................
+ *   Given a pData of which the size is nDataSize, calculate HMAC and return it with the Protected SDHK.
+ *   The SDHK is randomly generated for each API calls and its size is 32 bytes. HMAC algorithm is HMAC_SHA256
+ *   and should be performed in TEE.
  *
  * Responses to abnormal situations, including
- *   ex) In abnormal case, the BSP should return an non-Zero.
+ *   In abnormal case, the BSP should return an non-Zero.
  *
  * Performance Requirements
- *   ex) The response time of this function should be within 100ms.
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
  *
  * Constraints
- *   ex) There is no constraints.
- *   ex) The scaler uses the subscription function of V4L2 events. When implementing the event of the V4L2 subscription function,
- *   it must be implemented using the epoll feature provided by the kernel. In case of other constraints, please refer to the each API description.
+ *   There is no constraints.
  *
  * Functions & Parameters
  *  * HAL_SSTR_R_T HAL_SSTR_GetHMAC(UINT32 nDataSize, UINT8 *pData, UINT8 *pKey, UINT8 *pHMAC)
@@ -219,17 +213,19 @@ HAL_SSTR_R_T HAL_SSTR_GetDataFromSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UIN
  *  * nDataSize   [in]    size of pData
  *  * pData       [in]    source data for HMAC
  *  * pKey        [out]   Buffer for Protected SDHK generated by TEE.
- *  * pHMAC       [out]   Buffer to store HMAC value calculated by TEE
+ *  * pHMAC       [out]   Buffer to store HMAC value calculated by TEE.
  *
  * Return Value
- *   ex) Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
  *
  * Example
  *   .. code-block:: cpp
  *
  *     ex)
  *
- *     if (0 != HAL_SSTR_GetDataFromSecureData(nSrcLen, *pSrcData, *pDstLen, *pDstData)) {
+ *     UINT8 *pProtectedSDHK = (UINT8 *)malloc(32);
+ *     UINT8 *pHMAC = (UINT8 *)malloc(32);
+ *     if (0 != HAL_SSTR_GetHMAC(nDataSize, pSecureData, pProtectedSDHK, pHMAC))
  *         // handling error
  *     }
  * @endrst
@@ -237,22 +233,22 @@ HAL_SSTR_R_T HAL_SSTR_GetDataFromSecureData(UINT32 nSrcLen, UINT8 *pSrcData, UIN
 HAL_SSTR_R_T HAL_SSTR_GetHMAC(UINT32 nDataSize, UINT8 *pData, UINT8 *pKey, UINT8 *pHMAC);
 
 /**
- * @brief ex) brief contents
+ * @brief Verify data with HMAC value and protected key.
  *
  * @rst
  * Functional Requirements
- *   ex) This API performs ....................
+ *   Verify the data pData of which the size is nDataSize with the HMAC value pHMAC.
+ *   The key data pKey is a protected SDHK that is provided by HAL_SSTR_GetHMAC API.
+ *   According to the validation result, zero or non-zero is returned.
  *
  * Responses to abnormal situations, including
- *   ex) In abnormal case, the BSP should return an non-Zero.
+ *   In abnormal case, the BSP should return an non-Zero.
  *
  * Performance Requirements
- *   ex) The response time of this function should be within 100ms.
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
  *
  * Constraints
- *   ex) There is no constraints.
- *   ex) The scaler uses the subscription function of V4L2 events. When implementing the event of the V4L2 subscription function,
- *   it must be implemented using the epoll feature provided by the kernel. In case of other constraints, please refer to the each API description.
+ *   There is no constraints.
  *
  * Functions & Parameters
  *  * HAL_SSTR_R_T HAL_SSTR_VerifyHMAC(UINT32 nDataSize, UINT8 *pData, UINT8 *pKey, UINT8 *pHMAC)
@@ -261,18 +257,18 @@ HAL_SSTR_R_T HAL_SSTR_GetHMAC(UINT32 nDataSize, UINT8 *pData, UINT8 *pKey, UINT8
  *
  *  * nDataSize   [in]    size of pData
  *  * pData       [in]    source data for HMAC
- *  * pKey        [in]    Protected SDHK
+ *  * pKey        [in]    Protected SDHK which is provided by HAL_SSTR_GetHMAC API
  *  * pHMAC       [in]    HMAC value
  *
  * Return Value
- *   ex) Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
  *
  * Example
  *   .. code-block:: cpp
  *
  *     ex)
  *
- *     if (0 != HAL_SSTR_GetDataFromSecureData(nSrcLen, *pSrcData, *pDstLen, *pDstData)) {
+ *     if (0 != HAL_SSTR_VerifyHMAC(nDataSizem, pData, pKey, pHMAC))
  *         // handling error
  *     }
  * @endrst
