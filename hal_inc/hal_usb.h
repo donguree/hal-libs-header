@@ -13,8 +13,8 @@
  *  This header file declares the data types and HAL functions to control the USB
  *
  *  @author Junmo Kang (jm0122.kang@lge.com)
- *  @version  1.0
- *  @date   2022.05.03
+ *  @version  1.1
+ *  @date   2022.07.28
  *  @note   Additional information.
  *  @see
  */
@@ -176,6 +176,4 @@ DTV_STATUS_T HAL_USB_SuperSpeedPortOff(UINT32 busNum, UINT32 portNum);
  *   NA
  * @endrst
  */
-DTV_STATUS_T HAL_USB_SuperSpeedVBusControl(BOOLEAN bOn, UINT32 busNum, UINT32 portNum);
 #endif  /* _HAL_USB_H_ */
-
