@@ -7,46 +7,51 @@ History
 ======= ========== ============== =======
 Version Date       Changed by     Comment
 ======= ========== ============== =======
-0.0.0   ...        ...            ...
+1.0.0   22.05.25   cs.jung
 ======= ========== ============== =======
 
 Overall Description
 --------------------
 
-We will update the content soon.
+This document describes how to use and implement the HAL functions, which are available in the webOS TV 23. All the HAL functions in this document are supposed to be implemented by main SoC vendor.
 
 Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-================================= ======================================
+================================= =========================================
 Definition                        Description
-================================= ======================================
-We will update the content soon.  We will update the content soon.
-================================= ======================================
+================================= =========================================
+--------------------------------- -----------------------------------------
+HDCP                              High-bandwidth Digital Content Protection
+--------------------------------- -----------------------------------------
+TEE                               Trusted Execution Environment
+--------------------------------- -----------------------------------------
+UHDCP                             Ultra High Definition Content Protection
+================================= =========================================
 
 System Context
 ^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Functional Requirements
 -----------------------
 
-The data types and functions used in this module are as follows.
+NA
 
 Data Types
 ^^^^^^^^^^^^
-We will update the content soon.
+NA
 
 Function Calls
 ^^^^^^^^^^^^^^^
