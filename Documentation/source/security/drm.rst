@@ -62,14 +62,14 @@ Function Calls
   * :cpp:func:`HAL_DRM_GetHWRandomData`
   * :cpp:func:`HAL_DRM_GetSecureClock`
   * :cpp:func:`HAL_DRM_SetSecureClock`
-  * :cpp:func:`HAL_DRM_GetClearDataLength`
+  * :cpp:func:`HAL_DRM_GetClearDataLength` //except from socts, this will be deleted
   * :cpp:func:`HAL_DRM_AESHWInit`
   * :cpp:func:`HAL_DRM_AESHWUpdate`
   * :cpp:func:`HAL_DRM_AESHWFinish`
-  * :cpp:func:`HAL_DRM_GetHWID`
+  * :cpp:func:`HAL_DRM_GetHWID` //except from socts, this will be deleted
   * :cpp:func:`HAL_DRM_IsSecureDataExist`
   * :cpp:func:`HAL_DRM_InitDrv`
-  * :cpp:func:`HAL_DRM_GetSecureDataProtected`
+  * :cpp:func:`HAL_DRM_GetSecureDataProtected` //except from socts, this will be deleted
   * :cpp:func:`HAL_DRM_WriteWidevineKeyBox`
   * :cpp:func:`HAL_DRM_GetWidevineDeviceID`
   * :cpp:func:`HAL_DRM_UHDCP_SetCW`

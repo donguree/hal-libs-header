@@ -72,10 +72,9 @@ Data Types
 Function Calls
 ^^^^^^^^^^^^^^^
 
-  * :cpp:func:`HAL_SVP_Open`
-  * :cpp:func:`HAL_SVP_Close`
-  * :cpp:func:`HAL_SVP_Stat`
-  * :cpp:func:`HAL_SVP_Copy`
-  * :cpp:func:`HAL_SVP_Write`
-  * :cpp:func:`HAL_SVP_Flush`
-
+  * :cpp:func:`HAL_SVP_Open` //except from socts, it can be only verified by TAS
+  * :cpp:func:`HAL_SVP_Close` //except from socts, it can be only verified by TAS
+  * :cpp:func:`HAL_SVP_Stat` //except from socts, it can be only verified by TAS
+  * :cpp:func:`HAL_SVP_Copy` //except from socts, it can be only verified by TAS
+  * :cpp:func:`HAL_SVP_Write` //except from socts, it can be only verified by TAS
+  * :cpp:func:`HAL_SVP_Flush` //except from socts, it can be only verified by TAS
