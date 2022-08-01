@@ -68,27 +68,46 @@ typedef struct _PVR_CRYPTO_TYPE_T
  * @brief Initialize PVR Crypto
  *
  * @rst
- * Description
- *   Initialize the encryption related module of PVR. Internally initialize the Cryptograph Driver-related module of the chipset, and if there is a resource to be created internally in the HAL in relation to the encryption module, it is created here. This API is called once after power on.
+ * Functional Requirements
+ *   Initialize the encryption related module of PVR. Internally initialize the Cryptograph Driver-related module of the chipset,
+ *   and if there is a resource to be created internally in the HAL in relation to the encryption module,
+ *   it is created here. This API is called once after power on.
  *
- * Syntax
- *   .. code-block::
+ *   * See Also : HAL_PVR_FinalizeCrypto
  *
- *     DTV_STATUS_T HAL_PVR_InitializeCrypto(void)
+ * Responses to abnormal situations, including
+ *   ex) In abnormal case, the BSP should return an non-Zero.
  *
- * Parameters
- *   None
+ *   ex) If abnormal data is set, the driver should return an error. The generic error codes are described at the Generic Error Codes chapter.
+ *   It is guaranteed that disconnect occurs first before ‘vsc close(ex.pm suspend)’
+ *   for normal operation. However, when disconnect occurs after ‘vsc close’ as an exception, system problems(ex. kernel panic) should not occur.
+ *
+ * Performance Requirements
+ *   ex) The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *   ex) There is no constraints.
+ *
+ *   ex) The scaler uses the subscription function of V4L2 events. When implementing the event of the V4L2 subscription function,
+ *   it must be implemented using the epoll feature provided by the kernel. In case of other constraints, please refer to the each API description.
+ *
+ * Functions & Parameters
+ *  * DTV_STATUS_T HAL_PVR_InitializeCrypto(void)
+ *
+ *  For the data type, following data types are defined
+ *
+ *  ex)
+ *
+ *  * void
  *
  * Return Value
  *   If the function succeeds, the return value is OK.
  *   If the function fails, the return value is NOT_OK.
  *
- * Remarks
- *   None
+ * Example
+ *   .. code-block:: cpp
  *
- * Pseudo Code
- *   .. code-block::
- *
+ *     // Pseudo Code
  *     DTV_STATUS_T HAL_PVR_InitializeCrypto()
  *     {
  *         CALL Chip vendor's PVR Crypto related initialization function
@@ -99,9 +118,7 @@ typedef struct _PVR_CRYPTO_TYPE_T
  *         ENDIF
  *     }
  *
- * Function Calling Examle
- *   .. code-block::
- *
+ *     // Function Calling Examle
  *     DTV_STATUS_T     ret;
  *     ret = HAL_PVR_InitializeCrypto();
  *     if(ret == NOT_OK)
@@ -109,9 +126,6 @@ typedef struct _PVR_CRYPTO_TYPE_T
  *         printf("Fail to initialize PVR Crypto\n");
  *         return NOT_OK;
  *     }
- *
- * See Also
- *   - HAL_PVR_FinalizeCrypto
  * @endrst
  */
 DTV_STATUS_T HAL_PVR_InitializeCrypto(void);
