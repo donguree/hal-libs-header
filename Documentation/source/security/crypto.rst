@@ -84,8 +84,8 @@ Function Calls
   * :cpp:func:`HAL_CRYPTO_GetDebugKey` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_ReadDVRDeviceSecret`
   * :cpp:func:`HAL_CRYPTO_WriteDVRDeviceSecret`
-  * :cpp:func:`HAL_CRYPTO_TNM_ReadSecretKey`
-  * :cpp:func:`HAL_CRYPTO_TNM_WriteSecretKey`
+  * :cpp:func:`HAL_CRYPTO_TNM_ReadSecretKey` //except from socts, The function is not used by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_TNM_WriteSecretKey` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_HYBRIDCAST_ReadSecret` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_CIPLUS_GetCiCanalReadyKey` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_Multiple_ReadClientKey` //except from socts, The function is not used by TVPLAT-197745.
