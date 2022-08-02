@@ -72,8 +72,8 @@ Function Calls
   * :cpp:func:`HAL_CRYPTO_SFU_Finalize` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_SFU_GetRSAKey` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_SFU_GetAESKey` //except from socts, The function is not used by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_ReadMskToSecureStore` //except from socts, The function owner is unknown by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_WriteMskToSecureStore` //except from socts, The function owner is unknown by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_ReadMskToSecureStore` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_WriteMskToSecureStore` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_ReadNLPSecret` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_BBC_ReadClientKey` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_ReadPrsSecret` //except from socts, The function is not used by TVPLAT-197745.
@@ -93,18 +93,18 @@ Function Calls
   * :cpp:func:`HAL_CRYPTO_ReadRemoteDiagSecret` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_SDI_ReadPrivKeyAndID` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_ReadRDXSecret` //except from socts, The function is not used by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_SDP_ReadCommonKey` //except from socts, The function owner is unknown by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_SDP_ReadCommonKey` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_TWINTV_ReadSecret` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_ReadFreeViewPrivateKey`
   * :cpp:func:`HAL_CRYPTO_ReadMVPDSecret`
   * :cpp:func:`HAL_CRYPTO_WriteMVPDSecret`
   * :cpp:func:`HAL_CRYPTO_WriteHDCPOnSecure` //except from socts, The function is not used by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_ReadHDCPFromSecure` //except from socts, The function is not used by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_AES_Encrypt` //except from socts, The function owner is unknown by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_AES_Decrypt` //except from socts, The function owner is unknown by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_RSA_Encrypt` //except from socts, The function owner is unknown by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_RSA_Decrypt` //except from socts, The function owner is unknown by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_RSA_Sign` //except from socts, The function owner is unknown by TVPLAT-197745.
-  * :cpp:func:`HAL_CRYPTO_RSA_Verify` //except from socts, The function owner is unknown by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_AES_Encrypt` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_AES_Decrypt` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_RSA_Encrypt` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_RSA_Decrypt` //except from socts, The function is not used by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_RSA_Sign` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
+  * :cpp:func:`HAL_CRYPTO_RSA_Verify` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_EncryptDbgData`
   * :cpp:func:`HAL_CRYPTO_DecryptDbgData`
