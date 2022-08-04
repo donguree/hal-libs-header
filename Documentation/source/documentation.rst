@@ -397,6 +397,31 @@ Status File
 
 (Not yet)
 
+How to add attachemnts
+^^^^^^^^^^^^^^^^^^^^^^
+추가 정보를 위하여 file을 첨부할 대는 아래와 같은 형식을 사용한다.
+
+.. code::
+
+  :download:`example <../example.pdf>`
+
+example은 문서에 표시될 이름이고 <> 안은 현재 작성중인 rst 파일과 첨부할 파일의 상대 경로 및 이름이다.
+첨부파일은 현재 작성하고 있는 file 과 같은 depth 에 두는 것을 추천한다.
+html 로 볼 경우 위의 tag를 누르면 바로 파일이 다운로드 가능하다.
+하지만 PDF로 변환할 경우 해당 download tag는 동작하지 않는다. BSP 업체 담당자들의 경우 PDF로 볼 확률이
+높기 때문에 이에 대한 가이드가 추가로 필요하다.
+
+따라서 첨부파일이 필요할 경우 아래와 같이 작성한다.
+
+.. code::
+
+  if you see this page in HTML, please click below tag.
+    example
+
+  if you see this page in PDF, please check the example.pdf in attachment tab of Adobe Reader
+  (View > Show/Hide > Navigation Panes > Attachments)
+
+
 API exception for SoCTS
 ^^^^^^^^^^^^^^^^^^^^^^^
 
