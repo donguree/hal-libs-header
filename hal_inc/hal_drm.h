@@ -1,5 +1,4 @@
 
-Diff view:
 /******************************************************************************
  *   TV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
  *   Copyright(c) 2013-2022 by LG Electronics Inc.
