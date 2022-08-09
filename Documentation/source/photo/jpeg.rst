@@ -1,4 +1,4 @@
-JPEG/PNG
+JPEG
 ==========
 
 History
@@ -18,6 +18,20 @@ Version Date       Changed by     Comment
 Overall Description
 --------------------
 
+The photorenderer provides several interfaces which uses HW resources such as decoder and video output, so that dile_photo (driver interface library extension) is intoduces the hal_photo module (hardware abstraction layer).
+
+Terminology and Definitions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+================================= ======================================
+Definition                        Description
+================================= ======================================
+We will update the content soon.  We will update the content soon.
+================================= ======================================
+
+System Context
+^^^^^^^^^^^^^^
+
 Below block diagram Fig.1 represents photorenderer's module view in webOS TV.
 
 The photorenderer provides several interfaces which uses HW resources such as decoder and video output, so that dile_photo (driver interface library extension) is intoduces the hal_photo module (hardware abstraction layer).
@@ -30,13 +44,23 @@ In conclusion, HAL_PHOTO has to follow as below 2, 3 section.
   :width: 100%
   :alt: Fig.1 Block diagram for playing the photo contents. Org link http://collab.lge.com/main/display/SOCVENDOR/JPEGPNG?preview=/149490188/234914840/image2014-5-14%2013%3A41%3A7.png
 
+Performance Requirements
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
+Design Constraints
+^^^^^^^^^^^^^^^^^^^
+
+We will update the content soon.
+
 Functional Requirements
 -----------------------
 
 The data types and functions used in this module are as follows.
 
 JPEG Data Types
-^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 
  * :cpp:type:`HAL_JPEG_PIXEL_FORMAT`
  * :cpp:type:`HAL_JPEG_DECODE_OPTION_SCALING`
@@ -47,28 +71,9 @@ JPEG Data Types
  * :cpp:struct:`HAL_JPEG_IMAGE_T`
 
 JPEG Function Calls
-^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
   * :cpp:func:`HAL_JPEG_Open`
   * :cpp:func:`HAL_JPEG_Decode`
   * :cpp:func:`HAL_JPEG_Encode`
   * :cpp:func:`HAL_JPEG_Close`
-
-PNG Data Types
-^^^^^^^^^^^^
-
- * :cpp:type:`HAL_PNG_PIXEL_FORMAT`
- * :cpp:type:`HAL_PNG_DECODE_OPTION_SCALING`
-
- * :cpp:struct:`HAL_PNG_RECT_T`
- * :cpp:struct:`HAL_PNG_DECODE_OPTION_T`
- * :cpp:struct:`HAL_PNG_ENCODE_OPTION_T`
- * :cpp:struct:`HAL_PNG_IMAGE_T`
-
-PNG Function Calls
-^^^^^^^^^^^^^^^
-
-  * :cpp:func:`HAL_PNG_Open`
-  * :cpp:func:`HAL_PNG_Decode`
-  * :cpp:func:`HAL_PNG_Encode`
-  * :cpp:func:`HAL_PNG_Close`
