@@ -1,4 +1,5 @@
 import PyPDF2
+from PyPDF2.generic import DecodedStreamObject, NameObject, DictionaryObject, createStringObject, ArrayObject
 '''
 image1 = Image.open('/home/lge123/linuxtv-ext-header/Documentation/source/water.PNG')
 print(image1.mode)
