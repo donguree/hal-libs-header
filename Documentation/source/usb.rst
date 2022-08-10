@@ -7,7 +7,6 @@ History
 ======= ========== ============== =======
 Version Date       Changed by     Comment
 ======= ========== ============== =======
-1.1.0   2022-07-28 jm0122.kang    Remove unused api (HAL_USB_SuperSpeedVBusControl)
 1.0.0   2022-04-28 jm0122.kang    1st edit for API Implementation Guide
 0.0.0   ...        ...            ...
 ======= ========== ============== =======
@@ -113,3 +112,4 @@ Function Calls
 
   * :cpp:func:`HAL_USB_SuperSpeedPortUp`
   * :cpp:func:`HAL_USB_SuperSpeedPortOff`
+  * :cpp:func:`HAL_USB_SuperSpeedVBusControl` //except from socts, It does not be used. (need to delete)
