@@ -394,13 +394,229 @@ Remarks
 DTV_STATUS_T HAL_CRYPTO_NF_DestroyContext(void *pContext);
 
 /* NYX */
+
+/**
+ * @brief Generate aes key for encryption and decrytion
+ *
+ * @rst
+ * Functional Requirements
+ *   Returns a randomly generated encryption key,
+ *   but that key must be data encrypted by a TEE generated Device Unique Key, not in plain form.
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * DTV_STATUS_T HAL_CRYPTO_NYX_AES_GenerateSecureKey(unsigned char *pSecureKey, int keyLength)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pSecureKey   [out]   buffer for generated for aes encryption/decryption. this is secure data encrypted in TEE instead of plain data.
+ *   * keyLength    [in]    aes key size (16 or 32)
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     unsigned char* key16 = NULL;
+ *     key16 = (unsigned char*) malloc(sizeof(char) * 16);
+ *     if (0 != HAL_CRYPTO_NYX_AES_GenerateSecureKey(key16, 16)) {
+ *         // handling error
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_CRYPTO_NYX_AES_GenerateSecureKey(unsigned char *pSecureKey, int keyLength);
+
+/**
+ * @brief Perform TEE AES encryption
+ *
+ * @rst
+ * Functional Requirements
+ *   Perform TEE AES encryption or decryption with secured key data which is maded by HAL_CRYPTO_NYX_AES_GenerateSecureKey
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * DTV_STATUS_T HAL_CRYPTO_NYX_AES_CryptCBC(unsigned char *pSecureKey, int keyLength, int bEncrypt,
+ *                                              unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pSecureKey   [in]    buffer of secured key data which is maded by HAL_CRYPTO_NYX_AES_GenerateSecureKey
+ *   * keyLength    [in]    aes key size (16 or 32)
+ *   * bEncrypt     [in]    encrypt:1 / decrypt:0
+ *   * pSrc         [in]    buffer for data to be encrypted
+ *   * srcLength    [in]    sizeof pSrc
+ *   * pDst         [out]   buffer for encrypted data
+ *   * pDstLength   [out]   sizeof pDst
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     if (0 != CRYPTO_NYX_AES_CryptCBC(key, keyLen, 1, pOriginalData, originalSize, pEncryptResult, &encrpytedLen);
+ *         // handling error
+ *     }
+ *     if (0 != CRYPTO_NYX_AES_CryptCBC(key, keyLen, 0, pEncryptResult, encrpytedLen, pDecryptResult, &decrpytedLen);
+ *         // handling error
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_CRYPTO_NYX_AES_CryptCBC(unsigned char *pSecureKey, int keyLength, int bEncrypt,
     unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
+
+/**
+ * @brief Transform secure data from RSA key
+ *
+ * @rst
+ * Functional Requirements
+ *   Transform secure data from RSA key. Input RSA key data should be encrypted in TEE with DUK
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * DTV_STATUS_T HAL_CRYPTO_NYX_RSA_TransformSecureKey(unsigned char *pSecureKey, int *pKeyLength,
+ *                                                        unsigned char *pRSAKey, int rsaKeyLength);
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pSecureKey     [out]   buffer for encrypted RSA Key in TEE by DUK
+ *   * pKeyLength     [out]   sizeof pSecureKey
+ *   * pRSAKey        [in]    generated private key and it is encoded to PKCS#1
+ *   * rsaKeyLength   [in]    sizeof pRSAKey
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     RSA *rsa = RSA_new();
+ *     BIGNUM *bn = BN_new();
+ *     BN_set_word(bn, RSA_F4);
+ *     RSA_generate_key_ex(rsa, keylen, bn, NULL);
+ *     BIO *privKeyBio = NULL;
+ *     privKeyBio = BIO_new(BIO_s_mem());
+ *     i2d_RSAPrivateKey_bio(privKeyBio, rsa);
+ *     unsigned char *privKeyBuf = NULL;
+ *     BIO_get_mem_data(privKeyBio, &privKeyBuf);
+ *
+ *     if (0 != HAL_CRYPTO_NYX_RSA_TransformSecureKey(pSecureKey, &keyLength, privKeyBuf, sizeof(privKeyBuf)))
+ *         // handling error
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_CRYPTO_NYX_RSA_TransformSecureKey(unsigned char *pSecureKey, int *pKeyLength,
     unsigned char *pRSAKey, int rsaKeyLength);
+
+/**
+ * @brief Perform TEE RSA encryption or decryption
+ *
+ * @rst
+ * Functional Requirements
+ *   Perform TEE RSA encryption or decryption
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * DTV_STATUS_T HAL_CRYPTO_NYX_RSA_Crypt(unsigned char *pSecureKey, int keyLength, int bEncrypt,
+ *                                           unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pSecureKey           [in]    secureData of RSA key which is made by HAL_CRYPTO_NYX_RSA_TransformSecureKey
+ *   * keyLength            [in]    sizeof pSecureKey
+ *   * bEncrypt             [in]    encryption:1 / decryption:0
+ *   * pSrc                 [in]    buffer for data to be encrypted/decrypted
+ *   * srcLength            [in]    sizeof pSrc
+ *   * pDst                 [out]   buffer for encrypted/decrypted data
+ *   * pDstLength           [out]   sizeof pDst
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     if (0 != HAL_CRYPTO_NYX_RSA_Crypt(pSecureKey, keyLength, 1, pSrc, srcLength, pEncrypted, &encryptedLength))
+ *         // handling error
+ *     }
+ *     if (0 != HAL_CRYPTO_NYX_RSA_Crypt(pSecureKey, keyLength, 0, pEncrypted, encryptedLength, pDecrypted, &decryptedLength))
+ *         // handling error
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_CRYPTO_NYX_RSA_Crypt(unsigned char *pSecureKey, int keyLength, int bEncrypt,
     unsigned char *pSrc, int srcLength, unsigned char *pDst, int *pDstLength);
+/**
+ * @brief Transform secure data from RSA key
+ *
+ * @rst
+ * Functional Requirements
+ *   Transform secure data from RSA key. Input RSA key data should be encrypted in TEE with DUK
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * DTV_STATUS_T HAL_CRYPTO_NYX_RSA_ExportPublicKey(unsigned char *pPublicKey, int *pPublicKeyLength,
+ *                                                     unsigned char *pSecureKey, int keyLength);
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pPublicKey           [out]   buffer for public key
+ *   * pPublicKeyLength     [out]   sizeof pPublicKey
+ *   * pSecureKey           [in]    buffer of encrypted RSA key which is made by HAL_CRYPTO_NYX_RSA_TransformSecureKey
+ *   * keyLength            [in]    sizeof pSecureKey
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     if (0 != HAL_CRYPTO_NYX_RSA_ExportPublicKey(pPublicKey, &publicKeyLength, pSecureKey, keyLength))
+ *         // handling error
+ *     }
+ * @endrst
+ */
 DTV_STATUS_T HAL_CRYPTO_NYX_RSA_ExportPublicKey(unsigned char *pPublicKey, int *pPublicKeyLength,
     unsigned char *pSecureKey, int keyLength);
 
