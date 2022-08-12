@@ -636,41 +636,153 @@ DTV_STATUS_T HAL_CRYPTO_ReadNLPSecret(UINT8 *pSecret, char *pSecretID);
 DTV_STATUS_T HAL_CRYPTO_BBC_ReadClientKey(UINT8 *pKey);
 DTV_STATUS_T HAL_CRYPTO_ReadPrsSecret(UINT8 *pSecret);
 
-/**
- *  This API is needed for Legacy Tvservice, not SEETV
- *  This API will output the CI+ Public Key from sestore to the parameter
+ /**
+ * @brief Get the ci_ssl_pub_key data from sestore (for tvserivce before webOS5.0)
  *
- *  @param  pPath  [in]  pPath // it's not used
- *  @param  dKey  [out]  (ci_ssl_pub_key)
- *  @return succeeded - OK, if not - NOT_OK.
+ * @rst
+ * Functional Requirements
+ *   Get the ci_ssl_pub_key data from sestore
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return an non-Zero.
+ *
+ * Performance Requirements
+ *   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *   There is no constraints.
+ *
+ * Functions & Parameters
+ *   * DTV_STATUS_T HAL_CRYPTO_CIPLUS_GetCiPlusSslPubKey(UINT8 *pPath, UINT8 *dKey)
+ *
+ *   For the data type, following data types are defined
+ *
+ *   * pPath                [in]    Not used
+ *   * pKey                 [out]    ci_ssl_pub_key key data
+ *
+ * Return Value
+ *   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     UINT8 buffer[272];
+ *     DTV_STATUS_T ret;
+ *     ret = HAL_CRYPTO_CIPLUS_GetCiPlusSslPubKey("not used", buffer);
+ * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_CIPLUS_GetCiPlusSslPubKey(UINT8 *pPath, UINT8 *dKey);
 
+
 /**
- *  This API is needed for SEETV
- *  This API will output the CI+ Public Key from sestore to the parameter
- *
- *  @param  dKey  [out]  (ci_ssl_pub_key)
- *  @return succeeded - OK, if not - NOT_OK.
- */
+* @brief Get the ci_ssl_pub_key data from sestore
+*
+* @rst
+* Functional Requirements
+*   Get the ci_ssl_pub_key data from sestore
+*   ci_ssl_pub_key → scrambled ID: 13E46CF3, size: 272 byte
+*
+* Responses to abnormal situations, including
+*   In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*   There is no constraints.
+*
+* Functions & Parameters
+*   * DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusSslPubKey(UINT8 *dKey)
+*
+*   For the data type, following data types are defined
+*
+*   * pKey               [out]    13E46CF3 (ci_ssl_pub_key)
+*
+* Return Value
+*   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*   .. code-block:: cpp
+*
+*     UINT8 buffer[272];
+*     DTV_STATUS_T ret;
+*     ret = HAL_CRYPTO_CI_PLUS_GetCiPlusSslPubKey(buffer);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusSslPubKey(UINT8 *dKey);
 
 /**
- *  This API is needed for SEETV
- *  This API will output the CI+ Master Key from sestore to the parameter
- *
- *  @param  dKey  [out]  (ci_key)
- *  @return succeeded - OK, if not - NOT_OK.
- */
+* @brief Get the ci_key data from sestore
+*
+* @rst
+* Functional Requirements
+*   Get the ci_key data from sestore
+*   ci_key → scrambled ID: 34E26C55, size: 16 byte
+*
+* Responses to abnormal situations, including
+*   In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*   There is no constraints.
+*
+* Functions & Parameters
+*   * DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusStdKey(UINT8 *dKey)
+*
+*   For the data type, following data types are defined
+*
+*   * pKey               [out]    34E26C55 (ci_key)
+*
+* Return Value
+*   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*   .. code-block:: cpp
+*
+*     UINT8 buffer[16];
+*     DTV_STATUS_T ret;
+*     ret = HAL_CRYPTO_CI_PLUS_GetCiPlusStdKey(buffer);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusStdKey(UINT8 *dKey);
 
 /**
- *  This API is needed for SEETV
- *  This API will output the CI+ Credential Key from sestore to the parameter
- *
- *  @param  dKey  [out]  (ci_dh_key)
- *  @return succeeded - OK, if not - NOT_OK.
- */
+* @brief Get the ci_dh_key data from sestore
+*
+* @rst
+* Functional Requirements
+*   Get the ci_dh_key data from sestore
+*   ci_dh_key → scrambled ID: 38195B00, size: 609 byte
+*
+* Responses to abnormal situations, including
+*   In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*   There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*   There is no constraints.
+*
+* Functions & Parameters
+*   * DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusDhKey(UINT8 *dKey)
+*
+*   For the data type, following data types are defined
+*
+*   * pKey               [out]    38195B00 (ci_dh_key)
+*
+* Return Value
+*   Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*   .. code-block:: cpp
+*
+*     UINT8 buffer[609];
+*     DTV_STATUS_T ret;
+*     ret = HAL_CRYPTO_CI_PLUS_GetCiPlusDhKey(buffer);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusDhKey(UINT8 *dKey);
 
 DTV_STATUS_T HAL_CRYPTO_GetDebugKey(UINT8 *pKey);
@@ -939,7 +1051,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
  *   ============ ========== =============================================
  *   PARAMETER    DATE TYPE  DESCRIPTION
  *   ============ ========== =============================================
- *   pSrcData     data		 Encrypted data by HAL_CRYPTO_RSA_Encrypt
+ *   pSrcData     data   	 Encrypted data by HAL_CRYPTO_RSA_Encrypt
  *   padding      data       HAL_CRYPTO_RSA_NO_PADDING=0, HAL_CRYPTO_RSA_PKCS1_OAEP_PADDING=1
  *   pszKeyType   Plaintext  "PEM" or "DER"
  *   pKey         SecureData SecureData of cipher key which is made by HAL_SSTR_MakeSecureData
