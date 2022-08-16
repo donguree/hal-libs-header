@@ -96,7 +96,7 @@ Function Calls
 ^^^^^^^^^^^^^^^
 
   * :cpp:func:`HAL_VO_Open`
-  * :cpp:func:`HAL_VO_Connect`
+  * :cpp:func:`HAL_VO_Connect` //except from socts, this will be deleted
   * :cpp:func:`HAL_VO_Config`
   * :cpp:func:`HAL_VO_DisplayPicture`
   * :cpp:func:`HAL_VO_RedrawPicture`

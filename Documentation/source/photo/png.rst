@@ -73,7 +73,7 @@ PNG Data Types
 PNG Function Calls
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-  * :cpp:func:`HAL_PNG_Open`
-  * :cpp:func:`HAL_PNG_Decode`
-  * :cpp:func:`HAL_PNG_Encode`
-  * :cpp:func:`HAL_PNG_Close`
+  * :cpp:func:`HAL_PNG_Open` //except from socts, this will be deleted
+  * :cpp:func:`HAL_PNG_Decode` //except from socts, this will be deleted
+  * :cpp:func:`HAL_PNG_Encode` //except from socts, this will be deleted
+  * :cpp:func:`HAL_PNG_Close` //except from socts, this will be deleted
