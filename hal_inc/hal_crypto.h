@@ -786,8 +786,80 @@ DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusStdKey(UINT8 *dKey);
 DTV_STATUS_T HAL_CRYPTO_CI_PLUS_GetCiPlusDhKey(UINT8 *dKey);
 
 DTV_STATUS_T HAL_CRYPTO_GetDebugKey(UINT8 *pKey);
-
+/**
+* @brief Get the dvr secret key from secure storage
+*
+* @rst
+* Functional Requirements
+*	Get the dvr secret key from secure storage.
+*
+* Responses to abnormal situations, including
+*	In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*	There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*	There is no constraints.
+*
+* Functions & Parameters
+*	* DTV_STATUS_T HAL_CRYPTO_ReadDVRDeviceSecret(UINT8 *pSecret)
+*
+*	For the data type, following data types are defined
+*
+*	* pSecret	[out]	dvr secret key data
+*
+* Return Value
+*	Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*	.. code-block:: cpp
+*
+*	  UINT8 wrappingKey[24];
+*	  DTV_STATUS_T ret;
+*	  ret = HAL_CRYPTO_ReadDVRDeviceSecret(wrappingKey);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_ReadDVRDeviceSecret(UINT8 *pSecret);
+/**
+* @brief Write the dvr secret key to secure storage
+*
+* @rst
+* Functional Requirements
+*	Write the dvr secret key to secure storage
+*
+* Responses to abnormal situations, including
+*	In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*	There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*	There is no constraints.
+*
+* Functions & Parameters
+*	* DTV_STATUS_T HAL_CRYPTO_WriteDVRDeviceSecret(UINT8 *pSecret, int length)
+*
+*	For the data type, following data types are defined
+*
+*	* pSecret	[in]	dvr secret key data
+*	 length		[in]	size of dvr secret key
+*
+* Return Value
+*	Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*	.. code-block:: cpp
+*
+*	  UINT8 wrappingKey[24];
+*	  DTV_STATUS_T ret;
+*	  // Make wrappingKey with AES_wrap_key
+*
+*	  if (0 != HAL_CRYPTO_WriteDVRDeviceSecret(wrappingKey, 24))
+*	    // handling error
+*	  }
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_WriteDVRDeviceSecret(UINT8 *pSecret, int length);
 DTV_STATUS_T HAL_CRYPTO_TNM_ReadSecretKey(UINT8 *pSecret);
 DTV_STATUS_T HAL_CRYPTO_TNM_WriteSecretKey(UINT8 *pSecret, int length);
@@ -878,7 +950,7 @@ DTV_STATUS_T HAL_CRYPTO_ReadHDCPFromSecure(unsigned int hdcpType, unsigned char 
  *     if (0 != HAL_CRYPTO_AES_Encrypt(nSrcLen, pSrcData, &pDstLen,
  *                                    pDstData, "CBC", pKey, nKeySize)) {
  *         // handling error
- *     } 
+ *     }
  * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
@@ -941,11 +1013,11 @@ DTV_STATUS_T HAL_CRYPTO_AES_Encrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pD
  *         // handling error
  *     }
  *     // nSrcLen = 32; // (iv size 16 + data size 16)
- *     dstLen = 16; // (original data size 16) 
+ *     dstLen = 16; // (original data size 16)
  *     if (0 != HAL_CRYPTO_AES_Decrypt(nSrcLen, pSrcData, &pDstLen,
  *                                    pDstData, "CBC", pKey, nKeySize)) {
  *         // handling error
- *     } 
+ *     }
  * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_AES_Decrypt (UINT32 nSrcLen, UINT8 *pSrcData, UINT32 *pDstLen,
@@ -1188,7 +1260,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigL
  *
  * @rst
  * Functional Requirements
- *   Input data should be encrypted with AES-ECB. And key size should be 16 bytes or 32 bytes. 
+ *   Input data should be encrypted with AES-ECB. And key size should be 16 bytes or 32 bytes.
  *
  * Responses to abnormal situations, including
  *   If error is occured, return error (non-Zero or Error Code).
@@ -1219,7 +1291,7 @@ DTV_STATUS_T HAL_CRYPTO_RSA_Verify (UINT32 nDataSize, UINT8 *pData, UINT32 nSigL
  *     UINT8 *outData = (UINT8 *)malloc(pOutL);
  *     if (0 != HAL_CRYPTO_EncryptDbgData(pInData, nInL, outData, &pOutL)) {
  *         // handling error
- *     }  
+ *     }
  * @endrst
  */
 DTV_STATUS_T HAL_CRYPTO_EncryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL);
