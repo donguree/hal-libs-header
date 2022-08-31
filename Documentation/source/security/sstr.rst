@@ -38,6 +38,12 @@ if you see this page in HTML, please click below tag.
 if you see this page in PDF, please check the webOSTVSecureStorageRequirement.pdf in attachment tab of Adobe Reader
 (View > Show/Hide > Navigation Panes > Attachments)
 
+if you see this page in HTML, please click below tag.
+:download:`HAL_SSTR implementation guide <resource/hal_sstr_v1.2.zip>`
+
+if you see this page in PDF, please check the hal_sstr_v1.2.zip in attachment tab of Adobe Reader
+(View > Show/Hide > Navigation Panes > Attachments)
+
 Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -58,7 +64,7 @@ System Context
   :width: 100%
   :alt: Optee secure storage
 
-.. image:: resource/overall_data_structure_sstr.PNG
+.. image:: resource/overall_data_structure_sstr_v1.2.PNG
   :width: 100%
   :alt: Overall data structure for injection of keys
 
@@ -117,7 +123,7 @@ Data Types
   :width: 100%
   :alt: Pre-encrypted Key Format
 
-.. image:: resource/re-encrypted_key_format_for_REE.PNG
+.. image:: resource/re-encrypted_key_format_for_REE_v1.2.PNG
   :width: 100%
   :alt: Re-encrypted key format
 
