@@ -872,6 +872,41 @@ DTV_STATUS_T HAL_CRYPTO_SDI_ReadPrivKeyAndID(UINT8 *pPrivKeyBuf, int *pPrivKeySi
 DTV_STATUS_T HAL_CRYPTO_ReadRDXSecret(UINT8 *pSecret, int *pLength);
 DTV_STATUS_T HAL_CRYPTO_SDP_ReadCommonKey(UINT8 *pKey, int *pLength);
 DTV_STATUS_T HAL_CRYPTO_TWINTV_ReadSecret(UINT8 *pSecret, int *pLength);
+/**
+* @brief Read the freeview private key for certification
+*
+* @rst
+* Functional Requirements
+*	Read the freeview private key for certification
+*
+* Responses to abnormal situations, including
+*	In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*	There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*	There is no constraints.
+*
+* Functions & Parameters
+*	* DTV_STATUS_T HAL_CRYPTO_ReadFreeViewPrivateKey(unsigned char *pKeyBuf, int *pSize)
+*
+*	For the data type, following data types are defined
+*
+*	* pKeyBuf	[in]	freeview play private key buffer
+*	 pSize		[in]	size of freeview play private key
+*
+* Return Value
+*	Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*	.. code-block:: cpp
+*
+*	  unsigned char *keyBuf[24];
+*
+*	  if (0 != HAL_CRYPTO_ReadFreeViewPrivateKey(keyBuf, 24))
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_ReadFreeViewPrivateKey(unsigned char *pKeyBuf, int *pSize);
 
 DTV_STATUS_T HAL_CRYPTO_ReadMVPDSecret(char *pPath, UINT8 *pData);
