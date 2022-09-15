@@ -388,6 +388,48 @@ API function 요구사항 헤더 파일 포맷 및 작성 가이드
    * @endrst
    */
 
+미사용 API 예외처리
+^^^^^^^^^^^^^^^^^^^
+미사용 API의 경우 module rst 문서와 module header, 두군데를 수정하여야 한다.
+module rst 문서는 Documentation 아래에 있다.
+Function Calls 아래에 아래와 같이 미사용 API에 대한 내용을 작성한다.
+사용하는 함수들 아래쪽에 deprecated를 사용하여 작성해 준다.
+
+.. code::
+   
+   * :cpp:func:`HAL_PVR_FinalizeCrypto`
+   * :cpp:func:`HAL_PVR_CRYPTO_SetEncryptionState`
+   * :cpp:func:`HAL_PVR_CRYPTO_SetCipherAlgorithm`
+   * :cpp:func:`HAL_PVR_CRYPTO_GetSecureKey`
+   * :cpp:func:`HAL_PVR_CRYPTO_SetCipherKeys`
+   * :cpp:func:`HAL_PVR_CRYPTO_GetCipherKeys`
+   * :cpp:func:`HAL_PVR_CRYPTO_EncryptData`
+   * :cpp:func:`HAL_PVR_CRYPTO_DecryptData`
+   .. deprecated:: webOS6.0
+      it will be removed from webOS 24
+      :cpp:func:`HAL_PVR_InitializeCrypto`
+
+
+deprecated 뒤는 이 함수가 webOS 어느버전 부터 사용되지 않았는지를 작성한다.
+스핑크스 문법 때문에 webOS6.0처럼 webOS와 숫자를 붙여 사용해야 한다.
+그리고 아래와 같이 webOS 어떤 버전에서 삭제될 예정인지 작성해야 한다.
+it will be removed from (webOS 버전)
+
+
+header는 아래와 같이 기존 주석에 @deprecated를 추가 후 작성하면 된다.
+
+.. code::
+
+   /**
+   * @brief Initialize PVR Crypto
+   *
+   * @deprecated
+   *  Deprecated since webOS 5.0, it will be removed from webOS 24
+
+
+포맷은 Deprecated since (webOS버전), it will be removed from (webOS 버전) 이다.
+
+
 Status File
 ^^^^^^^^^^^
 
