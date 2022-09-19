@@ -909,7 +909,81 @@ DTV_STATUS_T HAL_CRYPTO_TWINTV_ReadSecret(UINT8 *pSecret, int *pLength);
 */
 DTV_STATUS_T HAL_CRYPTO_ReadFreeViewPrivateKey(unsigned char *pKeyBuf, int *pSize);
 
+/**
+* @brief Read Secure Data from Secure Store for Amazon
+*
+* @rst
+* Functional Requirements
+*	Read Secure Data from Secure Store for Amazon
+*
+* Responses to abnormal situations, including
+*	In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*	There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*	There is no constraints.
+*
+* Functions & Parameters
+*	* DTV_STATUS_T HAL_CRYPTO_ReadMVPDSecret(char *pPath, UINT8 *pData)
+*
+*	For the data type, following data types are defined
+*
+*	* pPath     [in]    Path to read secure data.
+*	* pData     [out]   Secure Data.
+*
+* Return Value
+*	Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*	.. code-block:: cpp
+*
+*	  UINT8 *encodedCipher=NULL;
+*	  char *pPath=NULL;
+*	  DTV_STATUS_T ret;
+*	  ret = HAL_CRYPTO_ReadMVPDSecret(pPath, encodedCipher);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_ReadMVPDSecret(char *pPath, UINT8 *pData);
+/**
+* @brief Write Secure Data into Secure Store for Amazon
+*
+* @rst
+* Functional Requirements
+*	Write Secure Data into Secure Store for Amazon
+*
+* Responses to abnormal situations, including
+*	In abnormal case, the BSP should return an non-Zero.
+*
+* Performance Requirements
+*	There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*	There is no constraints.
+*
+* Functions & Parameters
+*	* DTV_STATUS_T HAL_CRYPTO_WriteMVPDSecret(char *pPath, UINT8 *pData, int length)
+*
+*	For the data type, following data types are defined
+*
+*	* pPath     [in]    Path to write secure data.
+*	* pData     [in]    Secure Data.
+*	* length    [in]    Data Length.
+*
+* Return Value
+*	Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*	.. code-block:: cpp
+*
+*	  UINT8 *encodedCipher=NULL;
+*	  char *pPath=NULL;
+*	  int encodedCipherLen=0;
+*	  DTV_STATUS_T ret;
+*	  ret = HAL_CRYPTO_WriteMVPDSecret(pPath, encodedCipher, encodedCipherLen);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_WriteMVPDSecret(char *pPath, UINT8 *pData, int length);
 
 /*
