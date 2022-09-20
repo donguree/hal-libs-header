@@ -832,7 +832,7 @@ DTV_STATUS_T HAL_CRYPTO_ReadDVRDeviceSecret(UINT8 *pSecret);
 *	In abnormal case, the BSP should return an non-Zero.
 *
 * Performance Requirements
-*	There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*	There is no clear requirement for response time, but a response must be received within at least 300 ms.
 *
 * Constraints
 *	There is no constraints.
