@@ -65,7 +65,7 @@ Function Calls
   * :cpp:func:`HAL_ACAS_LIB_DeInitialize`
   * :cpp:func:`HAL_ACAS_LIB_GetScrambleKeyProtectCommandParam`
   * :cpp:func:`HAL_ACAS_LIB_SetScrambleKeyProtectCommandRes`
-  * :cpp:func:`HAL_ACAS_LIB_UpdateKey`
+  * :cpp:func:`HAL_ACAS_LIB_UpdateKey` //except from socts, it is not used
   * :cpp:func:`HAL_ACAS_LIB_SetDescrambleKey`
   * :cpp:func:`HAL_ACAS_LIB_ClearDescrambleKey`
   * :cpp:func:`HAL_ACAS_LIB_Descramble`
