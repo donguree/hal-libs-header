@@ -89,7 +89,7 @@ typedef struct {
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   TBD
+ *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -127,7 +127,7 @@ HAL_SVP_RESULT_T HAL_SVP_Open(HAL_SVP_OPEN_PARAM_T* open_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   TBD
+ *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -147,7 +147,7 @@ HAL_SVP_RESULT_T HAL_SVP_Open(HAL_SVP_OPEN_PARAM_T* open_param);
  *
  *     HAL_SVP_CLOSE_PARAM_T close_param;
  *     close_param.session_id = open_param.session_id;
- * 
+ *
  *     if (HAL_SVP_SUCCESS != HAL_SVP_Close(&close_param))
  *        // Error handling
  * @endrst
@@ -165,7 +165,7 @@ HAL_SVP_RESULT_T HAL_SVP_Close(HAL_SVP_CLOSE_PARAM_T* close_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   TBD
+ *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -203,7 +203,7 @@ HAL_SVP_RESULT_T HAL_SVP_Stat(HAL_SVP_STAT_PARAM_T* stat_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   TBD
+ *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -244,7 +244,7 @@ HAL_SVP_RESULT_T HAL_SVP_Copy(HAL_SVP_SEMEM_PARAM_T* semem_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   TBD
+ *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -315,7 +315,7 @@ HAL_SVP_RESULT_T HAL_SVP_Write(HAL_SVP_SEBUF_PARAM_T* sebuf_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   TBD
+ *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
  *
  * Constraints
  *   NA
