@@ -207,24 +207,27 @@ typedef struct {
  * @brief Open the video output module.
  *
  * @rst
- * Parameters
- *   - ch  [in]    channel port number to connect with display engine
- *   - def [in]    video panel type
+ * Functional Requirements
+ *   Open the video output module.
  *
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_VO_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_VO_STATE_NOT_CALLABLE.
  *
- * Pseudocode
+ * Performance Requirements
+ *  The response time of this function should be within 120ms.
+ *
+ * Constraints
+ *  It has to link hal_photo.so library.
+ * 
+ * Functions & Parameters
  *   .. code-block:: cpp
  *
- *     DTV_STATUS_T HAL_VO_Open(unsigned int ch, HAL_VO_PANEL_TYPE def) {
- *       Open video output resource
- *       If any eror THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         RETURN API_OK
- *       END IF
- *     }
+ *      ch  [in]    channel port number to connect with display engine
+ *      def [in]    video panel type
+ * 
+ * Return Value
+ *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
  *
  * Example
  *   .. code-block:: cpp
@@ -239,43 +242,29 @@ DTV_STATUS_T HAL_VO_Open(unsigned int ch, HAL_VO_PANEL_TYPE def);
 
 
 /**
- * @brief Connect VO with Scalar
+ * @brief Configure the video output.
  *
  * @rst
- * Parameters
- *   - ch  [in]    channel port number to connect with display engine
- *   - dest [in]   connected scalar index
+ * Functional Requirements
+ *   Configure the video output.
  *
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_VO_STATE_T.
  *
- * @endrst
- **/
-DTV_STATUS_T HAL_VO_Connect(unsigned int ch, unsigned int dest);
-
-
-/**
- * @brief Configure the video output
+ * Performance Requirements
+ *  The response time of this function should be within 5ms.
  *
- * @rst
- * Parameters
- *   - ch  [in]    channel port number to connect with display engine
- *   - cfg [in]    configuration to set video output
- *
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
- *
- * Pseudocode
+ * Constraints
+ *  It has to link hal_photo.so library.
+ * 
+ * Functions & Parameters
  *   .. code-block:: cpp
  *
- *     DTV_STATUS_T HAL_VO_Config(unsigned int ch, HAL_VO_CFG_T *cfg) {
- *       configure video output resource
- *       If any eror THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         RETURN API_OK
- *       END IF
- *     }
+ *      ch  [in]    channel port number to connect with display engine
+ *      cfg [in]    configuration to set video output
+ * 
+ * Return Value
+ *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
  *
  * Example
  *   .. code-block:: cpp
@@ -291,29 +280,32 @@ DTV_STATUS_T HAL_VO_Connect(unsigned int ch, unsigned int dest);
  **/
 DTV_STATUS_T HAL_VO_Config(unsigned int ch, HAL_VO_CFG_T *cfg);
 
+
 /**
- * @brief display intput image
+ * @brief display intput image.
  *
  * @rst
- * Parameters
- *   - ch    [in]    channel port number to connect with display engine
- *   - image [in]    image to display at video
+ * Functional Requirements
+ *   Write the raw data to video output. Flush the video output.
  *
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_VO_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_VO_STATE_NOT_CALLABLE.
  *
- * Pseudocode
+ * Performance Requirements
+ *  The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *  It has to link hal_photo.so library.
+ * 
+ * Functions & Parameters
  *   .. code-block:: cpp
  *
- *     DTV_STATUS_T HAL_VO_DisplayPicture(unsigned int ch, HAL_VO_IMAGE_T *image) {
- *       Write the raw data to video output
- *       Flush the video output
- *       If any eror THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         RETURN API_OK
- *       END IF
- *     }
+ *      ch    [in]    channel port number to connect with display engine
+ *      image [in]    image to display at video
+ * 
+ * Return Value
+ *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
  *
  * Example
  *   .. code-block:: cpp
@@ -325,6 +317,119 @@ DTV_STATUS_T HAL_VO_Config(unsigned int ch, HAL_VO_CFG_T *cfg);
  * @endrst
  **/
 DTV_STATUS_T HAL_VO_DisplayPicture(unsigned int ch, HAL_VO_IMAGE_T *image);
+
+
+/**
+ * @brief Close the video output module.
+ *
+ * @rst
+ * Functional Requirements
+ *   Close the video output module.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_VO_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_VO_STATE_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 15ms.
+ *
+ * Constraints
+ *  It has to link hal_photo.so library.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      ch  [in]    channel port number to connect with display engine
+ *
+ * Return Value
+ *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     ret = HAL_VO_Close (0);
+ *     if (ret != API_OK)
+ *       printf("fail to close VO");
+ *
+ * @endrst
+ **/
+DTV_STATUS_T HAL_VO_Close(unsigned int ch);
+
+
+/**
+ * @brief Get a video output (VO) capability of device.
+ *
+ * @rst
+ * Functional Requirements
+ *   Get a video output (VO) capability of device.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_VO_STATE_T.
+ *  - If the function is not supported, the retur value shall be HAL_VO_STATE_NOT_CALLABLE.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 10ms.
+ *
+ * Constraints
+ *  It has to link hal_photo.so library.
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *      capability [in] pointer of the device capability instance
+ *
+ * Return Value
+ *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     HAL_VO_DEVICE_CAPABILITY cap;
+ *     DTV_STATUS_T ret = HAL_VO_GetDeviceCapability(cap);
+ *     if (ret != API_OK)
+ *       printf("fail to get device capability");
+ *
+ * @endrst
+ **/
+DTV_STATUS_T HAL_VO_GetDeviceCapability(HAL_VO_DEVICE_CAPABILITY_T* capability);
+
+
+/**
+ * @brief Connect VO with Scalar.
+ *
+ * @rst
+ * Functional Requirements
+ *   Connect VO with Scalar.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_VO_STATE_T.
+ *
+ * Performance Requirements
+ *  None
+ *
+ * Constraints
+ *  NA
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *   - ch  [in]    channel port number to connect with display engine
+ *   - dest [in]   connected scalar index
+ *
+ * Return Value
+ *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     ret = HAL_VO_Connect(0, 0);
+ *     if (ret != API_OK)
+ *       printf("fail to open VO");
+ *
+ * @endrst
+ **/
+DTV_STATUS_T HAL_VO_Connect(unsigned int ch, unsigned int dest);
+
 
 /**
  * @brief re-flush video output
@@ -359,73 +464,6 @@ DTV_STATUS_T HAL_VO_DisplayPicture(unsigned int ch, HAL_VO_IMAGE_T *image);
  **/
 DTV_STATUS_T HAL_VO_RedrawPicture(unsigned int ch);
 
-/**
- * @brief Close the video output module.
- *
- * @rst
- * Parameters
- *   - ch  [in]    channel port number to connect with display engine
- *
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
- *
- * Pseudocode
- *   .. code-block:: cpp
- *     DTV_STATUS_T HAL_VO_Close(unsigned int ch) {
- *       Close video output resource
- *       If any eror THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         RETURN API_OK
- *       END IF
- *     }
- *
- * Example
- *   .. code-block:: cpp
- *
- *     ret = HAL_VO_Close (0);
- *     if (ret != API_OK)
- *       printf("fail to close VO");
- *
- * @endrst
- **/
-DTV_STATUS_T HAL_VO_Close(unsigned int ch);
-
-/**
- * @brief Get a video output (VO) capability of device
- *
- * @rst
- * Parameters
- *   - capability [in] pointer of the device capability instance
- *
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
- *
- * Pseudocode
- *   .. code-block:: cpp
- *
- *     DTV_STATUS_T HAL_VO_GetDeviceCapability(HAL_VO_DEVICE_CAPABILITY_T* capability) {
- *       GET the capability information about SoC
- *     
- *       If any eror THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         COPY the capability information to *capability
- *         RETURN API_OK
- *       END IF
- *     }
- *
- * Example
- *   .. code-block:: cpp
- *
- *     HAL_VO_DEVICE_CAPABILITY cap;
- *     DTV_STATUS_T ret = HAL_VO_GetDeviceCapability(cap);
- *     if (ret != API_OK)
- *       printf("fail to get device capability");
- *
- * @endrst
- **/
-DTV_STATUS_T HAL_VO_GetDeviceCapability(HAL_VO_DEVICE_CAPABILITY_T* capability);
 
 /**
  * @brief Initialize framebuffer to render the photo

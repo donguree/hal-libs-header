@@ -96,60 +96,104 @@ typedef struct {
     unsigned int quality;   /* encoding quality */
 } HAL_JPEG_ENCODE_OPTION_T;
 
+
 /**
  * @brief Open the HW JPEG resources and set a memory to deal with decoded bit data.
  *
  * @rst
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
+ * Functional Requirements
+ *   Open the HW JPEG resources and set a memory to deal with decoded bit data.
  *
- * Pseudocode
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_JPEG_STATE_OK.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 15ms.
+ *
+ * Constraints
+ *  It has to link hal_jpeg.so library.
+ * 
+ * Functions & Parameters
  *   .. code-block:: cpp
  *
- *     DTV_STATUS_T HAL_JPEG_Open(void) { 
- *       Open HW JPEG resources
- *       If any eror THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         RETURN API_OK
- *       END IF
- *     }
+ *      ch  [in]    channel port number to connect with display engine
+ *      def [in]    video panel type
+ * 
+ * Return Value
+ *  If success HAL_JPEG_STATE_OK, else an one of error in HAL_JPEG_STATE_T.
  *
  * Example
  *   .. code-block:: cpp
  *
- *     ret = HAL_JPEG_Open();
+ *     ret = HAL_VO_Open(0, HAL_VO_PANEL_TYPE_FHD);
  *     if (ret != API_OK)
- *       printf("fail to open HW resources");
+ *       printf("fail to open VO");
  *
  * @endrst
  **/
 DTV_STATUS_T HAL_JPEG_Open(void);
 
+
+/**
+ * @brief Close the HW JPEG resources and release the memory to deal with decoded bit data.
+ *
+ * @rst
+ * Functional Requirements
+ *   Close the HW JPEG resources and release the memory to deal with decoded bit data.
+ *
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_JPEG_STATE_OK.
+ *
+ * Performance Requirements
+ *  The response time of this function should be within 50ms.
+ *
+ * Constraints
+ *  It has to link hal_jpeg.so library.
+ *
+ * Functions & Parameters
+ *   N/A
+ *
+ * Return Value
+ *  If success HAL_JPEG_STATE_OK, else an one of error in HAL_JPEG_STATE_T.
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     ret = HAL_JPEG_Close();
+ *     if (ret != API_OK)
+ *       printf("fail to close HW resources");
+ *
+ * @endrst
+ **/
+DTV_STATUS_T HAL_JPEG_Close(void);
+
+
 /**
  * @brief Decompress bit data according to the input option.
  *
  * @rst
- * Parameters
- *   - src [in]    source image to be decompressing by HW decoder
- *   - dst [in]    decoded destination image
- *   - option [in]    decoding option
+ * Functional Requirements
+ *   Decode source bit data according to the input option.
  *
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
+ * Responses to abnormal situations, including
+ *  - If the function fails, the return value shall be an one of error in HAL_JPEG_STATE_OK.
+ *  - If the function is not supported, the return value shall be HAL_JPEG_STATE_NOT_CALLABLE.
  *
- * Pseudocode
+ * Performance Requirements
+ *  The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *  It has to link hal_jpeg.so, libjpeg.so library.
+ * 
+ * Functions & Parameters
  *   .. code-block:: cpp
  *
- *     DTV_STATUS_T HAL_JPEG_Decode(src, dst, option) {
- *       Decode source bit data
- *       If any error THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         COPY decoded raw data to the destination buffer with other data.
- *         RETURN API_OK
- *       END IF
- *     }
+ *      src [in]    source image to be decompressing by HW decoder
+ *      dst [in]    decoded destination image
+ *      option [in]    decoding option
+ * 
+ * Return Value
+ *  If success HAL_JPEG_STATE_OK, else an one of error in HAL_JPEG_STATE_T.
  *
  * Example
  *   .. code-block:: cpp
@@ -170,6 +214,7 @@ DTV_STATUS_T HAL_JPEG_Open(void);
  **/
 DTV_STATUS_T HAL_JPEG_Decode(HAL_JPEG_IMAGE_T *src, HAL_JPEG_IMAGE_T *dst, HAL_JPEG_DECODE_OPTION_T *option);
 
+
 /**
  * @brief Open the HW JPEG resources and set a memory to deal with decoded bit data.
  *
@@ -178,7 +223,7 @@ DTV_STATUS_T HAL_JPEG_Decode(HAL_JPEG_IMAGE_T *src, HAL_JPEG_IMAGE_T *dst, HAL_J
  *   - src [in]    source image to be compressing by encoder
  *   - dst [in]    encoded destination image
  *   - option [in]    encoding option
- *   
+ *
  * Return Values
  *   If success OK, else one of error in DTV_STATUS_T.
  *
@@ -213,34 +258,5 @@ DTV_STATUS_T HAL_JPEG_Decode(HAL_JPEG_IMAGE_T *src, HAL_JPEG_IMAGE_T *dst, HAL_J
  * @endrst
  **/
 DTV_STATUS_T HAL_JPEG_Encode(HAL_JPEG_IMAGE_T *src, HAL_JPEG_IMAGE_T *dst, HAL_JPEG_ENCODE_OPTION_T *option);
-
-/**
- * @brief Close the HW JPEG resources and release the memory to deal with decoded bit data.
- * @rst
- * Return Values
- *   If success OK, else one of error in DTV_STATUS_T.
- *
- * Pseudocode
- *   .. code-block:: cpp
- *
- *     DTV_STATUS_T HAL_JPEG_Close(void) {
- *       Close HW JPEG resources
- *       If any eror THEN
- *         RETURN value a one of error in DTV_STATUS_T
- *       ELSE
- *         RETURN API_OK
- *       END IF
- *     }
- *
- * Example
- *   .. code-block:: cpp
- *
- *     ret = HAL_JPEG_Close();
- *     if (ret != API_OK)
- *       printf("fail to close HW resources");
- *    
- * @endrst
- **/
-DTV_STATUS_T HAL_JPEG_Close(void);
 
 #endif /* _HAL_JPEG_H_ */

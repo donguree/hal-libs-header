@@ -26,7 +26,7 @@ Terminology and Definitions
 ================================= ======================================
 Definition                        Description
 ================================= ======================================
-We will update the content soon.  We will update the content soon.
+DILE                              Driver Interface Library Extension
 ================================= ======================================
 
 System Context
@@ -40,19 +40,19 @@ It includes the HW jpeg decoder / png decoder / video output, also it will have 
 
 In conclusion, HAL_PHOTO has to follow as below 2, 3 section.
 
-.. image:: /photo/jpegpng.png
+.. image:: /photo/jpeg.jpg
   :width: 100%
   :alt: Fig.1 Block diagram for playing the photo contents. Org link http://collab.lge.com/main/display/SOCVENDOR/JPEGPNG?preview=/149490188/234914840/image2014-5-14%2013%3A41%3A7.png
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+Please refer to the performance requirements of each API function.
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+There are no special requirements.
 
 Functional Requirements
 -----------------------
@@ -74,6 +74,6 @@ JPEG Function Calls
 ^^^^^^^^^^^^^^^^^^^^^^^
 
   * :cpp:func:`HAL_JPEG_Open`
-  * :cpp:func:`HAL_JPEG_Decode`
-  * :cpp:func:`HAL_JPEG_Encode`
   * :cpp:func:`HAL_JPEG_Close`
+  * :cpp:func:`HAL_JPEG_Decode`
+  * :cpp:func:`HAL_JPEG_Encode`  //except from socts, this will be deleted
