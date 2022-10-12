@@ -58,10 +58,10 @@
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 100ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -108,10 +108,10 @@ DTV_STATUS_T HAL_DRM_GetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 *pLen
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 200ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -156,10 +156,10 @@ DTV_STATUS_T HAL_DRM_SetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 lengt
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 200ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -193,10 +193,10 @@ DTV_STATUS_T HAL_DRM_DeleteSecureData (SINT8 *pDataPath);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 1ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -230,10 +230,10 @@ DTV_STATUS_T HAL_DRM_GetHWRandomData (UINT8 *pData, UINT32 digit);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 30ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -266,10 +266,10 @@ DTV_STATUS_T HAL_DRM_GetSecureClock (UINT64 *pSecureClock);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 30ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -310,10 +310,10 @@ DTV_STATUS_T HAL_DRM_GetClearDataLength (SINT8 *pDataPath, UINT32 *pLength);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 1ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -351,10 +351,10 @@ DTV_STATUS_T HAL_DRM_AESHWInit (SINT32 mode, UINT8 *pKey, UINT8 *pIV, SINT32 ope
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -400,10 +400,10 @@ DTV_STATUS_T HAL_DRM_AESHWUpdate (UINT8 *pOutData, UINT32 *pOutDataSize, UINT8 *
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -452,10 +452,10 @@ DTV_STATUS_T HAL_DRM_GetHWID(UINT8 *pOutData, UINT32 *pOutDataSize);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 50ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -489,10 +489,10 @@ DTV_STATUS_T HAL_DRM_IsSecureDataExist(SINT8 *pDataPath);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 50ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -525,10 +525,10 @@ DTV_STATUS_T HAL_DRM_GetSecureDataProtected(SINT8 *pID, UINT8 *pData, UINT32 *pL
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 200ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -566,10 +566,10 @@ DTV_STATUS_T HAL_DRM_WriteWidevineKeyBox(UINT8 *pData, SINT32 dataLength);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 100ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -607,10 +607,10 @@ DTV_STATUS_T HAL_DRM_GetWidevineDeviceID(UINT8 *pDeviceID,  SINT32 *pIdLength);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -648,10 +648,10 @@ DTV_STATUS_T HAL_DRM_UHDCP_SetCW(UINT8 *KID, UINT8 *CW);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 1600ms(parameter 1mb, call function 100 times) and 200ms(parameter 23kb, call function 100 times).
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -699,10 +699,10 @@ DTV_STATUS_T HAL_DRM_UHDCP_Decrypt(UINT8 *pData, UINT32 data_size,
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 200ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -747,10 +747,10 @@ DTV_STATUS_T HAL_DRM_HDMI_SetSecureDataforHDCP22(SINT8 *KeyID, UINT8 *pData, UIN
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 100ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
@@ -795,10 +795,10 @@ DTV_STATUS_T HAL_DRM_HDMI_GetSecureDataforHDCP22(SINT8 *KeyID, UINT8 *pData);
  *   In abnormal case, the function returns proper value in DTV_STATUS_T.
  *
  * Performance Requirements
- *   TBD
+ *   The response time of this function should be within 50ms.
  *
  * Constraints
- *   NA
+ *   There is no special constraints.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
