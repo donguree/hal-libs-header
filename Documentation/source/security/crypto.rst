@@ -17,29 +17,53 @@ Provision the encrypted injection key injected from the factory to the TEE secur
 TEE supports encryption and decryption.
 Trigger the operation of the specific TAs.
 
+webOS Secure Store (Platform Layer Secure Store)
+
+  - Until webOS 3.0, webOS platform uses only SoC implemented Secure Store, but from webOS 4.0, webOS secure store that uses TEE cryptographic functions but not specific to SoC implementation.
+    Therefore almost sedata keys and the other run-time generated keys will be stored in webOS secure store. But several keys should be directly accessed by SoC, not via upper layer (webOS secure store APIs),
+    to comply with a CP or DRM security regulations, for example, playready keys, Netflix keys. So, the existing SoC secure store should be also provided. It will use same emmc partition and same structure,
+    but many HAL APIs to read sedata keys in secure store will be deprecated.
+    For the webOS secure store, several additional HAL APIs should be provided and their API specification is described in http://collab.lge.com/main/pages/viewpage.action?pageId=517788406.
+    In HAL_CRYPTO, several new APIs for the new webOS secure store are also introduced. They will be used for crypto operations with webOS secure store keys not being exposed to REE by passing the protected keys to API.
+
+SoC Secure Store
+
+  - Netflix and vudu keys will be stored in SoC Secure Store because their keys should be directly accessed by TEE. Several playready keys are also stored in SoC Secure Store.
+
 Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ================================= ======================================
 Definition                        Description
 ================================= ======================================
-We will update the content soon.  We will update the content soon.
+Device Unique Key (DUK)           The key that is unique per device. Every secure store keys are encrypted by their own unique
+                                  "key encryption key(KEK)" and the KEK is also encrypted by the DUK. That is, this is an anchor point to chain of trust in TEE and
+                                  the root of every key chains of secure store keys. This is also called OTP key because it is stored in OTP memory. In this document, we call it DUK.
+
+SecureData                        The result from encrypting data using TEE Crypto API. The encryption key(SDEK) is unique key that is randomly generated per SecureData
+                                  when requested and encrypted by DUK. The SecureData includes the encryption result and the encrypted SDEK (Protected SDEK).
+ecureData Encryption Key (SDEK)   The key encryption key to be used to make a SecureData (encrypt data).
+                                  This key is randomly generated each time that making SecureData is requested.
+SecureData HMAC Key (SDHK)        The HMAC Key to be used to generate and verify HMAC value of Secure Data.
+                                  This key is randomly generated each time that HMAC generation API is called. The key size is 32 bytes.
+Protected SDEK                    The encrypted SDEK ( EDUK(SDEK) ). This data is attached in front of SecureData, and used to decrypt SecureData in TEE.
+Protected SDHK                    The encrypted SDHK ( EDUK(SDHK) ).
 ================================= ======================================
 
 System Context
 ^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+Please refer to the performance requirements of each API function.
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+Please refer to the constraints of each API function.
 
 Functional Requirements
 -----------------------
@@ -48,7 +72,7 @@ The data types and functions used in this module are as follows.
 
 Data Types
 ^^^^^^^^^^^^
-We will update the content soon.
+Please refer to the each API function.
 
 Function Calls
 ^^^^^^^^^^^^^^^
