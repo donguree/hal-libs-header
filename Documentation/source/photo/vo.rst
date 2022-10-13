@@ -23,12 +23,6 @@ Overall Description
 
 The photorenderer introduces a technique to draw the image directly on the VDEC memory (device memory), it leads to reduce the system memory usage.
 
-Following Diagram is a system context around the photorenderer program.
-
-.. image:: /photo/vo_1.png
-  :width: 100%
-  :alt: Org link http://collab.lge.com/main/plugins/gliffy/viewer.action?inline=false&pageId=517788377&attachmentId=520622224&name=HAL_VO_#1&ceoid=517788377&key=SOCVENDOR&lastPage=%2Fpages%2Fviewpageattachments.action%3FpageId%3D517788377
-
 HAL_VO Family Functions: memcpy sink image (system memory) of the photorenderer to the framebuffer (device memory) of the HAL VO module
 The photorenderer allocates the system memory as the sink image. Invoking HAL_VO_DisplayPicture is to set the framebuffer to be duplicated with this sink image, and the HAL VO calls memcpy() function to do it.
 
@@ -53,23 +47,27 @@ Terminology and Definitions
 ================================= ======================================
 Definition                        Description
 ================================= ======================================
-We will update the content soon.  We will update the content soon.
+VO                                Video Output
 ================================= ======================================
 
 System Context
 ^^^^^^^^^^^^^^
 
-We will update the content soon.
+Following Diagram is a system context around the photorenderer program.
+
+.. image:: /photo/vo_1.png
+  :width: 100%
+  :alt: Org link http://collab.lge.com/main/plugins/gliffy/viewer.action?inline=false&pageId=517788377&attachmentId=520622224&name=HAL_VO_#1&ceoid=517788377&key=SOCVENDOR&lastPage=%2Fpages%2Fviewpageattachments.action%3FpageId%3D517788377
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+Please refer to the performance requirements of each API function..
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+There are no special requirements.
 
 Functional Requirements
 -----------------------
@@ -96,14 +94,14 @@ Function Calls
 ^^^^^^^^^^^^^^^
 
   * :cpp:func:`HAL_VO_Open`
-  * :cpp:func:`HAL_VO_Connect` //except from socts, this will be deleted
   * :cpp:func:`HAL_VO_Config`
   * :cpp:func:`HAL_VO_DisplayPicture`
-  * :cpp:func:`HAL_VO_RedrawPicture`
   * :cpp:func:`HAL_VO_Close`
   * :cpp:func:`HAL_VO_GetDeviceCapability`
-  * :cpp:func:`HAL_VO_FB_Initialize`
-  * :cpp:func:`HAL_VO_FB_Finalize`
-  * :cpp:func:`HAL_VO_FB_GetTargetFrameBuffer`
-  * :cpp:func:`HAL_VO_FB_UpdateFrameBuffer`
-  * :cpp:func:`HAL_VO_FB_UpdateFrameBufferProperty`
+  * :cpp:func:`HAL_VO_Connect` //except from socts, this will be deleted
+  * :cpp:func:`HAL_VO_RedrawPicture` //except from socts, this will be deleted
+  * :cpp:func:`HAL_VO_FB_Initialize` //except from socts, this will be deleted
+  * :cpp:func:`HAL_VO_FB_Finalize`   //except from socts, this will be deleted
+  * :cpp:func:`HAL_VO_FB_GetTargetFrameBuffer` //except from socts, this will be deleted
+  * :cpp:func:`HAL_VO_FB_UpdateFrameBuffer`    //except from socts, this will be deleted
+  * :cpp:func:`HAL_VO_FB_UpdateFrameBufferProperty` //except from socts, this will be deleted
