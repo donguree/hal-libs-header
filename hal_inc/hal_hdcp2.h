@@ -9,7 +9,7 @@
 
 /** @file    hal_hdcp2.h
  *
- *  Header of HDCP2 HAL Fuction for HDCP 2.x Interface Independent Adaptation.
+ *  Header of HDCP2 HAL function for HDCP 2.x Interface Independent Adaptation.
  *
  *  @author  yujin.lee@lge.com
  *  @author  kyungnam.bae@lge.com
@@ -1128,13 +1128,13 @@ int HAL_HDCP2_Data_Encrypt(unsigned char *pOutputBuf, unsigned char *pInputBuf,
  *   HDCP2.0:
  *    pRxIdListsInfo = Receiver ID list || DEPTH || DEVICE_COUNT ||
  *     MAX_DEVS_EXCEEDED || MAX_CASCADE_EXCEEDED
- *    infoLength = 5*DEVIDE_INFO + 1 + 1 + 1 + 1
+ *    infoLength = (5 * DEVICE_INFO) + 1 + 1 + 1 + 1
  *
  *   HDCP2.1 or upper version:
  *    pRxIdListsInfo = Receiver ID list || DEPTH || DEVICE_COUNT ||
  *     MAX_DEVS_EXCEEDED || MAX_CASCADE_EXCEEDED ||
  *     HDCP2_LEGACY_DEVICE_DOWNSTREAM || HDCP1_DEVICE_DOWNSTREAM
- *    infoLength = 5*DEVICE_INFO + 1 + 1 + 1 + 1 + 1 + 1
+ *    infoLength = (5 * DEVICE_INFO) + 1 + 1 + 1 + 1 + 1 + 1
  *
  *   V' = HMAC-SHA256(pRxIdListsInfo, kd). Write result V_prime value to pVPrime buffer
  *
