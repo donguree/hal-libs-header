@@ -407,7 +407,8 @@ Function Calls 아래에 아래와 같이 미사용 API에 대한 내용을 작�
    * :cpp:func:`HAL_PVR_CRYPTO_DecryptData`
    .. deprecated:: webOS6.0
       it will be removed from webOS 24
-      :cpp:func:`HAL_PVR_InitializeCrypto`
+
+      :cpp:func:`HAL_PVR_InitializeCrypto` //except from socts, deprecated api
 
 
 deprecated 뒤는 이 함수가 webOS 어느버전 부터 사용되지 않았는지를 작성한다.
