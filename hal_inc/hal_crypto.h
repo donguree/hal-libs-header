@@ -61,336 +61,441 @@ typedef struct _HAL_CRYPTO_ARG {
  ******************************************************************************/
 
 /* Netflix */
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_WriteSecureData
-
-Function Description
-    write Netflix ESN(ESN ID + Kpe + Kph) into secure storage for provisioning
-
-Requirement
-    1. check if identifier is "idfile". other id is on failure.
-    2. verify CRC32 integrity
-    3. decrypt input data and re-encrypt with device-unique key in TEE.
-    4. store into sestore.
-    5. the data(only ESN ID) should be read via HAL_CRYPTO_NF_GetESN().
-
-Function Parameters
-    INT8 *pIdentifier   [IN] identirier(only "idfile" is suitable)
-    UINT8 *pData        [IN] ESN key data(ESN ID + Kpe + Kph)
-    INT32 length        [IN] ESN key data length
-
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief Write ESN key to secure storage for provisioning
+*
+* @rst
+* Functional Requirements
+*      1. check if identifier is "idfile". other id is on failure.
+*      2. verify CRC32 integrity
+*      3. decrypt input data and re-encrypt with device-unique key in TEE.
+*      4. store into sestore.
+*      5. the data(only ESN ID) should be read via HAL_CRYPTO_NF_GetESN().
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 300 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_WriteSecureData(char *pIdentifier, UINT8 *pData, int dataLength)
+*
+*      For the data type, following data types are defined
+*
+*      * pIdentifier      [in]   identirier(only "idfile" is suitable)
+*      * pData            [in]   ESN key data(ESN ID + Kpe + Kph)
+*      * length           [in]   ESN key data length
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        char *NF_KEYSET_ID = "idfile";
+*        int nLength = 248;
+*        UINT8 *pData;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_WriteSecureData(NF_KEYSET_ID, pData, nLength);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_WriteSecureData(char *pIdentifier, UINT8 *pData, int dataLength);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_GetESN
-
-Function Description
-    get ESN
-
-Function Parameters
-    UINT8 *pEsn [IN/OUT] ESN buffer pointer / ESN ID
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief Get ESN key value
+*
+* @rst
+* Functional Requirements
+*      1. check if ESN is written by HAL_CRYPTO_WriteSecureData.
+*      2. the data(only ESN ID) should be read.
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_GetESN(UINT8 *pEsn)
+*
+*      For the data type, following data types are defined
+*
+*      * *pEsn            [IN/OUT] ESN buffer pointer / ESN ID
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        UINT8 *pEsn;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_GetESN(pEsn);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_GetESN(UINT8 *pEsn);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_Encrypt
-
-Function Description
-    encrypt data with device unique key
-
-Function Parameters
-    UINT8 *pData    [IN/OUT] data to be encrypted
-    UINT32 length   [IN] data length
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief encrypt data with device unique key
+*
+* @rst
+* Functional Requirements
+*      1. encrypt data with device unique key
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_Encrypt(UINT8 *pData, UINT32 nLength)
+*
+*      For the data type, following data types are defined
+*
+*      * *pData           [IN/OUT] data to be encrypted
+*      * length           [IN] data length
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        UINT8 testStr[128] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+/";
+*        int size = strlen((const char*)testStr);
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_Encrypt(testStr, size);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_Encrypt(UINT8 *pData, UINT32 nLength);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_Decrypt
-
-Function Description
-    decrypt data with device unique key
-
-Function Parameters
-    UINT8 *pData    [IN/OUT] encrypted data(via HAL_CRYPTO_NF_Encrypt) to be decrypted
-    UINT32 length   [IN] data length
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief decrypt data with device unique key
+*
+* @rst
+* Functional Requirements
+*      1. decrypt data with device unique key
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_Decrypt(UINT8 *pData, UINT32 nLength)
+*
+*      For the data type, following data types are defined
+*
+*      * *pData           [IN/OUT] encrypted data(via HAL_CRYPTO_NF_Encrypt) to be decrypted
+*      * length           [IN] data length
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        UINT8 testStr[128] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+/";
+*        int size = strlen((const char*)testStr);
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_Encrypt(testStr, size);
+*        ret = HAL_CRYPTO_NF_Decrypt(testStr, size);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_Decrypt(UINT8 *pData, UINT32 nLength);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_Encrypt_Ex
-
-Function Description
-    encrypt data with device unique key and integrity check
-
-Function Parameters
-    const UINT8 *pInput     [IN] clear data
-    UINT32 uInputSize       [IN] input data length
-    UINT8 **ppOutput        [OUT] encrypted data with integrity check
-    UINT32 *puOutputSize    [OUT] output data length
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief encrypt data with device unique key and integrity check
+*
+* @rst
+* Functional Requirements
+*      1. encrypt data with device unique key and integrity check
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_Encrypt_Ex(const UINT8 *pInput, UINT32 uInputSize, UINT8 **ppOutput, UINT32 *puOutputSize)
+*
+*      For the data type, following data types are defined
+*
+*      * *pInput          [IN] clear data
+*      * uInputSize       [IN] input data length
+*      * **ppOutput       [OUT] encrypted data with integrity check
+*      * *puOutputSize    [OUT] output data length
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        UINT8 testStr[128] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+/";
+*        int size = strlen((const char*)testStr);
+*        unsigned char *enOutData = NULL;
+*        unsigned int enOutSize = 0;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_Encrypt_Ex(testStr, size, &enOutData, &enOutSize);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_Encrypt_Ex(const UINT8 *pInput, UINT32 uInputSize, UINT8 **ppOutput, UINT32 *puOutputSize );
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_Decrypt_Ex
-
-Function Description
-    decrypt data with device unique key and integrity check
-
-Function Parameters
-    UINT8 *pInput           [IN] encrypted data(via HAL_CRYPTO_NF_Encrypt_Ex) with integrity check to be decrypted
-    UINT32 uInputSize       [IN] input data length
-    UINT8 **ppOutput        [OUTPUT] clear data
-    UINT32 *puOutputSize    [OUTPUT] clear data length
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief decrypt data with device unique key and integrity check
+*
+* @rst
+* Functional Requirements
+*      1. decrypt data with device unique key and integrity check
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_Decrypt_Ex(const UINT8 *pInput, UINT32 uInputSize, UINT8 **ppOutput, UINT32 *puOutputSize )
+*
+*      For the data type, following data types are defined
+*
+*      * *pInput          [IN] encrypted data(via HAL_CRYPTO_NF_Encrypt_Ex) with integrity check to be decrypted
+*      * uInputSize       [IN] input data length
+*      * **ppOutput       [OUTPUT] clear data
+*      * *puOutputSize    [OUTPUT] clear data length
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        UINT8 testStr[128] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+/";
+*        int size = strlen((const char*)testStr);
+*        unsigned char *enOutData = NULL;
+*        unsigned int enOutSize = 0;
+*        unsigned char *deOutData = NULL;
+*        unsigned int deOutSize = 0;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_Encrypt_Ex(testStr, size, &enOutData, &enOutSize);
+*        ret = HAL_CRYPTO_NF_Decrypt_Ex(enOutData, enOutSize, &deOutData, &deOutSize);
+* @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_Decrypt_Ex(const UINT8 *pInput, UINT32 uInputSize, UINT8 **ppOutput, UINT32 *puOutputSize );
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_WriteAppData
-
-Function Description
-    Write App Data to Secure Store
-
-Function Parameters
-    char *pDataId       [IN]            Data Identifier
-    UINT8 *pData        [IN]            Data to be encrypted
-    int length          [IN]            Data length
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief Write App Data to Secure Store
+*
+* @rst
+* Functional Requirements
+*      1. Write App Data to Secure Store
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_WriteAppData(char *pDataId, UINT8 *pData, int length)
+*
+*      For the data type, following data types are defined
+*
+*      * *pDataId         [IN] Data Identifier
+*      * *pData           [IN] Data to be encrypted
+*      * length           [IN] Data length
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        char *NF_KEYSET_ID = "idfile";
+*        int nLength = 248;
+*        UINT8 *pData;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_WriteAppData(NF_KEYSET_ID, pData, nLength);
+ * @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_WriteAppData(char *pDataId, UINT8 *pData, int length);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_ReadAppData
-
-Function Description
-    Read App Data to Secure Store.
-
-Function Parameters
-    char *pDataId       [IN]            Data Identifier
-    UINT8 *pData        [IN/OUT]        Decrypted data
-    int length          [IN]            Data length
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    None
-******************************************************************************/
+/**
+* @brief Read App Data to Secure Store.
+*
+* @rst
+* Functional Requirements
+*      1. Read App Data to Secure Store.
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_ReadAppData(char *pDataId, UINT8 *pData, int length)
+*
+*      For the data type, following data types are defined
+*
+*      * *pDataId         [IN] Data Identifier
+*      * *pData           [IN/OUT] Decrypted data
+*      * length           [IN] Data length
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        char *NF_KEYSET_ID = "idfile";
+*        int nLength = 248;
+*        UINT8 *pData;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_ReadAppData(NF_KEYSET_ID, pData, nLength);
+ * @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_ReadAppData(char *pDataId, UINT8 *pData, int length);
 
-
-/*  LG TEE Implementation        */
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_Operate
-
-Function Description
-    Netflix crypto TEE operations(generate keys / encrypt / decrypt / HMAC)
-
-Function Parameters
-    pComm                [IN/OUT] crypto structure
-    pComm->command       [IN]  crypto operations
-    pComm->argc          [IN] : number of arguments
-    pComm->argv[0]       [IN] : request data pointer
-    pComm->argvLen[0]    [IN] : request data size
-    pComm->argv[1]       [OUT] : response data pointer
-    pComm->argvLen[1]    [OUT]  : response data size
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    typedef enum
-    {
-        nfTOB_UNDEFINED = 0,
-        *
-         * Some messages are for TEE (or VM) management. Those start at offset 0
-         *
-        nfTOB_TEE_MGMT = 1,
-        *
-         * We're not implementing REE/TEE session management in the first revision, but we'll
-         * need it later, so let's allocate a slot for that.
-         *
-        nfTOB_TEE_SESSION = 2048,
-        *
-         * The first TA we'll implement is the crypto agent. This agent is used for all
-         * webcrypto/msl operations, and also can provide secure store crypto services.
-         *
-        nfTOB_CRYPTO_AGENT = 4096,
-        *
-         * PlayReady integration is a stretch goal for the first revision, so let's
-         * allocate a slot for it.
-         *
-        nfTOB_DRM_AGENT = 6144,
-        *
-         * The storage agent only manages the manufacturing secure store
-         * in the first release.
-         *
-        nfTOB_STORAGE_AGENT = 8192,
-    } nfTeeOperationBase_t;
-    */
-    /*
-    * This will be passed as pComm->command of Crypto arguments.
-    * Crypto operation definitions: all TEE operations are represented
-    * as a 32-bit value. Each module (like cryptoAgent) has its own pool
-    * of values that start at a pre-defined offset. These offsets are
-    * defined in CommTypes.h. Following are the currently defined crypto
-    * operations.
-
-    typedef enum
-    {
-        nfTO_CRYPTO_OP_UNWRAP_KEY = nfTOB_CRYPTO_AGENT + 1,
-        nfTO_CRYPTO_OP_EXPORT_SEALED_KEY,
-        nfTO_CRYPTO_OP_IMPORT_SEALED_KEY,
-        nfTO_CRYPTO_OP_DELETE_KEY,
-        nfTO_CRYPTO_OP_GET_KEY_INFO,
-        nfTO_CRYPTO_OP_GET_NAMED_KEY_HANDLE,
-        nfTO_CRYPTO_OP_GET_ESN,
-        nfTO_CRYPTO_OP_AES_CBC_ENCRYPT, // atomic encrypt
-        nfTO_CRYPTO_OP_AES_CBC_ENCRYPT_INIT,
-        nfTO_CRYPTO_OP_AES_CBC_ENCRYPT_UPDATE,
-        nfTO_CRYPTO_OP_AES_CBC_ENCRYPT_FINAL,
-        nfTO_CRYPTO_OP_AES_CBC_DECRYPT, // atomic decrypt
-        nfTO_CRYPTO_OP_AES_CBC_DECRYPT_INIT,
-        nfTO_CRYPTO_OP_AES_CBC_DECRYPT_UPDATE,
-        nfTO_CRYPTO_OP_AES_CBC_DECRYPT_FINAL,
-        nfTO_CRYPTO_OP_AES_CTR, // atomic encrypt
-        nfTO_CRYPTO_OP_AES_CTR_INIT,
-        nfTO_CRYPTO_OP_AES_CTR_UPDATE,
-        nfTO_CRYPTO_OP_AES_CTR_FINAL,
-        nfTO_CRYPTO_OP_EXPORT_KEY,
-        nfTO_CRYPTO_OP_IMPORT_KEY,
-        nfTO_CRYPTO_OP_HMAC_SHA256, // atomic hmac_sha256
-        nfTO_CRYPTO_OP_HMAC_SHA256_INIT,
-        nfTO_CRYPTO_OP_HMAC_SHA256_UPDATE,
-        nfTO_CRYPTO_OP_HMAC_SHA256_FINAL,
-        nfTO_CRYPTO_OP_HMAC_SHA256_VERIFY, // atomic hmac_sha256_verify
-        nfTO_CRYPTO_OP_HMAC_SHA256_VERIFY_INIT,
-        nfTO_CRYPTO_OP_HMAC_SHA256_VERIFY_UPDATE,
-        nfTO_CRYPTO_OP_HMAC_SHA256_VERIFY_FINAL,
-        nfTO_CRYPTO_OP_DH_GEN_KEYS,
-        nfTO_CRYPTO_OP_NFLX_DH_DERIVE,
-        nfTO_CRYPTO_OP_CLEARKEYS,
-        // insert new message types here...
-        nfTO_CRYPTO_OP_INVALID // leave this last!!
-    } nfTeeOperation_CryptoOp_t;
-******************************************************************************/
+/**
+* @brief Netflix crypto TEE operations(generate keys / encrypt / decrypt / HMAC)
+*
+* @rst
+* Functional Requirements
+*      1. Netflix crypto TEE operations(generate keys / encrypt / decrypt / HMAC)
+*      2. Meet Netflix version spec for parameter
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_Operate(HAL_CRYPTO_ARG_T *tCommon)
+*
+*      For the data type, following data types are defined
+*
+*      * pComm                [IN/OUT] crypto structure
+*      * pComm->command       [IN]  crypto operations
+*      * pComm->argc          [IN] : number of arguments
+*      * pComm->argv[0]       [IN] : request data pointer
+*      * pComm->argvLen[0]    [IN] : request data size
+*      * pComm->argv[1]       [OUT] : response data pointer
+*      * pComm->argvLen[1]    [OUT]  : response data size
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        HAL_CRYPTO_ARG_T pComm;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_Operate(&pComm);
+ * @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_Operate(HAL_CRYPTO_ARG_T *tCommon);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_Init
-
-Function Description
-    Init Netflix Crypto
-    Before using WebCrypto, Initialize something here. If there is nothing to initialize, please return OK
-
-Function Parameters
-    void
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    Some of platforms use this function.
-******************************************************************************/
+/**
+* @brief Init Netflix Crypto
+*
+* @rst
+* Functional Requirements
+*      1. Init Netflix Crypto
+*      2. Before using WebCrypto, Initialize something here. If there is nothing to initialize, please return OK
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_Init(void)
+*
+*      For the data type, following data types are defined
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_Init();
+ * @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_Init(void);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_CleanUp
-
-Function Description
-    To clean up Netflix webCrypto and SoC TEE operation
-
-Function Parameters
-    void
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    Some of platforms use this function.
-******************************************************************************/
+/**
+* @brief To clean up Netflix webCrypto and SoC TEE operation
+*
+* @rst
+* Functional Requirements
+*      1. To clean up Netflix webCrypto and SoC TEE operation
+*      2. If there is nothing to cleanup, please return OK
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_CleanUp(void)
+*
+*      For the data type, following data types are defined
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_CleanUp();
+ * @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_CleanUp(void);
 
-/******************************************************************************
-Function Name
-    HAL_CRYPTO_NF_DestroyContext
-
-Function Description
-    Destroy context
-
-Function Parameters
-    void *pContext [IN]
-
-Return Value
-    If the function succeeds, the return value is OK.
-    If the function fails, the return value is NOT_OK.
-
-Remarks
-    Some of platforms use this function.
-******************************************************************************/
+/**
+* @brief Destroy context.
+*
+* @rst
+* Functional Requirements
+*      1. Destroy context.
+*      2. If there is nothing to destory, please return OK
+*
+* Responses to abnormal situations, including
+*      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+*
+* Constraints
+*      There is no constraints.
+*
+* Functions & Parameters
+*      * DTV_STATUS_T HAL_CRYPTO_NF_DestroyContext(void *pContext)
+*
+*      For the data type, following data types are defined
+*
+*      * void *pContext   [IN]
+*
+* Return Value
+*     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+*
+* Example
+*      .. code-block:: cpp
+*
+*        void *pContext = NULL;
+*        DTV_STATUS_T ret;
+*        ret = HAL_CRYPTO_NF_DestroyContext(pContext);
+ * @endrst
+*/
 DTV_STATUS_T HAL_CRYPTO_NF_DestroyContext(void *pContext);
 
 /* NYX */
