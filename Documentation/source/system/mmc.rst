@@ -37,17 +37,17 @@ SMART              Self Monitoring, Analysis and Reporting Technology
 System Context
 ^^^^^^^^^^^^^^
 
-We will update the content soon.
+NA
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+It should return within 10ms, if there are no special reasons.
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-We will update the content soon.
+Please refer to each function's constraints.
 
 Functional Requirements
 -----------------------
@@ -56,7 +56,6 @@ The data types and functions used in this module are as follows.
 
 Data Types
 ^^^^^^^^^^^^
-We will update the content soon.
 
 Function Calls
 ^^^^^^^^^^^^^^^

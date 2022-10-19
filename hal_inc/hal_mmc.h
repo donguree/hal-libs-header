@@ -1,6 +1,6 @@
 /******************************************************************************
  *   DTV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 1999 by LG Electronics Inc.
+ *   Copyright(c) 1999-2022 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -67,7 +67,7 @@ typedef enum {
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -102,7 +102,7 @@ DTV_STATUS_T HAL_MMC_Open(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -137,7 +137,7 @@ DTV_STATUS_T HAL_MMC_Close(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -172,7 +172,7 @@ DTV_STATUS_T HAL_MMC_PON_Short(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -207,7 +207,7 @@ DTV_STATUS_T HAL_MMC_PON_Long(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -243,7 +243,7 @@ DTV_STATUS_T HAL_MMC_Get_CID(unsigned char *buff);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -280,7 +280,7 @@ DTV_STATUS_T HAL_MMC_Get_SMART_Report(unsigned char *buff, unsigned int *len);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.

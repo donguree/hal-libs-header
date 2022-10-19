@@ -85,7 +85,7 @@ typedef enum
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -165,7 +165,7 @@ DTV_STATUS_T HAL_SYS_CheckRPMBPartition(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 100ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -201,7 +201,7 @@ DTV_STATUS_T HAL_SYS_StartDFTMemTest(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 600ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -242,7 +242,7 @@ DFT_MEM_TEST_RESULT_T HAL_SYS_GetDFTMemTestResult(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 20ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -281,7 +281,7 @@ DTV_STATUS_T HAL_SYS_GetPWMCapability(unsigned int *pNum_of_pwm, HAL_SYS_PWM_CAP
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
@@ -321,7 +321,7 @@ DTV_STATUS_T HAL_SYS_SetPWM(unsigned int pwm_id, unsigned int period_ns, unsigne
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   There are no performance requirements.
+ *   The response time of this function should be within 10ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
