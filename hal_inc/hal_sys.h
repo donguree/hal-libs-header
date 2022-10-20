@@ -201,7 +201,7 @@ DTV_STATUS_T HAL_SYS_StartDFTMemTest(void);
  *   In abnormal case, the BSP should return -1.
  *
  * Performance Requirements
- *   The response time of this function should be within 600ms.
+ *   For a maximum of 200 calls,the response time of this function should be within 6000ms.
  *
  * Constraints
  *   There must be symmetric key exchanged with Apple on the board.
