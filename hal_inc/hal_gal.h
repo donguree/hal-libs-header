@@ -91,7 +91,7 @@ typedef enum
 	HAL_GAL_PIXEL_FORMAT_MAX		/**< Maximum number of HAL_GAL_PIXEL_FORMAT_T */
 } HAL_GAL_PIXEL_FORMAT_T;
 
-//FIXME : In the furture, It should be intergrated into one
+//FIXME : In the future, It should be integrated into one.
 /**
  * @brief This structure describes surface pool.
  */
@@ -248,7 +248,7 @@ typedef enum
  */
 typedef enum
 {
-	HAL_GAL_BLEND_UNKNOWN			= 0,  /**< Uknown blending function */
+	HAL_GAL_BLEND_UNKNOWN			= 0,  /**< Unknown blending function */
 	HAL_GAL_BLEND_ZERO				= 1,  /**< zero or, 0 */
 	HAL_GAL_BLEND_ONE				= 2,  /**< 1 */
 	HAL_GAL_BLEND_SRCCOLOR			= 3,  /**< source color */
