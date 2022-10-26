@@ -39,9 +39,9 @@ if you see this page in PDF, please check the webOSTVSecureStorageRequirement.pd
 (View > Show/Hide > Navigation Panes > Attachments)
 
 if you see this page in HTML, please click below tag.
-:download:`HAL_SSTR implementation guide <resource/hal_sstr_v1.2.zip>`
+:download:`HAL_SSTR implementation guide <resource/hal_sstr_v1.3.zip>`
 
-if you see this page in PDF, please check the hal_sstr_v1.2.zip in attachment tab of Adobe Reader
+if you see this page in PDF, please check the hal_sstr_v1.3.zip in attachment tab of Adobe Reader
 (View > Show/Hide > Navigation Panes > Attachments)
 
 Terminology and Definitions
