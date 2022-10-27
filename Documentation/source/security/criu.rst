@@ -22,28 +22,38 @@ Terminology and Definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Refer to criu lld documents.
-- http://collab.lge.com/main/pages/viewpage.action?pageId=1697529562
+
+If you see this page in HTML, please click below tag.
+- :download:`criu_webos_20221027 <resource/criu_webos_20221027.pdf>`
+
+If you see this page in PDF, please check the criu_webos_20221027.pdf in attachment tab of Adobe Reader
+(View > Show/Hide > Navigation Panes > Attachments)
 
 System Context
 ^^^^^^^^^^^^^^
 
 Refer to criu lld documents.
-- http://collab.lge.com/main/pages/viewpage.action?pageId=1697529562
+
+If you see this page in HTML, please click below tag.
+- :download:`criu_webos_20221027 <resource/criu_webos_20221027.pdf>`
+
+If you see this page in PDF, please check the criu_webos_20221027.pdf in attachment tab of Adobe Reader
+(View > Show/Hide > Navigation Panes > Attachments)
 
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-NA
+Please refer to the performance requirements of each API function.
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-NA
+There are no specific Design Constraints.
 
 Functional Requirements
 -----------------------
 
-NA
+The data types and functions used in this module are as follows.
 
 Data Types
 ^^^^^^^^^^^^
