@@ -9,6 +9,7 @@ Version Date       Changed by     Comment
 ======= ========== ============== =====================================
 1.0.0   2022-04-13 joonwoo.hong   First release
 1.0.1   2022-06-02 joonwoo.hong   Modify documentation format
+1.0.2   2022-11-15 sungbae.park   Modify documentation new format
 ======= ========== ============== =====================================
 
 Overall Description
@@ -55,12 +56,12 @@ System Context
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It'll be updated continuous.
+Please refer to the performance requirements of each API function.
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
 
-It'll be updated continuous.
+Please refer to the constraints of each API function.
 
 Functional Requirements
 -----------------------
@@ -194,1707 +195,1458 @@ Implementation
 DRV_PowerOff
 ^^^^^^^^^^^^
 
-.. function:: DRV_PowerOff(BOOLEAN fSTR)
+.. function:: DRV_STATUS_T DRV_PowerOff(BOOLEAN fSTR)
+    'SoC Vendor' Driver Power Off Function
 
-    **Description**
+  **Functional Requirements**
+    Start to SoC Driver Power Off Sequence(LG power off flow -> Driver power off flow)
 
-        Set 'SoC Vendor' Driver Power Off Sequence Start (LG power off flow -> Driver power off flow)
+  **Responses to abnormal situations, including**
+    Micom FW operation will be abnormal
 
-    **Syntax**
+  **Performance Requirements**
+    There is no performance requirements
 
-        DRV_STATUS_T DRV_PowerOff(BOOLEAN fSTR)
+  **Constraints**
+    There is no constraints
 
-    **Parameters**
+  **Functions & Parameters**
+    DRV_STATUS_T DRV_PowerOff(BOOLEAN fSTR)
 
-        BOOLEAN fSTR
+    For the data type, following data types are defined
+    fSTR        [IN] Suspend(SRT)/Cold(STD) mode decide data
 
-    **Return Value**
+  **Return Value**
+    OK if the function success, NOT_OK otherwise
 
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_PowerOff(BOOLEAN fSTR) {
-          IF DRV Power Off succeeds THEN
-            RETURN OK
-          ELSE
-            RETURN NOT_OK
-        ENDIF
-        }
-
-    **See Also**
-
-        None
+  **Example**
+    DTV_STATUS_T ret;
+    UINT8 fSTR = TRUE;
+    ret = DRV_PowerOff(fSTR);
 
 DRV_PowerOn
 ^^^^^^^^^^^
 
-.. function:: DRV_PowerOn(void)
+.. function:: DRV_STATUS_T DRV_PowerOn(void)
+    'SoC Vendor' Driver Power On Function
 
-    **Description**
+	**Functional Requirements**
+	  Start to SoC Driver Power On Sequence(LG power on flow -> Driver power on flow)
 
-        Set SoC Vendor¡± Driver Power On Sequence Start (LG power on flow -> Driver power on flow)
+	**Responses to abnormal situations, including**
+	  Micom FW operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_PowerOn(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_PowerOn(void) {
-
-          IF DRV Power On succeeds THEN
-            RETURN OK
-          ELSE
-            RETURN NOT_OK
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_PowerOn(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  DTV_STATUS_T ret;
+	  ret = DRV_PowerOn();
 
 DRV_IR_Init
 ^^^^^^^^^^^
 
-.. function:: DRV_IR_Init(void)
+.. function:: void DRV_IR_Init(void)
+    'SoC Vendor' Remocon Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set Remocon Driver Settings Initialize
 
-        Set Remocon Driver Settings Initialize in this function
+	**Responses to abnormal situations, including**
+	  Remocon operation will be abnormal
 
-    **Syntax**
-
-        void DRV_IR_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_IR_Init(void) {
-
-          Set Remocon Driver Settings Initialize
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_IR_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_IR_Init();
 
 DRV_IR_Enable
 ^^^^^^^^^^^^^
 
-.. function:: DRV_IR_Enable(void)
+.. function:: void DRV_IR_Enable(void)
+    'SoC Vendor' Remocon Process Start Function
 
-    **Description**
+	**Functional Requirements**
+	  Set Remocon Driver Process Start
 
-        Set Remocon Process Start in this function
+	**Responses to abnormal situations, including**
+	  Remocon operation will be abnormal
 
-    **Syntax**
-
-        void DRV_IR_Enable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_IR_Enable(void) {
-
-          Set Remocon Process Start
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_IR_Enable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_IR_Enable();
 
 DRV_IR_Disable
 ^^^^^^^^^^^^^^
 
-.. function:: DRV_IR_Disable(void)
+.. function:: void DRV_IR_Disable(void)
+    'SoC Vendor' Remocon Process Stop Function
 
-    **Description**
+	**Functional Requirements**
+	  Set Remocon Driver Process Stop
 
-        Set Remocon Process Stop in this function(during key block mode)
+	**Responses to abnormal situations, including**
+	  Remocon operation will be abnormal
 
-    **Syntax**
-
-        void DRV_IR_Disable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_IR_Disable(void) {
-
-          Set Remocon Process Stop
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_IR_Disable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_IR_Disable();
 
 DRV_IR_GetRawData
 ^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_IR_GetRawData(KEY_DATA *raw_data, UINT8 *keytype)
+.. function:: DRV_STATUS_T DRV_IR_GetRawData(KEY_DATA *raw_data, UINT8 *keytype)
+    'SoC Vendor' Remocon raw data read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read Remocon Raw Data from Driver
 
-        Read Remocon Raw Data from Driver in this function (Driver send Original IR received data to LG application)
+	**Responses to abnormal situations, including**
+	  Remocon operation will be abnormal
 
-    **Syntax**
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_IR_GetRawData(KEY_DATA *raw_data, UINT8 *keytype)
+	
+	  For the data type, following data types are defined
+	  *raw_data        [IN/OUT] remocon keycode data
+	  *keytype         [IN/OUT] remocon key type(single/repeat)
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  typedef struct KEY_DATA_T
+      {
+          UINT8 Cus;
+          UINT8 xorCus;
+          UINT8 Key;
+          UINT8 xorKey;
+      } KEY_DATA;
 
-        DRV_STATUS_T DRV_IR_GetRawData(KEY_DATA *raw_data, UINT8 *keytype)
-
-    **Parameters**
-
-        KEY_DATA *raw_data UINT8 *keytype
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_IR_GetRawData(KEY_DATA *raw_data, UINT8 *keytype) {
-
-          // Read Remocon Raw Data from Driver IF Read Data succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	  DTV_STATUS_T ret;
+	  KEY_DATA raw_data;
+	  UINT8 keytype;
+	  ret = DRV_IR_GetRawData(&raw_data, &keytype);
 
 DRV_IR_ClearBuf
 ^^^^^^^^^^^^^^^
 
-.. function:: DRV_IR_ClearBuf(void)
+.. function:: void DRV_IR_ClearBuf(void)
+    'SoC Vendor' Remocon buffer and values clear Function
 
-    **Description**
+	**Functional Requirements**
+	  Set Remocon buffer and values clear
 
-        Set Remocon buffer and values clear in this function
+	**Responses to abnormal situations, including**
+	  Remocon operation will be abnormal
 
-    **Syntax**
-
-        void DRV_IR_ClearBuf(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_IR_ClearBuf(void) {
-
-          // Clear Driver Buffer
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_IR_ClearBuf(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_IR_ClearBuf(void);
 
 DRV_ADC_Init
 ^^^^^^^^^^^^
 
-.. function:: DRV_ADC_Init(void)
+.. function:: void DRV_ADC_Init(void)
+    'SoC Vendor' ADC Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set ADC Driver Settings Initialize
 
-        Set Local Key Driver Settings Initialize in this function
+	**Responses to abnormal situations, including**
+	  ADC operation will be abnormal
 
-    **Syntax**
-
-        void DRV_ADC_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_ADC_Init(void) {
-
-          // Initialize Local Key Driver Settings
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_ADC_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_ADC_Init();
 
 DRV_ADC_Read
 ^^^^^^^^^^^^
 
-.. function:: DRV_ADC_Read(UINT8 index)
+.. function:: UINT8 DRV_ADC_Read(UINT8 index)
+    'SoC Vendor' LocalKey and HW option ADC data read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read LocalKey and HW option ADC Data from Driver
 
-        Read Local Key ADC Data from Driver in this function
+	**Responses to abnormal situations, including**
+	  LocalKey/HW option operation will be abnormal
 
-    **Syntax**
-
-        UINT8 DRV_ADC_Read(UINT8 index)
-
-    **Parameters**
-
-        UINT8 index
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        UINT8 DRV_ADC_Read(UINT8 index) {
-
-          // Read Local Key ADC Data from Driver IF Read Data succeeds THEN
-
-            RETURN OK
-          ELSE
-            RETURN NOT_OK
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  UINT8 DRV_ADC_Read(UINT8 index)
+	
+	  For the data type, following data types are defined
+	  index        [IN] localkey/hw option channel
+	
+	**Return Value**
+	  LocalKey ADC value if the function success, 0xFF otherwise
+	
+	**Example**
+	  #define KEY1_CH		0
+	  #define KEY2_CH		1
+	  #define MOPT0_CH		2
+	  #define MOPT1_CH		3
+	
+	  UINT8 ret;
+	  UINT8 index = KEY1_CH;
+	  UINT8 index2 = MOPT0_CH;
+	  ret = DRV_ADC_Read(index);
+	  ret = DRV_ADC_Read(index2);
 
 DRV_CEC_Init
 ^^^^^^^^^^^^
 
-.. function:: DRV_CEC_Init(void)
+.. function:: void DRV_CEC_Init(void)
+    'SoC Vendor' CEC Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set CEC Driver Initialize
 
-        Set CEC host controller Initialize in this function
+	**Responses to abnormal situations, including**
+	  CEC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_CEC_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_CEC_Init(void) {
-          // CEC host controller Initialize IF CEC initialize succeeds THEN
-            RETURN OK
-          ELSE
-            RETURN NOT_OK
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_CEC_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_CEC_Init();
 
 DRV_CEC_Enable
 ^^^^^^^^^^^^^^
 
-.. function:: DRV_CEC_Enable(void)
+.. function:: DRV_STATUS_T DRV_CEC_Enable(void)
+    'SoC Vendor' CEC Process Start Function
 
-    **Description**
+	**Functional Requirements**
+	  Set CEC Driver Process Start(CEC host controller)
 
-        Set CEC host controller Enable in this function (LG application get CEC data from ¡°SoC Vendor¡± Driver)
+	**Responses to abnormal situations, including**
+	  CEC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_CEC_Enable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_CEC_Enable(void) {
-
-          // CEC host controller Enable IF CEC enable succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_CEC_Enable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_CEC_Enable();
 
 DRV_CEC_Disable
 ^^^^^^^^^^^^^^^
 
-.. function:: DRV_CEC_Disable(void)
+.. function:: DRV_STATUS_T DRV_CEC_Disable(void)
+    'SoC Vendor' CEC Process Stop Function
 
-    **Description**
+	**Functional Requirements**
+	  Set CEC Driver Process Stop(CEC host controller)
 
-        Set CEC host controller Disable in this function (LG application didn¡¯t get CEC data from ¡°SoC Vendor¡± Driver)
+	**Responses to abnormal situations, including**
+	  CEC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_CEC_Disable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_CEC_Disable(void) {
-
-          // CEC host controller Disable IF CEC disable succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_CEC_Disable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_CEC_Disable();
 
 DRV_CEC_SendMessage
 ^^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_CEC_SendMessage(UINT8 dest, UINT8* send_data, UINT8 send_len)
+.. function:: DRV_STATUS_T DRV_CEC_SendMessage(UINT8 dest, UINT8* send_data, UINT8 send_len)
+    'SoC Vendor' CEC data to Specified CEC device
 
-    **Description**
+	**Functional Requirements**
+	  Write Data to a specified CEC device
 
-        Set Data to a specified CEC device
+	**Responses to abnormal situations, including**
+	  CEC operation will be abnormal
 
-    **Syntax**
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_CEC_SendMessage(UINT8 dest, UINT8* send_data, UINT8 send_len)
+	
+	  For the data type, following data types are defined
+	  dest        		[IN] specified CEC device
+	  *send_data        [IN] cec data
+	  send_len        	[IN] cec data size
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  #define CEC_TxBuf_SIZE 8
+	
+	  UINT8 ret;
+	  UINT8 txBuf[CEC_TxBuf_SIZE] = {0,};
+	  UINT8 rxLen = 4;
 
-        DRV_STATUS_T DRV_CEC_SendMessage(UINT8 dest, UINT8* send_data, UINT8 send_len)
-
-    **Parameters**
-
-        UINT8 dest UINT8* send_data UINT8 send_len
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_CEC_SendMessage(UINT8 dest, UINT8* send_data, UINT8 send_len) {
-
-          // Set Data to a specified CEC device IF Send CEC message Data succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	  txBuf[0] = 0x0F;
+	  txBuf[1] = 0x87;
+	  txBuf[2] = 0x00;
+	  txBuf[3] = 0xE0;
+	  txBuf[4] = 0x91;
+	  ret = DRV_CEC_SendMessage(txBuf[0], &txBuf[1], 4);
 
 DRV_CEC_ReceiveMessage
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_CEC_ReceiveMessage(UINT8* p_hdr, UINT8* p_buff, UINT8 buff_size, UINT8* p_rcv_len)
+.. function:: DRV_STATUS_T DRV_CEC_ReceiveMessage(UINT8* p_hdr, UINT8* p_buff, UINT8 buff_size, UINT8* p_rcv_len)
+    'SoC Vendor' CEC data from Specified CEC device
 
-    **Description**
+	**Functional Requirements**
+	  Read Data to a specified CEC device
 
-        Read Data from CEC Controller
+	**Responses to abnormal situations, including**
+	  CEC operation will be abnormal
 
-    **Syntax**
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_CEC_ReceiveMessage(UINT8* p_hdr, UINT8* p_buff, UINT8 buff_size, UINT8* p_rcv_len)
+	
+	  For the data type, following data types are defined
+	  *p_hdr        	[IN] specified CEC device
+	  *p_buff        	[IN] cec data
+	  buff_size        	[IN] cec data size
+	  *p_rcv_len		[IN] cec data size
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  #define CEC_RxBuf_SIZE 20
 
-        DRV_STATUS_T DRV_CEC_ReceiveMessage(UINT8* p_hdr, UINT8* p_buff, UINT8 buff_size, UINT8* p_rcv_len)
-
-    **Parameters**
-
-        UINT8* p_hdr UINT8* p_buff UINT8 buff_size UINT8* p_rcv_len
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_CEC_ReceiveMessage(UINT8* p_hdr, UINT8* p_buff, UINT8 buff_size, UINT8* p_rcv_len) {
-
-          // Read Data from CEC Controller IF Read Data succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	  UINT8 ret;
+	  UINT8 rxBuf[CEC_RxBuf_SIZE] = {0,};
+	  UINT8 rxLen = 0;
+	  ret = DRV_CEC_ReceiveMessage(&rxBuf[0], &rxBuf[1], CEC_RxBuf_SIZE-1, &rxLen);
 
 DRV_WOL_Enable
 ^^^^^^^^^^^^^^
 
-.. function:: DRV_WOL_Enable(void)
+.. function:: DRV_STATUS_T DRV_WOL_Enable(void)
+    'SoC Vendor' WOL Process Start Function
 
-    **Description**
+	**Functional Requirements**
+	  Set WOL Driver Process Start(Driver change to wake up settings on)
 
-        Set WOL wake up operation Enable (Driver change to wake up settings on)
+	**Responses to abnormal situations, including**
+	  WOL operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_WOL_Enable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_WOL_Enable(void) {
-
-          // Set wake up operation ON
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_WOL_Enable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_WOL_Enable();
 
 DRV_WOL_Disable
 ^^^^^^^^^^^^^^^
 
-.. function:: DRV_WOL_Disable(void)
+.. function:: DRV_STATUS_T DRV_WOL_Disable(void)
+    'SoC Vendor' WOL Process Stop Function
 
-    **Description**
+	**Functional Requirements**
+	  Set WOL Driver Process Stop(Driver set to wake up mode off)
 
-        Set WOL wake up operation Disable (Driver set to wake up mode off)
+	**Responses to abnormal situations, including**
+	  WOL operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_WOL_Disable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_WOL_Disable(void) {
-
-          // Set wake up operation OFF
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_WOL_Disable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_WOL_Disable();
 
 DRV_WOL_Get_Status
 ^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_WOL_Get_Status(void)
+.. function:: UINT32 DRV_WOL_Get_Status(void)
+    'SoC Vendor' WOL wake up signal read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read WOL wake up signal from SoC Vendor Driver
 
-        Read WOL wake up signal from ¡°SoC Vendor¡± Driver
+	**Responses to abnormal situations, including**
+	  WOL operation will be abnormal
 
-    **Syntax**
-
-        UINT32 DRV_WOL_Get_Status(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        UINT32 DRV_WOL_Get_Status(void) {
-
-          // Get wake up signal happened or not
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  UINT32 DRV_WOL_Get_Status(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  HIGH/LOW Level if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT32 ret;
+	  ret = DRV_WOL_Get_Status();
 
 DRV_WOWL_Enable
 ^^^^^^^^^^^^^^^
 
-.. function:: DRV_WOWL_Enable(void)
+.. function:: DRV_STATUS_T DRV_WOWL_Enable(void)
+    'SoC Vendor' WOWL Process Start Function
 
-    **Description**
+	**Functional Requirements**
+	  Deprecated. Need to delete this function.
 
-        Set WOWL wake up operation Enable (Driver change to wake up settings on)
+	**Responses to abnormal situations, including**
+	  NA
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_WOWL_Enable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_WOWL_Enable(void) {
-
-          // Set wake up operation ON
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  NA
+	
+	**Constraints**
+	  NA
+	
+	**Functions & Parameters**
+	  NA
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  NA
+	
+	**Example**
+	  NA
 
 DRV_WOWL_Disable
 ^^^^^^^^^^^^^^^^
 
-.. function:: DRV_WOWL_Disable(void)
+.. function:: DRV_STATUS_T DRV_WOWL_Disable(void)
+    'SoC Vendor' WOWL Process Stop Function
 
-    **Description**
+	**Functional Requirements**
+	  Deprecated. Need to delete this function.
 
-        Set WOWL wake up operation Disable (Driver set to wake up mode off)
+	**Responses to abnormal situations, including**
+	  NA
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_WOWL_Disable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_WOWL_Disable(void) {
-
-          // Set wake up operation OFF
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  NA
+	
+	**Constraints**
+	  NA
+	
+	**Functions & Parameters**
+	  NA
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  NA
+	
+	**Example**
+	  NA
 
 DRV_WOV_Enable
 ^^^^^^^^^^^^^^
 
-.. function:: DRV_WOV_Enable(void)
+.. function:: DRV_STATUS_T DRV_WOV_Enable(void)
+    'SoC Vendor' WOV Process Start Function
 
-    **Description**
+	**Functional Requirements**
+	  Set WOV Driver Process Start(Driver change to wake up settings on)
 
-        Set WOV wake up operation Enable (Driver change to wake up settings on)
+	**Responses to abnormal situations, including**
+	  WOV operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_WOV_Enable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_WOV_Enable(void) {
-
-          // Set wake up operation ON
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_WOV_Enable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_WOV_Enable();
 
 DRV_WOV_Disable
 ^^^^^^^^^^^^^^
 
-.. function:: DRV_WOV_Disable(void)
+.. function:: DRV_STATUS_T DRV_WOV_Disable(void)
+    'SoC Vendor' WOV Process Stop Function
 
-    **Description**
+	**Functional Requirements**
+	  Set WOV Driver Process Stop(Driver set to wake up mode off)
 
-        Set WOV wake up operation Disable (Driver set to wake up mode off)
+	**Responses to abnormal situations, including**
+	  WOV operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_WOV_Disable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_WOV_Disable(void) {
-
-          // Set wake up operation OFF
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_WOV_Disable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_WOV_Disable();
 
 DRV_IPC_Init
 ^^^^^^^^^^^^
 
-.. function:: DRV_IPC_Init(void)
+.. function:: void DRV_IPC_Init(void)
+    'SoC Vendor' IPC Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set IPC Driver Initialize(Main SoC <-> Micom FW communication feature)
 
-        Set IPC Settings Initialize in this function (Main SoC <-> Micom FW communication feature)
+	**Responses to abnormal situations, including**
+	  IPC operation will be abnormal
 
-    **Syntax**
-
-        void DRV_IPC_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_IPC_Init(void) {
-
-          // Set IPC Settings Initialize
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_IPC_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_IPC_Init();
 
 DRV_IPC_ReadBuffer
 ^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_IPC_ReadBuffer(UINT8 *len ,UINT8 *data)
+.. function:: DRV_STATUS_T DRV_IPC_ReadBuffer(UINT8 *len ,UINT8 *data)
+    'SoC Vendor' IPC buffer data read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read IPC buffer data (Read data from share memory)
 
-        Read IPC buffer data (Read data from share memory)
+	**Responses to abnormal situations, including**
+	  IPC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_IPC_ReadBuffer(UINT8 *len ,UINT8 *data)
-
-    **Parameters**
-
-        UINT8 *len, UINT8 *data
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_IPC_ReadBuffer(UINT8 *len ,UINT8 *data) {
-
-          // Read IPC buffer data IF Read buffer data succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_IPC_ReadBuffer(UINT8 *len ,UINT8 *data)
+	
+	  For the data type, following data types are defined
+	  *len			[IN] read buffer data size
+	  *data			[IN] buffer data
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  UINT8	gucIPC_RxBuffer[24] = {0,};
+	  UINT8 _rxBufSize = 0;
+	  ret = DRV_IPC_ReadBuffer(&_rxBufSize, gucIPC_RxBuffer);
 
 DRV_IPC_WriteBuffer
 ^^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_IPC_WriteBuffer(UINT8 nLength , UINT8* pData)
+.. function:: DRV_STATUS_T DRV_IPC_WriteBuffer(UINT8 nLength , UINT8* pData)
+    'SoC Vendor' IPC buffer data write Function
 
-    **Description**
+	**Functional Requirements**
+	  Write IPC buffer data (Write data to share memory)
 
-        Write IPC buffer data (Write data to share memory)
+	**Responses to abnormal situations, including**
+	  IPC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_IPC_WriteBuffer(UINT8 nLength , UINT8* pData)
-
-    **Parameters**
-
-        UINT8 nLength, UINT8* pData
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        Pseudo Code DRV_STATUS_T DRV_IPC_WriteBuffer(UINT8 nLength , UINT8* pData) {
-
-          // Write IPC buffer data IF Write buffer data succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_IPC_WriteBuffer(UINT8 nLength , UINT8* pData)
+	
+	  For the data type, following data types are defined
+	  nLength			[IN] write buffer data size
+	  *pData			[IN] buffer data
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  UINT8	gucIPC_TxBuffer[23] = {0,};
+	  UINT8	gucIPC_TxBufSize = 0;
+	  ret = DRV_IPC_WriteBuffer(gucIPC_TxBufSize, gucIPC_TxBuffer);
 
 DRV_NVM_Init
 ^^^^^^^^^^^^
 
-.. function:: DRV_NVM_Init(void)
+.. function:: void DRV_NVM_Init(void)
+    'SoC Vendor' NVM Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set NVM Driver Initialize(Main SoC EEPROM access feature)
 
-        Set NVM Settings Initialize in this function (Main SoC EEPROM access feature)
+	**Responses to abnormal situations, including**
+	  NVM operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_NVM_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_NVM_Init(void) {
-
-          // NVM Settings Initialize
-
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_NVM_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_NVM_Init();
 
 DRV_NVM_Read
 ^^^^^^^^^^^^
 
-.. function:: DRV_NVM_Read(UINT16 addr, UINT8 *rdata, UINT8 rdata_len)
+.. function:: DRV_STATUS_T DRV_NVM_Read(UINT16 addr, UINT8 *rdata, UINT8 rdata_len)
+    'SoC Vendor' NVM buffer data read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read NVM buffer data (Read data from EEPROM¡¯s micomDB)
 
-        Read NVM buffer data (Read data from EEPROM¡¯s micomDB)
+	**Responses to abnormal situations, including**
+	  NVM operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_NVM_Read(UINT16 addr, UINT8 *rdata, UINT8 rdata_len)
-
-    **Parameters**
-
-        UINT16 addr, UINT8 *rdata, UINT8 rdata_len
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_NVM_Read(UINT16 addr, UINT8 *rdata, UINT8 rdata_len) {
-
-          // Read NVM buffer data IF Read buffer data succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_NVM_Read(UINT16 addr, UINT8 *rdata, UINT8 rdata_len)
+	
+	  For the data type, following data types are defined
+	  addr			[IN] nvm buffer address
+	  *rdata		[IN] read buffer data
+	  rdata_len		[IN] read data size
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  #define NVM_ADDR_START  		(0x14E0)
+	  #define NVM_READ_DATA_SIZE 	(1)
+	  
+	  UINT8 ret;
+	  UINT8 readNVMData;
+	  ret = DRV_NVM_Read(NVM_ADDR_START, &readNVMData, NVM_READ_DATA_SIZE);
 
 DRV_NVM_Write
 ^^^^^^^^^^^^^
 
-.. function:: DRV_NVM_Write(UINT16 addr, UINT8 *wdata, UINT16 wdata_len)
+.. function:: DRV_STATUS_T DRV_NVM_Write(UINT16 addr, UINT8 *wdata, UINT16 wdata_len)
+    'SoC Vendor' NVM buffer data write Function
 
-    **Description**
+	**Functional Requirements**
+	  Write NVM buffer data (Write data from EEPROM¡¯s micomDB)
 
-        Write NVM buffer data (Write data to EEPROM¡¯s micomDB)
+	**Responses to abnormal situations, including**
+	  NVM operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_NVM_Write(UINT16 addr, UINT8 *wdata, UINT16 wdata_len)
-
-    **Parameters**
-
-        UINT16 addr, UINT8 *wdata, UINT16 wdata_len
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_NVM_Write(UINT16 addr, UINT8 *wdata, UINT16 wdata_len) {
-
-          // Write NVM buffer data IF Write buffer data succeeds THEN
-
-            RETURN OK
-
-          ELSE
-            RETURN NOT_OK
-
-          ENDIF
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_NVM_Write(UINT16 addr, UINT8 *wdata, UINT16 wdata_len)
+	
+	  For the data type, following data types are defined
+	  addr			[IN] nvm buffer address
+	  *wdata		[IN] write buffer data
+	  wdata_len		[IN] write data size
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  #define NVM_ADDR_START  		(0x14E0)
+	  #define NVM_WRITE_DATA_SIZE 	(1)
+	  
+	  UINT8 ret;
+	  UINT8 writeNVMData;
+	  ret = DRV_NVM_Read(NVM_ADDR_START, &writeNVMData, NVM_WRITE_DATA_SIZE);
 
 DRV_PWM_Init
 ^^^^^^^^^^^^
 
-.. function:: DRV_PWM_Init(void)
+.. function:: void DRV_PWM_Init(void)
+    'SoC Vendor' PWM Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set PWM Driver Initialize
 
-        Set PWM Settings Initialize in this function
+	**Responses to abnormal situations, including**
+	  PWM operation will be abnormal
 
-    **Syntax**
-
-        void DRV_PWM_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_PWM_Init(void) {
-          // PWM Settings Initialize
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_PWM_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_PWM_Init();
 
 DRV_PWM_SetDuty
 ^^^^^^^^^^^^^^^
 
-.. function:: DRV_PWM_SetDuty(PWM_ChNum idx, UINT8 pwm_duty)
+.. function:: DRV_STATUS_T DRV_PWM_SetDuty(PWM_ChNum idx, UINT8 pwm_duty)
+    'SoC Vendor' PWM duty write Function
 
-    **Description**
+	**Functional Requirements**
+	  Write PWM duty
 
-        Set PWM Duty change in this function
+	**Responses to abnormal situations, including**
+	  PWM operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_PWM_SetDuty(PWM_ChNum idx, UINT8 pwm_duty)
-
-    **Parameters**
-
-        PWM_ChNum idx, UINT8 pwm_duty
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_PWM_SetDuty(PWM_ChNum idx, UINT8 pwm_duty) {
-          // Set PWM Duty
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_PWM_SetDuty(PWM_ChNum idx, UINT8 pwm_duty)
+	
+	  For the data type, following data types are defined
+	  idx			[IN] pwm channel
+	  pwm_duty		[IN] pwm duty data
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  PWM_ChNum idx = 1;
+	  UINT8 pwm_duty = 60;
+	  ret = DRV_PWM_SetDuty(idx, pwm_duty);
 
 DRV_PWM_GetDuty
 ^^^^^^^^^^^^^^^
 
-.. function:: DRV_PWM_GetDuty(PWM_ChNum idx)
+.. function:: UINT8 DRV_PWM_GetDuty(PWM_ChNum idx)
+    'SoC Vendor' PWM duty read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read PWM duty
 
-        Get current PWM Duty value
+	**Responses to abnormal situations, including**
+	  PWM operation will be abnormal
 
-    **Syntax**
-
-        UINT8 DRV_PWM_GetDuty(PWM_ChNum idx)
-
-    **Parameters**
-
-        PWM_ChNum idx
-
-    **Return Value**
-
-        If this function succeeds, the return value is PWM Duty.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        UINT8 DRV_PWM_GetDuty(PWM_ChNum idx) {
-          // Get PWM Duty
-          // return PWM Duty
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  UINT8 DRV_PWM_GetDuty(PWM_ChNum idx)
+	
+	  For the data type, following data types are defined
+	  idx			[IN] pwm channel
+	
+	**Return Value**
+	  PWM duty value if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  PWM_ChNum idx = 1;
+	  UINT8 pwm_duty = 60;
+	  ret = DRV_PWM_SetDuty(idx, pwm_duty);
 
 DRV_RTC_Init
 ^^^^^^^^^^^^
 
-.. function:: DRV_RTC_Init(void)
+.. function:: void DRV_RTC_Init(void)
+    'SoC Vendor' RTC Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set RTC Driver Initialize
 
-        Set RTC Settings Initialize in this function
+	**Responses to abnormal situations, including**
+	  RTC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_RTC_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_RTC_Init(void) {
-          // RTC Settings Initialize
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_RTC_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_RTC_Init();
 
 DRV_RTC_SetCounter
 ^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_RTC_SetCounter(TIME *gSystemTime)
+.. function:: DRV_STATUS_T DRV_RTC_SetCounter(TIME *gSystemTime)
+    'SoC Vendor' Current Time write Function
 
-    **Description**
+	**Functional Requirements**
+	  Write Current Time
 
-        Set Current Time in this function
+	**Responses to abnormal situations, including**
+	  RTC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_RTC_SetCounter(TIME *gSystemTime)
-
-    **Parameters**
-
-        TIME *gSystemTime
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_RTC_SetCounter(TIME *gSystemTime) {
-          // Set RTC Time
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_RTC_SetCounter(TIME *gSystemTime)
+	
+	  For the data type, following data types are defined
+	  *gSystemTime			[IN] cuttrent time
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  TIME in_time_data[8] = {20, 22, 11, 14, 12, 00, 00, 00};	// 2022.11.14 12:00:00
+	  ret = DRV_RTC_SetCounter(&in_time_data);
 
 DRV_RTC_GetCounter
 ^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_RTC_GetCounter(TIME *gSystemTime)
+.. function:: DRV_STATUS_T DRV_RTC_GetCounter(TIME *gSystemTime)
+    'SoC Vendor' Current Time read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read Current Time
 
-        Get Current Time in this function
+	**Responses to abnormal situations, including**
+	  RTC operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_RTC_GetCounter(TIME *gSystemTime)
-
-    **Parameters**
-
-        PWM_ChNum idx
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_RTC_GetCounter(TIME *gSystemTime) {
-          // Get RTC time
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_RTC_GetCounter(TIME *gSystemTime)
+	
+	  For the data type, following data types are defined
+	  *gSystemTime			[IN] read time buffer
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  TIME gSystemTime;
+	  ret = DRV_RTC_SetCounter(&gSystemTime);
 
 DRV_GPIO_init
 ^^^^^^^^^^^^^
 
-.. function:: DRV_GPIO_init(void)
+.. function:: void DRV_GPIO_init(void)
+    'SoC Vendor' GPIO Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set GPIO Driver Initialize
 
-        Set GPIO Settings Initialize in this function
-        (Port Map Table, Port Property, Port Default Value, ....)
+	**Responses to abnormal situations, including**
+	  GPIO operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_GPIO_init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_GPIO_init(void) {
-          // GPIO Settings Initialize
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_GPIO_init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_GPIO_init();
 
 DRV_GPIO_Set
 ^^^^^^^^^^^^
 
-.. function:: DRV_GPIO_Set(UINT8 port, UINT8 value)
+.. function:: DRV_STATUS_T DRV_GPIO_Set(UINT8 port, UINT8 value)
+    'SoC Vendor' GPIO value write Function
 
-    **Description**
+	**Functional Requirements**
+	  Write GPIO value
 
-        Set GPIO Settings
+	**Responses to abnormal situations, including**
+	  GPIO operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_GPIO_Set(UINT8 port, UINT8 value)
-
-    **Parameters**
-
-        UINT8 port, UINT8 value
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_GPIO_Set(UINT8 port, UINT8 value) {
-          // Set GPIO value
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_GPIO_Set(UINT8 port, UINT8 value)
+	
+	  For the data type, following data types are defined
+	  port			[IN] gpio port
+	  value			[IN] gpio value
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  UINT8 testPort = 10;
+	  UINT8 teatValue = 1;
+	  ret = DRV_GPIO_Set(testPort, teatValue);
 
 DRV_GPIO_Get
 ^^^^^^^^^^^^
 
-.. function:: DRV_GPIO_Get(UINT8 port)
+.. function:: DRV_STATUS_T DRV_GPIO_Get(UINT8 port)
+    'SoC Vendor' GPIO value read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read GPIO value
 
-        Get GPIO Value
+	**Responses to abnormal situations, including**
+	  GPIO operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_GPIO_Get(UINT8 port)
-
-    **Parameters**
-
-        PWM_ChNum idx
-
-    **Return Value**
-
-        If this function succeeds, the return value is GPIO Level.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_GPIO_Get(UINT8 port) {
-          // Get GPIO value with port
-          // return GPIO level(HIGH/LOW)
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_GPIO_Get(UINT8 port)
+	
+	  For the data type, following data types are defined
+	  port			[IN] gpio port
+	
+	**Return Value**
+	  GPIO HIGH/LOW value if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  UINT8 testPort = 10;
+	  ret = DRV_GPIO_Set(testPort);
 
 DRV_GPIO_SetDirection
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_GPIO_SetDirection(UINT8 port, UINT8 direction)
+.. function:: DRV_STATUS_T DRV_GPIO_SetDirection(UINT8 port, UINT8 direction)
+    'SoC Vendor' GPIO direction write Function
 
-    **Description**
+	**Functional Requirements**
+	  Write GPIO direction(GPIO input/output property)
 
-        Set GPIO Driections
+	**Responses to abnormal situations, including**
+	  GPIO operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_GPIO_SetDirection(UINT8 port, UINT8 direction)
-
-    **Parameters**
-
-        UUINT8 port, UINT8 direction
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_GPIO_SetDirection(UINT8 port, UINT8 direction) {
-          // Set GPIO direction
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_GPIO_SetDirection(UINT8 port, UINT8 direction)
+	
+	  For the data type, following data types are defined
+	  port			[IN] gpio port
+	  direction		[IN] gpio direction(input/output)
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  UINT8 testPort = 10;
+	  UINT8 teatDirection = 1; //(0:output, 1:input)
+	  ret = DRV_GPIO_SetDirection(testPort, teatDirection);
 
 DRV_TIMER_Init
 ^^^^^^^^^^^^^^
 
-.. function:: DRV_TIMER_Init(void)
+.. function:: void DRV_TIMER_Init(void)
+    'SoC Vendor' TIMER Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set TIMER Driver Initialize
 
-        Set Timer Settings Initialize in this function
+	**Responses to abnormal situations, including**
+	  TIMER operation will be abnormal
 
-    **Syntax**
-
-        void DRV_TIMER_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_TIMER_Init(void) {
-          // Timer Settings Initialize
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_TIMER_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_TIMER_Init();
 
 DRV_TIMER_Delayms
 ^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_TIMER_Delayms(UINT32 msec)
+.. function:: DRV_STATUS_T DRV_TIMER_Delayms(UINT32 msec)
+    'SoC Vendor' Delay timer setting Function
 
-    **Description**
+	**Functional Requirements**
+	  Set delay timer operation base on millisecond
 
-        Set Timer Delay in this function (base on millisecond)
+	**Responses to abnormal situations, including**
+	  TIMER operation will be abnormal
 
-    **Syntax**
-
-        void DRV_TIMER_Delayms(UINT32 msec)
-
-    **Parameters**
-
-        UINT32 msec
-
-    **Return Value**
-
-        UINT32 msec
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_TIMER_Delayms(UINT32 msec) {
-          // Set Timer Delay
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_TIMER_Delayms(UINT32 msec)
+	
+	  For the data type, following data types are defined
+	  msec		[IN] delay msec time
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  UINT8 msec = 100;
+	  ret = DRV_TIMER_Delayms(msec); // 100ms delay timer
 
 DRV_UART_Init
 ^^^^^^^^^^^^^
 
-.. function:: DRV_UART_Init(void)
+.. function:: void DRV_UART_Init(void)
+    'SoC Vendor' UART Initialize Function
 
-    **Description**
+	**Functional Requirements**
+	  Set UART Driver Initialize
 
-        If need to initialize UART, set UART.
+	**Responses to abnormal situations, including**
+	  UART operation will be abnormal
 
-    **Syntax**
-
-        void DRV_UART_Init(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_UART_Init(void) {
-          // set uart setting
-          // reset offset to zero
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  void DRV_UART_Init(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  There is no return value
+	
+	**Example**
+	  DRV_UART_Init();
 
 DRV_UART_Enable
 ^^^^^^^^^^^^^^^
 
-.. function:: DRV_UART_Enable(void)
+.. function:: DRV_STATUS_T DRV_UART_Enable(void)
+    'SoC Vendor' UART Process Start Function
 
-    **Description**
+	**Functional Requirements**
+	  Set UART Driver Process Start
 
-        If there is only one UART resource, enable it so that Micom can use it.
+	**Responses to abnormal situations, including**
+	  UART operation will be abnormal
 
-    **Syntax**
-
-        void DRV_UART_Enable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_UART_Enable(void) {
-          //disable uart interrupt in scpu
-          //enable uart interrupt in emcu
-          //UART Interrupt Enable
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_UART_Enable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_UART_Enable();
 
 DRV_UART_Disable
 ^^^^^^^^^^^^^^^^
 
-.. function:: DRV_UART_Disable(void)
+.. function:: DRV_STATUS_T DRV_UART_Disable(void)
+    'SoC Vendor' UART Process Start Function
 
-    **Description**
+	**Functional Requirements**
+	  Set UART Driver Process Stop
 
-        If there is only one UART resource, disable it so that SoC can use it.
+	**Responses to abnormal situations, including**
+	  UART operation will be abnormal
 
-    **Syntax**
-
-        void DRV_UART_Disable(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_UART_Disable(void) {
-          //make sure urat0 data is empty
-          //disable uart interrupt in emcu
-          //UART Interrupt Disable
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_UART_Disable(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_UART_Disable();
 
 DRV_UART_GetLine
 ^^^^^^^^^^^^^^^^
 
-.. function:: DRV_UART_GetLine(UINT8 *line)
+.. function:: DRV_STATUS_T DRV_UART_GetLine(UINT8 *line)
+    'SoC Vendor' UART data read Function
 
-    **Description**
+	**Functional Requirements**
+	  Read data from uart buffer
 
-        The input string for 3 seconds is passed as a parameter.
+	**Responses to abnormal situations, including**
+	  UART operation will be abnormal
 
-    **Syntax**
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_UART_GetLine(UINT8 *line)
+	
+	  For the data type, following data types are defined
+	  *line        	[IN/OUT] uart data buffer line
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  #define CEC_RxBuf_SIZE 20
 
-        DRV_STATUS_T DRV_UART_GetLine(UINT8 *line)
-
-    **Parameters**
-
-        UINT8 *line
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_UART_GetLine(UINT8 *line) {
-          // Get CR/LF, return DataBuf
-          // User only press CR/LF, no meaning, clear
-          // if timeout, clear
-          return OK;
-        }
-
-    **See Also**
-
-        None
+	  UINT8 ret;
+	  UINT8 cmd[21] = {0,};
+	  ret = DRV_UART_GetLine(cmd);
 
 DRV_UART_ClearBuf
 ^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_UART_ClearBuf(void)
+.. function:: DRV_STATUS_T DRV_UART_ClearBuf(void)
+    'SoC Vendor' UART buffer clear Function
 
-    **Description**
+	**Functional Requirements**
+	  Clear uart buffer data
 
-        After 3 seconds, the Uart buffer is cleared. There is no need if it is handled to be cleared in DRV_UART_GetLine().
+	**Responses to abnormal situations, including**
+	  UART operation will be abnormal
 
-    **Syntax**
-
-        DRV_STATUS_T DRV_UART_ClearBuf(void)
-
-    **Parameters**
-
-        None
-
-    **Return Value**
-
-        If this function succeeds, the return value is OK. If this function fails, the return value is NOT_OK.
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        DRV_STATUS_T DRV_UART_ClearBuf(void) {
-          UartBufPos = 0;
-          return OK;
-        }
-
-    **See Also**
-
-        None
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_UART_ClearBuf(void)
+	
+	  For the data type, following data types are defined
+	  NA
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  UINT8 ret;
+	  ret = DRV_UART_ClearBuf();
 
 DRV_UART_SetBaudrate
 ^^^^^^^^^^^^^^^^^^^^
 
-.. function:: DRV_UART_SetBaudrate(UART_BAUDRATE_TYPE baudrate)
+.. function:: DRV_STATUS_T DRV_UART_SetBaudrate(UART_BAUDRATE_TYPE baudrate)
+    'SoC Vendor' UART baudrate setting Function
 
-    **Description**
+	**Functional Requirements**
+	  Set UART driver baudrate setting (9600,115200,etc....)
 
-        Set uart's baudrate to 9600 or 115200.
+	**Responses to abnormal situations, including**
+	  UART operation will be abnormal
 
-    **Syntax**
+	**Performance Requirements**
+	  There is no performance requirements
+	
+	**Constraints**
+	  There is no constraints
+	
+	**Functions & Parameters**
+	  DRV_STATUS_T DRV_UART_SetBaudrate(UART_BAUDRATE_TYPE baudrate)
+	
+	  For the data type, following data types are defined
+	  baudrate		[IN] uart baudrate value
+	
+	**Return Value**
+	  OK if the function success, NOT_OK otherwise
+	
+	**Example**
+	  #define BAUDRATE_9600 	1
 
-        void DRV_UART_SetBaudrate(UART_BAUDRATE_TYPE baudrate)
-
-    **Parameters**
-
-        UART_BAUDRATE_TYPE baudrate
-
-    **Return Value**
-
-        None
-
-    **Remarks**
-
-        None
-
-    **Pseudo Code**
-
-        void DRV_UART_SetBaudrate(UART_BAUDRATE_TYPE baudrate) {
-          if(baudrate == BAUDRATE_9600)
-            //set uart baudrate 9600
-          else
-            //set uart baudrate 115200
-          }
-
-    **See Also**
-
-        None
+	  UINT8 ret;
+	  UART_BAUDRATE_TYPE baudrate = BAUDRATE_9600;
+	  ret = DRV_UART_SetBaudrate(baudrate);
 
