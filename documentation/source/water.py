@@ -46,7 +46,7 @@ def appendAttachment(myPdfFileWriterObj, fname, fdata):
 
 if __name__ == "__main__":
     content="LGE Confidential"
-    page= canvas.Canvas('mark.pdf', pagesize = (21*cm, 29.7*cm))
+    page= canvas.Canvas('source/resources/mark.pdf', pagesize = (21*cm, 29.7*cm))
     page.translate(18.0*cm, 0.0*cm)
     page.setFont("Helvetica", 12)
     #page.rotate(45)
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     reader = PyPDF2.PdfFileReader(linux_pdf)
     number_of_pages = reader.numPages
     print(number_of_pages)
-    mark_pdf = open('mark.pdf','rb')
+    mark_pdf = open('source/resources/mark.pdf','rb')
     mark = PyPDF2.PdfFileReader(mark_pdf)
 
     merged_pdf = PyPDF2.PdfFileWriter()

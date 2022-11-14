@@ -47,7 +47,7 @@ Micom-libs                        Execute IPC communication between micom F/W an
 
 System Context
 ^^^^^^^^^^^^^^
-.. image:: /ucom/micom_system_context.png
+.. image:: resources/micom_system_context.png
   :width: 100%
   :alt: UCOM system context
 

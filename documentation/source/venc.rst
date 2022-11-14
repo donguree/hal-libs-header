@@ -43,7 +43,7 @@ We will update the content soon.  We will update the content soon.
 System Context
 ^^^^^^^^^^^^^^
 
-.. image:: ./context_venc.jpg
+.. image:: resources/context_venc.jpg
     :height: 400
     :width: 800
     :alt: system context for venc
@@ -130,7 +130,7 @@ Sequence Diagram
 ^^^^^^^^^^^^^^^^^^
 Combining the previous explanations, draw a sequence diagram as follows.
 
-.. image:: ./venc_seq_digram.png
+.. image:: resources/venc_seq_digram.png
     :height: 400
     :width: 800
     :alt: sequence diagram

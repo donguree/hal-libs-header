@@ -37,7 +37,7 @@ LSM(Luna Surface Manager)         The graphic compositor on the webOS platform
 System Context
 ^^^^^^^^^^^^^^
 
-.. image:: gal_system_context.png
+.. image:: resources/gal_system_context.png
   :width: 100%
   :alt: System Context Diagram
 

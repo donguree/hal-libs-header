@@ -501,5 +501,5 @@ SoCTS Coverage(http://swdev.lge.com/coverage.html)에서는 header에 선언된 
 
 위의 코드가 build가 완료되면 하기와 같이 html에서 표현된다.
 
-.. image:: exception_socts.PNG
+.. image:: resources/exception_socts.PNG
 

@@ -28,7 +28,7 @@ The photorenderer allocates the system memory as the sink image. Invoking HAL_VO
 
 Functions: HAL_VO_Open / HAL_VO_Close / HAL_VO_DisplayPicture / HAL_VO_Config / HAL_VO_RedrawPicture
 
-.. image:: /photo/vo_2.png
+.. image:: resources/vo_2.png
   :width: 100%
   :alt: Org link http://collab.lge.com/main/plugins/gliffy/viewer.action?inline=false&pageId=517788377&attachmentId=520622238&name=HAL_VO_#2&ceoid=517788377&key=SOCVENDOR&lastPage=%2Fpages%2Fviewpageattachments.action%3FpageId%3D517788377
 
@@ -37,7 +37,7 @@ The photorenderer gets the target framebuffer to draw the sink image and request
 
 Functions: HAL_VO_GetDeviceCapability / HAL_VO_Open / HAL_VO_Close / HAL_VO_SetAlphaBlending / HAL_VO_SetInOutDisplayRegion / HAL_VO_GetTargetFrameBuffer / HAL_VO_UpdateFrameBuffer
 
-.. image:: /photo/vo_3.png
+.. image:: resources/vo_3.png
   :width: 100%
   :alt: http://collab.lge.com/main/plugins/gliffy/viewer.action?inline=false&pageId=517788377&attachmentId=520622250&name=HAL_VO_#3&ceoid=517788377&key=SOCVENDOR&lastPage=%2Fpages%2Fviewpageattachments.action%3FpageId%3D517788377
 
@@ -55,7 +55,7 @@ System Context
 
 Following Diagram is a system context around the photorenderer program.
 
-.. image:: /photo/vo_1.png
+.. image:: resources/vo_1.png
   :width: 100%
   :alt: Org link http://collab.lge.com/main/plugins/gliffy/viewer.action?inline=false&pageId=517788377&attachmentId=520622224&name=HAL_VO_#1&ceoid=517788377&key=SOCVENDOR&lastPage=%2Fpages%2Fviewpageattachments.action%3FpageId%3D517788377
 

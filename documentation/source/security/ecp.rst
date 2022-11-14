@@ -28,7 +28,7 @@ ECP (Enhanced Content Protection) is a CI+ protection technology of increased le
     * CI+ 1.3 Protection level is focused on preventing the hacking or attack about the TS which is from CAM to TV
     * CI+ ECP Protection level is focused on preventing the hacking or attack on internal TV systems (CI+ ECP is including the CI+ 1.3 Protection level)
 
-.. image:: ecp_difference_of_cip_and_ecp.png
+.. image:: resource/ecp_difference_of_cip_and_ecp.png
   :width: 100%
   :alt: ecp difference of ci+ and ecp
 
@@ -49,13 +49,13 @@ if you see this page in PDF, please check the ci-plus_ecp_robustness_considerati
 
     * CI+ Protection Functions should be protected and performed in TEE
 
-.. image:: ecp_hw_block_diagram.png
+.. image:: resource/ecp_hw_block_diagram.png
   :width: 100%
   :alt: ecp hw block diagram
 
 **1.2 CI+ ECP Big Picture**
 
-.. image:: ecp_big_picture.png
+.. image:: resource/ecp_big_picture.png
   :width: 100%
   :alt: ecp big picture
 
@@ -100,7 +100,7 @@ Terminology and Definitions
 System Context
 +++++++++++++++++++++++++
 
-.. image:: ecp_system_context.png
+.. image:: resource/ecp_system_context.png
   :width: 100%
   :alt: System Context Diagram
 
@@ -177,7 +177,7 @@ CI+ ECP SW Flow Diagram
         4-1) PVR should block attempts to access the channel of nSecurityLevel is non-zero.
         4-2) In case of two tuner model, there is one ECP channel watching and one FTA channel recording case. Before start record, PVR can know whether PVR channel is ECP SVP or not.
 
-.. image:: ecp_sw_block_diagram_of_ree_and_tee.png
+.. image:: resource/ecp_sw_block_diagram_of_ree_and_tee.png
   :width: 100%
   :alt: ecp sw block diagram of ree and tee
 
@@ -186,7 +186,7 @@ CI+ ECP SVP Sequence Diagram (SVP Off Case)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 : This is for HAL_ECP_CI_PLUS_SetCipherKeysByChannel, ECP_TA_CI_PLUS_SetCipherKeysByChannel, ECP_TA_CI_PLUS_GetKeyStatus, ECP_TA_CI_PLUS_GetMaxDecryptKeyDst.
 
-.. image:: ecp_svp_sequence_diagram_svp_off_case.png
+.. image:: resource/ecp_svp_sequence_diagram_svp_off_case.png
   :width: 100%
   :alt: ecp svp sequence diagram svp off case
 
@@ -233,21 +233,19 @@ It is important that the RAM of the ECP Controlled Content Path is protected aga
 The configuration of the memory partition and memory filters should be securely controlled.
 The encryption/scrambling should take place before the data leaves the main SoC to prevent bus probing, i.e. prevent an attacker from acquiring unprotected content during transit from the SoC to the RAM.
 
-.. image:: ecp_controlled_content_path.png
+.. image:: resource/ecp_controlled_content_path.png
   :width: 100%
   :alt: ecp controlled content path
 
 Functional Requirements
 -----------------------
 
-NA
-
 Data Types
-^^^^^^^^^^^^
++++++++++++++++
 NA
 
 Function Calls
-^^^^^^^^^^^^^^^
+++++++++++++++++
 
   * :cpp:func:`HAL_ECP_CI_PLUS_Initialize`
   * :cpp:func:`HAL_ECP_CI_PLUS_Finalize`

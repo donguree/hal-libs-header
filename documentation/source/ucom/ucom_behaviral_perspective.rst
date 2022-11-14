@@ -81,7 +81,7 @@ Dynamic Perspectives
 
 **[Figure 1-1] Dynamic Perspective**
 
-.. image:: /ucom/ucom_dynamic_perspective.png
+.. image:: resources/ucom_dynamic_perspective.png
   :width: 100%
   :alt: UCOM Dynamic Perspective
 
@@ -127,7 +127,7 @@ Dynamic Behavior
 
 **[Figure 2-1] Dynamic Behavior**
 
-.. image:: /ucom/ucom_dynamic_behavior.png
+.. image:: resources/ucom_dynamic_behavior.png
   :width: 100%
   :alt: UCOM Dynamic Behavior
 
@@ -211,7 +211,7 @@ and the user service as a sequence diagram of the resource setting processin [Ta
 
 **[Figure 2-2] UCOM Sequence Diagram for Write Operation**
 
-.. image:: /ucom/ucom_write_operation.png
+.. image:: resources/ucom_write_operation.png
   :width: 100%
   :alt: UCOM Sequence Diagram for Write Operation
 
@@ -229,7 +229,7 @@ and the user service as a sequence diagram of the resource setting processin [Ta
 
 **[Figure 2-3] UCOM Sequence Diagram for Read Operation**
 
-.. image:: /ucom/ucom_read_operation.png
+.. image:: resources/ucom_read_operation.png
   :width: 100%
   :alt: UCOM Sequence Diagram for Read Operation
 
