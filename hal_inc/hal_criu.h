@@ -9,7 +9,7 @@
 
 /** @file 		hal_criu.h
  *
- *  header of Common Interface HAL Fuction.
+ *  header of Common Interface HAL Function.
  *
  *  @author		juhyun121.kim
  *  @version	1.0
