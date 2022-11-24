@@ -9,7 +9,7 @@
 
 /** @file 		hal_airplay.h
  *
- *  header of Common Interface HAL Fuction.
+ *  header of Common Interface HAL Function.
  *
  *  @author		kyungnam.bae
  *  @version		2.0
