@@ -9,8 +9,7 @@
 
 /** @file 		hal_acas_lib.h
  *
- *  header of ACAS LIB HAL Fuction.
- *
+ *  header of ACAS LIB HAL function.
  *
  *  @author		Takashi Matsumoto (takashi.matsumoto@lgjlab.com)
  *  @author
