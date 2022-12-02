@@ -1551,5 +1551,78 @@ DTV_STATUS_T HAL_CRYPTO_EncryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutDat
  */
 DTV_STATUS_T HAL_CRYPTO_DecryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL);
 
+ /**
+ * @brief Perform TEE encryption
+ *
+ * @rst
+ * Functional Requirements
+ *      1. encrypt data with OTP based key or steady key in TEE
+ *      2. cryptographic algorithm : AES 128 CBC
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      There is no constraints.
+ *
+ * Functions & Parameters
+ *      * DTV_STATUS_T HAL_CRYPTO_Encrypt(UINT8 *pData, UINT32 nLength)
+ *
+ *      For the data type, following data types are defined
+ *
+ *      * *pData           [IN/OUT] data to be encrypted
+ *      * length           [IN] data length
+ *
+ * Return Value
+ *     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        UINT8 testStr[128] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+/";
+ *        int size = strlen((const char*)testStr);
+ *        DTV_STATUS_T ret;
+ *        ret = HAL_CRYPTO_Encrypt(testStr, size);
+ * @endrst
+ */
+ DTV_STATUS_T HAL_CRYPTO_Encrypt(UINT8 *pData, UINT32 nLength);
+
+ /**
+ * @brief Perform TEE decryption
+ *
+ * @rst
+ * Functional Requirements
+ *      1. decrypt data with OTP based key or steady key in TEE
+ *      2. cryptographic algorithm : AES 128 CBC
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      There is no constraints.
+ *
+ * Functions & Parameters
+ *      * DTV_STATUS_T HAL_CRYPTO_Decrypt(UINT8 *pData, UINT32 nLength)
+ *
+ *      For the data type, following data types are defined
+ *
+ *      * *pData           [IN/OUT] encrypted data(via HAL_CRYPTO_Encrypt) to be decrypted
+ *      * length           [IN] data length
+ *
+ * Return Value
+ *     Zero(0) if the function success, non-Zero otherwise or Common Error Code.
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        UINT8 testStr[128] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+/";
+ *        int size = strlen((const char*)testStr);
+ *        DTV_STATUS_T ret;
+ *        ret = HAL_CRYPTO_NF_Encrypt(testStr, size);
+ *        ret = HAL_CRYPTO_NF_Decrypt(testStr, size);
+ * @endrst
+ */
+ DTV_STATUS_T HAL_CRYPTO_Decrypt(UINT8 *pData, UINT32 nLength);
+
 #endif      //_HAL_CRYPTO_H_
 

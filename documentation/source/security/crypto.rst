@@ -134,3 +134,5 @@ Function Calls
   * :cpp:func:`HAL_CRYPTO_RSA_Verify` //except from socts, The function owner is unknown and this is not used in DILE by TVPLAT-197745.
   * :cpp:func:`HAL_CRYPTO_EncryptDbgData`
   * :cpp:func:`HAL_CRYPTO_DecryptDbgData`
+  * :cpp:func:`HAL_CRYPTO_Encrypt`
+  * :cpp:func:`HAL_CRYPTO_Decrypt`
