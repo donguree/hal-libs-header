@@ -331,9 +331,9 @@ DTV_STATUS_T HAL_DRM_GetClearDataLength (SINT8 *pDataPath, UINT32 *pLength);
  *   .. code-block:: cpp
  *
  *     DTV_STATUS_T ret_val;
- *     unsigned char *key = "abcdefghijklmnop";
- *     unsigned char iv[5] = {'1','2','3','4','5'};
- *     ret_val = HAL_AES_HWInit(AES_MODE_CBC, key , iv, AES_OP_ENC, AES_PAHALNG);
+ *     unsigned char *key = "0123456789abcdef";
+ *     unsigned char iv[16] = {0, };
+ *     ret_val = HAL_AESHWInit(AES_MODE_CBC, key , iv, AES_OP_ENC, AES_PAHALNG);
  *     if (ret_val != OK) {
  *       // error handling
  *     }
@@ -371,13 +371,16 @@ DTV_STATUS_T HAL_DRM_AESHWInit (SINT32 mode, UINT8 *pKey, UINT8 *pIV, SINT32 ope
  *   .. code-block:: cpp
  *
  *     DTV_STATUS_T ret_val;
- *     unsigned char *key = "abcdefghijklmnop";
- *     unsigned char iv[5] = {'1','2','3','4','5'};
- *     unsigned char in_data[10] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+ *     unsigned char *key = "0123456789abcdef";
+ *     unsigned char iv[16] = {0, };
+ *     unsigned char in_data[16] = {'a', 'b', 'c', 'd',
+ *                                  'e', 'f', 'g', 'h',
+ *                                  'i', 'j', 'k', 'l',
+ *                                  'm', 'n', 'o', 'p'};
  *     unsigned int in_size = sizeof(in_data);
- *     unsigned char out_data[10];
- *     unsigned int out_size;
- *     ret_val = HAL_AES_HWInit(AES_MODE_CBC, key , iv, AES_OP_ENC, AES_PAHALNG);
+ *     unsigned char out_data[16];
+ *     unsigned int out_size = 0;
+ *     ret_val = HAL_DRM_AES_HWInit(AES_MODE_CBC, key , iv, AES_OP_ENC, AES_PAHALNG);
  *     if (retVal != OK) {
  *       // error handling
  *     } else {
@@ -418,13 +421,17 @@ DTV_STATUS_T HAL_DRM_AESHWUpdate (UINT8 *pOutData, UINT32 *pOutDataSize, UINT8 *
  *   .. code-block:: cpp
  *
  *     DTV_STATUS_T ret_val;
- *     unsigned char *key = "abcdefghijklmnop";
- *     unsigned char iv[5] = {'1','2','3','4','5'};
- *     unsigned char in_data[10] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+ *     unsigned char *key = "0123456789abcdef";
+ *     unsigned char iv[16] = {0, };
+ *     unsigned char in_data[16] = {'a', 'b', 'c', 'd',
+ *                                  'e', 'f', 'g', 'h',
+ *                                  'i', 'j', 'k', 'l',
+ *                                  'm', 'n', 'o', 'p'};
  *     unsigned int in_size = sizeof(in_data);
- *     unsigned char out_data[10];
- *     unsigned int out_size;
- *     ret_val = HAL_AES_HWInit(AES_MODE_CBC, key , iv, AES_OP_ENC, AES_PAHALNG);
+ *     unsigned char out_data[16];
+ *     unsigned int out_size = 0;
+ *     unsigned int out_length = 0;
+ *     ret_val = HAL_DRM_AESHWInit(AES_MODE_CBC, key , iv, AES_OP_ENC, AES_PAHALNG);
  *     if (ret_val != OK) {
  *       // error handling
  *     } else {
@@ -432,7 +439,7 @@ DTV_STATUS_T HAL_DRM_AESHWUpdate (UINT8 *pOutData, UINT32 *pOutDataSize, UINT8 *
  *       if (ret_val != OK) {
  *         // error handling
  *       }
- *       ret_val = HAL_DRM_AESHWFinish(out_data, &out_length);
+ *       ret_val = HAL_DRM_AESHWFinish(out_data + out_size, &out_length);
  *       if (ret_val != OK) {
  *         // error handling
  *       }

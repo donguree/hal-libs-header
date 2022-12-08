@@ -37,7 +37,7 @@ NA
 Performance Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-NA
+Please check the requirements for each function.
 
 Design Constraints
 ^^^^^^^^^^^^^^^^^^^
@@ -47,11 +47,11 @@ NA
 Functional Requirements
 -----------------------
 
-NA
+Please check the requirements for each function.
 
 Data Types
 ^^^^^^^^^^^^
-NA
+* :cpp:type:`DTV_STATUS_T`
 
 Function Calls
 ^^^^^^^^^^^^^^^
