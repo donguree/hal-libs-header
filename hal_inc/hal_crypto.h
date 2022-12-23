@@ -1618,8 +1618,8 @@ DTV_STATUS_T HAL_CRYPTO_DecryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutDat
  *        UINT8 testStr[128] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+/";
  *        int size = strlen((const char*)testStr);
  *        DTV_STATUS_T ret;
- *        ret = HAL_CRYPTO_NF_Encrypt(testStr, size);
- *        ret = HAL_CRYPTO_NF_Decrypt(testStr, size);
+ *        ret = HAL_CRYPTO_Encrypt(testStr, size);
+ *        ret = HAL_CRYPTO_Decrypt(testStr, size);
  * @endrst
  */
  DTV_STATUS_T HAL_CRYPTO_Decrypt(UINT8 *pData, UINT32 nLength);
