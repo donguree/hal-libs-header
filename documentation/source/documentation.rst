@@ -324,6 +324,48 @@ BSP Implementation Guide 문서에 필수로 필요한 항목에 대하여 IEEE 
     * no function calls
     * :c:macro:`ACAS_EXT_S_CTL`
 
+
+.. note::
+  If you want to add "Function Calls", follow the method below.
+
+  Case 1 : Function
+
+  .. code-block:: rst
+
+    Function Calls
+    --------------
+    ex :  * :cpp:func:`MyClass::getHardwareFeatures`
+    ex :  * :cpp:func:`MyClass::addRngEntropy`
+    ex :  * :cpp:func:`MyClass::generateKey`
+
+  Case 2 : Class
+
+  .. code-block:: rst
+
+    Function Calls
+    --------------
+    ex : * :cpp:class:`MyClass`
+
+  Case 3 : Class Function
+
+  .. code-block:: rst
+
+    Function Calls
+    --------------
+    ex : * :cpp:func:`MyClass::getHardwareFeatures`
+    ex : * :cpp:func:`MyClass::addRngEntropy`
+    ex : * :cpp:func:`MyClass::generateKey`
+  
+  You have to write full name of class or function.
+  In the following cases,
+
+  .. code-block:: rst
+
+    class keymaster::OpteeKeymaster3Device
+    
+  You have to write "keymaster::OpteeKeymaster3Device", "keymaster::OpteeKeymaster3Device::function" not "OpteeKeymaster3Device", "OpteeKeymaster3Device::function"
+
+
 API function 요구사항 헤더 파일 포맷 및 작성 가이드
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 모듈의 각 API function에 대한 요구사항을 작성하는 포맷 및 가이드이다.
