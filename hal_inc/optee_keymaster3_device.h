@@ -31,7 +31,7 @@
 
 #include <vector>
 #include <types.h>
-#include <optee_keymaster3_device.h>
+#include <optee_keymaster.h>
 #include <keymaster_defs.h>
 
 /******************************************************************************
