@@ -30,7 +30,10 @@
 // Below two or more header is needed to include for inherit android keymaster
 
 #include <vector>
-#include <types.h>
+// types.h provided by Android keymaster must be installed as keymaster_types.h
+// to avoid override of types.h of rpc.
+// keymaster_types.h has namespace of "::keymaster::V3_0:"
+#include <keymaster_types.h>
 #include <optee_keymaster.h>
 #include <keymaster_defs.h>
 
