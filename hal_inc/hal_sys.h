@@ -149,6 +149,44 @@ DTV_STATUS_T HAL_IPC_Read(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf
  */
 DTV_STATUS_T HAL_SYS_CheckRPMBPartition(void);
 
+/* Check model id is stored in RPMB
+ * requester: hedaesik.kim
+ */
+ /**
+ * @brief check model id status in RPMB
+ *
+ * @rst
+ * Functional Requirements
+ *   Return ok when model id is stored in RPMB
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1.
+ *
+ * Performance Requirements
+ *   The response time of this function should be within 50ms.
+ *
+ * Constraints
+ *   There is no constraits
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS HAL_SYS_CheckModelIdStatus(void);
+ *
+ * Return Value
+ *   Model id is stored in RPMB : 0
+ *   Model id is not stored in RPMB: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T ret;
+ *     ret = HAL_SYS_CheckModelIdStatus();
+ *
+ * @endrst
+ */
+DTV_STATUS_T HAL_SYS_CheckModelIdStatus(void);
+
 /*
  * DDR memory test in DFT process
  * requester: kwangseok.kim
