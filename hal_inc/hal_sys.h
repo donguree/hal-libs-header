@@ -1,6 +1,6 @@
 /******************************************************************************
  *   DTV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 2008-2021 by LG Electronics Inc.
+ *   Copyright(c) 2008-2023 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -88,8 +88,7 @@ typedef enum
  *   The response time of this function should be within 10ms.
  *
  * Constraints
- *   There must be symmetric key exchanged with Apple on the board.
- *   If there is no symmetric key, this function cannot be tested.
+ *   The Lock works when debugstatus is Release Mode.
  *
  * Functions & Parameters
  *   .. code-block:: cpp
