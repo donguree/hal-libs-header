@@ -647,5 +647,43 @@ DTV_STATUS_T HAL_CRYPTO_EncryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutDat
  */
 DTV_STATUS_T HAL_CRYPTO_DecryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutData, int *pOutL);
 
+ /**
+ * @brief Check tzfw version from data and compare the version in RPMB
+ *
+ * @rst
+ * Functional Requirements
+ *      Get the tzfw version from input data and compare the version in RPMB.
+ *      If input tzfw's version is higher or same with the version in RPMB, return 0.
+ *      If not, return not zero.
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      There is no constraints.
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_CheckTzfwAntirollback(UINT8 *pData, UINT32 nLength)
+ *
+ *      For the data type, following data types are defined
+ *
+ *      * *pData           [IN] tzfw binary data
+ *      * nLength          [IN] data length
+ *
+ * Return Value
+ *     Zero(0) if the input tzfw's version is higher or same with the version in RPMB, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        ret = HAL_CRYPTO_CheckTzfwAntirollback(data, size);
+ *        if (ret != 0) {
+ *            // Fail to downgrade
+ *        }
+ * @endrst
+ */
+ DTV_STATUS_T HAL_CRYPTO_CheckTzfwAntirollback(UINT8 *pData, UINT32 nLength);
+
+
 #endif      //_HAL_CRYPTO_H_
 
