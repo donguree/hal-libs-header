@@ -1661,5 +1661,11 @@ DTV_STATUS_T HAL_CRYPTO_DecryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutDat
  */
  DTV_STATUS_T HAL_CRYPTO_CheckTzfwAntirollback(UINT8 *pData, UINT32 nLength);
 
+
+// Crypto APIs for Cast built-in
+DTV_STATUS_T hal_crypto_cast_generateClientAuth(char* chain_cert, unsigned int certlen, char* certificate_template, unsigned int csrlen, char* client_certificate, unsigned int *clicertlen);
+DTV_STATUS_T hal_crypto_cast_signHash(char* hash, char* signature);
+
+
 #endif      //_HAL_CRYPTO_H_
 
