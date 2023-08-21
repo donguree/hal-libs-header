@@ -8,6 +8,7 @@ History
 Version Date       Changed by     Comment
 ======= ========== ============== =======
 1.0.0   2022.07.28 hedaesik.kim   Add new document
+1.1.0   2023.09.05 hwachin.lee    Add function for google cast
 ======= ========== ============== =======
 
 Overall Description
@@ -136,3 +137,5 @@ Function Calls
   * :cpp:func:`HAL_CRYPTO_DecryptDbgData`
   * :cpp:func:`HAL_CRYPTO_Encrypt`
   * :cpp:func:`HAL_CRYPTO_Decrypt`
+  * :cpp:func:`HAL_CRYPTO_CastGenerateClientAuth`
+  * :cpp:func:`HAL_CRYPTO_CastSignHash`
