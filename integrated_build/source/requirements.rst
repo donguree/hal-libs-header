@@ -1,0 +1,2 @@
+HAL Module Requirements
+=========
