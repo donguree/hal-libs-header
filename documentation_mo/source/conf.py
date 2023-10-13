@@ -40,6 +40,14 @@ extensions = [
 	"sphinx_git"
 ]
 
+html_static_path = ['_static']
+
+html_css_files = [
+
+    'custom.css',
+
+]
+
 #intersphinx_mapping = {'v4l-dvb-apis': ('https://linuxtv.org/downloads/v4l-dvb-apis', None)}
 
 breathe_projects = { "doxyxml": "../xml/" }
