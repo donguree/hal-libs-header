@@ -72,7 +72,7 @@ typedef enum
         Function Declaration
 ******************************************************************************/
 /* Enable/Disable debug port(T32, register tool, debug tool)
- * requester: jeonghyeon.joo
+ * requester: khkh.lee jongyeon.yoon denis.hong
  */
  /**
  * @brief Lock debug port(T32, register tool, debug tool)
@@ -116,7 +116,7 @@ DTV_STATUS_T HAL_SYS_SetWolOnOff(BOOLEAN bOnOff);
 DTV_STATUS_T HAL_SYS_GetWolStatus(BOOLEAN *Status);
 
 /* SUSPEND/RESUME, SIC chip only used
- * requester: donghwan.jung(request for instant boot)
+ * requester: juno.choi(request for instant boot)
  */
 DTV_STATUS_T HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
 DTV_STATUS_T HAL_SYS_Resume (void);
@@ -127,25 +127,25 @@ DTV_STATUS_T HAL_SYS_Resume (void);
 DTV_STATUS_T HAL_SYS_WakeUpInternalMicom(void);
 
 /* Read/Write for boot area, MStar chip only used
- * requester: jeonghyeon.joo
+ * requester: khkh.lee
  */
 DTV_STATUS_T HAL_SYS_ReadBootData(unsigned char *pBootData, unsigned int bootDataSize);
 DTV_STATUS_T HAL_SYS_WriteBootData(unsigned char *pBootDataPath, unsigned int bootDataSize);
 
 /* Internal Micom, Mstar chip only used
- * requester: sunghoon.jang
+ * requester: sungbae.park
  */
 DTV_STATUS_T HAL_SYS_ReadPMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
 DTV_STATUS_T HAL_SYS_WritePMData(unsigned char *pPMDataPath, unsigned int PMDataSize);
 
 /* temporary use, Internal Micom, Realtek chip only used
- * requester: jinsuk.her
+ * requester: sungbae.park
  */
 DTV_STATUS_T HAL_IPC_Write(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf, UINT8 retry);
 DTV_STATUS_T HAL_IPC_Read(UINT8 nCmdMode, UINT8 *pCmd, UINT8 nBytes, UINT8 *pBuf, UINT8 retry);
 
 /* Check RPMB Partition
- * requester: jongseong.kim
+ * requester: hedaesik.kim
  */
 DTV_STATUS_T HAL_SYS_CheckRPMBPartition(void);
 
