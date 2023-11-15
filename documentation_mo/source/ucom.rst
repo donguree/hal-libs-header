@@ -90,21 +90,21 @@ Overal Workflow
 
 |  The sequence diagram of Write operation
 
-.. image:: /behavioral-viewpoint/ucom_write_operation.png
+.. image:: resources/ucom_write_operation.png
 
 ====================================== ====================================================================================================
 Associated Drawings:                    Perspective : Dynamic
 ====================================== ====================================================================================================
 Relationships                           Responsibility
 External Service -> Micom Library       Make write command set and Call to micom library API           
-Micom Library -> UCOM Driver            Initialize : HAL_UCOM_Initialize function call & Write Command : HAL_UCOM_WriteCommand(UINT8 *pCmd, UINT16 size) call									
+Micom Library -> UCOM Driver            HAL_UCOM_Initialize function call & HAL_UCOM_WriteCommand(UINT8 *pCmd, UINT16 size) call									
 UCOM Driver -> Micom Library            Return to IPC operation result(SUCCESS/FAIL)
 Micom Library -> External Service       Return to IPC operation result(SUCCESS/FAIL)
 ====================================== ====================================================================================================
 
 |  The sequence diagram of Read operation
 
-.. image:: /behavioral-viewpoint/ucom_read_operation.png
+.. image:: resources/ucom_read_operation.png
 
 ====================================== ====================================================================================================
 Associated Drawings:                    Perspective : Dynamic
