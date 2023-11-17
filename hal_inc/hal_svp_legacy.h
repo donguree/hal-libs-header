@@ -69,7 +69,7 @@ typedef enum {
  *   In abnormal case, the function returns proper value in SVP_STATUS_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -124,7 +124,7 @@ typedef enum {
 SVP_STATUS_T HAL_SVP_WidevineSelectKey_OverV14(UINT32 session, const UINT8 *key_id, size_t key_id_length, SINT32 cipherMode);
 
 /**
- * @brief Decrypts content encrypted by Widevine Modular with contents key received from license server.
+ * @brief Decrypts content encrypted by Widevine Modular.
  *
  * @rst
  * Functional Requirements
@@ -134,7 +134,7 @@ SVP_STATUS_T HAL_SVP_WidevineSelectKey_OverV14(UINT32 session, const UINT8 *key_
  *   In abnormal case, the function returns proper value in SVP_STATUS_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA

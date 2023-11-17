@@ -79,7 +79,7 @@ typedef struct {
 } HAL_SVP_FLUSH_PARAM_T;
 
 /**
- * @brief Creates SVP session, allocates SVP resources and initializes global variables with given information.
+ * @brief Open SVP session and allocate SVP resources.
  *
  * @rst
  * Functional Requirements
@@ -89,7 +89,7 @@ typedef struct {
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -202,7 +202,7 @@ typedef struct {
 HAL_SVP_RESULT_T HAL_SVP_Open(HAL_SVP_OPEN_PARAM_T* open_param);
 
 /**
- * @brief Release SVP resources to system, initializes global variables and closes SVP session with given information.
+ * @brief Close SVP session and release SVP resources.
  *
  * @rst
  * Functional Requirements
@@ -212,7 +212,7 @@ HAL_SVP_RESULT_T HAL_SVP_Open(HAL_SVP_OPEN_PARAM_T* open_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -259,17 +259,17 @@ HAL_SVP_RESULT_T HAL_SVP_Open(HAL_SVP_OPEN_PARAM_T* open_param);
 HAL_SVP_RESULT_T HAL_SVP_Close(HAL_SVP_CLOSE_PARAM_T* close_param);
 
 /**
- * @brief Get current capacities of SVP resources(aka. 'SEMEM' and 'SEBUF').
+ * @brief Get current capacities of SVP resource.
  *
  * @rst
  * Functional Requirements
- *   Get current capacities of SVP resources(aka. 'SEMEM' and 'SEBUF').
+ *   Provide current capacities of 'SEMEM' and 'SEBUF'.
  *
  * Responses to abnormal situations, including
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -334,7 +334,7 @@ HAL_SVP_RESULT_T HAL_SVP_Stat(HAL_SVP_STAT_PARAM_T* stat_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -397,7 +397,7 @@ HAL_SVP_RESULT_T HAL_SVP_Copy(HAL_SVP_SEMEM_PARAM_T* semem_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA
@@ -498,7 +498,7 @@ HAL_SVP_RESULT_T HAL_SVP_Copy(HAL_SVP_SEMEM_PARAM_T* semem_param);
 HAL_SVP_RESULT_T HAL_SVP_Write(HAL_SVP_SEBUF_PARAM_T* sebuf_param);
 
 /**
- * @brief Flush SVP resources. This function can be called when SEEK operation of Media player.
+ * @brief Flush SVP resources.
  *
  * @rst
  * Functional Requirements
@@ -508,7 +508,7 @@ HAL_SVP_RESULT_T HAL_SVP_Write(HAL_SVP_SEBUF_PARAM_T* sebuf_param);
  *   In abnormal case, the function returns proper value in HAL_SVP_RESULT_T.
  *
  * Performance Requirements
- *   The minimum requirement is that 1 loop of decryption(or copy), stat, and write of 1 sample (1 Au) be performed within 16ms.
+ *   1 loop of Decrypt(or Copy), Stat, and Write of 1 sample (1 AU) be performed within 16ms.
  *
  * Constraints
  *   NA
