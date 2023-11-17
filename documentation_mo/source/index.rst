@@ -45,9 +45,7 @@ Contents
   pvr
   security
   system
-  ucom
-  usb
-  venc
+  other
   api/index
   documentation
   release-notes
