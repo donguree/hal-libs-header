@@ -1,91 +1,179 @@
 SSTR
-==========
+####
 
-History
--------
+.. _daesik.kim: hedaesik.kim@lge.com
+.. _minsu.park: minsu0312.park@lge.com
+.. _jiwon.seok : jiwon.seok@lge.com
 
-======= ========== ============== =======
+Introduction
+************
+
+| This document describes the secure stroage for webOSTV and SSTR function for using secure storage.
+
+Revision History
+================
+
+======= ========== ============== ==================
 Version Date       Changed by     Comment
-======= ========== ============== =======
+======= ========== ============== ==================
 1.0.0   2022.07.26 hedaesik.kim   Add Doc.
-======= ========== ============== =======
+1.1.0   2023.11.10 hedaesik.kim   Update documents
+======= ========== ============== ==================
 
-Overall Description
---------------------
+Terminology
+===========
 
-SSTR provides an API for injecting and using some keys used in TV.
+| The following table lists the terms used throughout this document:
 
-SEDATA containing keys that should be stored on the TV.Download PAK to emmc.
-SEDATA.PAK is a set of key data encrypted with an encryption tool provided by vendor.
+=============================== ===============================
+Term                            Description
+=============================== ===============================
+pre-encryption tool             Tool for creating encrypted data before provisioning to the TV.
+pre-encryption key data         Data encrypted with pre-encryption tool.
+SecureStore TA                  Trusted application that receives and processes pre-encrypted data through pre-encryption tool at run time on the TV.
+sedata                          Package name of pre-encryption data.
+factory key                     Provisioned key from factory line. Key to be injected device unqiue is injected from the factory production line.
+Device unique key(DUK)          During mass production, device unique keys are injected into specific TA (each device has different key).
+SecureData                      Encrypted data by secure SecureStore TA.
+wossestore                      Emmc partition name which SecureData are stored.
+RPMB                            Replay Protected Memory Block is a dedicated partition available on EMMC
+optee secure storage            REE FS Secure Storage
+KEK                             Key encryption key, KEK consist of encryption key and integrity protection key
+SDEK                            Secure data encryption key and randomly generated per a SEDATA
+SDHK                            Secure data HMAC key and randomly generated per a SEDATA
+=============================== ===============================
 
-Encrypted key data included in SEDATA.PAK has the following types.
+Technical Assistance
+====================
 
-  * A key that is decrypted with the key of the Secure Store TA, re-encrypted, and stored in the secure storage or RPMB
-  * A key that is decrypted with the key of the Secure Store TA, re-encrypted and delivered to the REE, and stored in the emmc from the REE
-  * A key that can be decrypted only by a specific DRM TA and is re-encrypted so that only that TA can be used and stored in secure storage or RPMB
+For assistance or clarification on information in this guide, please create an issue in the LGE JIRA project and contact the following person:
 
-.. image:: resource/key_saved_in_REE.PNG
-  :width: 100%
-  :alt: Key saved in EMMC (REE side)
+============ ===============================
+Module       Owner
+============ ===============================
+SSTR         `hedaesik.kim`_
+============ ===============================
 
-.. image:: resource/key_saved_in_TEE_RPMB.PNG
-  :width: 100%
-  :alt: Key saved in RPMB (TEE side)
+Overview
+********
 
-if you see this page in HTML, please click below tag.
-:download:`webOS TV Secure Storage Requirment <resource/webOSTVSecureStorageRequirement.pdf>`
+General Description
+===================
 
-if you see this page in PDF, please check the webOSTVSecureStorageRequirement.pdf in attachment tab of Adobe Reader
-(View > Show/Hide > Navigation Panes > Attachments)
+| In webos, there are keys necessary for the operation of TV, and a mechanism is needed to safely store them.
 
-if you see this page in HTML, please click below tag.
-:download:`HAL_SSTR implementation guide <resource/hal_sstr_v1.3.zip>`
 
-if you see this page in PDF, please check the hal_sstr_v1.3.zip in attachment tab of Adobe Reader
-(View > Show/Hide > Navigation Panes > Attachments)
+Features
+========
 
-Terminology and Definitions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+| In webOS, the key is injected into the TV in the following way.
 
-================================= ======================================
-Definition                        Description
-================================= ======================================
-Device unique key(DUK)            During mass production, device unique keys are injected into specific TA (each device has different key)
-SecureData                        Encrypted data from SecureStore TA(TEE)
-KEK                               Key encryption key, KEK consist of encryption key and integrity protection key
-SDEK                              Secure data encryption key and randomly generated per a SEDATA
-SDHK                              Secure data HMAC key and randomly generated per a SEDATA
-================================= ======================================
+- 1. Injection from the factory
+- 2. Inject included in firmware
+- 3. Download via server and save to TV
 
-System Context
-^^^^^^^^^^^^^^
+| Specifying and Requirements for Key Injected at Factory:
 
-.. image:: resource/OP-TEE_Secure_storage.PNG
-  :width: 100%
-  :alt: Optee secure storage
+- If keys need to be device unique, these keys are injected in the factory.
+- Most of the keys injected from the factory should be safely stored in the TEE area. In addition, some keys must exist encrypted before being injected.
+This is subject to the obligations of the key's contract.
+- These keys are injected through a hal interface called CRYPTO, and this document does not deal with that CRYPTO HAL API.
 
-.. image:: resource/overall_data_structure_sstr_v1.2.PNG
-  :width: 100%
-  :alt: Overall data structure for injection of keys
+| Specifying and Requirements for Key included in firmware:
 
-Performance Requirements
-^^^^^^^^^^^^^^^^^^^^^^^^^
+- If the same key is used for each SW, the key in the firmware image (SW) is included.
+- In this way, the keys included in the SW must be pre-encrypted, and these keys are included in a package named sedata.
+- Keys packaged in sedata are injected through a hal interface called SSTR.
+- Keys packaged in sedata are divided into keys that should be stored in secure storage in the TEE area and keys stored in the REE area.
 
-There is no clear requirement for response time, but a response must be received within at least 100 ms.
+| Downloaded from the server and stored on the TV key:
 
-Design Constraints
-^^^^^^^^^^^^^^^^^^^
+- It is a key that downloads a key through a server and is stored in a webOS.
+- These keys are injected through a hal interface called CRYPTO, and this document does not deal with that CRYPTO HAL API.
 
-Provisioned keys are critical asset of webOS TV, so SoC vendor must provide key backup and restoration feature
+Architecture
+============
 
-.. image:: resource/key_restore.PNG
-  :width: 100%
-  :alt: Key restore flow
+Driver Architecture
+-------------------
+
+.. image:: resource/driver_arch.PNG
+.. image:: resource/driver_arch2.PNG
+
+| The TV communicates with the associated Trusted Application through the hal sstr api interface to inject, read, and write keys.
+
+
+Overall Workflow
+================
+
+Steps Before Provisioning Key
+-------------------
+.. image:: resource/sedata_package.PNG
+
+| The keys that are included in the firmware and want to be stored on the TV are packaged in sedata.
+
+| The keys contained in the sedata are all encrypted using the pre-encryption tool.
+
+| When Firmware is written to emmc, sedata is also written to emmc.
+
+
+Among the keys included in the sedata, the keys stored in the REE
+-------------------
+.. image:: resource/provisioning_key_data_which_is_stored_in_REE.PNG
+
+| TV will read the key from the sedata when tv turns on first time
+
+| The keys included in the sedata are pre-encrypted key data, which can be decrypted in SeStore TA.
+
+| The pre-encryption key is delivered via HAL_SSTR_MakeSecureData, and the parameter of key type is sedata when the function is called.
+
+| In this case(type is sedata), key will be saved in the EMMC REE area.
+
+| SeStore TA should decrypt the pre-encryption data and then re-encrypt with Device Unique Key and returned to REE.
+
+| The returned key(re-encrypted key data) will be stored in the EMMC of the REE area.
+
+
+Among the keys included in the sedata, the keys stored in the TEE
+-------------------
+.. image:: resource/provisioning_key_data_which_is_stored_in_TEE.PNG
+
+| TV will read the key from the sedata when tv turns on first time
+
+| The keys included in the sedata are pre-encrypted key data, which can be decrypted in SeStore TA or DRM TA
+
+| The pre-encryption key is delivered via HAL_SSTR_MakeSecureData, and the parameter of key type is key id when the function is called.
+
+| In this case(type is key id), key should be saved in the EMMC TEE area.
+
+| SeStore TA and DRM TA should decrypt the pre-encryption data and that TAs should save key data to RPMB or OPTEE REE FS.
+
+| These keys should never come up to REE unless there are special requirements.
+
+
+Key generated in run time, the keys stored in the REE
+-------------------
+.. image:: resource/provisioning_key_data_which_is_stored_in_REE_2.PNG
+
+| When TV is running, some keys will be generated.
+
+| These keys are delivered via HAL_SSTR_MakeSecureData, and the parameter of key type is general when the function is called.
+
+| In this case(type is general), key will be saved in the EMMC REE area.
+
+| SeStore TA should encrypt with Device Unique Key and returned to REE.
+
+| The returned key(encrypted key data) will be stored in the EMMC of the REE area.
+
+
+Requirements
+************
 
 Functional Requirements
------------------------
+=======================
 
 Secure storage requirement
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ================================= ======================================
 REQ-ID                            Requirement
@@ -100,6 +188,7 @@ REQ-SS-007                        MUST not erase provisioned keys during factory
 ================================= ======================================
 
 Key provisioning requirement
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ================================= ======================================
 REQ-ID                            Requirement
@@ -116,28 +205,137 @@ REQ-KP-009                        MUST comply with SEDATA key requirement. MUST 
 REQ-KP-010                        MUST generate Secure Data only when metadata requirement it met.
 ================================= ======================================
 
-Data Types
-^^^^^^^^^^^^
+Quality and Constraints
+=======================
 
-.. image:: resource/pre-encrypted_key_format.PNG
-  :width: 100%
-  :alt: Pre-encrypted Key Format
+Exception Cases
+-----------
 
-.. image:: resource/re-encrypted_key_format_for_REE_v1.2.PNG
-  :width: 100%
-  :alt: Re-encrypted key format
+| The keys that are requested to be stored in the TEE must have a back/recovery logic.
 
-Function Calls
+Implementation
+**************
+
+File Location
+=============
+| The sstr api for storing the key is provided through hal-libs and can be stored in hal-libs repo.
+
+API List
+========
+
+Functions
+---------
+
+====================================================== ===================================================================================================
+Function                                               Description
+====================================================== ===================================================================================================
+:cpp:func:`HAL_SSTR_MakeSecureData`                    Send Key data to SeStore TA or DRM TA for provisioning key data
+:cpp:func:`HAL_SSTR_GetDataFromSecureData`             Request decrypt encrypted key data to SeStore TA
+:cpp:func:`HAL_SSTR_GetHMAC`                           Request generate hmac key and get hmac value
+:cpp:func:`HAL_SSTR_VerifyHMAC`                        Request verify data by hmac value and hmac key
+:cpp:func:`HAL_SSTR_GenAESKey`                         Deprecated
+:cpp:func:`HAL_SSTR_AES_Encrypt`                       Deprecated
+:cpp:func:`HAL_SSTR_AES_Decrypt`                       Deprecated
+:cpp:func:`HAL_SSTR_RSA_Encrypt`                       Deprecated
+:cpp:func:`HAL_SSTR_RSA_Decrypt`                       Deprecated
+:cpp:func:`HAL_SSTR_RSA_Sign`                          Deprecated
+:cpp:func:`HAL_SSTR_RSA_Verify`                        Deprecated
+====================================================== ===================================================================================================
+
+
+Implementation Details
+======================
+
+Key provisioning flow when key type is "sedata"
+----------------------------------------------------
+
+Normal Sequence
 ^^^^^^^^^^^^^^^
 
-  * :cpp:func:`HAL_SSTR_MakeSecureData`
-  * :cpp:func:`HAL_SSTR_GetDataFromSecureData`
-  * :cpp:func:`HAL_SSTR_GetHMAC`
-  * :cpp:func:`HAL_SSTR_VerifyHMAC`
-  * :cpp:func:`HAL_SSTR_GenAESKey` //except from socts, deprecated
-  * :cpp:func:`HAL_SSTR_AES_Encrypt` //except from socts, deprecated
-  * :cpp:func:`HAL_SSTR_AES_Decrypt` //except from socts, deprecated
-  * :cpp:func:`HAL_SSTR_RSA_Encrypt` //except from socts, deprecated
-  * :cpp:func:`HAL_SSTR_RSA_Decrypt` //except from socts, deprecated 
-  * :cpp:func:`HAL_SSTR_RSA_Sign` //except from socts, deprecated
-  * :cpp:func:`HAL_SSTR_RSA_Verify` //except from socts, deprecated
+.. code-block:: text
+
+    TV turns on
+    |- read sedata partition
+    |- call HAL_SSTR_MakeSecureData with pre-encryption data when key type is sedata
+        |- SeStore TA get pre-encryption data
+        |- SeStore TA decrypt pre-encryption data
+        |- SeStore TA re-encrypt the decrypted data
+        |- SeStore TA return re-encrypted data to REE
+    |- get re-encrypted data
+    |- request hmac key and data with encrypted data
+        |- SeStore TA get encryption data
+        |- SeStore TA generates hmac key and calculate hmac value
+        |- SeStore TA encrypt hmac key data
+        |- SeStore TA return encrypted hmac key and hmac value
+    |- save re-encrypted data and encrypted hmac key and hmac value to REE storage
+	
+Key provisioning flow when key type is "key id"
+----------------------------------------------------
+
+Normal Sequence
+^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    TV turns on
+    |- read sedata partition
+    |- call HAL_SSTR_MakeSecureData with pre-encryption data when key type is key id and SeStore TA handles that key
+        |- SeStore TA get pre-encryption data
+        |- SeStore TA decrypt pre-encryption data
+        |- SeStore TA re-encrypt the decrypted data
+        |- save re-encrypted data to TEE secure storage
+    |- call HAL_SSTR_MakeSecureData with pre-encryption data when key type is key id and DRM TA handles that key
+        |- DRM TA get pre-encryption data
+        |- DRM TA decrypt pre-encryption data
+        |- DRM TA re-encrypt the decrypted data
+        |- save re-encrypted data to TEE secure storage
+
+Key provisioning flow when key type is "general"
+----------------------------------------------------
+
+Normal Sequence
+^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    TV turns on
+    |- generate key in run time
+    |- call HAL_SSTR_MakeSecureData with generated key data when key type is general
+        |- SeStore TA get plain data
+        |- SeStore TA encrypt the plain data
+        |- SeStore TA return encrypted data to REE
+    |- get re-encrypted data
+    |- request hmac key and data with encrypted data
+        |- SeStore TA get encryption data
+        |- SeStore TA generates hmac key and calculate hmac value
+        |- SeStore TA encrypt hmac key data
+        |- SeStore TA return encrypted hmac key and hmac value
+    |- save re-encrypted data and encrypted hmac key and hmac value to REE storage
+
+
+Key Usage Scenario
+----------------------------------------------------
+
+Normal Sequence
+^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+    TV turns on
+    |- read encrypted data and encrypted hmac key and hmac value
+    |- call HAL_SSTR_VerifyHMAC with encrypted data and encrypted hmac key and hmac value
+        |- SeStore TA decrypt encrypted hmac key
+        |- SeStore TA verify encrypted data with hmac value
+        |- SeStore TA return verify result
+    |- get verify result
+    |- request decrypt data with HAL_SSTR_GetDataFromSecureData with encrypted data when verify is success
+        |- SeStore TA get encrypted data
+        |- SeStore TA decrypt encrypted data
+        |- SeStore TA return decrypted data
+    |- get decrypted data
+
+Testing
+*******
+
+References
+**********
