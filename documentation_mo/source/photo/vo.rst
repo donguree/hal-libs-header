@@ -148,3 +148,4 @@ Function                                        Description
 :cpp:func:`HAL_VO_FB_GetTargetFrameBuffer`      //except from socts, this will be deleted
 :cpp:func:`HAL_VO_FB_UpdateFrameBuffer`         //except from socts, this will be deleted
 :cpp:func:`HAL_VO_FB_UpdateFrameBufferProperty` //except from socts, this will be deleted
+=============================================== ====================================================================================================================
