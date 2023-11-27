@@ -339,3 +339,15 @@ Testing
 
 References
 **********
+
+if you see this page in HTML, please click below tag.
+:download:`webOS TV Secure Storage Requirment <resource/webOSTVSecureStorageRequirement.pdf>`
+
+if you see this page in PDF, please check the webOSTVSecureStorageRequirement.pdf in attachment tab of Adobe Reader
+(View > Show/Hide > Navigation Panes > Attachments)
+
+if you see this page in HTML, please click below tag.
+:download:`HAL_SSTR implementation guide <resource/hal_sstr_v1.3.zip>`
+
+if you see this page in PDF, please check the hal_sstr_v1.3.zip in attachment tab of Adobe Reader
+(View > Show/Hide > Navigation Panes > Attachments)
