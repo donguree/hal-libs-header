@@ -486,7 +486,10 @@ Sequence Diagram
 
 Testing
 *******
-To test the implementation of the VENC module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the VENC module and verifies the kernel event operations for the module by using a test execution file. For more information, see VENC’s SoCTS Unit Test manual.
+
+| To test the implementation of the VENC module, webOS TV provides SoCTS (SoC Test Suite) tests. 
+| The SoCTS checks the basic operations of the VENC module and verifies the kernel event operations for the module by using a test execution file. 
+| For more information, see :doc:`VENC’s SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-venc>`.
 
 
 References

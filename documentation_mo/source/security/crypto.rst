@@ -400,7 +400,7 @@ Testing
 *******
 To test the implementation of the crypto driver, webOS provides SoCTS tests.
 The SoCTS checks the basic operation of the crypto driver and verifies the kernel event operation for the module by using a test execution file.
-For details, see crypto Unit Test in SoCTS Unit Test Specification.
+For details, see :doc:`crypto Unit Test in SoCTS Unit Test Specification </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-crypto>`.
 
 References
 **********

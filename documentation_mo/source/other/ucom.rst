@@ -54,7 +54,8 @@ General Description
 |  UCOM module is controlled using IPC communication between Main SOC and Micom.
 |  The main features provided are :
 - Initial UCOM device
-- Read UCOM command
+
+- Read UCOM command
 - Write UCOM command
 - Whole Chip reset
 
@@ -187,7 +188,7 @@ Implementation Details
 
 Testing
 *******
-|  To test the implementation of the UCOM module, webOS TV provides SoCTS (SoC Test Suite) tests.
+|  To test the implementation of the UCOM module, webOS TV provides :doc:`SoCTS (SoC Test Suite) tests </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-ucom>`.
 |  The SoCTS checks the basic operations of the UCOM module.
 
 References

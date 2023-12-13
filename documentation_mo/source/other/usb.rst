@@ -283,7 +283,7 @@ Implementation Details
 
 Testing
 *******
-|  To test the implementation of the USB module, webOS TV provides SoCTS (SoC Test Suite) tests.
+|  To test the implementation of the USB module, webOS TV provides :doc:`SoCTS (SoC Test Suite) tests </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-usb>`.
 |  The SoCTS checks the basic operations of the USB module.
 
 References

@@ -2083,7 +2083,9 @@ To examine the status and operation of the GAL, you can use the status log file,
 Testing
 *******
 
-To test the implementation of the GAL, webOS provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operation of the GAL and verifies the kernel event operation for the module by using a test execution file. For details, see GAL Unit Test in SoCTS Unit Test Specification.
+| To test the implementation of the GAL, webOS provides SoCTS (SoC Test Suite) tests. 
+| The SoCTS checks the basic operation of the GAL and verifies the kernel event operation for the module by using a test execution file. 
+| For details, see :doc:`GAL Unit Test in SoCTS Unit Test Specification </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-gal>`.
 
 
 References
