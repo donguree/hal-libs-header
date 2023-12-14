@@ -149,7 +149,9 @@ Function                                        Description
 Testing
 -------
 
-To test the implementation of the HDCP2 module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the HDCP2 module and verifies the kernel event operations for the module by using a test execution file. For more information, see HDCP2's SoCTS Unit Test manual.
+| To test the implementation of the HDCP2 module, webOS TV provides SoCTS (SoC Test Suite) tests. 
+| The SoCTS checks the basic operations of the HDCP2 module and verifies the kernel event operations for the module by using a test execution file. 
+| For more information, see HDCP2's SoCTS Unit Test manual ( :doc:` HDCP2-TX's SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-hdcp2_hal-hdcp2-tx>`, :doc:` HDCP2-RX's SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-hdcp2_hal-hdcp2-rx>`)
 
 References
 ----------

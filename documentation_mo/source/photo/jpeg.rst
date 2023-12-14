@@ -128,7 +128,7 @@ In common, validation must be implemented for all parameters. In particular, nul
 Testing
 -------
 
-JPEG Funtions are tested by the webOS TV SoCTS (SoC Test Suite). 
+JPEG Funtions are tested by :doc:`the webOS TV SoCTS (SoC Test Suite) </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-photo_hal-jpeg>`.
 
 References
 ----------

@@ -217,7 +217,7 @@ Implementation Details
 Testing
 *******
 |   To test the implementation of the criu module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the criu module and verifies function operations for the module by using a test execution file.
-|  For more information, see criu’s SoCTS Unit Test manual.
+|  For more information, see :doc:`criu’s SoCTS Unit Test manual. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-criu>`
 |  :cpp:func:`HAL_CRIU_PostDumpNotify` //except from socts, TAS test by criu feature bat
 |  :cpp:func:`HAL_CRIU_PostRestoreNotify` //except from socts, TAS test by criu feature bat
 

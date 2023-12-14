@@ -133,7 +133,7 @@ The padding rules for functions HAL_DRM_AESHWInit, HAL_DRM_AESHWUpdate, HAL_DRM_
 Testing
 -------
 
-DRM HAL Funtions are tested by the webOS TV SoCTS (SoC Test Suite). Prior to this test, sample widevine key, HDCP key are needed. See the SoCTS documentation on this
+DRM HAL Funtions are tested by the webOS TV SoCTS (SoC Test Suite). Prior to this test, sample widevine key, HDCP key are needed. See :doc:`the SoCTS documentation on this. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-drm>`
 
 References
 ----------
