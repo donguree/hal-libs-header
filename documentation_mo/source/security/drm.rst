@@ -47,7 +47,15 @@ Overview
 General Description
 ^^^^^^^^^^^^^^^^^^^
 
-DRM is a function for managing digital rights. webOS supports PlayReady, Widevine, and Fairplay, but this covers commonly used functions or other functions involving DRM and encryption/decryption.
+DRM is a function for managing digital rights. webOS supports PlayReady, Widevine, and Fairplay.
+For information on Widevine and PlayReady, please refer to the individual guides below. 
+
+:doc:`{linux-ext-header/documentation_mo/media/widevine} </part2/linux-ext-header/documentation_mo/media/widevine>`
+:doc:`{linux-ext-header/documentation_mo/media/playready} </part2/linux-ext-header/documentation_mo/media/playready>`
+
+Fairplay follows Apple's implementation.
+
+This documents commonly used functions or other functions involving DRM and encryption/decryption.
 
 Architecture
 ^^^^^^^^^^^^
@@ -60,7 +68,10 @@ Requirements
 Functional Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Plese refer to each function's description and requirement.
+Please refer to each function's description and requirement.
+
+Features
+^^^^^^^^
 
 Quality and Constraints
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -70,7 +81,7 @@ Requirements regarding the performance (execution speed) required by each functi
 Implementation
 --------------
 
-This section provides materials that are useful for SVP implementation.
+This section provides materials that are useful for DRM implementation.
 
 - The `File Location`_ section provides the location of the Git repository where you can get the header file in which the interface for the DRM implementation is defined.
 - The `API List`_ section provides a brief summary of DRM APIs that you must implement.
@@ -80,7 +91,7 @@ This section provides materials that are useful for SVP implementation.
 File Location
 ^^^^^^^^^^^^^
 
-The SVP interfaces are defined in the hal_drm.h header file, which can be obtained from https://wall.lge.com/.
+The DRM interfaces are defined in the hal_drm.h header file, which can be obtained from https://wall.lge.com/.
 
 - Git repository: bsp/ref/hal-libs-header
 
