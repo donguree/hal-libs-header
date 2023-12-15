@@ -51,6 +51,7 @@ DRM is a function for managing digital rights. webOS supports PlayReady, Widevin
 For information on Widevine and PlayReady, please refer to the individual guides below. 
 
 :doc:`{linux-ext-header/documentation_mo/media/widevine} </part2/linux-ext-header/documentation_mo/media/widevine>`
+
 :doc:`{linux-ext-header/documentation_mo/media/playready} </part2/linux-ext-header/documentation_mo/media/playready>`
 
 Fairplay follows Apple's implementation.
