@@ -12,7 +12,7 @@ Introduction
 
 This document describes the AirPlay module in the kernel space. The document gives an overview of the AirPlay module and provides details about its functionalities and implementation requirements.
 
-AirPlay is a proprietary wireless communication protocol stack/suite developed by Apple Inc. that allows streaming between devices of audio, video, device screens, and photos, together with related metadata. Apple has since licensed the AirPlay protocol stack as a third-party software component technology to manufacturers that build products compatible with Apple's devices.
+AirPlay effortlessly streams music, videos, photos, podcasts, and games from many Apple devices to LG webOS TV.
 
 Revision History
 ================
@@ -100,6 +100,13 @@ The following diagram shows the driver architecture.
 
 .. image:: resource/AirPlay_Driver_Architecture.PNG
 
+- Application : Applications related to Apple on LG webOS TV like HomeKit/AirPlay and Apple TV/Music.
+- MFi : The mfi service is a module that manages mfi, such as downloaing and verifying the mfi key.
+- DILE : Device Interface Layer Extenstion(DILE) libraries for LG webOS TV
+- HAL : The HAL libraries, also known as hal-libs, are a type of user-level device drivers. They provide an interface between the upper layer (webOS applications, modules, and services) and the hardware devices. HAL libraries do not directly control the hardware but instead, access the hardware through kernel-level device drivers. 
+- Secure storage : Secure Storage technology is required to operate with sensitive data of user layer applications and daemons using access control, cryptographic protection and integrity checking.
+- SoC : System on a chip.
+
 Requirements
 ************
 
@@ -176,25 +183,27 @@ Functions
 Extended Functions
 ^^^^^^^^^^^^^^^^^^
 
-======================================== ==================================================================================
-Function                                 Description
-======================================== ==================================================================================
-HAL_AIRPLAY_MFi_WriteKeySet              Write MFi Key into the Secure Storage
-HAL_AIRPLAY_MFi_VerifyKeySet             Check lgcrc32 by using base64 decoded mfi_obj and fairplay_secret
-HAL_AIRPLAY_MFi_DeleteKeySet             Delete MFi Key into the Secure Storage
-HAL_AIRPLAY_MFi_GetKeyInfo               Read values from Secure Storage and set the values into the out param (deprecated)
-HAL_AIRPLAY_MFi_GetKeyInfo2              Read values from Secure Storage and set the values into the out param
-HAL_AIRPLAY_MFi_VerifyProvisioningObject Validate the provisioning object
-HAL_AIRPLAY_MFi_GetCertificate           Get MFi key certification
-HAL_AIRPLAY_MFi_GetSignature             Get MFi Private Key (P) from provisioning object
-HAL_AIRPLAY_FairPlay_VerifyObject        Verify FairPlay provisioning object
-======================================== ==================================================================================
+=========================================== ==================================================================================
+Function                                    Description
+=========================================== ==================================================================================
+`HAL_AIRPLAY_MFi_WriteKeySet`_              Write MFi Key into the Secure Storage
+`HAL_AIRPLAY_MFi_VerifyKeySet`_             Check lgcrc32 by using base64 decoded mfi_obj and fairplay_secret
+`HAL_AIRPLAY_MFi_DeleteKeySet`_             Delete MFi Key into the Secure Storage
+`HAL_AIRPLAY_MFi_GetKeyInfo`_               Read values from Secure Storage and set the values into the out param (deprecated)
+`HAL_AIRPLAY_MFi_GetKeyInfo2`_              Read values from Secure Storage and set the values into the out param
+`HAL_AIRPLAY_MFi_VerifyProvisioningObject`_ Validate the provisioning object
+`HAL_AIRPLAY_MFi_GetCertificate`_           Get MFi key certification
+`HAL_AIRPLAY_MFi_GetSignature`_             Get MFi Private Key (P) from provisioning object
+`HAL_AIRPLAY_FairPlay_VerifyObject`_        Verify FairPlay provisioning object
+=========================================== ==================================================================================
 
 Implementation Details
 ======================
 
+.. _HAL_AIRPLAY_MFI_WriteKeySet:
+
 int HAL_AIRPLAY_MFi_WriteKeySet(unsigned int argc, void \*\*argv)
------------------------------------------------------------------
+----------------------------------------------------------------------
 
 Parameters
 ^^^^^^^^^^
@@ -244,6 +253,8 @@ Example
 	
 	ret = HAL_AIRPLAY_MFi_WriteKeySet(sizeof(hal_key_argv) / sizeof(gchar *), (void **)hal_key_argv);
 
+.. _HAL_AIRPLAY_MFi_VerifyKeySet:
+
 int HAL_AIRPLAY_MFi_VerifyKeySet(void)
 --------------------------------------
 
@@ -286,6 +297,8 @@ Example
 		printf("verification fail of lgcrc32");
 	}
 
+.. _HAL_AIRPLAY_MFi_DeleteKeySet:
+
 int HAL_AIRPLAY_MFi_DeleteKeySet(void)
 --------------------------------------
 
@@ -319,6 +332,8 @@ Example
 	else if (ret == -2) { deletion fail }
 	else { unknown error }
 
+.. _HAL_AIRPLAY_MFi_GetKeyInfo:
+
 int HAL_AIRPLAY_MFi_GetKeyInfo(unsigned char \*\*out_org_key_file_name, unsigned char \*\*out_index, unsigned char \*\*out_mfi_obj_id, unsigned char \*\*out_ppid)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -326,6 +341,8 @@ Operation
 ^^^^^^^^^
 
 - Read values from Secure Storage and set the values into the out param. (Deprecated)
+
+.. _HAL_AIRPLAY_MFi_GetKeyInfo2:
 
 int HAL_AIRPLAY_MFi_GetKeyInfo2(char \*\*out_key_info)
 ------------------------------------------------------
@@ -384,6 +401,8 @@ Example
 		g_print("unknown error");
 	}
 
+.. _HAL_AIRPLAY_MFi_VerifyProvisioningObject:
+
 int HAL_AIRPLAY_MFi_VerifyProvisioningObject(void)
 --------------------------------------------------
 
@@ -439,6 +458,8 @@ Example
   		printf("mfi obj is not verified");
 	}
 
+.. _HAL_AIRPLAY_MFi_GetCertificate:
+
 int HAL_AIRPLAY_MFi_GetCertificate(unsigned char \*\*out_certificate, size_t \*out_certificate_len)
 ---------------------------------------------------------------------------------------------------
 
@@ -480,6 +501,8 @@ Example
 	else {
 		print("cannot get certificate");
 	}
+
+.. _HAL_AIRPLAY_MFi_GetSignature:
 
 int HAL_AIRPLAY_MFi_GetSignature(unsigned char \*digest, size_t digest_len, unsigned char \*\*out_signature, size_t \*out_signature_len)
 ----------------------------------------------------------------------------------------------------------------------------------------
@@ -535,6 +558,8 @@ Remark (Optional)
 ^^^^^^^^^^^^^^^^^
 
 If the private key(P) is shorter than correct length, the high order bytes should be padded with 0s to a length of correct bytes. The private key is delivered in an unencrypted PKCS #8 DER envelope. However, if the high-order bytes of the private key are zero, the PKCS object will omit them, resulting in a “short” key (usually 31 bytes instead of 32.) Please check to make sure that your provisioning code and MFi signature implementation correctly handles the case of a private key shorter than 32 bytes. If the decoded key is < 32 bytes, the high order bytes should be padded with 0s to a length of 32 bytes.
+
+.. _HAL_AIRPLAY_FairPlay_VerifyObject:
 
 int HAL_AIRPLAY_FairPlay_VerifyObject(void)
 -------------------------------------------
