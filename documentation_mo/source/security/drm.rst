@@ -1,8 +1,8 @@
 DRM
-===
+###
 
 Introduction
-------------
+************
 | This document describes the requirements and implementation guide for common DRM Functions of webOS and functions requiring encryption/decryption.
 
 Revision History
@@ -16,7 +16,7 @@ Version Date       Changed by     Comment
 ======= ========== ============== ===============================
 
 Terminology
------------
+===========
 | The key words “must”, “must not”, “required”, “shall”, “shall not”, “should”, “should not”, “recommended”, “may”, and “optional” in this document are to be interpreted as described in RFC2119.
 
 | The following table lists the terms used throughout this document:
@@ -30,7 +30,7 @@ UHDCP  Ultra High Definition Content Protection
 ====== =========================================
 
 Technical Assistance
---------------------
+====================
 
 For assistance or clarification on information in this guide, please create an issue in the LGE JIRA project and contact the following person:
 
@@ -42,10 +42,10 @@ HDCP   jihoons@lge.com
 ====== ==================
 
 Overview
---------
+********
 
 General Description
-^^^^^^^^^^^^^^^^^^^
+===================
 
 DRM is a function for managing digital rights. webOS supports PlayReady, Widevine, and Fairplay.
 For information on Widevine and PlayReady, please refer to the individual guides below. 
@@ -58,29 +58,30 @@ Fairplay follows Apple's implementation.
 
 This documents commonly used functions or other functions involving DRM and encryption/decryption.
 
+Features
+========
+
 Architecture
-^^^^^^^^^^^^
+============
 
 The functions covered in this document are Read / Write / Decryption functions that are used independently, so no explanation of the architecture is required.
 
 Requirements
-------------
+************
 
 Functional Requirements
-^^^^^^^^^^^^^^^^^^^^^^^
+=======================
 
 Please refer to each function's description and requirement.
 
-Features
-^^^^^^^^
 
 Quality and Constraints
-^^^^^^^^^^^^^^^^^^^^^^^
+=======================
 
 Requirements regarding the performance (execution speed) required by each function are described in each function part.
 
 Implementation
---------------
+**************
 
 This section provides materials that are useful for DRM implementation.
 
@@ -90,19 +91,19 @@ This section provides materials that are useful for DRM implementation.
 
 
 File Location
-^^^^^^^^^^^^^
+=============
 
 The DRM interfaces are defined in the hal_drm.h header file, which can be obtained from https://wall.lge.com/.
 
 - Git repository: bsp/ref/hal-libs-header
 
 API List
-^^^^^^^^
+========
 
 The DRM module implementation must adhere to the interface specifications defined and implements its functions. Refer to the API Reference for more details.
 
 Data Types
-**********
+----------
 
 ======================== ===============================
 Name                     Description
@@ -111,7 +112,7 @@ Name                     Description
 ======================== ===============================
 
 Functions
-*********
+---------
 
 =============================================== ====================================================================================================================
 Function                                        Description
@@ -136,18 +137,18 @@ Function                                        Description
 =============================================== ====================================================================================================================
 
 Implementation Details
-^^^^^^^^^^^^^^^^^^^^^^
+======================
 
 In common, validation must be implemented for all parameters. In particular, null checking is performed on pointer parameters.
 
 The padding rules for functions HAL_DRM_AESHWInit, HAL_DRM_AESHWUpdate, HAL_DRM_AESHWFinish follow PKCS#7. The return of each function can refer to openssl's libcrypto.
 
 Testing
--------
+*******
 
 DRM HAL Funtions are tested by the webOS TV SoCTS (SoC Test Suite). Prior to this test, sample widevine key, HDCP key are needed. See :doc:`the SoCTS documentation on this. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-drm>`
 
 References
-----------
+**********
 
 | Refer to https://wiki.openssl.org/index.php/EVP_Symmetric_Encryption_and_Decryption to implement AES Crypto Funtions
