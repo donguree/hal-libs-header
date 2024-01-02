@@ -7,9 +7,9 @@ MMC
 Introduction
 ************
 
-|  This document describes the MMC driver in the hal-libs layer of the webOS. The document gives an overview of the MMC driver and provides details about its functionalities and implementation requirements.
-|  The MMC driver is based on the eMMC(Embedded Multi-Media Card) technology. Therefore, the document assumes that the readers are familiar with the JEDEC standard for the eMMC technology.
-|  The MMC driver is responsible for getting the eMMC register values and setting the PON(Power Off Notification), etc.
+|  This document describes the Multi-Media Card (MMC) module in the HAL libs layer of the webOS. The document gives an overview of the MMC module and provides details about its functionalities and implementation requirements.
+|  The MMC module is based on the embedded Multi-Media Card (eMMC) technology. Therefore, the document assumes that the readers are familiar with the JEDEC standard for the eMMC technology.
+|  The MMC module is responsible for getting the eMMC register values and setting the Power Off Notification (PON), etc.
 
 Revision History
 ================
@@ -23,6 +23,8 @@ Version  Date        Changed by          Description
 
 Terminology
 ===========
+| The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119. 
+| The following table lists the terms used throughout this document: 
 
 ================= ==================================================
 Definition                Description
@@ -50,8 +52,7 @@ Overview
 General Description
 ===================
 
-|  MMC module is to support for the block devices associated with the eMMC device.
-|  The main features provided are :
+|  The MMC module supports the block devices associated with the eMMC device. This module is responsible for the followings:
 - Open MMC device
 - Close MMC device
 - Set PON with short time
@@ -62,7 +63,7 @@ General Description
 
 Features
 ========
-
+| The main features provided by the MMC modules are:
 - Setting the PON(Power Off Notification)
     - The host should notify the device before it powers the device off. This allows the device to better prepare itself for being powered off.
     - The webOS platform requests the PON when power off. The garbage collection of the eMMC will be processed during power off. It can make the booting performance better.
@@ -82,17 +83,14 @@ Features
 Architecture
 ============
 
-System Context
---------------
 
 |  This section describes the system context of hal-libs mmc. Through this system context, external entities are identified and the system boundary is clarified.
 
 .. image:: resources/mmc/mmc_system_context.jpg
 
 ====================== ====================================================================================================
-Associated Drawings:    Perspective : Dynamic
-====================== ====================================================================================================
 Entity                  Responsibility
+====================== ====================================================================================================
 <<service>> emmcd       Information such as the life time from an emmc device is processed so that it can be expressed in UI.
 <<library>> dile_mmc    It is located in the layer between the webOS platform service and hal_mmc and provides functions such as emmc device information and PON.
 <<kernel driver>> eMMC  The kernel controls the eMMC device.
@@ -100,9 +98,8 @@ Entity                  Responsibility
 ====================== ====================================================================================================
 
 ====================================== ====================================================================================================
-Associated Drawings:                    Perspective : Dynamic
-====================================== ====================================================================================================
 Relationships                           Responsibility
+====================================== ====================================================================================================
 emmcd -> dile_mmc                       The emmcd service calls the dile_mmc API to request PON (Power Off Notification) and various register information.
 dile_mmc -> hal_mmc                     Calls the hal_mmc API to request PON and various register (CID, CSD, ExtCSD) information.
 hal_mmc -> <<kernel driver>> eMMC       Calls the kernel driver to access the eMMC H/W device.
@@ -112,15 +109,15 @@ hal_mmc -> <<kernel driver>> eMMC       Calls the kernel driver to access the eM
 Overal Workflow
 ===============
 
-|  The sequence diagram of setting the PON(Power Off Notification)
+|  The following shows the sequence diagram of setting the PON(Power Off Notification)
 
 .. image:: resources/mmc/mmc_sequence_setting_pon.jpg
 
-|  The sequence diagram of getting the SMART report
+|  The following shows the sequence diagram of getting the SMART report
 
 .. image:: resources/mmc/mmc_sequence_getting_smart.jpg
 
-|  The sequence diagram of getting the register(CSD, Extended CSD) information
+|  The following shows the sequence diagram of getting the register(CSD, Extended CSD) information
 
 .. image:: resources/mmc/mmc_sequence_getting_register.jpg
 
@@ -131,21 +128,22 @@ Requirements
 
 Functional Requirments
 ======================
+|  The Functional Requirements section sets forth the requirements imposed on MMC's basic functionalities.
 
 How to use the buffer for the SMART report
 ------------------------------------------
 
-|  There are 2 kind of the SMART reports.
-|  The first is from the vendor command which depends on the each eMMC devices. Some eMMC devices support this function but some don't. The webOS platform doesn't use this type.
+|  There are 2 kinds of the SMART reports.
+|  The first is from the vendor command, which depends on the each eMMC device. Some eMMC devices support this function, but some don't. The webOS platform doesn't use this type.
 |  The second is from the "Device life time estimation" of the Extended CSD register.
-|  The interface is designed for both but the webOS platform uses "Device life time estimation". We use the argument, "buff" of the following function for the both information.
+|  The interface is designed for both, but the webOS platform uses "Device life time estimation". We use the argument, "buff" of the following function for the both information.
 - HAL_MMC_Get_SMART_Report(buff, len)
 
 **"buff" with command magic for the SMART information**
 
-|  1. The DILE_MMC(DIL_MMC) will fill the data into the argument, "buff" and sends the "buff" to the HAL_MMC.
-- The command magic, the buffer size and the start offst for the vendor data will be filled.
-|  2. The HAL_MMC will return the "buff" which is filled with "Device life time estimantion" from ExtCSD register and the vendor data.
+|  1. The DILE_MMC(DIL_MMC) will fill the data into the argument, "buff" and send the "buff" to the HAL_MMC.
+- The command magic, the buffer size, and the start offset for the vendor data will be filled.
+|  2. The HAL_MMC will return the "buff" which is filled with "Device life time estimantion" from the ExtCSD register and the vendor data.
 - The emmc version is 5.0 or higher
     - Fill the JEDEC life time estimation and the vendor data for the life time.
 - The emmc version is 4.5 or lower
@@ -158,7 +156,7 @@ How to use the buffer for the SMART report
 **"buff" without command magic for the SMART information**
 
 |  1. The DILE_MMC(DIL_MMC) will send the "buff" to the HAL_MMC without the command magic.
-|  2. The HAL_MMC will return the "buff" which is filled with "Device life time estimantion" from ExtCSD register and the vendor data.
+|  2. The HAL_MMC will return the "buff" which is filled with "Device life time estimantion" from the ExtCSD register and the vendor data.
 - The emmc version is 5.0 or higher
     - Fill the JEDEC life time estimation from the start of the "buff".
 - The emmc version is 4.5 or lower
@@ -188,26 +186,32 @@ Quality and Constraints
 Performance Requirements
 ------------------------
 
-|  It should return within 10ms, if there are no special reasons.
+|  Each funtion in the API List should return within 10ms, unless there are any special reasons.
 
 Design Constraints
 ------------------
 
-|  Please refer to each function's constraints.
+|  Please refer to the performance requirements and constraints of each function the API Reference.
 
 **The SMART infromation**
 
-|  The vendor specific command for the life time or the emmc erase count is not common.
+|  The vendor specific command for the life time or the eMMC erase count is not common.
 |  It is designed by the eMMC vendor. There might be command sequence set. The several commands might be issued to get the information.
 |  Between the vendor commands for the life time, if there is another command(read or write), the emmc device could be in abnormal.
 |  We should implement the function, to get vendor life time, as one command set. There must not be another command during issuing the vendor command for the life time.
 
 Implementation
 **************
+|  This section provides supplementary materials that are useful for MMC module implementation.
+- The File Location section provides the location of the Git repository where you can get the header file in which the interface for the MMC module implementation is defined.
+- The API List section provides a brief summary of MMC APIs that you must implement.
+- The Implementation Details section provides the sample code for the MMC API.
 
 File Location
 =============
-|  The Git repository of the hal mmc module is available at `hal-libs-header <https://wall.lge.com/admin/repos/bsp/ref/hal-libs-header>`_ . This Git repository contains the header files for the hal mmc implementation as well as documentation for the mmc implementation guide and mmc API reference.
+|  The MMC interfaces are defined in the hal_mmc.h header file, which can be obtained from https://swfarmhub.lge.com/.
+- Git repository: bsp/ref/hal-libs-header
+|  This Git repository contains the header files for the MMC implementation as well as documentation for the MMC implementation guide and MMC API reference.
 
 API List
 ========
@@ -246,7 +250,7 @@ Implementation Details
 
 |  Refer to the section, the Requirements.
 
-|  Hear is the sample code for the HAL_MMC_Get_SMART_Report API.
+|  Here is the sample code for the HAL_MMC_Get_SMART_Report API.
 
 ::
 
@@ -404,5 +408,3 @@ Testing
 |  To test the implementation of the MMC module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the MMC module and verifies the kernel event operations for the module by using a test execution file.
 |  For more information, see MMC’s SoCTS Unit Test manual.
 
-References
-**********
