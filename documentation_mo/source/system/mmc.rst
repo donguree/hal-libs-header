@@ -406,5 +406,4 @@ Implementation Details
 Testing
 *******
 |  To test the implementation of the MMC module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the MMC module and verifies the kernel event operations for the module by using a test execution file.
-|  For more information, see MMC’s SoCTS Unit Test manual.
-
+|  For more information, :doc:` MMC’s SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-mmc>`.

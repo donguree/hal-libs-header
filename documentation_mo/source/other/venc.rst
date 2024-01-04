@@ -1321,8 +1321,7 @@ Testing
 
 | The SoCTS checks the basic operations of the VENC module and verifies the kernel event operations for the module by using a test execution file. 
 
-| For more information, see `VENC’s SoCTS Unit Test manual <http://10.157.97.248:8000/bsp_document/master/latest_html/part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-venc.html>`_.
-
+| For more information, :doc:`VENC’s SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-venc>`.
 
 References
 **********
