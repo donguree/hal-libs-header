@@ -7,9 +7,9 @@ HDCP2
 Introduction
 ------------
 
-To meet the requirements of confidentiality and integrity for values within HDCP2.x IIA specification.
+To meet the requirements of confidentiality and integrity for values within HDCP2.x IIA specification,
 HAL_HDCP2 functions support that the a confidential value must never be revealed and the integrity of many values in the system is protected by fail-safe mechanisms of the protocol.
-Refer to the `HDCP Specifications`_
+Refer to the `HDCP Specifications`_.
 
 Revision History
 ^^^^^^^^^^^^^^^^
@@ -71,6 +71,25 @@ Architecture
 
 Refer to the Introduction chapter of `HDCP2.x IIA specifications`_.
 
+Overall Workflow
+^^^^^^^^^^^^^^^^
+
+The following diagram shows the overall workflow when a miracast plays content.
+
+.. image:: resource/hdcp2-overall-workflow.png
+
+Miracast Service → HDCP2 Service → DILE → HAL
+
+- Request HDCP2 authentication with counterpart (=HDCP2 TX) and proceed with authentication.
+
+HDCP2 Service → Miracast Service
+
+- Forward authentication completed or not. Deliver output for decryption after authentication is completed.
+
+Miracast App → smp → miracast-player → DILE → HAL
+
+- After the authentication is completed, the output for decryption is delivered, and the content is decrypted and played.
+
 Requirements
 ------------
 
@@ -101,7 +120,6 @@ This section provides materials that are useful for HDCP2 implementation.
 
 - The `File Location`_ section provides the location of the Git repository where you can get the header file in which the interface for the SVP implementation is defined.
 - The `API List`_ section provides a brief summary of HDCP2 APIs that you must implement.
-- The `Implementation Details`_ section sets implementation guidance and example code for some major functionalities.
 
 File Location
 ^^^^^^^^^^^^^
