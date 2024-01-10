@@ -7,9 +7,10 @@ CRIU
 
 Introduction
 ************
-|   CRIU is opensource software basically. ( https://criu.org/Main_Page )
-|   Checkpoint/Restore In Userspace (CRIU) is a software tool for Linux operating system. Using this tool, it is possible to freeze a running application (or part of it) and checkpoint it to persistent storage as a collection of files.
-|   One can then use the files to restore and run the application from the point it was frozen at. The distinctive feature of the CRIU project is that it is mainly implemented in user space, rather than in the kernel. Using this functionality, application live migration, snapshots and many other things are now possible.
+|   This document describes the Checkpoint/Restore In Userspace (CRIU) module in the HAL libs layer of the webOS. The document gives an overview of the CRIU module and provides details about its functionalities and implementation requirements.
+|
+|   CRIU is an open-source software (https://criu.org/Main_Page). Therefore, the document assumes that the readers are familiar with the CRIU.
+|   The CRIU allows freezing a running application (or part of it) and checkpointing it to persistent storage as a collection of files.
 
 
 Revision History
@@ -29,7 +30,8 @@ Terminology
 ================= ==================================================
 Definition                Description
 ================= ==================================================
-N/A                N/A
+CRIU              checkpoint/restore functionality for Linux.
+SAM               webOS System & Application Manager
 ================= ==================================================
 
 Technical Assistance
@@ -47,13 +49,15 @@ Overview
 
 General Description
 ===================
-|   This page explains to avoid these limitation using HAL API.
-|   It include some modifications and extends for webos tv.
-|   HAL_CRIU functions is to exception handling about not supported operation
-|   such like device files, shm, rw files.
+|   Checkpoint/Restore In Userspace (CRIU) is a software for Linux operating system. Using CRIU, it is possible to freeze a running application (or part of it) and checkpoint it to persistent storage as a collection of files.
+|   One can then use the files to restore and run the application from the point it was frozen at. The distinctive feature of the CRIU project is that it is mainly implemented in user space, rather than in the kernel. Using this functionality, application live migration, snapshots and many other things are now possible.
+|
+|   The CRIU module includes some modifications and extends for webOS TV.
+|   The HAL_CRIU functions handle exceptions for unsupported operation such as device files, shared memory, and rw files.
 
 Features
 ========
+|   The main features provided by the CRIU module are:
 - Freeze a running application and application live migration
 - Checkpoint it to persistent storage as a collection of files
 - Support snapshots
@@ -61,17 +65,13 @@ Features
 
 Architecture
 ============
-
-System Context
---------------
 |  This section describes the system context of hal-libs criu. Through this system context, external entities are identified and the system boundary is clarified.
 
 .. image:: resources/criu/criu_system_context.jpg
 
 ====================== ====================================================================================================
-Associated Drawings:    Perspective : Dynamic
-====================== ====================================================================================================
 Entity                  Responsibility
+====================== ====================================================================================================
 criu service            Execute the requested dump
 kernel / ptrace         When dumping, control the dumpee process through ptrace and provide a system call to acquire resource information
 libcriu                 Linked to sam and each criu app
@@ -87,9 +87,8 @@ emmc                    Save to emmc to keep dump image even when TV is turned o
 
 
 =========================================== ====================================================================================================
-Associated Drawings:                         Perspective : Dynamic
-=========================================== ====================================================================================================
 Entity                                      Responsibility
+=========================================== ====================================================================================================
 criu service → kernel                       When dumping, adjust the dumpee process through ptrace, acquire and save the necessary resources.
                                             When restoring, clone the process and restore the saved resources.
 libcriu → criu service                      If dump is requested to criu service during dump, the process is stopped through ptrace in criu service, and the dump operation proceeds.
@@ -104,7 +103,7 @@ libcriu → memory /  emmc                    Save dump images to tmpfs and emmc
 Overal Workflow
 ===============
 
-|  The sequence diagram of criu dump
+|  The following shows the sequence diagram of CRIU dump.
 
 .. image:: resources/criu/criu_dump_sequence.jpg
 
@@ -119,8 +118,10 @@ Requirements
 
 Functional Requirments
 ======================
+|  The functional requirements of the CRIU module are as follows:
 - Close opened device fd
 - Reopen device fd
+|  For more information, please refer to each function in the API List.
 
 Quality and Constraints
 =======================
@@ -128,26 +129,39 @@ Quality and Constraints
 Performance Requirements
 ------------------------
 
-|   When dump / restore, it must be completed within the time below.
+|   When dump / restore, it must be completed within the following time limits:
 
 - dump : 7 sec
 - restore : 3 sec
-- HAL function should be retrun 100ms if there is no special reason.
+- Each funtion in the API List should return within 100ms, unless there are any special reasons.
 
 Technical Constraints
-------------------------
+---------------------
 
-|  There are resources that cannot be dumped.
+|  There are resources that cannot be dumped, such as:
 
-- unix domain socket
-- system v shared memory
-- block, character device
-- emmc ReadWrite data
+- Unix domain socket
+- System V shared memory
+- Block and character device
+- eMMC read-write data
 
 |  In order to apply criu to the app, it is necessary to prepare in advance. The apps to which criu is currently applied are as follows.
 - inputcommon
 - livemenu
 - home
+
+Implementation
+************
+|  This section provides supplementary materials that are useful for CRIU module implementation.
+- The File Location section provides the location of the Git repository where you can get the header file in which the interface for the CRIU module implementation is defined.
+- The API List section provides a brief summary of CRIU APIs that you must implement.
+- The Implementation Details section provides the sample code for the CRIU API.
+
+File Location
+========
+|  The CRIU interfaces are defined in the hal_criu.h header file, which can be obtained from https://swfarmhub.lge.com/.
+- Git repository: bsp/ref/hal-libs-header
+|  This Git repository contains the header files for the SYS implementation as well as documentation for the CRIU implementation guide and CRIU API reference.
 
 API List
 ========
@@ -156,7 +170,6 @@ API List
 
 Data Types
 ----------
-
 NA
 
 Functions
@@ -173,11 +186,8 @@ Name                                     Description
 Implementation Details
 ======================
 
-|  Hear is the sample code for the HAL_CRIU_PreCheckpointNotify
+|  Hear is the sample code for the HAL_CRIU_PreCheckpointNotify, HAL_CRIU_PostDumpNotify, and HAL_CRIU_PostRestoreNotify.
 
-|  Hear is the sample code for the HAL_CRIU_PostDumpNotify
-
-|  Hear is the sample code for the HAL_CRIU_PostRestoreNotify
 
 ::
 
@@ -216,12 +226,12 @@ Implementation Details
 
 Testing
 *******
-|   To test the implementation of the criu module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the criu module and verifies function operations for the module by using a test execution file.
+|   To test the implementation of the CRIU module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the criu module and verifies function operations for the module by using a test execution file.
 |  For more information, see :doc:`criu’s SoCTS Unit Test manual. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-criu>`
 |  :cpp:func:`HAL_CRIU_PostDumpNotify` //except from socts, TAS test by criu feature bat
 |  :cpp:func:`HAL_CRIU_PostRestoreNotify` //except from socts, TAS test by criu feature bat
 
 References
 **********
-|  Refer to the section, the Requirements.
-|  Refer to https://criu.org/Main_Pag
+|  For additional information on related standards or technical topics, refer to:
+- https://criu.org/Main_Pag
