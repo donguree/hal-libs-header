@@ -41,7 +41,7 @@ Technical Assistance
 ================= ============================
 Module             Owner
 ================= ============================
-CRIU                `jaeguk.lee`_
+CRIU                `randheer.singh`_
 ================= ============================
 
 Overview
@@ -159,6 +159,7 @@ Implementation
 
 File Location
 ========
+
 |  The CRIU interfaces are defined in the hal_criu.h header file, which can be obtained from https://swfarmhub.lge.com/.
 - Git repository: bsp/ref/hal-libs-header
 |  This Git repository contains the header files for the SYS implementation as well as documentation for the CRIU implementation guide and CRIU API reference.
@@ -226,7 +227,7 @@ Implementation Details
 
 Testing
 *******
-|   To test the implementation of the CRIU module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the criu module and verifies function operations for the module by using a test execution file.
+|  To test the implementation of the CRIU module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the criu module and verifies function operations for the module by using a test execution file.
 |  For more information, see :doc:`criu’s SoCTS Unit Test manual. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-criu>`
 |  :cpp:func:`HAL_CRIU_PostDumpNotify` //except from socts, TAS test by criu feature bat
 |  :cpp:func:`HAL_CRIU_PostRestoreNotify` //except from socts, TAS test by criu feature bat
