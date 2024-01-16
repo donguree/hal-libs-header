@@ -37,7 +37,8 @@ extensions = [
     "sphinx.ext.intersphinx",
     "breathe",
     "exhale",
-	"sphinx_git"
+	"sphinx_git",
+	"sphinx_panels"
 ]
 
 html_static_path = ['_static']
