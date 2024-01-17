@@ -26,12 +26,18 @@ Terminology
 =============================== ===============================
 Term                            Description
 =============================== ===============================
-keymaster CA                    Library to interface with keymaster TA
-keymaster TA                    Applications operating on the TEE responsible for managing the key
-keymanager3                     A service that allows external services on webos to use the keymaster's functionality using the keymaster CA
+Keymaster CA                    Library to interface with keymaster TA.
+Keymaster TA                    Applications operating on the TEE responsible for managing the key.
+Keymanager3                     A service that allows external services on webos to use the keymaster's functionality using the keymaster CA.
 SecureStore TA                  Trusted application that receives and processes pre-encrypted data through pre-encryption tool at run time on the TV.
-master key                      Must be safely saved as a device uniquely generated key in the keymaster TA
-key blob                        Data that is encrypted the key generated for crypto operation and related information with the master key of the key master TA
+Master key                      Must be safely saved as a device uniquely generated key in the keymaster TA.
+Key blob                        Data that is encrypted the key generated for crypto operation and related information with the master key of the key master TA.
+TEE                             Truested Execution Environment.
+REE                             Rich Execution Environment.
+TA                              Trusted Applications running in TEE side.
+CA                              Library to communicate to specific TA. (libopteeKeymasterCA.so)
+SOCTS                           Test framework for testing BSP API like HAL SSTR API.
+SSTR                            Short term of Secure Storage.
 =============================== ===============================
 
 Technical Assistance
@@ -53,13 +59,15 @@ General Description
 
 | Secure Storage is a function commonly required by the connected embedded system and is also adopted by its products as a prerequisite for mass production.
 
-| WebOS provides several means for data protection, and KeyManager is provided to protect encryption keys that require the highest level of security
+| webOS provides several means for data protection, and KeyManager is provided to protect encryption keys that require the highest level of security.
 
 | The keymaster in this requirement has the same requirement as the Android HW keymaster.
 
 | The keymaster protects key data by generating and protecting key data in the TEE and encrypting it with the master key generated in the TEE.
 
 | The keymaster TA receives and processes requests for encryption, decryption, and key generation through the keymaster CA library.
+
+| Keymaster CA library should be installed to /usr/lib the file name libopteeKeymasterCA.so
 
 
 Features
@@ -96,13 +104,13 @@ Driver Architecture
 
 .. image:: resource/keymaster_arch.PNG
 
-| Keymaster3 is a service that receives requests from the App and performs key generation, key management, and cryptographic algorithm tasks using Keymaster TA operating within the TEE
+| Keymaster3 is a service that receives requests from the App and performs key generation, key management, and cryptographic algorithm tasks using Keymaster TA operating within the TEE.
 
-| Keymaster CA is responsible for converting and delivering input data so that the functions provided by Keymaster TA are accessible
+| Keymaster CA is responsible for converting and delivering input data so that the functions provided by Keymaster TA are accessible.
 
-| The keymaster TA is an application that operates in a Trusted Execution Environment (TEE) and generates the requested key, Perform key management and cryptographic algorithm tasks Key generation and encryption algorithm operations are implemented using the Global Platform TEE Internal Core API
+| The keymaster TA is an application that operates in a Trusted Execution Environment (TEE) and generates the requested key, Perform key management and cryptographic algorithm tasks Key generation and encryption algorithm operations are implemented using the Global Platform TEE Internal Core API.
 
-| Sestore TA is an application that operates on the Trusted Execution Environment (TEE), encrypts the user's key using the key of the TEE, stores it securely, and returns the key plain text on request
+| Sestore TA is an application that operates on the Trusted Execution Environment (TEE), encrypts the user's key using the key of the TEE, stores it securely, and returns the key plain text on request.
 
 
 Overall Workflow
@@ -112,9 +120,7 @@ Steps Before Provisioning Key
 -------------------
 .. image:: resource/keymaster_overall.PNG
 
-| The keymanager3 service provides a luna interface for external services to perform cryo operations using the keymaster.
-
-| The keymaager3 communicates with the keymaster TA through the keymaster CA library.
+| The keymanager3 service will call keymaster api which is provided by keymaster CA library.
 
 | The keymaster TA operates on TEE and aims to protect key data.
 
@@ -122,23 +128,25 @@ Steps Before Provisioning Key
 
 | The key data generated by the keymaster TA is not exposed to REE as a plain data.
 
+| The keymaster TA should perform the crypto operation delivered through the keymaster CA. If there is HW supported crypto operation, it should be used to improve performance.
+
 Requirements
 ************
 
 Functional Requirements
 =======================
 
-Secure storage requirement
+Keymaster requirement
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ================================= ======================================
 REQ-ID                            Requirement
 ================================= ======================================
-REQ-001                           keymaster TA must be able to create a device unique master key and must be stored securely.
-REQ-002                           keymaster TA must be able to generate a key dynamically, and the generated key must be encrypted and returned using the master key.
-REQ-003                           keymaster TA must be able to perform the request-on operation using the key blob encrypted by the keymaster TA.
-REQ-004                           keymaster TA should be able to manage and complete/abort external requests on a handle basis.
-REQ-005                           keymaster TA should be able to process multiple encryption/decryption operations simultaneously and individually in units of hands.
+REQ-001                           Keymaster TA must be able to create a device unique master key and must be stored securely.
+REQ-002                           Keymaster TA must be able to generate a key dynamically, and the generated key must be encrypted and returned using the master key.
+REQ-003                           Keymaster TA must be able to perform the request-on operation using the key blob encrypted by the keymaster TA.
+REQ-004                           Keymaster TA should be able to manage and complete/abort external requests on a handle basis.
+REQ-005                           Keymaster TA should be able to process multiple encryption/decryption operations simultaneously and individually in units of hands.
 ================================= ======================================
 
 Quality and Constraints
@@ -156,7 +164,9 @@ Implementation
 
 File Location
 =============
-| The sstr api for storing the key is provided through hal-libs and can be stored in hal-libs repo.
+| The keymaster api for crypto operations is provided by libopteeKeymasterCA library.
+| libopteeKeymasterCA.so should be installed when hal-libs is built. 
+| And keymaster code can be stored in hal-libs repo.
 
 API List
 ========
@@ -167,17 +177,17 @@ Functions
 ============================================================================ ===================================================================================================
 Function                                                                     Description
 ============================================================================ ===================================================================================================
-:cpp:func:`keymaster::OpteeKeymaster3Device::getHardwareFeatures`            Returns characteristic information for keymaster TA
+:cpp:func:`keymaster::OpteeKeymaster3Device::getHardwareFeatures`            Returns characteristic information for keymaster TA.
 :cpp:func:`keymaster::OpteeKeymaster3Device::addRngEntropy`                  Not used
-:cpp:func:`keymaster::OpteeKeymaster3Device::generateKey`                    Request to generateKey for crypto operation
-:cpp:func:`keymaster::OpteeKeymaster3Device::getKeyCharacteristics`          Obtained properties of key via Key Blob
-:cpp:func:`keymaster::OpteeKeymaster3Device::importKey`                      Create a key blob by receiving an externally generated plain key
-:cpp:func:`keymaster::OpteeKeymaster3Device::importSecKey`                   It receives the encrypted key data from SeStore TA, delivers it to SeStore TA within the TEE, decrypts it, and creates a key blob
-:cpp:func:`keymaster::OpteeKeymaster3Device::exportKey`                      Get the key blob generated by the keymaster TA, Return public key
-:cpp:func:`keymaster::OpteeKeymaster3Device::begin`                          After receiving the purpose of the keyblob and crypto operation, TA prepared the encryption operation and returned the unique handle
-:cpp:func:`keymaster::OpteeKeymaster3Device::update`                         Receive handles and data to perform crypto operations
-:cpp:func:`keymaster::OpteeKeymaster3Device::finish`                         Final delivery of data, ending crypto operation and returning results
-:cpp:func:`keymaster::OpteeKeymaster3Device::abort`                          Handles are passed to organize resources and terminate operations
+:cpp:func:`keymaster::OpteeKeymaster3Device::generateKey`                    Generate key for crypto operation.
+:cpp:func:`keymaster::OpteeKeymaster3Device::getKeyCharacteristics`          Returns properties of key via Key Blob.
+:cpp:func:`keymaster::OpteeKeymaster3Device::importKey`                      Create a key blob by receiving an externally generated plain key.
+:cpp:func:`keymaster::OpteeKeymaster3Device::importSecKey`                   Converts and returns the keymaster key blob from enencrypted key data which is encrypted by SecureStore TA.
+:cpp:func:`keymaster::OpteeKeymaster3Device::exportKey`                      Return public key from key blob generated by the keymaster TA, Return public key.
+:cpp:func:`keymaster::OpteeKeymaster3Device::begin`                          Receives key blob generated by the keymaster TA and prepare crypto operation for requested crypto operation with key blob. And return the unique handle id to identify request of crypto operation.
+:cpp:func:`keymaster::OpteeKeymaster3Device::update`                         Receive handle id and data to perform crypto operations
+:cpp:func:`keymaster::OpteeKeymaster3Device::finish`                         Get hdndle id and data. Then returns final results of crypto operations.
+:cpp:func:`keymaster::OpteeKeymaster3Device::abort`                          Terminate crypto operations corresponding to handle id.
 ============================================================================ ===================================================================================================
 
 
@@ -192,14 +202,14 @@ Normal Sequence
 
 .. code-block:: text
 
-    An external app requests key creation from keymanager3 service
-    |- keymanager3 call the generateKey of keymaster CA library
-        |- keymaster TA get key generation request
-        |- keymaster TA generates requested key
-        |- keymaster TA serialize key and key properties
-        |- create a keyblob by encrypting with the master key of the keymaster TA
-        |- return key blob
-    |- get key blob and save that in db
+    An external app requests key creation from keymanager3 service.
+    |- Keymanager3 call the generateKey of keymaster CA library.
+        |- Keymaster TA get key generation request.
+        |- Keymaster TA generates requested key.
+        |- Keymaster TA serialize key and key properties.
+        |- Create a keyblob by encrypting with the master key of the keymaster TA.
+        |- Return key blob.
+    |- Get key blob and save that in db.
 	
 Scenario for importing a key
 ----------------------------------------------------
@@ -209,15 +219,15 @@ Normal Sequence
 
 .. code-block:: text
 
-    An external app generates key and requests to import keys to keymanager3 service
-    |- keymanager3 call the importKey of keymaster CA library
-        |- keymaster TA gets plain key data
-        |- keymaster TA serialize key and key properties
-        |- create a keyblob by encrypting with the master key of the keymaster TA
-        |- return key blob
-    |- get key blob and save that in db
+    An external app generates key and requests to import keys to keymanager3 service.
+    |- Keymanager3 call the importKey of keymaster CA library.
+        |- Keymaster TA gets plain key data.
+        |- Keymaster TA serialize key and key properties.
+        |- Create a keyblob by encrypting with the master key of the keymaster TA.
+        |- Return key blob.
+    |- Get key blob and save that in db.
 
-Use the key to perform a cryto operation
+Use the key to perform a crypto operation
 ----------------------------------------------------
 
 Normal Sequence
@@ -225,24 +235,24 @@ Normal Sequence
 
 .. code-block:: text
 
-    An external app requests to begin crypto operation with key name to keymanager3 service
-    |- keymanager3 service gets the keys from db by key name and call begin api of keymaster CA library
-        |- keymaster TA gets key blob and purpose
-        |- keymaster TA decrypts key blob and initializes crypto operation
-        |- keymaster TA creates crypto handle and return handle name
-        |- get handle name and send that to external app
-    Deliver data and handle name to keymaster3 service
-    |- keymanager3 service call update api in keymaster CA library with data and handle name
-    |- keymaster TA gets data and handle
-        |- keymaster TA updates data to right crypto handle
-        |- keymaster TA returns the result
-    |- get result and send that to external app
-    Delivery final data and handle name to keymaster3 service
-    |- keymanager3 service call finish api in keymaster CA library with data and handle name
-        |- keymaster TA gets data and handle
-        |- keymaster TA updates data to right crypto handle
-        |- keymaster TA returns the result
-    |- get result and send that to external app
+    An external app requests to begin crypto operation with key name to keymanager3 service.
+    |- Keymanager3 service gets the keys from db by key name and call begin api of keymaster CA library.
+        |- Keymaster TA gets key blob and purpose.
+        |- Keymaster TA decrypts key blob and initializes crypto operation.
+        |- Keymaster TA creates crypto handle and return handle name.
+        |- Get handle name and send that to external app.
+    Deliver data and handle name to keymaster3 service.
+    |- Keymanager3 service call update api in keymaster CA library with data and handle name.
+    |- Keymaster TA gets data and handle.
+        |- Keymaster TA updates data to right crypto handle.
+        |- Keymaster TA returns the result.
+    |- Get result and send that to external app.
+    Delivery final data and handle name to keymaster3 service.
+    |- Keymanager3 service call finish api in keymaster CA library with data and handle name.
+        |- Keymaster TA gets data and handle.
+        |- Keymaster TA updates data to right crypto handle.
+        |- Keymaster TA returns the result.
+    |- Get result and send that to external app.
 
 
 Abort crypto operation
@@ -253,32 +263,34 @@ Normal Sequence
 
 .. code-block:: text
 
-    An external app requests to begin crypto operation with key name to keymanager3 service
-    |- keymanager3 service gets the keys from db by key name and call begin api of keymaster CA library
-        |- keymaster TA gets key blob and purpose
-        |- keymaster TA decrypts key blob and initializes crypto operation
-        |- keymaster TA creates crypto handle and return handle name
-    |- get handle name and send that to external app
-    Request abort crypto operation with handle name to keymanager3 service
-    |- keymanager3 service call abort api in keymaster CA library with handle name
-        |- keymaster TA gets the request of abort
-        |- keymaster TA releases and clean the resoucrces relates to handle name
-        |- keymaster TA returns the result
-    |- get result and send that to external app
+    An external app requests to begin crypto operation with key name to keymanager3 service.
+    |- Keymanager3 service gets the keys from db by key name and call begin api of keymaster CA library.
+        |- Keymaster TA gets key blob and purpose.
+        |- Keymaster TA decrypts key blob and initializes crypto operation.
+        |- Keymaster TA creates crypto handle and return handle name.
+    |- Get handle name and send that to external app.
+    Request abort crypto operation with handle name to keymanager3 service.
+    |- Keymanager3 service call abort api in keymaster CA library with handle name.
+        |- Keymaster TA gets the request of abort.
+        |- Keymaster TA releases and clean the resources relates to handle name.
+        |- Keymaster TA returns the result.
+    |- Get result and send that to external app.
 
 Testing
 *******
+| If both CA and TA on the keymaster are corresponding, and the header files and library(libopteeKeymasterCA.so) are provided, LG can build and deliver a test binary.
+| You can use this test binary to verify the operability of the apps provided by the keymaster CA.
 
 References
 **********
 
-if you see this page in HTML, please click below tag.
+If you see this page in HTML, please click below tag.
 :download:`keymaster CA reference source code <resource/keymaster-ca.tar>`
 
-if you see this page in PDF, please check the keymaster-ca.tar in attachment tab of Adobe Reader
+If you see this page in PDF, please check the keymaster-ca.tar in attachment tab of Adobe Reader
 (View > Show/Hide > Navigation Panes > Attachments)
 
-if you see this page in HTML, please click below tag.
+If you see this page in HTML, please click below tag.
 :download:`keymaster TA reference source code <resource/keymaster-ta.tar>`
 
-if you see this page in PDF, please check the keymaster-ta.tar in attachment tab of Adobe Reader
+If you see this page in PDF, please check the keymaster-ta.tar in attachment tab of Adobe Reader
