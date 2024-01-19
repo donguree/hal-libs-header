@@ -84,7 +84,7 @@ Features
 - If keys need to be device unique, these keys are injected in the factory.
 - Most of the keys injected from the factory should be safely stored in the TEE area. In addition, some keys must exist encrypted before being injected.
 This is subject to the obligations of the key's contract.
-- These keys are injected through a hal interface called CRYPTO, and this document does not deal with that CRYPTO HAL API. You can see CRYPTO HAL API in CRYPTO document.
+- These keys are injected through a hal interface called CRYPTO, and this document does not deal with that CRYPTO HAL API. You can see CRYPTO HAL API in :doc:`CRYPTO document </part3/hal-libs-header/documentation_mo/source/security/crypto>`.
 
 | Specifying and Requirements for key included in firmware:
 
@@ -349,7 +349,7 @@ Normal Sequence
 
 Testing
 *******
-| LG provides SOCTS for testing SSTR API. However, for this, development of pre-encryption tool should be completed and delivered to LG.
+| LG provides :doc:`SOCTS for testing SSTR API </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-sstr>`. However, for this, development of pre-encryption tool should be completed and delivered to LG.
 | We verify the following functions through SOCTS.
 | 1. Verification of operability by input various types to HAL_SSTR_MakeSecureData
 | 2. Validation of the operability of HAL_SSTR_GetDataFromSecureData
