@@ -149,16 +149,16 @@ Extented Functions
 Function                                    Description
 =========================================== ===========================================================
 :cpp:func:`HAL_SYS_LockDebugPort`           Enable/Disable debug port(T32, register tool, debug tool)    
-:cpp:func:`HAL_SYS_SetWolOnOff`             Enable/Disable WOL. 
-:cpp:func:`HAL_SYS_GetWolStatus`            Get WOL Status.
-:cpp:func:`HAL_SYS_WakeUpInternalMicom`     Used only for RTK. WAKE Up Internal Micom.
-:cpp:func:`HAL_SYS_ReadBootData`            Used only for MTK. Read for boot area.
-:cpp:func:`HAL_SYS_WriteBootData`           Used only for MTK. Write for boot area.
-:cpp:func:`HAL_SYS_ReadPMData`              Used only for MTK. Read for Internal Micom.
-:cpp:func:`HAL_SYS_WritePMData`             Used only for MTK. Write for Internal Micom.
-:cpp:func:`HAL_IPC_Write`                   Used only for RTK. For webOS and Internal Micom communicatoin
-:cpp:func:`HAL_IPC_Read`                    Used only for RTK. For webOS and Internal Micom communicatoin
-:cpp:func:`HAL_SYS_CheckRPMBPartition`      Check RPMB Partition.(This is for security team)
+:cpp:func:`HAL_SYS_SetWolOnOff`             Enable/Disable WOL. except from socts, right assignment is required
+:cpp:func:`HAL_SYS_GetWolStatus`            Get WOL Status. except from socts, right assignment is required
+:cpp:func:`HAL_SYS_WakeUpInternalMicom`     Used only for RTK. WAKE Up Internal Micom. except from socts, this function supports up to webOS4.5
+:cpp:func:`HAL_SYS_ReadBootData`            Used only for MTK. Read for boot area. except from socts, this function supports up to webOS4.5
+:cpp:func:`HAL_SYS_WriteBootData`           Used only for MTK. Write for boot area. except from socts, this function supports up to webOS4.5
+:cpp:func:`HAL_SYS_ReadPMData`              Used only for MTK. Read for Internal Micom. except from socts, right assignment is required
+:cpp:func:`HAL_SYS_WritePMData`             Used only for MTK. Write for Internal Micom. eexcept from socts, right assignment is required
+:cpp:func:`HAL_IPC_Write`                   Used only for RTK. For webOS and Internal Micom communicatoin. except from socts, right assignment is required
+:cpp:func:`HAL_IPC_Read`                    Used only for RTK. For webOS and Internal Micom communicatoin. except from socts, right assignment is required
+:cpp:func:`HAL_SYS_CheckRPMBPartition`      Check RPMB Partition.(This is for security team.) except from socts, tright assignment is required
 :cpp:func:`HAL_SYS_CheckModelIdStatus`      Check model id is stored in RPMB (This is for security team)         
 :cpp:func:`HAL_SYS_StartDFTMemTest`         DDR memory test in DFT proces.
 :cpp:func:`HAL_SYS_GetDFTMemTestResult`     Get DDR memory test results in DFT process

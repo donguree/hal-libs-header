@@ -268,13 +268,13 @@ Freeview(fepg)
 
 Google Cast
 ^^^^^^^^^^^^^^^^^^^^
-+-----------------------------------------------+-------------------------------------------------------+
-| Function                                      | Description                                           |
-+===============================================+=======================================================+
-| :cpp:func:`HAL_CRYPTO_CastGenerateClientAuth` | Genrate client certification                          |
-+-----------------------------------------------+-------------------------------------------------------+
-| :cpp:func:`HAL_CRYPTO_CastSignHash`           | Sign hash data to generate signature with private key |
-+-----------------------------------------------+-------------------------------------------------------+
++-----------------------------------------------+---------------------------------------------------------------------------+
+| Function                                      | Description                                                               |
++===============================================+===========================================================================+
+| :cpp:func:`HAL_CRYPTO_CastGenerateClientAuth` | Genrate client certification. except from socts.                          |
++-----------------------------------------------+---------------------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_CastSignHash`           | Sign hash data to generate signature with private key. except from socts. |
++-----------------------------------------------+---------------------------------------------------------------------------+
 
 LowLevelStorage
 ^^^^^^^^^^^^^^^
@@ -335,62 +335,62 @@ The functions owner is unknown
 +-----------------------------------------------------+--------------------------------------------------------------------------------------------------+
 | Function                                            | Description                                                                                      |
 +=====================================================+==================================================================================================+
-| :cpp:func:`HAL_CRYPTO_ReadMskToSecureStore`         | - Not used in DILE.                                                                              |
+| :cpp:func:`HAL_CRYPTO_ReadMskToSecureStore`         | - except from socts, Not used in DILE.                                                           |
 +-----------------------------------------------------+--------------------------------------------------------------------------------------------------+
-| :cpp:func:`HAL_CRYPTO_WriteMskToSecureStore`        | - Not used in DILE.                                                                              |
+| :cpp:func:`HAL_CRYPTO_WriteMskToSecureStore`        | - except from socts, Not used in DILE.                                                           |
 +-----------------------------------------------------+--------------------------------------------------------------------------------------------------+
-| :cpp:func:`HAL_CRYPTO_SDP_ReadCommonKey`            | - Not used in DILE.                                                                              |
+| :cpp:func:`HAL_CRYPTO_SDP_ReadCommonKey`            | - except from socts, Not used in DILE.                                                           |
 +-----------------------------------------------------+--------------------------------------------------------------------------------------------------+
 
 The functions are not used
 """""""""""""""""""""""""""
-+--------------------------------------------------+---------------------------+
-| Function                                         | Description               |
-+==================================================+===========================+
-| :cpp:func:`HAL_CRYPTO_Debug`                     | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_ReadNLPSecret`             | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_BBC_ReadClientKey`         | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_ReadPrsSecret`             | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_GetDebugKey`               | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_Multiple_ReadClientKey`    | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_ReadSkypeSecret`           | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_ReadRemoteDiagSecret`      | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_SDI_ReadPrivKeyAndID`      | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_ReadRDXSecret`             | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_TWINTV_ReadSecret`         | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_WriteHDCPOnSecure`         | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_ReadHDCPFromSecure`        | not used                  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_SFU_Initialize`            | not used(module: update)  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_SFU_Finalize`              | not used(module: update)  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_SFU_GetRSAKey`             | not used(module: update)  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_SFU_GetAESKey`             | not used(module: update)  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_TNM_ReadSecretKey`         | not used(module: TNM)     |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_TNM_WriteSecretKey`        | not used(module: TNM)     |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_HYBRIDCAST_ReadSecret`     | not used(module: hybrid)  |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_CIPLUS_GetCiPlusSslPubKey` | not used(module: CI Plus) |
-+--------------------------------------------------+---------------------------+
-| :cpp:func:`HAL_CRYPTO_CIPLUS_GetCiCanalReadyKey` | not used(module: CI Plus) |
-+--------------------------------------------------+---------------------------+
++--------------------------------------------------+--------------------------------------------------------------+
+| Function                                         | Description                                                  |
++==================================================+==============================================================+
+| :cpp:func:`HAL_CRYPTO_Debug`                     | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_ReadNLPSecret`             | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_BBC_ReadClientKey`         | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_ReadPrsSecret`             | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_GetDebugKey`               | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_Multiple_ReadClientKey`    | nexcept from socts, The function is not used                 |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_ReadSkypeSecret`           | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_ReadRemoteDiagSecret`      | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_SDI_ReadPrivKeyAndID`      | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_ReadRDXSecret`             | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_TWINTV_ReadSecret`         | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_WriteHDCPOnSecure`         | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_ReadHDCPFromSecure`        | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_SFU_Initialize`            | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_SFU_Finalize`              | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_SFU_GetRSAKey`             | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_SFU_GetAESKey`             | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_TNM_ReadSecretKey`         | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_TNM_WriteSecretKey`        | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_HYBRIDCAST_ReadSecret`     | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_CIPLUS_GetCiPlusSslPubKey` | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
+| :cpp:func:`HAL_CRYPTO_CIPLUS_GetCiCanalReadyKey` | except from socts, The function is not used                  |
++--------------------------------------------------+--------------------------------------------------------------+
 
 Implementation Details
 ======================

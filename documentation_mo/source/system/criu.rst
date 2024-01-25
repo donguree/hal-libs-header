@@ -180,8 +180,8 @@ Functions
 Name                                     Description
 ======================================== ======================================================
 :cpp:func:`HAL_CRIU_PreCheckpointNotify` Close opened device fd. Resources that can not be dumped should be freed here.
-:cpp:func:`HAL_CRIU_PostDumpNotify`      Reopen device fd. The freed resources when dumping should be reassigned here.
-:cpp:func:`HAL_CRIU_PostRestoreNotify`   Reopen device fd. The freed resources when dumping should be reassigned here.
+:cpp:func:`HAL_CRIU_PostDumpNotify`      Reopen device fd. The freed resources when dumping should be reassigned here.  except from socts, TAS test by criu feature bat
+:cpp:func:`HAL_CRIU_PostRestoreNotify`   Reopen device fd. The freed resources when dumping should be reassigned here. except from socts, TAS test by criu feature bat
 ======================================== ======================================================
 
 Implementation Details

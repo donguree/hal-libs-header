@@ -145,11 +145,11 @@ Functions
 Function                                        Description
 =============================================== ==========================================================================================================================================================
 :cpp:func:`HAL_HDCP2_WriteKeySet`               Key RW HALs when supporting Secure Storage
-:cpp:func:`HAL_HDCP2_GetEncHdcp2Key`            Key RW HALs when supporting Secure Storage, except from socts, deprecated since webOS4.5
-:cpp:func:`HAL_HDCP2_SetEncHdcp2Key`            Key RW HALs when supporting Secure Storage, except from socts, deprecated since webOS4.5
+:cpp:func:`HAL_HDCP2_GetEncHdcp2Key`            Key RW HALs when supporting Secure Storage, except from socts, deprecated since webOS4.5.
+:cpp:func:`HAL_HDCP2_SetEncHdcp2Key`            Key RW HALs when supporting Secure Storage, except from socts, deprecated since webOS4.5.
 :cpp:func:`HAL_HDCP2_GetRootPublicKey`          Get root public key for TX, Read HDCP2 TX key from Secure Storage.
 :cpp:func:`HAL_HDCP2_UseTestVector`             Test HAL_HDCP2 using Test Vector.
-:cpp:func:`HAL_HDCP2_GetCertInfo`               Except from socts, deprecated since webOS1.0.
+:cpp:func:`HAL_HDCP2_GetCertInfo`               except from socts, deprecated since webOS1.0.
 :cpp:func:`HAL_HDCP2_GetCertInfo2`              To read HDCP2 key from Secure Stroage.
 :cpp:func:`HAL_HDCP2_Decrypt_RSAES_OAEP`        HAL decrypts the km and stores the decrypted km to the secure store.
 :cpp:func:`HAL_HDCP2_Encrypt_RSAES_OAEP`        Generate random value for km - 16 byte, Encrypts km with kpubrx (Ekpub (km)).
@@ -162,20 +162,20 @@ Function                                        Description
 :cpp:func:`HAL_HDCP2_Decrypt_EKs`               Decrypts ks using XOR operation.
 :cpp:func:`HAL_HDCP2_HMAC_SHA256_with_kd`       Compute HMAC-SHA256 using the kd value as key.
 :cpp:func:`HAL_HDCP2_XOR_Ks_with_LC128`         Do XOR operation ks with lc128 and the results is stored in secure DRAM.
-:cpp:func:`HAL_HDCP2_Generate_Km`               Except from socts, deprecated since webOS4.5.
+:cpp:func:`HAL_HDCP2_Generate_Km`               except from socts, deprecated since webOS4.5.
 :cpp:func:`HAL_HDCP2_Generate_Ks`               Derivate dkey2.
 :cpp:func:`HAL_HDCP2_Write_StoredKm`            Store hdcp2_km to selected StoredKm slot.
 :cpp:func:`HAL_HDCP2_Select_StoredKm`           Select StoredKm slot and reload the StoredKm to hdcp2_km.
-:cpp:func:`HAL_HDCP2_SHA256`                    Operate SHA-256, except from socts, deprecated since webOS4.5
+:cpp:func:`HAL_HDCP2_SHA256`                    Operate SHA-256, except from socts, deprecated since webOS4.5.
 :cpp:func:`HAL_HDCP2_AES_CTR`                   Operate a AES_CTR function with CTR mode, except from socts, deprecated since webOS4.5.
 :cpp:func:`HAL_HDCP2_GetProtectedDecryptionKey` Get protected decryption key (Ks XOR LC128), it should be encrypted
 :cpp:func:`HAL_HDCP2_SetProtectedDecryptionKey` Set protected decryption key (Ks XOR LC128), it can be executed the other process with HAL_HDCP2_GetProtectedDecryptionKey function.
 :cpp:func:`HAL_HDCP2_Data_Decrypt`              Data Decryption
-:cpp:func:`HAL_HDCP2_Data_Encrypt`              It is equal to the HAL_HDCP2_Data_Decrypt function except it’s operated in the secure world. Except from socts, it can be only verified by TAS.
+:cpp:func:`HAL_HDCP2_Data_Encrypt`              It is equal to the HAL_HDCP2_Data_Decrypt function except it’s operated in the secure world. except from socts, it can be only verified by TAS.
 :cpp:func:`HAL_HDCP2_Compute_V_Prime`           Repeater HALs, write result V_prime value to pVPrime buffer.
 :cpp:func:`HAL_HDCP2_Compute_M_Prime`           Repeater HALs, write result M_prime value to pMPrime buffer.
 :cpp:func:`HAL_HDCP2_HMAC_SHA256`               Compute HMAC-SHA256 using the kd value as key.
-:cpp:func:`HAL_HDCP2_SHA1`                      Except from socts, deprecated since webOS4.5.
+:cpp:func:`HAL_HDCP2_SHA1`                      except from socts, deprecated since webOS4.5.
 =============================================== ==========================================================================================================================================================
 
 Testing

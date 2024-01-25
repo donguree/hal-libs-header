@@ -246,13 +246,13 @@ Function                                               Description
 :cpp:func:`HAL_SSTR_GetDataFromSecureData`             Request decrypt encrypted key data to SeStore TA.
 :cpp:func:`HAL_SSTR_GetHMAC`                           Request generate hmac key and get hmac value.
 :cpp:func:`HAL_SSTR_VerifyHMAC`                        Request verify data by hmac value and hmac key.
-:cpp:func:`HAL_SSTR_GenAESKey`                         Deprecated
-:cpp:func:`HAL_SSTR_AES_Encrypt`                       Deprecated
-:cpp:func:`HAL_SSTR_AES_Decrypt`                       Deprecated
-:cpp:func:`HAL_SSTR_RSA_Encrypt`                       Deprecated
-:cpp:func:`HAL_SSTR_RSA_Decrypt`                       Deprecated
-:cpp:func:`HAL_SSTR_RSA_Sign`                          Deprecated
-:cpp:func:`HAL_SSTR_RSA_Verify`                        Deprecated
+:cpp:func:`HAL_SSTR_GenAESKey`                         except from socts, deprecated.
+:cpp:func:`HAL_SSTR_AES_Encrypt`                       except from socts, deprecated.
+:cpp:func:`HAL_SSTR_AES_Decrypt`                       except from socts, deprecated.
+:cpp:func:`HAL_SSTR_RSA_Encrypt`                       except from socts, deprecated.
+:cpp:func:`HAL_SSTR_RSA_Decrypt`                       except from socts, deprecated.
+:cpp:func:`HAL_SSTR_RSA_Sign`                          except from socts, deprecated.
+:cpp:func:`HAL_SSTR_RSA_Verify`                        except from socts, deprecated.
 ====================================================== ===================================================================================================
 
 
