@@ -65,8 +65,9 @@ Features
 ========
 
 The VO module provides the following features:
-* Configure the video output
-* display intput image to video output
+
+- Configuring the video output
+- Displaying input image to video output
 
 Architecture
 ============
@@ -158,7 +159,8 @@ Implementation Details
 ======================
 
 The following diagram shows the process of the Photorenderer outputting an image to video output via VO. 
-HAL_VO Family Functions: memcpy sink image (system memory) of the photorenderer to the framebuffer (device memory) of the HAL VO module
+
+HAL_VO Family Functions: memcpy sink image (system memory) of the photorenderer to the framebuffer (device memory) of the HAL VO module.
 The photorenderer allocates the system memory as the sink image. Invoking HAL_VO_DisplayPicture is to set the framebuffer to be duplicated with this sink image, and the HAL VO calls memcpy() function to do it.
 
 Functions: HAL_VO_Open / HAL_VO_Close / HAL_VO_DisplayPicture / HAL_VO_Config / HAL_VO_RedrawPicture
@@ -174,3 +176,8 @@ Functions: HAL_VO_GetDeviceCapability / HAL_VO_Open / HAL_VO_Close / HAL_VO_SetA
 
 .. image:: ../resources/vo_3.PNG
   :width: 100%
+
+Testing
+*******
+
+To test the implementation of the VO module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the VO module and verifies the kernel event operations for the module by using a test execution file. For more information, see :doc:` VO's SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-vo>`.
