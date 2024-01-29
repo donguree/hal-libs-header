@@ -1,8 +1,4 @@
 About This Document
-==========
-
-
-About This Document
 ###################
 
 Purpose
