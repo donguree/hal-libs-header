@@ -107,6 +107,7 @@ File Location
 =============
 
 The VO interfaces are defined in the hal_vo.h header file, which can be obtained from https://swfarmhub.lge.com/.
+
 - Git repository: bsp/ref/hal-libs-header
 
 API List
@@ -180,4 +181,4 @@ Functions: HAL_VO_GetDeviceCapability / HAL_VO_Open / HAL_VO_Close / HAL_VO_SetA
 Testing
 *******
 
-To test the implementation of the VO module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the VO module and verifies the kernel event operations for the module by using a test execution file. For more information, see :doc:` VO's SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-vo>`.
+To test the implementation of the VO module, webOS TV provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operations of the VO module and verifies the kernel event operations for the module by using a test execution file. For more information, see :doc:`VO's SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-vo>`.
