@@ -8,7 +8,7 @@ UCOM
 Introduction
 ************
 
-|  This document describes the UCOM driver in the hal-libs layer of the webOS.
+|  This document describes the UCOM driver in the HAL libs layer of the webOS.
 |  The document gives an overview of the UCOM driver and provides details about its functionalities and implementation requirements.
 |  Therefore, the document assumes that the readers are familiar with the IPC communication mechanism.
 |  The UCOM driver is based on the IPC communication between Main SOC and Micom FW.
@@ -28,10 +28,15 @@ Version  Date        Changed by          Description
 Terminology
 ===========
 
+|  The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119.
+|  The following table lists the terms used throughout this document:
+
 ================= ==================================================
 Definition                Description
 ================= ==================================================
 IPC                Inter-Process Communication
+PQ                 Picture Quality Service
+UCOM               User Commuication (Internal Micom communication interface)
 ================= ==================================================
 
 Technical Assistance
@@ -41,7 +46,9 @@ Technical Assistance
 ================= ============================
 Module             Owner
 ================= ============================
-UCOM               `sungbae.park` `jjeonghyeon.kim` `sungyun.nam`
+UCOM               `sungbae.park`_,
+                   `jjeonghyeon.kim`_,
+                   `sungyun.nam`_
 ================= ============================
 
 
@@ -51,10 +58,9 @@ Overview
 General Description
 ===================
 
-|  UCOM module is controlled using IPC communication between Main SOC and Micom.
-|  The main features provided are :
-- Initial UCOM device
-
+|  The UCOM module is controlled using IPC communication between Main SOC and Micom.
+|  The main features provided by the UCOM module are :
+- Initialize UCOM device
 - Read UCOM command
 - Write UCOM command
 - Whole Chip reset
@@ -68,15 +74,14 @@ Please refer to the photo below.
 System Context
 --------------
 
-|  This section describes the system context of hal-libs ucom.
+|  The following diagram shows the system context of hal-libs ucom.
 |  Through this system context, external entities are identified and the system boundary is clarified.
 
 .. image:: resources/ucom_dynamic_perspective.png
 
 ====================== ====================================================================================================
-Associated Drawings:    Perspective : Dynamic
-====================== ====================================================================================================
 Entity                  Responsibility
+====================== ====================================================================================================
 Factory Manager         This service is in charge of necessary operations related to TV production.
 TvpowerD                This service is in charge of necessary operations related to TV Power On/Off.
 Micom Service           This service is in charge of TV key processing and interface operation with external services.
@@ -86,49 +91,46 @@ Micom Library           It is responsible for communication and information tran
 ====================== ====================================================================================================
 
 
-Overal Workflow
-===============
+Overall Workflow
+================
 
-|  The sequence diagram of Write operation
+|  The following shows the sequence diagram of the Write operation.
 
 .. image:: resources/ucom_write_operation.png
 
 ====================================== ====================================================================================================
-Associated Drawings:                    Perspective : Dynamic
-====================================== ====================================================================================================
 Relationships                           Responsibility
-External Service -> Micom Library       Make write command set and Call to micom library API           
-Micom Library -> UCOM Driver            HAL_UCOM_Initialize function call & HAL_UCOM_WriteCommand(UINT8 *pCmd, UINT16 size) call									
-UCOM Driver -> Micom Library            Return to IPC operation result(SUCCESS/FAIL)
-Micom Library -> External Service       Return to IPC operation result(SUCCESS/FAIL)
+====================================== ====================================================================================================
+External Service -> Micom Library       Make write command set and call the Micom library API
+Micom Library -> UCOM Driver            Call the HAL_UCOM_Initialize function and the HAL_UCOM_WriteCommand(UINT8 *pCmd, UINT16 size)
+UCOM Driver -> Micom Library            Return the IPC operation result (SUCCESS/FAIL)
+Micom Library -> External Service       Return the IPC operation result (SUCCESS/FAIL)
 ====================================== ====================================================================================================
 
-|  The sequence diagram of Read operation
+|  The following shows the sequence diagram of the Read operation.
 
 .. image:: resources/ucom_read_operation.png
 
 ====================================== ====================================================================================================
-Associated Drawings:                    Perspective : Dynamic
-====================================== ====================================================================================================
 Relationships                           Responsibility
-External Service -> Micom Library       Make read command set and Call to micom library API           
-Micom Library -> UCOM Driver            HAL_UCOM_Initialize function call & HAL_UCOM_ReadCommand(UINT8 cmd, UINT16 dataSize, UINT8 *pData) call									
-UCOM Driver -> Micom Library            Return to IPC operation result(SUCCESS/FAIL)
-Micom Library -> External Service       Return to IPC operation result(SUCCESS/FAIL)
+====================================== ====================================================================================================
+External Service -> Micom Library       Make read command set and call the Micom library API
+Micom Library -> UCOM Driver            Call the HAL_UCOM_Initialize function and the HAL_UCOM_ReadCommand(UINT8 cmd, UINT16 dataSize, UINT8 *pData)
+UCOM Driver -> Micom Library            Return the IPC operation result (SUCCESS/FAIL)
+Micom Library -> External Service       Return the IPC operation result (SUCCESS/FAIL)
 ====================================== ====================================================================================================
 
 
 Requirements
 ************
 
-|  They are simple functions for each modules. and they are in header file. 
-|  Please refer to "hal_ucom.h"
+|  This section describes the main functionalities of the UCOM module in terms of the module��s requirements and constraints.
 
 
 Functional Requirments
 ======================
 
-|  Please refer to the performance requirements of each API function.
+|  The data types and functions used in this module are described in the Data Types and Functions in the API List.
 
 
 Quality and Constraints
@@ -137,16 +139,23 @@ Quality and Constraints
 Performance Requirements
 ------------------------
 
-|  It should return within 10ms, if there are no special reasons.
+|  Each funtion in the API List must return within 10ms, unless there are any special reasons.
 
 
 Implementation
 **************
 
+|  This section provides supplementary materials that are useful for UCOM module implementation.
+- The File Location section provides the location of the Git repository where you can get the header file in which the interface for the UCOM module implementation is defined.
+- The API List section provides a brief summary of UCOM APIs that you must implement.
+
+
 File Location
 =============
-|  The Git repository of the hal ucom module is available at "hal-libs-header".
-|  This Git repository contains the header files for the hal ucom implementation as well as documentation for the ucom implementation guide and ucom API reference.
+|  The UCOM interfaces are defined in the hal_ucom.h header file, which can be obtained from https://swfarmhub.lge.com/.
+- Git repository: bsp/ref/hal-libs-header
+|  This Git repository contains the header files for the UCOM implementation as well as documentation for the UCOM implementation guide and UCOM API reference.
+
 
 API List
 ========
@@ -162,7 +171,7 @@ Enumerations
 ============================== ===================================
 Name                           Description
 ============================== ===================================
-:c:macro:`DRV_STATUS_T`        Struct for the ucom API result
+:c:macro:`DRV_STATUS_T`        Struct for the UCOM API result
 ============================== ===================================
 
 Functions
@@ -181,16 +190,12 @@ Name                                 Description
 Implementation Details
 ======================
 
-| UCOM API is common API based HW Layer(HAL) for various modules.
-| So UCOM API is simple and the header file already has details comment for each functions. 
+| The UCOM API is a common API based HW Layer (HAL) for various modules.
+| Therefore, the UCOM API is simple and the header file already contains details comments for each functions.
 | Please refer to "hal_ucom.h".
 
 
 Testing
 *******
-|  To test the implementation of the UCOM module, webOS TV provides :doc:`SoCTS (SoC Test Suite) tests </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-ucom>`.
+|  To test the implementation of the UCOM module, webOS TV provides :doc:`SoCTS (SoC Test Suite) tests. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-ucom>`
 |  The SoCTS checks the basic operations of the UCOM module.
-
-References
-**********
-
