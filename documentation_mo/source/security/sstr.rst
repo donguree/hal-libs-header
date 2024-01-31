@@ -105,7 +105,10 @@ Driver Architecture
 -------------------
 
 .. image:: resource/driver_arch.PNG
+  :width: 100%
+
 .. image:: resource/driver_arch2.PNG
+  :width: 100%
 
 | The TV communicates with the associated Trusted Application through the HAL SSTR API interface to inject, read, and write keys.
 
@@ -122,6 +125,7 @@ Overall Workflow
 Steps Before Provisioning Key
 -------------------
 .. image:: resource/sedata_package.PNG
+  :width: 100%
 
 | The keys that are included in the firmware and want to be stored on the TV are packaged in sedata.
 
@@ -133,6 +137,7 @@ Steps Before Provisioning Key
 Among the keys included in the sedata, the keys stored in the REE
 -------------------
 .. image:: resource/provisioning_key_data_which_is_stored_in_REE.PNG
+  :width: 100%
 
 | TV will read the key from the sedata when tv turns on first time.
 
@@ -150,6 +155,7 @@ Among the keys included in the sedata, the keys stored in the REE
 Among the keys included in the sedata, the keys stored in the TEE
 -------------------
 .. image:: resource/provisioning_key_data_which_is_stored_in_TEE.PNG
+  :width: 100%
 
 | TV will read the key from the sedata when tv turns on first time.
 
@@ -167,6 +173,7 @@ Among the keys included in the sedata, the keys stored in the TEE
 Key generated in run time, the keys stored in the REE
 -------------------
 .. image:: resource/provisioning_key_data_which_is_stored_in_REE_2.PNG
+  :width: 100%
 
 | When TV is running, some keys will be generated.
 

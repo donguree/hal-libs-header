@@ -77,6 +77,7 @@ Overall Workflow
 The following diagram shows the overall workflow when a miracast plays content.
 
 .. image:: resource/hdcp2-overall-workflow.png
+  :width: 100%
 
 Miracast Service → HDCP2 Service → DILE → HAL
 

@@ -73,6 +73,7 @@ Architecture
 |  Through this system context, external entities are identified and the system boundary is clarified.
 
 .. image:: resources/ucom_dynamic_perspective.png
+  :width: 100%
 
 ====================== ====================================================================================================
 Entity                  Responsibility
@@ -92,6 +93,7 @@ Overall Workflow
 |  The following shows the sequence diagram of the Write operation.
 
 .. image:: resources/ucom_write_operation.png
+  :width: 100%
 
 ====================================== ====================================================================================================
 Relationships                           Responsibility
@@ -105,6 +107,7 @@ Micom Library -> External Service       Return the IPC operation result (SUCCESS
 |  The following shows the sequence diagram of the Read operation.
 
 .. image:: resources/ucom_read_operation.png
+  :width: 100%
 
 ====================================== ====================================================================================================
 Relationships                           Responsibility

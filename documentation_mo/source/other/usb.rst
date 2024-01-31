@@ -79,6 +79,7 @@ Architecture
 |  Through this system context, external entities are identified and the system boundary is clarified.
 
 .. image:: resources/usb_architecture.png
+  :width: 100%
 
 ======================================= ==========================================================================================================================================================================================================================
 Entity                                  Responsibility
@@ -97,6 +98,7 @@ Overall Workflow
 |  The following shows the sequence diagram of the Turn off super speed port operation.
 
 .. image:: resources/usb_super_speed_port_off.png
+  :width: 100%
 
 =============================================== ====================================================================================================
 Relationships                                   Responsibility
@@ -110,6 +112,7 @@ dile libs -> Physical device manager            Return operation result(SUCCESS/
 |  The following shows the sequence diagram of the Turn on super speed port operation.
 
 .. image:: resources/usb_super_speed_port_up.png
+  :width: 100%
 
 =============================================== ====================================================================================================
 Relationships                                   Responsibility
@@ -137,6 +140,7 @@ usb userinit
 |  The following shows the sequence diagram of the USB user init operation.
 
 .. image:: resources/usb_user_init.png
+  :width: 100%
 
 Description
 ^^^^^^^^^^^
@@ -167,6 +171,7 @@ usb userresume
 |  The following shows the sequence diagram of the USB user resume operation.
 
 .. image:: resources/usb_user_resume.png
+  :width: 100%
 
 Description
 ^^^^^^^^^^^

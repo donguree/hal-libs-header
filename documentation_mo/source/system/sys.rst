@@ -82,6 +82,7 @@ Architecture
 SYS is designed to support various functions associated with the system or others. Please refer to the image below.
 
 .. image:: resources/sys/hal_sys_context.jpg
+  :width: 100%
 
 Requirements
 ************

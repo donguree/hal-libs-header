@@ -99,6 +99,7 @@ Driver Architecture
 The following diagram shows the driver architecture.
 
 .. image:: resource/AirPlay_Driver_Architecture.PNG
+  :width: 100%
 
 - Application : Applications related to Apple on LG webOS TV like HomeKit/AirPlay and Apple TV/Music.
 - MFi : The mfi service is a module that manages mfi, such as downloaing and verifying the mfi key.
@@ -235,6 +236,7 @@ Diagram
 ^^^^^^^
 
 .. image:: resource/AirPlay_MFi_WriteKeySet.PNG
+  :width: 100%
 
 Example
 ^^^^^^^
@@ -284,6 +286,7 @@ Diagram
 ^^^^^^^
 
 .. image:: resource/AirPlay_MFi_VerifyKeySet.PNG
+  :width: 100%
 
 Example
 ^^^^^^^
@@ -371,6 +374,7 @@ Diagram
 ^^^^^^^
 
 .. image:: resource/AirPlay_MFi_GetKeyInfo2.PNG
+  :width: 100%
 
 Example
 ^^^^^^^
@@ -410,6 +414,7 @@ Background Information of MFi Provisioning Object
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. image:: resource/AirPlay_MFi_Provisioning_Object.PNG
+  :width: 100%
 
 - Derive Encryption key and Authentication key from symmetric key
 	- HKDF_SHA512(input key, salt, info, output key length)
@@ -445,6 +450,7 @@ Diagram
 ^^^^^^^
 
 .. image:: resource/AirPlay_MFi_VerifyProvisioningObject.PNG
+  :width: 100%
 
 Example
 ^^^^^^^
@@ -486,6 +492,7 @@ Diagram
 ^^^^^^^
 
 .. image:: resource/AirPlay_MFi_GetCertificate.PNG
+  :width: 100%
 
 Example
 ^^^^^^^
@@ -535,6 +542,7 @@ Diagram
 ^^^^^^^
 
 .. image:: resource/AirPlay_MFi_GetSignature.PNG
+  :width: 100%
 
 Example
 ^^^^^^^

@@ -87,6 +87,7 @@ Architecture
 |  This section describes the system context of hal-libs mmc. Through this system context, external entities are identified and the system boundary is clarified.
 
 .. image:: resources/mmc/mmc_system_context.jpg
+  :width: 100%
 
 ====================== ====================================================================================================
 Entity                  Responsibility
@@ -112,14 +113,17 @@ Overal Workflow
 |  The following shows the sequence diagram of setting the PON(Power Off Notification)
 
 .. image:: resources/mmc/mmc_sequence_setting_pon.jpg
+  :width: 100%
 
 |  The following shows the sequence diagram of getting the SMART report
 
 .. image:: resources/mmc/mmc_sequence_getting_smart.jpg
+  :width: 100%
 
 |  The following shows the sequence diagram of getting the register(CSD, Extended CSD) information
 
 .. image:: resources/mmc/mmc_sequence_getting_register.jpg
+  :width: 100%
 
 Requirements
 ************
@@ -151,6 +155,7 @@ How to use the buffer for the SMART report
 - The vendor data is not filled from the 2023 models. (just padding with zero.)
 
 .. image:: resources/mmc/mmc_smart_report_with_magic.jpg
+  :width: 100%
 
 
 **"buff" without command magic for the SMART information**
@@ -164,6 +169,7 @@ How to use the buffer for the SMART report
 - The vendor data is not filled from the 2023 models. (just padding with zero.)
 
 .. image:: resources/mmc/mmc_smart_report_without_magic.jpg
+  :width: 100%
 
 How to fill the buffer for the CID
 ----------------------------------

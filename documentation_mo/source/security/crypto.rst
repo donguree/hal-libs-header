@@ -135,6 +135,7 @@ Architecture
 Driver Archiecture
 -----------------------------
 .. image:: resource/crypto_basic_context.PNG
+  :width: 100%
 
 Requirements
 ************

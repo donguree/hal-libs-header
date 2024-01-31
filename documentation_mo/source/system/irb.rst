@@ -76,6 +76,7 @@ Internal Architecture
 ---------------------
 
 .. image:: resources/Internal_IRBlaster.png
+  :width: 100%
 
 - Internally when press the key from the MRCU, The lginput service will convert the LG keycode to IM Key code and its sends through the surface manager and inputcommon(APP) service to irdbmanager for request to convert the IM key code to corresponding connected external device IR.
 

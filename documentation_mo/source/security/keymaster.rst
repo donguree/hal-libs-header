@@ -103,6 +103,7 @@ Driver Architecture
 -------------------
 
 .. image:: resource/keymaster_arch.PNG
+  :width: 100%
 
 | Keymaster3 is a service that receives requests from the App and performs key generation, key management, and cryptographic algorithm tasks using Keymaster TA operating within the TEE.
 
@@ -119,6 +120,7 @@ Overall Workflow
 Steps Before Provisioning Key
 -------------------
 .. image:: resource/keymaster_overall.PNG
+  :width: 100%
 
 | The keymanager3 service will call keymaster api which is provided by keymaster CA library.
 

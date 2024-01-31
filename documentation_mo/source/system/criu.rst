@@ -68,6 +68,7 @@ Architecture
 |  This section describes the system context of hal-libs criu. Through this system context, external entities are identified and the system boundary is clarified.
 
 .. image:: resources/criu/criu_system_context.jpg
+  :width: 100%
 
 ====================== ====================================================================================================
 Entity                  Responsibility
@@ -106,6 +107,7 @@ Overal Workflow
 |  The following shows the sequence diagram of CRIU dump.
 
 .. image:: resources/criu/criu_dump_sequence.jpg
+  :width: 100%
 
 - HAL_CRIU_PreCheckpointNotify will be called at "10.dump_criu".
 - HAL_CRIU_PostDumpNotify will be called at "15. dump finish".
