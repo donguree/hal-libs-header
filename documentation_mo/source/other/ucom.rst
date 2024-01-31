@@ -142,7 +142,8 @@ Implementation
 
 |  This section provides supplementary materials that are useful for UCOM module implementation.
 - The File Location section provides the location of the Git repository where you can get the header file in which the interface for the UCOM module implementation is defined.
-- The API List section provides a brief summary of UCOM APIs that you must implement.
+
+- The API List section provides a brief summary of UCOM APIs that you must implement.
 
 
 File Location
@@ -194,4 +195,4 @@ Testing
 *******
 |  To test the implementation of the UCOM module, webOS TV provides SoCTS (SoC Test Suite) tests.
 |  The SoCTS checks the basic operations of the UCOM module.
-|  For more information, see UCOM's SoCTS Unit Test Manual.
+|  For more information, see :doc:`UCOM's SoCTS Unit Test Manual. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-ucom>`.
