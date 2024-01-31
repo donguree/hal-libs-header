@@ -1,6 +1,9 @@
 JPEG
 ==========
 
+.. _taegyu74.kim: taegyu74.kimg@lge.com
+.. _jh0506.lee: jh0506.lee@lge.com
+
 Introduction
 ------------
 This document describes the JPEC module in the HAL libs layer of the webOS. The document gives an overview of the JPEG module and provides details about its functionalities and implementation requirements.
@@ -8,17 +11,17 @@ This document describes the JPEC module in the HAL libs layer of the webOS. The 
 Revision History
 ^^^^^^^^^^^^^^^^
 
-======= ========== ============== =======
-Version Date       Changed by     Comment
-======= ========== ============== =======
-1.2     2023-11-24 taegyu74.kim   Change format & Update contents 
-1.1.3   2018-02-26 jh0506.lee     modify
-1.1.2   2014-12-01 jh0506.lee     modify
-1.1.1   2014-05-22 jh0506.lee     modify
-1.1     2014-05-13 jh0506.lee     modify
-1.0.1   2013-10-21 jh0506.lee     done
-1.0     2013-06-20 jh0506.lee     done
-======= ========== ============== =======
+======= ========== ================ =======
+Version Date       Changed by       Comment
+======= ========== ================ =======
+1.2     2023-11-24 `taegyu74.kim`_  Change format & Update contents 
+1.1.3   2018-02-26 `jh0506.lee`_    modify
+1.1.2   2014-12-01 `jh0506.lee`_    modify
+1.1.1   2014-05-22 `jh0506.lee`_    modify
+1.1     2014-05-13 `jh0506.lee`_    modify
+1.0.1   2013-10-21 `jh0506.lee`_    done
+1.0     2013-06-20 `jh0506.lee`_    done
+======= ========== ================ =======
 
 Terminology
 ^^^^^^^^^^^
@@ -62,11 +65,11 @@ Architecture
 System Context
 **************
 
-Below block diagram Fig.1 represents photorenderer's module view in webOS TV.
+The block diagram below represents photorenderer's module view in webOS TV.
 
-The photorenderer provides several interfaces which uses HW resources such as decoder and video output, so that dile_photo (driver interface library extension) is intoduces the hal_photo module (hardware abstraction layer).
+The photorenderer provides several interfaces which use HW resources such as decoder and video output, so that dile_photo (driver interface library extension) is intoduced the hal_photo module (hardware abstraction layer).
 
-It includes the HW jpeg decoder / png decoder / video output, also it will have a benefit to reduce the processing load and take easy way display image through video path.
+These interfaces include the HW jpeg decoder / png decoder / video output, also they will have a benefit to reduce the processing load and take easy way display image through video path.
 
 For this purpose, the SoC vendor must provide HW jpeg decoding capability through the HAL_JPEG interface. 
 
@@ -94,7 +97,7 @@ This section provides materials that are useful for SVP implementation.
 
 - The `File Location`_ section provides the location of the Git repository where you can get the header file in which the interface for the DRM implementation is defined.
 - The `API List`_ section provides a brief summary of JPEG APIs that you must implement.
-- The `Implementation Details`_ section sets implementation guidance and example code for some major functionalities.
+- The `Implementation Details`_ section sets implementation guidance.
 
 File Location
 ^^^^^^^^^^^^^
