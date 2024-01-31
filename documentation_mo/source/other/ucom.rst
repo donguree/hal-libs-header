@@ -36,7 +36,7 @@ Definition                Description
 ================= ==================================================
 IPC                Inter-Process Communication
 PQ                 Picture Quality Service
-UCOM               User Commuication (Internal Micom communication interface)
+UCOM               User Communication (Internal Micom communication interface)
 ================= ==================================================
 
 Technical Assistance
@@ -68,11 +68,6 @@ General Description
 
 Architecture
 ============
-Please refer to the photo below.
-
-
-System Context
---------------
 
 |  The following diagram shows the system context of hal-libs ucom.
 |  Through this system context, external entities are identified and the system boundary is clarified.
@@ -124,11 +119,11 @@ Micom Library -> External Service       Return the IPC operation result (SUCCESS
 Requirements
 ************
 
-|  This section describes the main functionalities of the UCOM module in terms of the module��s requirements and constraints.
+|  This section describes the main functionalities of the UCOM module in terms of the module's requirements and constraints.
 
 
-Functional Requirments
-======================
+Functional Requirements
+=======================
 
 |  The data types and functions used in this module are described in the Data Types and Functions in the API List.
 
@@ -139,7 +134,7 @@ Quality and Constraints
 Performance Requirements
 ------------------------
 
-|  Each funtion in the API List must return within 10ms, unless there are any special reasons.
+|  Each function in the API List must return within 10ms, unless there are any special reasons.
 
 
 Implementation
@@ -147,7 +142,7 @@ Implementation
 
 |  This section provides supplementary materials that are useful for UCOM module implementation.
 - The File Location section provides the location of the Git repository where you can get the header file in which the interface for the UCOM module implementation is defined.
-- The API List section provides a brief summary of UCOM APIs that you must implement.
+- The API List section provides a brief summary of UCOM APIs that you must implement.
 
 
 File Location
@@ -181,8 +176,8 @@ Functions
 Name                                 Description
 ==================================== ======================================================
 :cpp:func:`HAL_UCOM_Initialize`      Initialize UCOM device.
-:cpp:func:`HAL_UCOM_ReadCommand`     Read opeartion from Main SoC to Micom FW.
-:cpp:func:`HAL_UCOM_WriteCommand`    Write opeartion from Main SoC to Micom FW.
+:cpp:func:`HAL_UCOM_ReadCommand`     Read operation from Main SoC to Micom FW.
+:cpp:func:`HAL_UCOM_WriteCommand`    Write operation from Main SoC to Micom FW.
 :cpp:func:`HAL_UCOM_WholeChipReset`  Whole chip reset operation.
 ==================================== ======================================================
 
@@ -197,5 +192,6 @@ Implementation Details
 
 Testing
 *******
-|  To test the implementation of the UCOM module, webOS TV provides :doc:`SoCTS (SoC Test Suite) tests. </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-ucom>`
+|  To test the implementation of the UCOM module, webOS TV provides SoCTS (SoC Test Suite) tests.
 |  The SoCTS checks the basic operations of the UCOM module.
+|  For more information, see UCOM's SoCTS Unit Test Manual.
