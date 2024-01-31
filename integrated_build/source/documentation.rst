@@ -1,547 +1,520 @@
 Documentation
-=============
-
-문서화 내용을 작성하는 사람을 위한 안내 페이지이다.
-
-.. _Sphinx: https://www.sphinx-doc.org/
-.. _restructuredText: https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
-.. _rst: https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
-.. _Doxygen Docblock: http://www.doxygen.nl/manual/docblocks.html
-
-Overview
---------
-
-규칙:
-
-* 문서화 도구로 Sphinx_ 를 사용 (restructuredText_ - 이하 rst_, `Doxygen Docblock`_)
-
-  * 하나의 페이지 안에서 문서 형식은 rst_ 형식을 따름
-  * 서로의 페이지 연결은 rst_ 를 확장한 Sphinx_ 형식을 따름
-
-* 모든 문서는 영문을 우선
-* 파일 인코딩은 반드시 UTF-8을 사용
-* 들여쓰기는 공백 2칸을 기본으로 하나 rst_ 의 들여쓰기 규칙을 우선
-* 별 문제가 없을 경우 80칸을 기준으로 줄바꿈
-* 서술어는 기본형을 사용(예, ``이다``, ``하다`` 를 사용하고 ``입니다``, ``합니다`` 사용 않음)
-
-구성:
-
-* Documentations for each Modules (Implementation Guide)
-* Documentation for Status Files
-* Documents for groups of some modules (*제안*)
-* API Reference
-
-배포:
-
-http://10.157.92.177:8000/hal-libs 에 최신 버전을 매일 배포할 예정이며, 지난 버전 또한
-유지를 한다.
-
-도움:
-
-http://hlm.lge.com/issue/browse/TVPLAT 프로젝트에 Task로 이슈를 생성하여
-donghoon.keum@lge.com 또는 ashton.lee@lge.com 에게 assign 한다.
-
-Module
-^^^^^^
-
-Module에 대한 문서화 페이지이다.
-A module is a logical sub-unit of the entire LG hal libs header.
-Each module is managed into a single page in implementation guide pages
-
-각 category 안의 module 은 사전순으로 정렬되어 표시된다.
-
-API Reference
-^^^^^^^^^^^^^
-
-소스파일(헤더파일)의 주석과 비슷한 Docblock 형식으로부터 추출되어 자동으로 생성된
-:doc:`/api/index` 문서이다.
-
-Build Documentation
--------------------
-
-Preparation
-^^^^^^^^^^^
-
-Requirements:
-
-* 'doxygen' (version 1.6 or higher)
-* 'python3' (version 3.6 or higher) and it's 'pip'
-
-.. note::
-  The simplest way to use 'doxygen' and 'python3' is install via package system
-  (ex, ``apt``) with the root privilege.
-
-  If you don't have the root privilege, you can install in user space locally.
-  Build tools like 'gcc', 'make', 'cmake' must be required to install locally.
-
-  In case of installation of 'doxygen', install commands may like this:
-
-  .. code-block:: bash
-
-    ## doxygen installation locally
-    ## check more on http://www.doxygen.nl/manual/install.html#install_src_unix
-
-    wget http://doxygen.nl/files/doxygen-1.8.16.src.tar.gz
-    tar xf doxygen-1.8.16.src.tar.gz
-    cd doxygen-1.8.16
-    mkdir build
-    cd build
-    cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/local -Wno-dev ..
-    make; make install
-
-    ## doxygen will be installed in $HOME/local/bin
-    ## modify PATH in your rc file like this:
-    ## PATH=$PATH:$HOME/local/bin
-
-  'doxygen' requires libraries 'bison', 'flex', and 'iconv'.
-  If these libraries are not installed, you can install like this:
-
-  .. code-block:: bash
-
-    ## for example 'bison' library installation locally
-
-    wget https://ftp.gnu.org/gnu/bison/bison-3.0.tar.gz
-    tar xf bison-3.0.tar.gz
-    cd bison-3.0
-    ./configure --prefix=$HOME/local; make; make install
-
-  The libraries may be OK for doxygen:
-
-  * 'bison' version 2.0 or higher
-  * 'flex' version 2.0 or higher
-  * 'iconv' version 2.0 or higher
-
-Next step requires 'python3'. You can check it's already installed via
-``python3 --verison`` command. If it's not installed, install 'python3' via
-package system with root privilege or `install using the source code
-<https://docs.python.org/3/using/unix.html#building-python>`_.
-
-Install python library requirements for documentation like below:
+#############
 
 .. warning::
-  If ``Documentation`` directory is not existed in project,
-  switch to ``doc`` branch (``git checkout -b doc origin/doc`` or
-  ``git switch -c doc origin/doc`` command).
-  This situation shows the documentation is ready but not merged into master
-  branch.
 
-.. code-block:: bash
+  Follow the guide below to write a Module Implementation Guid.
 
-  $ cd (somewhere)/linuxtv-ext-header
-  $ cd Documentation
-  $ pip3 install -r requirements.txt
+  The main purpose of the Module Implementation Guid is to clearly communicate the background technical information, requirements, API specification information, etc. required for module development to enhance the SoC Vendor's module implementation completeness.
 
-If last command is fail due to the permission problem, run
-``pip3 install --user -r requirements.txt`` (see
-https://pip.pypa.io/en/stable/reference/pip_install/#cmdoption-user).
-
-After execution of last command ``sphinx-build`` must be executed. It may
-located in ``/usr/bin`` or ``/usr/local/bin``. If not found, it may located in
-``$HOME/.local/bin``. Append the directory to PATH environment variable.
-
-Generate HTML
-^^^^^^^^^^^^^
-
-In ``Documentation`` directory:
-
-.. code-block:: bash
-
-  $ make clean html
-
-위와 같이 실행하고 나면 ``build/html`` 디렉토리에 문서화 결과물이 생성되며,
-브라우저를 통해 ``build/html/index.html`` 파일을 열어 확인할 수 있다.
-
-With version information from the header file (``gcc`` required):
-
-.. code-block:: bash
-
-  $ make clean version
-  $ LEH_DOC_VERSION=$(cat build/version.txt) make html
-
-View HTML with Python WebServer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Open http://localhost:8000/ after:
-
-.. code-block:: bash
-
-  $ python3 -mhttp.server
-
-or run in background:
-
-.. code-block:: bash
-
-  $ python3 -mhttp.server &
-
-Generate without API Reference
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In ``Documentation`` directory:
-
-.. code-block:: bash
-
-  $ export LEH_DOC_DOXYGENINPUT=none
-  $ make clean html
-
-To unset:
-
-.. code-block:: bash
-
-  $ unset LEH_DOC_DOXYGENINPUT
-
-Test Specific Modules in Fast
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In ``Documentation`` directory:
-
-.. code-block:: bash
-
-  $ export LEH_DOC_DOXYGENINPUT=../hal_inc/hal_airplay.h
-  $ make clean html
-
-To unset:
-
-.. code-block:: bash
-
-  $ unset LEH_DOC_DOXYGENINPUT
+  Due to the characteristics of each module, there may be cases where the contents described below are not applicable or not appropriate to apply, in which case they can be omitted or modified.
 
 
-Use Parallel Process
+.. contents:: Table of Contents
+   :depth: 3
+   :local: 
+
+Introduction
+************
+
+Describe what is covered in the Module Implementation Guide and state any prerequisite conditions (knowledge of specific field/technology) required to understand the document.
+
+.. panels::
+  :column: col-lg-12 p-2
+
+  Example
+  ^^^^^^^
+
+  *For example, the following is an introduction to the VSC module.*
+
+  This document describes the Video Scaler (VSC) driver in the kernel space. The document gives an overview of the VSC driver and provides details about its functionalities and implementation requirements. 
+
+  The VSC driver is based on the V4L2 framework. Therefore, the document assumes that the readers are familiar with the V4L2 API and framework principles, which include knowledge of V4L2 controls, buffer mana  gement, and streaming handling, among others.
+
+  The VSC driver is responsible for performing video signal processing, video scaling, and video capture. Therefore, it is necessary to understand video processing techniques and scaling algorithms, including k  nowledge of video formats, resolutions, frame rates, color formats, etc.
+
+Revision History
+================
+
+Provide the revision history for the Module Implementation Guide in the following format.
+
+.. panels::
+  :column: col-lg-12 p-2
+
+  Template
+  ^^^^^^^^
+
+  .. list-table:: 
+    :header-rows: 1
+
+    * - Version
+      - Date
+      - Changed by
+      - Description
+    * - *Document version*
+      - *Change date*
+      - *Author of the change*
+      - *Description of major changes*
+    * - 1.0
+      - 2023.xx.xx
+      - xxx@lge.com
+      - First release
+
+
+Terminology
+===========
+
+Provide the technical terms, including abbreviations, used in the guide in the following format and sort them alphabetically.
+
+Include only the full name for abbreviations of terms that are commonly used in the industry, and include both the full name and an explanation for terms that are defined by LGE or have a special meaning in this module guide.
+
+.. panels::
+  :column: col-lg-12 p-2
+
+  Template
+  ^^^^^^^^
+
+  The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119. 
+
+  The following table lists the terms used throughout this document: 
+
+  .. list-table:: 
+    :header-rows: 1
+
+    * - Term
+      - Description
+    * - English abbreviations or terms
+      - The full name of the abbreviation in English (required). Description of the abbreviation (recommended)
+    * - HDMI
+      - High-Definition Multimedia Interface.
+    * - SDP
+      - Secondary Data Packet. Data transported over the Main-Link which is not main video stream data, such as audio data and Infoframe SDPs.
+
+
+Technical Assistance
+====================
+
+Provide the email address of the LGE engineer responsible for technical support of the module.
+
+.. panels::
+  :column: col-lg-12 p-2
+
+  Template
+  ^^^^^^^^
+
+  For assistance or clarification on information in this guide, please create an issue in the LGE JIRA project and contact the following person:
+
+  .. list-table:: 
+    :header-rows: 1
+
+    * - Module
+      - Owner
+    * - Module name
+      - xxx@lge.com
+
+Overview
+********
+
+Provide the information necessary to understand the module before implementing it, including its role and key features, architecture information, and overall operational flow.
+
+General Description
+===================
+
+A general introduction to the module, focusing on the role or responsibility of the module.
+
+* If it is an industry-standard technology, provide a brief explanation of the standard (technical definition).
+* The role and responsibilities of the module.
+  *Why is this module necessary in webOS TV and what role does it play?
+
+
+Features 
+========
+
+List the main features supported by the module.
+
+* What functionalities does this module provide?
+* Are there any LGE proprietary features?
+* If there are any features or limitations not supported compared to the standard, mention them.
+.. warning::
+
+  If the length of the Features section is short, it can be included in the General Description.
+
+Architecture
+============
+
+Provide architecture information that helps understand the overall structure and functionality of the module. Show an architecture diagram of the module and explain the roles of the components within the diagram.
+
+In this section, you can provide the following types of architecture information:
+
+  .. list-table:: 
+    :header-rows: 1
+
+    * - Architecture Type
+      - Mandatory status
+      - Description
+    * - Driver Archiecture
+      - Mandatory
+      - - Demonstrates how the driver/module interacts and establishes relationships with the upper and lower layers from a platform architecture perspective.
+        - You can utilize the existing diagram in the System Context section and make sure it reflects the following points: 
+        
+          - Is the diagram divided into User space, Kernel space, and Hardware layers?
+        
+          - Is it distinguished and indicated which parts are provided by the webOS platform and which parts should be implemented by the SoC Vendor, with a legend added for webOS and Vendor Specific?
+    * - Hardware Architecture
+      - Optional
+      - - Shows how the hardware IP associated with the driver/module is configured in detail.
+    * - Internal Architecture
+      - Optional
+      - - Shows how the internal components of the module are configured.
+
+Overall Workflow (Optional)
+===========================
+
+Explain the overall flow of the main functions provided by the module using the following diagram:
+
+- State diagram
+- Call sequence
+- Logic sequence
+
+
+Requirements
+************
+
+Describes the requirements that must be met when implementing the module by a SoC vendor, divided into "Functional Requirements" and "Non-functional Requirements".
+
+.. warning::
+
+  When writing the Requirements section, specify the level of requirements according to the keyword criteria defined in RFC2119.
+
+  The use of “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” is per the IETF standard defined in `RFC2119 <https://datatracker.ietf.org/doc/html/rfc2119>`_.
+
+    .. list-table:: 
+      :header-rows: 1
+
+      * - Keyword
+        - Different Expression
+        - Meaning and Usage
+      * - MUST
+        - REQUIRED, SHALL
+        - Means an absolute requirement that must be strictly followed.
+      * - MUST NOT
+        - SHALL NOT
+        - Menas an absolute prohibition that must not be done under any circumstances.
+      * - SHOULD
+        - RECOMMENDED
+        - Means that there may exist valid reasons in particular circumstances to ignore a particular item, but the full implications must be understood and carefully weighed before choosing a different course.
+      * - SHOULD NOT
+        - NOT RECOMMENDED
+        - Means that there may exist valid reasons in particular circumstances when the particular behavior is acceptable or even useful, but the full implications should be understood and the case carefully weighed before implementing any behavior described with this label.
+      * - MAY
+        - OPTIONAL
+        - Mean that an item is truly optional.
+
+Functional Requirements
+=======================
+
+Describes the functional requirements that must be met when implementing the module.
+
+Provides a detailed explanation of each specific functionality unit that can be performed through one or multiple APIs, including the roles and scenarios of each functionality and the requirements that must be met when implementing the functionality.
+
+- An introduction/definition of the functionality provided
+- Requirements for the flow of operations for each functionality
+- Requirements for data processing and error handling for each functionality
+- Requirements for the interface that the functionality provides to other modules
+
+Quality and Constraints
+=======================
+
+Describes the non-functional requirements that must be met when implementing the module. Non-functional requirements include quality requirements and constraints. 
+
+- Quality requirements describes the performance, security, reliability, compatibility, and other requirements that must be met from the perspective of the module's operation and usage scenarios (these are module-level requirements, not API-level requirements).
+  - Requirements for security features that must be supported.
+  - Minimum performance requirements to ensure consistent speed and responsiveness.
+  - Requirements for reliability and interface compatibility to ensure stable operation, etc.
+
+  .. panels::
+    :column: col-lg-12 p-2
+
+    Example
+    ^^^^^^^^
+
+    - The module must implement access control mechanisms to prevent unauthorized access to data.
+    - The module must support fast switching, such as Instaport (HDMI quick switch). The input switching time between DisplayPort ports must be less than one second, assuming a webOS application is running in the background.
+    - The module must have a fast startup time, with the video being displayed within 3 seconds after DC power is turned on.
+
+- Constraints describes the software/hardware limitations and constraints that must be considered for the implementation of the module or to meet the requirements.
+  - Constraints on standards that must be applied during implementation.
+  - Constraints due to software or hardware limitations
+  - Constraints that may be imposed by the characteristics of the module, etc.
+
+  .. panels::
+    :column: col-lg-12 p-2
+
+    Example
+    ^^^^^^^^
+
+    - The module must be comply with ALSA standard.
+    - Drivers cannot be used at the same time because the size or number of buffers to be captured differs depending on the purpose of video capture.
+    - At least one Sndout Connection must be established to capture audio data.
+
+.. warning::
+
+
+  If there are multiple features provided by the module and you want to describe functional and non-functional requirements for each functional unit, you can also organize the Requirements chapter as follows:
+
+  **Requirements**
+
+  - Function A
+    - Introduction to Function A: Describe what Function A is and provide an explanation of the related APIs.
+    - Functional Requirements: Describe the functional requirements for Function A.
+    - Quality and Constraints: Describe the non-functional (performance, security, quality, etc.) requirements for Function A.
+  - Function B
+    - Introduction to Function B: Describe what Function B is and provide an explanation of the related APIs.
+    - Functional Requirements: Describe the functional requirements for Function B.
+    - Quality and Constraints: Describe the non-functional (performance, security, quality, etc.) requirements for Function B.
+  - ...
+
+Implementation
+**************
+
+Describe in detail how to implement the module, including the location of the interface definition/implementation files, the order of API calls, and examples of implementations of all or major components of the module.
+
+File Location
+=============
+
+State the path to the header file where the module's interface is defined within the BSP code delivered to the SoC vendor.
+
+  .. panels::
+    :column: col-lg-12 p-2
+
+    Example
+    ^^^^^^^^
+
+    The OOO interfaces are defined in the OOO.h header file, which can be obtained from https://swfarmhub.lge.com/.
+
+    - Git repository: bsp/ref/OOO-header
+    - Location: [as_installed]/linux/OOO.h
+
+
+API List 
+========
+
+Provide a summary of the data types and functions list for the interface of the module.
+
+  .. panels::
+    :column: col-lg-12 p-2
+
+    Example
+    ^^^^^^^^
+
+    The OOO module implementation must adhere to the interface specifications defined and implements its functions. Refer to the API Reference (해당 모듈의 API Reference 링크 추가) for more details.
+
+Data Types
+----------
+
+Provide a summarized list of data types for the module interface, categorized as follows. Exclude any categories that do not apply.
+
+Standard Data Types
+^^^^^^^^^^^^^^^^^^^
+
+If there are Linux standard data types used in the module, provide a list as follows. Exclude if there are none.
+
+.. list-table:: 
+  :header-rows: 1
+
+  * - Data Type
+    - Description
+  * - The name of data type (add a link to API Reference) 	
+    - Description on the data type 
+
+Extended Structures
+^^^^^^^^^^^^^^^^^^^
+
+If there is a list of extended structures defined by LGE, provide a list as follows. Exclude if there are none.
+
+.. list-table:: 
+  :header-rows: 1
+
+  * - Data Type
+    - Description
+  * - The name of data type (add a link to API Reference) 	
+    - Description on the data type 
+
+
+Extended Enumerations
+^^^^^^^^^^^^^^^^^^^^^
+
+If there is a list of extended enumerations defined by LGE, provide a list as follows. Exclude if there are none.
+
+.. list-table:: 
+  :header-rows: 1
+
+  * - Data Type
+    - Description
+  * - The name of data type (add a link to API Reference)
+    - Description on the data type 
+
+Functions
+---------
+
+Provide a summarized list of functions for the module interface, categorized as follows. Exclude any categories that do not apply.
+
+Standard Functions
+^^^^^^^^^^^^^^^^^^
+
+If there are Linux standard functions used in the module, provide a list as follows. Exclude if there are none.
+
+.. list-table:: 
+  :header-rows: 1
+
+  * - Function
+    - Description
+  * - The name of function (add a link to API Reference)
+    - Brief description on the function
+  * - The name of ioctl command (add a link to API Reference)	
+    - Brief description on the ioctl command
+
+Standard Control IDs
 ^^^^^^^^^^^^^^^^^^^^
 
-In ``Documentation`` directory:
+If there are Linux standard control IDs used in the module, provide a list as follows. Exclude if there are none.
 
-.. code-block:: bash
+.. list-table:: 
+  :header-rows: 1
 
-  $ export SPHINXOPTS="-j 6"
-  $ make clean html
+  * - Function
+    - Description
+  * - The name of Control ID (add a link to API Reference)
+    - Brief description on the function
 
-To unset:
+Extended Functions
+^^^^^^^^^^^^^^^^^^
 
-.. code-block:: bash
+If there are extended functions defined by LGE, provide a list as follows. Exclude if there are none.
 
-  $ unset SPHINXOPTS
+.. list-table:: 
+  :header-rows: 1
 
-Test only Doxygen Syntax
-^^^^^^^^^^^^^^^^^^^^^^^^
+  * - Function
+    - Description
+  * - The name of function (add a link to API Reference)
+    - Brief description on the function
+  * - The name of ioctl command (add a link to API Reference)
+    - Brief description on the ioctl command
 
-The `doxygen.conf` is not used to build documentation.
-But it can be used to test DocBlocks in source codes.
-*(This operation requires only `doxygen`)*
+Extended Control IDs
+^^^^^^^^^^^^^^^^^^^^
 
-In ``Documentation`` directory:
+If there are extended control IDs defined by LGE, provide a list as follows. Exclude if there are none.
 
-.. code-block:: bash
+.. list-table:: 
+  :header-rows: 1
 
-  $ doxygen doxygen.conf > /dev/null
+  * - Function
+    - Description
+  * - The name of Control ID (add a link to API Reference)
+    - Brief description on the function
 
-will prints all warnings and errors.
+.. warning::
 
-in ``html`` directory ``html/index.html`` is generated in doxygen output.
+  If it is a Linux standard header, write the API List section as follows:
 
+  **Data Types**
 
-Documentation Templates
------------------------
+  Detailed description of each data type and a link to the Linux standard data type.
 
-BSP Implementation Guide
-^^^^^^^^^^^^^^^^^^^^^^^^^
-BSP Implementation Guide 문서에 필수로 필요한 항목에 대하여 IEEE Stdandard-830 문서를 참고하여 작성되었다.
+  **Functions**
 
-모듈 rst 파일 포맷 및 가이드
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-모듈의 BSP Implementation Guide 메인 페이지에 대한 내용을 작성하는 포맷 및 가이드이다.
+  Detailed description of each API function and a link to the Linux standard function.
 
-.. seealso::
+Implementation Details
+======================
 
-  참고 :doc:`http://10.157.92.177:8000/linuxtv/master/latest_html/v4l2/scaler.html#`
+Provides detailed information related to module implementation, including guidelines and recommendations for enhancing implementation clarity and consistency, suggestions, implementation considerations, and example code if available.
 
-.. code-block:: rst
+- For the main functions of the module, describe any design peculiarities or considerations to be taken into account during implementation.
 
-    Module Name
-    ===========
+  .. panels::
+    :column: col-lg-12 p-2
 
-    History
-    -------
+    Example
+    ^^^^^^^^
 
-    ======= ========== ================= =======
-    Version Date       Changed by        Comment
-    ======= ========== ================= =======
-    1.8.0   2022-03-29 seonghoon1128.do_ new kernel event CID : V4L2_CID_EXT_VSC_EVENT_KERNEL
-    0.0.0   ...        ...               ...
-    ======= ========== ================= =======
+    The OOO module includes functions to ~~ for supported devices:
 
-    Overall Description
-    -------------------
-    Write overall description.
+    - The OOO function ~~
+    - The OOO function ~~
 
-    Terminology and Definitions
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    Definitions of terms and abbreviations used in this document are as follows.
+- For the main functions of the module, describe any design peculiarities or considerations to be taken into account during implementation.
+  - If there is a specific code implementation sequence, explain it with diagrams.
+  - If there is an implementation checklist, describe it.
 
-    ============= ============
-    Definition    Description
-    ============= ============
-    VFE           Video front end
-    VSC           Video scaler control
-    VDO           Video decoder output
-    AVD           Analog video decoder
-    ADC           Analog digital converter
-    Dest          Destination
-    ...           ....
-    ...           ....
-    ============= ============
+  .. panels::
+    :column: col-lg-12 p-2
 
-    System Context
-    ^^^^^^^^^^^^^^
-    BSP 모듈과 플랫폼 서비스 또는 라이브러리의 인터페이스에 관한 동작 등에 관계를 나타낼 수 있는 System Context Diagram과 Diagram의 설명을 작성한다.
-    Communication Diagram이 추천되나 다른 양식의 Diagram으로 작성될 수 있다.
+    Example
+    ^^^^^^^^
 
-    Performance Requirements
-    ^^^^^^^^^^^^^^^^^^^^^^^^
-    소프트웨어 또는 소프트웨어와 사람의 상호작용에 대하여 수치화된 정적/동적 요구사항이 명시되어야 한다.
-    요구 사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
+    To implement Dynamic Aspect Ratio, complete these checklist:
 
-    Design Constraints
-    ^^^^^^^^^^^^^^^^^^
-    다른 표준, 소프트웨어, 하드웨어 한계, 모듈의 특성 등에 의해 부과될 수 있는 제약사항을 명시해야 한다.
-    요구 사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
+      - Implement the interface that directly receives resolution, AFD, and PAR information from the VDEC driver.
+      - Implement :c:macro:`V4L2_CID_EXT_VSC_ASPECTRATIO_POLICY` that receives Aspect Ratio UI and Policy from the videooutputd service
+      - Implement export_vsc_adapter. Aspect Ratio Library use export_vsc_adapter to register the callback of ``aspectratiodrvCalculateWindow()``.
+      - When the Adaptive Stream flag is 2 (Dynamic Aspect Ratio Mode), calculate the aspect ratio from ``aspectratiodrvCalculateWindow()`` registered in export_vsc_adapter and scaled in units of frames.
+      - When scaling aspect ratio by changing resolution, AFD, and PAR, it should be applied seamlessly.
 
-    Functional Requirements
-    -----------------------
-    The data types and functions used in this module are as follows.
+- If there are example codes for the module/driver, provide them.
 
-    Data Types
-    ^^^^^^^^^^
-
-    * Parameter에 대한 data type 을 나열한다.
-    * No data types
-    * :c:type:`acas_ext_control`
-
-    Function Calls
-    ^^^^^^^^^^^^^^
-
-    * Function에 대한 List를 작성한다.
-    * no function calls
-    * :c:macro:`ACAS_EXT_S_CTL`
-
-
-.. note::
-  If you want to add "Function Calls", follow the method below.
-
-  Case 1 : Function
-
-  .. code-block:: rst
-
-    Function Calls
-    --------------
-    ex :  * :cpp:func:`MyClass::getHardwareFeatures`
-    ex :  * :cpp:func:`MyClass::addRngEntropy`
-    ex :  * :cpp:func:`MyClass::generateKey`
-
-  Case 2 : Class
-
-  .. code-block:: rst
-
-    Function Calls
-    --------------
-    ex : * :cpp:class:`MyClass`
-
-  Case 3 : Class Function
-
-  .. code-block:: rst
-
-    Function Calls
-    --------------
-    ex : * :cpp:func:`MyClass::getHardwareFeatures`
-    ex : * :cpp:func:`MyClass::addRngEntropy`
-    ex : * :cpp:func:`MyClass::generateKey`
-  
-  You have to write full name of class or function.
-  In the following cases,
-
-  .. code-block:: rst
-
-    class keymaster::OpteeKeymaster3Device
-    
-  You have to write "keymaster::OpteeKeymaster3Device", "keymaster::OpteeKeymaster3Device::function" not "OpteeKeymaster3Device", "OpteeKeymaster3Device::function"
-
-
-API function 요구사항 헤더 파일 포맷 및 작성 가이드
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-모듈의 각 API function에 대한 요구사항을 작성하는 포맷 및 가이드이다.
-
-.. seealso::
-
-  참고 :doc:`http://10.157.92.177:8000/linuxtv/master/latest_html/api/define_v4l2-controls-ext_8h_1a736a4e5b3fe4087edb9575898fcc6995.html#c.V4L2_CID_EXT_VSC_ORBIT_WINDOW`
-
-(based on v4l2 docs)
-
-.. code-block:: rst
-
-  /**
-   * @brief Connects Video Front End (간단한 설명을 작성한다.)
-   *
-   * @rst
-   * Functional Requirements
-   *   API interface에 대한 요구사항을 작성한다.
-   *
-   * Responses to abnormal situations, including
-   *   Abnormal situations, negative 조건에서의 BSP 예외처리에 대해 작성한다.
-   *
-   * Performance Requirements
-   *   해당 Interface에 관련된 Performance Requirements 를 작성한다.
-   *   요구사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
-   *
-   * Constraints
-   *   다음과 같이 개발자의 선택을 제한할 모든 항목에 관한 일반적인 설명을 제공해야 한다.
-   *   Regulatory plocies
-   *   Hardware limitations (e.g., signal timing requirements)
-   *   Interfaces to other applications
-   *   Parallel operation
-   *   Audit functions
-   *   Control functions
-   *   Higher-order language requirements
-   *   Signal handshake protocols(e.g., XON-XOFF, ACK-NACK)
-   *   Reliability requirements
-   *   Criticality of the application
-   *   Safety and security considerations
-   *   요구사항이 없을 경우 특별한 요구사항이 없다고 작성한다.
-   *
-   * Functions & Parameters
-   *   .. code-block:: cpp
-   *
-   *     // function or command 나열
-   *
-   *     // parameter 나열
-   *
-   * Return Value
-   *   Return Value에 관한 설명을 작성한다.
-   *
-   * Example
-   *   .. code-block:: cpp
-   *
-   *     // 유저의 API function 사용 샘플코드를 작성한다.
-   *
-   * Remark (optional)
-   *   description
-   *
-   * Seealso (optional)
-   *   description
-   * @endrst
-   */
+Status Log (Optional)
+=====================
 
-미사용 API 예외처리
-^^^^^^^^^^^^^^^^^^^
-미사용 API의 경우 module rst 문서와 module header, 두군데를 수정하여야 한다.
-module rst 문서는 Documentation 아래에 있다.
-Function Calls 아래에 아래와 같이 미사용 API에 대한 내용을 작성한다.
-사용하는 함수들 아래쪽에 deprecated를 사용하여 작성해 준다.
+Provides guidance on logging the status of the module (applicable to modules that support a Status Log file).
 
-.. code::
-   
-   * :cpp:func:`HAL_PVR_FinalizeCrypto`
-   * :cpp:func:`HAL_PVR_CRYPTO_SetEncryptionState`
-   * :cpp:func:`HAL_PVR_CRYPTO_SetCipherAlgorithm`
-   * :cpp:func:`HAL_PVR_CRYPTO_GetSecureKey`
-   * :cpp:func:`HAL_PVR_CRYPTO_SetCipherKeys`
-   * :cpp:func:`HAL_PVR_CRYPTO_GetCipherKeys`
-   * :cpp:func:`HAL_PVR_CRYPTO_EncryptData`
-   * :cpp:func:`HAL_PVR_CRYPTO_DecryptData`
-   .. deprecated:: webOS6.0
-      it will be removed from webOS 24
+  .. panels::
+    :column: col-lg-12 p-2
 
-      :cpp:func:`HAL_PVR_InitializeCrypto` //except from socts, deprecated api
+    Example
+    ^^^^^^^^
 
+    To examine the status and operation of the OOO module, you can use the status log file, a text-based log file. For more information, refer to Status Log File.
 
-deprecated 뒤는 이 함수가 webOS 어느버전 부터 사용되지 않았는지를 작성한다.
-스핑크스 문법 때문에 webOS6.0처럼 webOS와 숫자를 붙여 사용해야 한다.
-그리고 아래와 같이 webOS 어떤 버전에서 삭제될 예정인지 작성해야 한다.
-it will be removed from (webOS 버전)
 
+Debugging (Optional)
+********************
 
-header는 아래와 같이 기존 주석에 @deprecated를 추가 후 작성하면 된다.
+If there are any tips for debugging the implemented module, describe them here.
 
-.. code::
+Testing
+*******
 
-   /**
-   * @brief Initialize PVR Crypto
-   *
-   * @deprecated
-   *  Deprecated since webOS 5.0, it will be removed from webOS 24
+Provides guidance on SoCTS testing (applicable to modules that support SoCTS Producer).
 
+  .. panels::
+    :column: col-lg-12 p-2
 
-포맷은 Deprecated since (webOS버전), it will be removed from (webOS 버전) 이다.
+    Example
 
 
-Status File
-^^^^^^^^^^^
+    To test the implementation of the VSC driver, webOS provides SoCTS (SoC Test Suite) tests. The SoCTS checks the basic operation of the VSC driver and verifies the kernel event operation for the module by using a test execution file. For details, see OOO Unit Test in SoCTS Unit Test Specification.
 
-.. seealso::
+References
+**********
 
-  For example :doc:`/status-files/scaler-status`, :doc:`/status-files/aenc-status`
+Provides a reference list of relevant technical standards or specifications that may be helpful for implementing the module.
 
-(Not yet)
+  .. panels::
+    :column: col-lg-12 p-2
 
-How to add attachemnts
-^^^^^^^^^^^^^^^^^^^^^^
-추가 정보를 위하여 file을 첨부할 대는 아래와 같은 형식을 사용한다.
+    Example
+    ^^^^^^^
 
-.. code::
+    For additional information on related standards or technical topics, refer to:
 
-  :download:`example <../example.pdf>`
+    - Linux Documentation 
+    - Wiki
+    - ...
 
-example은 문서에 표시될 이름이고 <> 안은 현재 작성중인 rst 파일과 첨부할 파일의 상대 경로 및 이름이다.
-첨부파일은 현재 작성하고 있는 file 과 같은 depth 에 두는 것을 추천한다.
-html 로 볼 경우 위의 tag를 누르면 바로 파일이 다운로드 가능하다.
-하지만 PDF로 변환할 경우 해당 download tag는 동작하지 않는다. BSP 업체 담당자들의 경우 PDF로 볼 확률이
-높기 때문에 이에 대한 가이드가 추가로 필요하다.
+.. warning::
 
-따라서 첨부파일이 필요할 경우 아래와 같이 작성한다.
-
-.. code::
-
-  if you see this page in HTML, please click below tag.
-    example
-
-  if you see this page in PDF, please check the example.pdf in attachment tab of Adobe Reader
-  (View > Show/Hide > Navigation Panes > Attachments)
-
-
-API exception for SoCTS
-^^^^^^^^^^^^^^^^^^^^^^^
-
-SoCTS Coverage(http://swdev.lge.com/coverage.html)에서는 header에 선언된 API 중 얼마나 SoCTS에 구현
-되었는가를 표시 하고 있다.
-이런 저런 사정에 의하여 SoCTS로의 구현이 불가능할 경우 Coverage에서 미구현된 API로 집계되는 것을 피
-해야 한다.
-|  그것을 위한 예외처리 방법을 아래에 설명한다.
-
-규칙은 Function Calls 함수 이름 옆에 '//except from socts, TAS schedule:년.월' 을 적는 것이다.
-|  TAS schedule은 파트의 TAS test 구현 일정을 말한다.
-|  년월은 2022.08과 같이 년은 4개, 월은 2개의 숫자기한다.
-
-이미 tas 구현이 완료되었거나 기타 사유등으로 socts test를 구현하지 않은 경우는
-| '//except from socts, it can be only verified by TAS' 와 같이 '//except from socts, 사유' 를
-| 영어로 작성하면 된다.
-
-.. code-block:: rst
-
-  API_NAME //except from socts, TAS schedule:2022.08
-
-실제 rst 파일의 예시이다.
-
-.. code-block:: rst
-
-  Function Calls
-  --------------
-
-  * Extended V4L2 Control ids
-
-    * :c:macro:`V4L2_CID_EXT_HDMI_HPD_LOW_DURATION_DC_ON`
-    * :c:macro:`V4L2_CID_EXT_HDMI_HDCP_REPEATER_TOPOLOGY` //except from socts, TAS schedule:2022.08
-    * :c:macro:`V4L2_CID_EXT_HDMI_HDCP_REPEATER_STREAM_MANAGE`  //except from socts, TAS schedule:2022.08
-
-위의 코드가 build가 완료되면 하기와 같이 html에서 표현된다.
-
-.. image:: resources/exception_socts.PNG
-
+  | For Linux Documentation, provides a direct link to the page where the information can be referenced, rather than the home page.
+  | For internal resources, provides links accessible to SoC vendors.
