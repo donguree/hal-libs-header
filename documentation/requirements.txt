@@ -4,3 +4,4 @@ breathe==4.33.*
 exhale==0.3.*
 docutils==0.14
 -e git+https://github.com/lethee/sphinx-git@hide_merge_commit#egg=sphinx-git
+sphinx-panels==0.6.0
