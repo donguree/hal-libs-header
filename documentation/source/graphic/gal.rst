@@ -72,7 +72,7 @@ Architecture
 
 This section describes the architecture for GAL.
 
-.. image:: resources/gal_system_context.png
+.. image:: ../resources/gal_system_context.png
   :width: 100%
   :alt: System Context Diagram
 

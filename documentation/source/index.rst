@@ -40,7 +40,7 @@ Contents
   :maxdepth: 2
   :numbered:
   
-  gal
+  graphic
   photo
   pvr
   security
