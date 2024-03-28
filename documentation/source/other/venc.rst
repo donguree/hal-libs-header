@@ -34,7 +34,7 @@ ES                  Elementary stream
 NTSC	            National Television System comity, color encoding method.
 PAL	            Phase Alternation Line, it is color encoding method.
 PTS                 Presentation time stamp. Used in the AV sync control logic.
-PVR                 Personal Video Recorder.    
+PVR                 Personal Video Recorder.
 SECAM	            Séquentiel de couleu mémoire, analog color encoding method.
 SENC                Muxer. Generate TS by muxing video stream data and other data received from VENC.
 STC                 System time clock. Used in the AV sync control logic.
@@ -68,8 +68,8 @@ General Description
 
 **webOS TV specific**
 
-======================= ===================== ===========   
-Color-System            Resolution            VFreq       
+======================= ===================== ===========
+Color-System            Resolution            VFreq
 ======================= ===================== ===========
 NTSC-M                  704 x 480             59.94
 PAL                     704 x 576             50
@@ -77,7 +77,7 @@ SECAM                   704 x 576             50
 NTSC.4.43               704 x 480             59.94
 PAL-M                   704 x 480             59.94
 PAL-Nc                  704 x 576             50
-PAL-60                  704 x 480             59.94        
+PAL-60                  704 x 480             59.94
 ======================= ===================== ===========
 
 
@@ -186,10 +186,10 @@ Functional Requirements
 |       - GOP Length: The GOP length parameter is instrumental in determining the number of frames encompassed within a single GOP.
 |       - IDR Interval: The IDR interval parameter explicitly specifies the occurrence of an IDR frame within the GOP. This parameter is essential for dictating the pattern and frequency of IDR frames in the video encoding process.
 
-| These parameters are pivotal in optimizing video encoding settings, ensuring efficient video compression and maintaining high-quality video playback. 
+| These parameters are pivotal in optimizing video encoding settings, ensuring efficient video compression and maintaining high-quality video playback.
 
 | **FrameRate**
-    
+
 | Frame rate, quantified in frames per second (fps), signifies the count of distinct frames or images that are exhibited during one second of video playback. As a fundamental aspect of video production, encoding, and playback, frame rate holds significant importance. Predominantly, a higher frame rate is associated with the smoother portrayal of motion in video content.
 
 -  Applications and Implications of High Frame Rate:
@@ -205,9 +205,9 @@ Functional Requirements
 
 | The Video Scaler (VSC) driver is based on the V4L2 framework and is responsible for performing video signal processing, video scaling, and video capture by controlling the Scaler IP. The VSC driver receives the video input data from VDEC/HDMI/AVD, scales it to fit the main/sub window, and then transmits the video output data to other modules to display on the TV screen.
 
-| Scalar module processes,scales,captures video signal after receiving a video selection from the VFE(video front end).The scalar modules's primary duties include receiving the chosen video input from VFE, showing the video in the main/sub window and sending the output to PQ/FRC. 
+| Scalar module processes,scales,captures video signal after receiving a video selection from the VFE(video front end).The scalar modules's primary duties include receiving the chosen video input from VFE, showing the video in the main/sub window and sending the output to PQ/FRC.
 
-| Features of VSC : 
+| Features of VSC :
 
 - Video input connection:
         - The VSC driver is connected to VDEC/HDMI/AVD, which corresponds to the input. When the video frames and related information are sent from VDEC/HDMI/AVD to VSC, the VSC driver processes these video frames and related information.
@@ -232,7 +232,7 @@ Functional Requirements
 
 | **Secure VENC**
 
-| Purpose: 
+| Purpose:
 - Secure VENC is utilized for video encoding, specifically designed to store data in secure memory. This feature enhances the security of encoded video data.
 
 | Key Components:
@@ -267,8 +267,8 @@ Functional Requirements
         - Memory and Start: Invoke HAL_VENC_SetParam(ch, VENC_INFO_SECURE, 0) to request secure memory usage for the encoder path, followed by HAL_VENC_Start.
         - Address Handling: The driver returns an inaccessible address to the user (‘UINT8 *pDataPhysical’ in HAL_VENC_MSG_TYPE_T). Direct user access should trigger an error.
         - Data Encryption: The user calls HAL_HDCP2_Data_Encrypt with parameters including the user-allocated REE address and the driver-provided inaccessible address.
-        - Data Filling: The driver fills the REE buffer with encrypted data.        
-      
+        - Data Filling: The driver fills the REE buffer with encrypted data.
+
 
 Quality and Constraints
 =======================
@@ -313,7 +313,7 @@ Implementation
 File Location
 =============
 
-| The VENC interfaces are defined in the `hal_venc.h header file <http://10.157.97.248:8000/bsp_document/master/latest_html/api/file_full_build_source_part3_hal-libs-header_hal_inc_hal_venc.h.html#file-full-build-source-part3-hal-libs-header-hal-inc-hal-venc-h>`_, which can be obtained from https://swfarmhub.lge.com/. 
+| The VENC interfaces are defined in the `hal_venc.h header file <http://10.157.97.248:8000/bsp_document/master/latest_html/api/file_full_build_source_part3_hal-libs-header_hal_inc_hal_venc.h.html#file-full-build-source-part3-hal-libs-header-hal-inc-hal-venc-h>`_, which can be obtained from https://swfarmhub.lge.com/.
 
 - Git repository: `bsp/ref/hal-libs-header <https://wall.lge.com/admin/repos/bsp/ref/hal-libs-header,general>`_.
 
@@ -462,7 +462,7 @@ Currently Main profile option is used for Analog recording
 					VENC_PROFILE_HIGH
 				} VENC_PROFILE_T;
 
-		
+
 VENC_PROFILELEVEL_T
 -------------------
 This enumeration contains profile level of encoded video ES. (See VENC_INFO_PROFILELEVEL)
@@ -553,7 +553,7 @@ This enum information means the information type used by the HAL_VENC_SetParam()
 					VENC_INFO_NUM
 				} VENC_INFO_T;
 
-		
+
 Function Calls
 ==============
 
@@ -578,7 +578,7 @@ Function      		       		         Descrption
 VSC API'S
 ---------
 
-we can load the encoder in two ways 
+we can load the encoder in two ways
 
 1.VSC with V4L2
 
@@ -589,20 +589,20 @@ we can load the encoder in two ways
 ================================================ ===========================================================================================================================================
 Function                                         Descrption
 ================================================ ===========================================================================================================================================
-:cpp:func:`v4l2_open_for_vsc`                    opens the video file that needs to be scaled
-:cpp:func:`v4l2_set_for_vsc_connect_info`        Set the video's input and output information
-:cpp:func:`v4l2_set_for_vsc_win_region`          Set video output
-:cpp:func:`V4L2_EXT_VSC_DEST_VENC`               close the VSC connection	
+:cpp:func:`v4l2_open_for_vsc`                    except from socts, opens the video file that needs to be scaled
+:cpp:func:`v4l2_set_for_vsc_connect_info`        except from socts, Set the video's input and output information
+:cpp:func:`v4l2_set_for_vsc_win_region`          except from socts, Set video output
+:cpp:func:`V4L2_EXT_VSC_DEST_VENC`               close the VSC connection
 ================================================ ===========================================================================================================================================
 
-| Open and set the VT with V4L2 framework by that the VENC encoder will be started 
+| Open and set the VT with V4L2 framework by that the VENC encoder will be started
 
 ================================================ ===========================================================================================================================================
 Function                                         Descrption
 ================================================ ===========================================================================================================================================
-:cpp:func:`v4l2_open_for_vt`                     Opens the captured video file received from video front end.
-:cpp:func:`v4l2_set_for_vt_plane_prop`           Get plane information.
-:cpp:func:`v4l2_close_for_vt`                    close the VT connection.
+:cpp:func:`v4l2_open_for_vt`                     except from socts, Opens the captured video file received from video front end.
+:cpp:func:`v4l2_set_for_vt_plane_prop`           except from socts, Get plane information.
+:cpp:func:`v4l2_close_for_vt`                    except from socts, close the VT connection.
 ================================================ ===========================================================================================================================================
 
 
@@ -725,7 +725,7 @@ Function Description
 |        - Cleans up the recording setup.
 |        - Sets the encoder status to VENC_STATUS_NOTINIT indicating the encoder is no longer initialized.
 |        - Unlocks the encoder and returns the operation status.
-		
+
 | This function is for ensuring that the video encoder is properly shut down, resources are released, and the system is left in a clean state, ready for the next encoding session or system shutdown.
 
 | **API_VENC_Connect()**
@@ -768,7 +768,7 @@ Function Description
 |        - Unlocks the encoder.
 |        - Logs the successful setting of the input.
 |        - The function ends and returns OK to indicate success.
-		
+
 | This function primarily deals with configuring the input type for the video encoder, ensuring that the encoder is correctly set up to process the desired type of video input. The function safely updates the encoder's configuration.
 
 .. figure:: ../resources/VENC_CONNECT.png
@@ -800,7 +800,7 @@ Function Description
 |            - Some parameters are marked as "READ_ONLY" and are not settable.
 |        - Unlocks the encoder after setting the parameters.
 |        - Logs the start and end of the function execution.
-		
+
 | Debug Menu Verification and Function Invocation:
 |       The SENC_Debug_Menu() function initiates the process by verifying if the debug menu corresponds to VENC=0x31. If so, it proceeds to call DIL_VENC_DebugMenu(). Within the debugMenu() function, driver functions are called based on the input value, with 0x31 StartTestEnc being a specific case.
 |       The _DIL_Debug_VENC_StartTest() function is then invoked. This function is responsible for commencing the video encoding process upon receiving string input. It executes a series of functions including DIL_VENC_Open(), DIL_VENC_Connect(), DIL_VENC_RegisterEncoderCallback(), and DIL_VENC_SetParam() with various parameters such as codec, width, height, frame rate, bitrate, etc.
@@ -852,7 +852,7 @@ Function Description
 |        - For each case, such as frame rate, width, height, etc., it retrieves the corresponding value from the encoder handle or from other functions (KADP_VENC_RecordGetInfo) and stores it in the location pointed to by pValue.
 |        - Certain parameters are marked as "WRITE_ONLY" and cannot be retrieved.
 |        - Returns the status of the operation.
-		
+
 | This function is vital for obtaining the current configuration or state of the video encoder, allowing for effective monitoring and management of the encoder settings. The implementation ensures that the requested information is safely and correctly retrieved based on the encoder's current state and configuration.
 
 | **API_VENC_Start()**
@@ -933,7 +933,7 @@ Function Description
 
 | Return Value:
 |        - Returns DTV_STATUS_T, indicating the success (OK) or failure (NOT_OK) of the operation.
-		
+
 
 | This function plays a  role in managing the video encoder's lifecycle, ensuring that the encoding process is halted cleanly and the system is left in a consistent state. The implementation focuses on safely stopping the encoder and updating its status, which is critical for the overall reliability of the encoding system.
 
@@ -960,7 +960,7 @@ Function Description
 |        - Depending on the support for device async operations (SUPPORT_VENC_DEVICE_FASYNC_FOPS), it calls VENC_RegEncoderCallback with arguments tailored to whether the encoder handle needs to be passed or not.
 |        - Checks the return status of the callback registration function. If the registration fails, it returns NOT_OK.
 |        - Logs the end of the function and returns OK if the registration was successful.
-		
+
 | This function is key in enabling asynchronous communication between the video encoder and the application, allowing for efficient handling of encoded data or encoder notifications without blocking the main application flow.
 
 | **HAL_VENC_CopyData()**
@@ -991,11 +991,11 @@ Function Description
 |        - Calls VENC_CopyVideoESFrame to perform the data copy.
 |        - Updates the encoder handle's frame count and bitrate statistics.
         - Returns the result of the copy operation.
-		
+
 | This function plays a  role in managing encoded video data, ensuring that it is properly transferred and that relevant encoding statistics are maintained accurately. The operation includes both the actual data transfer and the statistical update, which are essential for effective video encoding and streaming systems.
 
 | **_VENC_UpdateFramerate()**
-    
+
 | Purpose:
 |        - The _VENC_UpdateFramerate function is designed to update the frame rate and scan type information in the video encoder's handle based on the current source type and frame rate.
 
@@ -1029,7 +1029,7 @@ Function Description
 
 | Return Value:
 |        - Returns BOOLEAN. It returns TRUE if the encoder is recording, and FALSE if not or if the encoder is not initialized.
-		
+
 | This function provides a simple yet effective way to check the recording status of the video encoder. It is particularly useful in systems where the state of the encoder needs to be monitored or checked before performing certain operations, such as stopping the encoder or changing its settings. The implementation is straightforward and relies on the global status variable _gVencStatus to determine the encoder's current state.
 
 | **HAL_VENC_GetThumbnail()**
@@ -1052,29 +1052,29 @@ Function Description
 
 | Return Value:
 |        - Returns DTV_STATUS_T, indicating the success (OK) or failure (NOT_OK) of the operation.
-		
+
 
 | This function is  for obtaining a visual representation of the video content being processed by the encoder. It can be especially useful in user interfaces or systems where a quick preview of the video stream is needed without processing or displaying the entire video frame. The implementation ensures that the thumbnail is fetched correctly and the buffer parameters are validated to avoid errors.
 
 | **v4l2_init_for_vsc**
 
-| API : 
+| API :
 |       - v4l2_init_for_vsc(enum v4l2_ext_vsc_input_src input_src, gint vsc_out_width, gint vsc_out_height)
 
-| parameters : 
+| parameters :
 |       - enum v4l2_ext_vsc_input_src input_src
 |       - gint vsc_out_width
 |       - gint vsc_out_height
 
-| return value : 
+| return value :
 |       - return boolean.
 
-| Function call : 
+| Function call :
 |       - v4l2_open_for_vsc()
 |       - v4l2_set_for_vsc_connect_info(input_src)
 |       - v4l2_set_for_vsc_win_region(vsc_out_width, vsc_out_height)
 
-| explanation : 
+| explanation :
 |       - initialize the VSC module with v4l2 by which we can scale the video according to our purpose.
 
 | This API calls the following functions to perform scaling operation using v4l2 framework .
@@ -1083,86 +1083,86 @@ Function Description
 
 | **v4l2_open_for_vsc**
 
-| API : 
+| API :
 |       - v4l2_open_for_vsc(void)
 
-| Parameters : 
+| Parameters :
 |       - none
 
-| Return value : 
+| Return value :
 |       - return boolean
 
-| Explanation : 
+| Explanation :
 |       - This API helps us in opening the file which is then used for further video scaling purpose. The video file is located inside dev folder(dev/video31) which is specified as V4L2_EXT_DEV_PATH_SCALER1 macro and the O-RDWR it opens the file in read and write mode.
 
 .. figure:: ../resources/VSC_V4L2_OPEN.png
 
 | **v4l2_set_for_vsc_connect_info**
 
-| API name :  
+| API name :
 |       - v4l2_set_for_vsc_connect_info(enum v4l2_ext_vsc_input_src vsc_input_src)
 
-| Parameters : 
-|       - connection - enum v4l2_ext_vsc_input_src 
+| Parameters :
+|       - connection - enum v4l2_ext_vsc_input_src
 |       - disconnection - V4L2_EXT_VSC_DEST_VENC
 
-| Return value : 
+| Return value :
 |       - Return boolean(connected or not)
 
 | Explanation :
-|       - This API helps us in connecting VSC module with V4L2 framework. Once the connection is done VFE(ATV video front end) module will be set as input and scalar will be set as output. Black image should be displayed when input type is V4L2_EXT_VSC_INPUT_SRC_NONE and output type is V4L2_EXT_VSC_DEST_NONE. 
+|       - This API helps us in connecting VSC module with V4L2 framework. Once the connection is done VFE(ATV video front end) module will be set as input and scalar will be set as output. Black image should be displayed when input type is V4L2_EXT_VSC_INPUT_SRC_NONE and output type is V4L2_EXT_VSC_DEST_NONE.
 |       - To adjust the subscaler by setting v4l2 we need to pass the v4l2_ext_vsc_connect_info ( V4L2_EXT_VSC_INPUT_SRC_FB ) following parameter to this API.
 |       - SRC_FB means source feedback.
-|       - The ioctl() system call helps us to perform various harward controllling operations like, 
+|       - The ioctl() system call helps us to perform various harward controllling operations like,
 |       - Volume control for an audio device
 |       - display configurtation for a video device
 |       - reading device registers
-|       - This structured information is passed on to the v4l2_ext_Set() function whether its connecting or not which alerts the hardware device suing ioctl commands. 
+|       - This structured information is passed on to the v4l2_ext_Set() function whether its connecting or not which alerts the hardware device suing ioctl commands.
 
 .. figure:: ../resources/VSC_V4L2_CONNECT.png
 
 | **v4l2_set_for_vsc_win_region**
 
-| API : 
+| API :
 |       - v4l2_set_for_vsc_win_region(gint vsc_out_width, gint vsc_out_height)
 
-| Parameters : 
-|       - gint vsc_out_width , gint vsc_out_height 
+| Parameters :
+|       - gint vsc_out_width , gint vsc_out_height
 
-| return value : 
-|       - return boolean 
+| return value :
+|       - return boolean
 
-| explanation : 
-|       - This API allows to scale the video inside the main / sub scaler window by cropping the captured video in specified size.  
+| explanation :
+|       - This API allows to scale the video inside the main / sub scaler window by cropping the captured video in specified size.
 
 .. figure:: ../resources/VSC_V4L2_SET.png
 
 | **v4l2_deinit_for_vsc**
 
-| API : 
+| API :
 |       - v4l2_deinit_for_vsc(void)
 
-| parameter : 
-|       - none 
+| parameter :
+|       - none
 
-| Return : 
+| Return :
 |       - return boolean
 
-| Function call : 
+| Function call :
 |       - v4l2_set_for_vsc_connect_info(NONE))
 |       - v4l2_close_for_vsc()
 
-| Enum : 
+| Enum :
 |       - V4L2_EXT_VSC_DEST_VENC =  = 0
 
-| Explanation : 
+| Explanation :
 |       - When we pass None value inside vsc_connect_info() the source will be vsc_input_src_none and the output will be V4l2_EXT_VSC_DEST_NONE which produces a black image. then the v4l2_close_for_vsc causes disconnection between v4l2 and VSC.
 
 .. figure:: ../resources/VSC_V4L2_DEINIT.png
 
 | **v4l2_init_for_vt**
 
-| API : 
+| API :
 |       - v4l2_init_for_vt(enum v4l2_ext_capture_location location, gint vt_out_width, gint vt_out_height)
 
 | parameters :
@@ -1170,27 +1170,27 @@ Function Description
 |       - gint vt_out_width
 |       - gint vt_out_height
 
-| Return value : 
+| Return value :
 |       - Return boolean.
 
 | Function calls :
 |       - v4l2_open_for_vt()
 |       - v4l2_set_for_vt_plane_prop()
 
-| Explanation : 
+| Explanation :
 |       - initialize the VT driver by setting with V4l2 framework.
 
 .. figure:: ../resources/VSC_VT_INIT.png
 
 | **v4l2_open_for_vt**
 
-| API : 
+| API :
 |       - v4l2_open_for_vt(void)
 
-| Parameter : 
+| Parameter :
 |       - None
 
-| Return value : 
+| Return value :
 |       - return booolean
 
 | Explanation :
@@ -1202,7 +1202,7 @@ Function Description
 
 | **v4l2_set_for_vt_plane_prop**
 
-| API : 
+| API :
 |       - v4l2_set_for_vt_plane_prop(enum v4l2_ext_capture_location location, gint vt_out_width, gint vt_out_height)
 
 | parameters :
@@ -1210,26 +1210,26 @@ Function Description
 |       - gint vt_out_width
 |       - gint vt_out_height
 
-| Return value : 
-|       - return boolean value 
+| Return value :
+|       - return boolean value
 
 | explanation :
-|       - we will create a structure  v4l2_ext_capture_plane_prop which holds information about how to capture the video and how to display the information. 
- 
+|       - we will create a structure  v4l2_ext_capture_plane_prop which holds information about how to capture the video and how to display the information.
+
 .. figure:: ../resources/VSC_VT_SET.png
 
 | **v4l2_deinit_for_vsc**
 
-| API : 
+| API :
 |       - v4l2_deinit_for_vsc(void)
 
-| Parameter : 
+| Parameter :
 |       - none
 
-| return : 
-|       - return boolean 
+| return :
+|       - return boolean
 
-| Explanation : 
+| Explanation :
 |       - deinitialize the connection by closing the file path. when we pass None v
 
 .. figure:: ../resources/VSC_VT_CLOSE.png
@@ -1237,39 +1237,39 @@ Function Description
 Sequence Diagram
 ----------------
 
-| The following shows the sequence diagram for when we start recording the data, VENC module works according to below mentioned flow. 
+| The following shows the sequence diagram for when we start recording the data, VENC module works according to below mentioned flow.
 
 .. figure:: ../resources/sequence_diagram.png
 
 **Recording start -> Recording progress -> HAL function call sequence according to recording end is as follows.**
 
   .. code-block:: cpp
-  
+
 		HAL_VENC_Open();
 		HAL_VENC_Connect(port, VENC_INPUT_MAIN);
-		
+
 		HAL_VENC_SetParam(port, VENC_INFO_CODEC, VENC_CODEC_H264);
 		HAL_VENC_SetParam(port, VENC_INFO_FRAMERATE, VENC_FRAMERATE_AUTO);
 		HAL_VENC_SetParam(port, VENC_INFO_PROFILE, VENC_PROFILE_MAIN);
 		HAL_VENC_SetParam(port, VENC_INFO_PROFILELEVEL, VENC_PROFILELEVEL_40);
 		HAL_VENC_SetParam(port, VENC_INFO_BITRATE, 3562);
 		HAL_VENC_SetParam(port, VENC_INFO_RATECONTROL, VENC_RATECONTROL_VBR);
-		
+
 		HAL_VENC_RegisterEncoderCallback(port, _VENC_DataHandlingCB)
-		
+
 		HAL_VENC_Start(port);
-		
+
 		_VENC_DataHandlingCB() // Callback can be triggered every picture encodings
 		{
 			HAL_VENC_CopyData(0, testBuffer, pMsg->pData, pMsg->dataLen, pMsg->pRStart, pMsg->pREnd);
 			HAL_VENC_ReleaseData(0, pMsg->pData, pMsg->dataLen);
 		}
-		
+
 		HAL_VENC_Stop(port);
 		HAL_VENC_Close();
-		
 
-              
+
+
 Flow Diagram of VENC DebugMenu
 ------------------------------
 
@@ -1317,9 +1317,9 @@ Code Flow of secure VENC
 Testing
 *******
 
-| To test the implementation of the VENC module, webOS TV provides SoCTS (SoC Test Suite) tests. 
+| To test the implementation of the VENC module, webOS TV provides SoCTS (SoC Test Suite) tests.
 
-| The SoCTS checks the basic operations of the VENC module and verifies the kernel event operations for the module by using a test execution file. 
+| The SoCTS checks the basic operations of the VENC module and verifies the kernel event operations for the module by using a test execution file.
 
 | For more information, :doc:`VENC’s SoCTS Unit Test manual </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-venc>`.
 
