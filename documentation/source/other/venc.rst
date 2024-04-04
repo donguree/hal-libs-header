@@ -590,7 +590,7 @@ we can load the encoder in two ways
 Function                                         Descrption
 ================================================ ===========================================================================================================================================
 :cpp:func:`v4l2_open_for_vsc`                    except from socts, opens the video file that needs to be scaled
-:cpp:func:`v4l2_set_for_vsc_connect_info`        except from socts, Set the video's input and output information
+:cpp:func:`v4l2_set_for_vsc_connect_info`        except from socts, Set the video input and output information
 :cpp:func:`v4l2_set_for_vsc_win_region`          except from socts, Set video output
 :cpp:func:`V4L2_EXT_VSC_DEST_VENC`               close the VSC connection
 ================================================ ===========================================================================================================================================
