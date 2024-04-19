@@ -8,6 +8,7 @@ SYS
 .. _jaesung5.lee: jaesung5.lee@lge.com 
 .. _hedaesik.kim: hedaesik.kim@lge.com
 .. _jongyeon.yoon : jongyeon.yoon@lge.com
+.. _hedaesik.kim : hedaesik.kim@lge.com
 
 Introduction
 ************
@@ -166,6 +167,7 @@ Function                                    Description
 :cpp:func:`HAL_SYS_GetPWMCapability`        Get PWM Capability for Fan controller
 :cpp:func:`HAL_SYS_SetPWM`                  Set PWM for Fan controller
 :cpp:func:`HAL_SYS_GetPWMData`              Get PWM Data for Fan controller
+:cpp:func:`HAL_SYS_CheckModelIdStatus`      except from socts, check that modeil id key is exit in RPMB
 =========================================== ===========================================================
 
 
