@@ -9,6 +9,7 @@ Version Date       Changed by     Comment
 ======= ========== ============== =======
 1.0.0   2022.07.28 hedaesik.kim   Add new document
 1.1.0   2023.09.05 hwachin.lee    Add function for google cast
+1.1.1   2024.04.24 hwachin.lee    Add function for google home platform
 ======= ========== ============== =======
 
 Overall Description
@@ -139,3 +140,7 @@ Function Calls
   * :cpp:func:`HAL_CRYPTO_Decrypt`
   * :cpp:func:`HAL_CRYPTO_CastGenerateClientAuth`
   * :cpp:func:`HAL_CRYPTO_CastSignHash`
+  * :cpp:func:`HAL_CRYPTO_GHP_GenerateKeyPair`
+  * :cpp:func:`HAL_CRYPTO_GHP_SignHash`
+  * :cpp:func:`HAL_CRYPTO_GHP_GetDeviceAttestationCertChainPem`
+  * :cpp:func:`HAL_CRYPTO_GHP_SignCsrWithDeviceAttestation`
