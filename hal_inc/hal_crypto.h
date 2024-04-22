@@ -1744,7 +1744,7 @@ DTV_STATUS_T HAL_CRYPTO_CastGenerateClientAuth(char* modelCert, size_t szModelCe
  * Example
  *      .. code-block:: cpp
  *
- *        ret = HAL_CRYPTO_CastSignHash(char* hash, size_t szHash, char* signature, size_t *szSignature)
+ *        ret = HAL_CRYPTO_CastSignHash(hash, szHash, signature, szSignature)
  *        if (ret != OK) {
  *            // Fail to downgrade
  *        }
@@ -1752,6 +1752,180 @@ DTV_STATUS_T HAL_CRYPTO_CastGenerateClientAuth(char* modelCert, size_t szModelCe
  */
 DTV_STATUS_T HAL_CRYPTO_CastSignHash(char* hash, size_t szHash, char* signature, size_t *szSignature);
 
+
+
+ /**
+ * @brief Generate public key and private key for GHP
+ *
+ * @rst
+ * Functional Requirements
+ *      The implementation shall ensure the usage of this key
+ *      shall only be available to the process which loads the GHP Runtime.
+ *      (Another process on the system with access to the wrapped_private_key
+ *      shall not be able to perform signing operations.)
+ *      This key shall only support the implementation of `SignHash()`.
+ *
+ *      When generated with the algorithm specified by
+ *      `kGhpRuntime_AuthKeyAlgorithmEccP256Nist`, the value of `public_key`
+ *      shall represent a NIST ECC P256 public key. The public key (an EC point)
+ *      is in uncompressed octet string form [See "SEC 1: Elliptic Curve
+ *      Cryptography"]. This consists of (0x04 | X | Y), where X and Y are the
+ *      affine coordinates of the point, each 32 bytes long in big-endian format.
+ *
+ *      The above format is what is returned by OpenSSL's `EC_POINT_point2oct`
+ *      when the format is specified as `POINT_CONVERSION_UNCOMPRESSED`.
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      There is no constraints.
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_GHP_GenerateKeyPair(char* wrapped_private_key, size_t *wrapped_private_key_length, char* public_key, size_t *public_key_length)
+ *
+ *      * wrapped_private_key            [OUT] private key
+ *      * wrapped_private_key_length     [OUT] length of private key
+ *      * public_key                     [OUT] public key
+ *      * public_key_length              [OUT] length of public key
+ *
+ * Return Value
+ *     Zero(0) if the gneration is successful, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        ret = HAL_CRYPTO_GHP_GenerateKeyPair(wrapped_private_key, wrapped_private_key_length, public_key, public_key_length)
+ *        if (ret != OK) {
+ *            // Fail to downgrade
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_GHP_GenerateKeyPair(char* wrapped_private_key, size_t *wrapped_private_key_length, char* public_key, size_t *public_key_length);
+
+
+ /**
+ * @brief  Signs the binary sha256 `hash` using `wrapped_private_key` and returns the binary value through `signed_hash`.
+ *
+ * @rst
+ * Functional Requirements
+ *      Shall always be available.
+ *      Shall perform signing in a trusted execution environment or similar construct.
+ *      Shall always call `signed_hash` or cause the process to terminate if a fatal error is occuring.
+ *      Shall support any key generated using GenerateKeyPair() during the current or previous process execution contexts.
+ *      Shall support `kGhpRuntime_AuthSignEcdsaSecp256r1Sha256`
+ *      Shall provide a `signature` through `callback` when signing completes that conforms with IEEE P1363. In this
+ *      format, the ECDSA signature consists of two integers, 'r' and 's', concatenated together. The raw signature
+ *      is a simple byte sequence formed by joining the byte representations of 'r' and 's' and each of the
+ *      representations is 32 bytes.
+ *
+ *      kGhpRuntime_AuthSignRsaPkcs1Sha256 will be deprecated shortly, but is required for the short term to redirect
+ *      signing operations to cast auth with the cast auth result being returned directly.
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      There is no constraints.
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_GHP_SignHash(char* wrapped_private_key, size_t wrapped_private_key_length, char* hash, char* signed_hash, size_t *signed_hash_length)
+ *
+ *      * wrapped_private_key            [OUT] The value associated with a `KeyPair` provided as a result of calling `GenerateKeyPair`.
+ *      * wrapped_private_key_length     [OUT] The length of private key
+ *      * hash                           [OUT] Unencoded binary sha256 hash to be signed.
+ *      * signed_hash                    [OUT] signed_hash to be called when the operation is complete.
+ *      * signed_hash_length             [OUT] The length of signed hash
+ *
+ * Return Value
+ *     Zero(0) if the gneration is successful, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        ret = HAL_CRYPTO_GHP_SignHash(wrapped_private_key, wrapped_private_key_length, hash, signed_hash, signed_hash_length)
+ *        if (ret != OK) {
+ *            // Fail to ghp signhash
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_GHP_SignHash(char* wrapped_private_key, size_t wrapped_private_key_length, char* hash, char* signed_hash, size_t *signed_hash_length);
+
+
+ /**
+ * @brief Get generated client certification for GHP
+ *
+ * @rst
+ * Functional Requirements
+ *      1. Get generated client certification if there is one by google cast
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      There is no constraints.
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_GHP_GetDeviceAttestationCertChainPem( char* client_certificate,size_t *clicertlen )
+ *
+ *      * client_certificate      [OUT] client certification data
+ *      * clicertlen              [OUT] size client certification
+ *
+ * Return Value
+ *     Zero(0) if the gneration is successful, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        ret = HAL_CRYPTO_GHP_GetDeviceAttestationCertChainPem(client_certificate, clicertlen);
+ *        if (ret != OK) {
+ *            // Fail to get certification
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_GHP_GetDeviceAttestationCertChainPem( char* client_certificate,size_t *clicertlen );
+
+
+ /**
+ * @brief Sign hash data to generate signature with private key for GHP
+ *
+ * @rst
+ * Functional Requirements
+ *      Pad the supplied hash using PKCS1 type 1 padding.
+ *      Note: it is assumed that, where necessary for PKCS1v1.5 signatures, the hash value
+ *      will already have the ASN.1 DER prefix that identifies the hash type prepended.
+ *      This API is not responsible for adding such a prefix.
+ *      “RSA Decrypt” the hash, using the device private key. The result is a 256 byte value
+ *      that is returned to the caller.
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      There is no constraints.
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_GHPSignCsrWithDeviceAttestation(char* hash, size_t hashLen, char* signature, size_t *signLen)
+ *
+ *      * hash            [IN] buffer for hash data to be signed
+ *      * hashLen         [IN] size of hash data
+ *      * signature       [OUT] buffer for generated signature
+ *      * signLen         [IN] size of signature buffer
+ *      * signLen         [OUT] size of signature data
+ *
+ * Return Value
+ *     Zero(0) if the gneration is successful, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        ret = HAL_CRYPTO_GHPSignCsrWithDeviceAttestation(hash, hashLen, signature, signLen);
+ *        if (ret != OK) {
+ *            // Fail to signCSR
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_GHP_SignCsrWithDeviceAttestation(char* hash, size_t hashLen, char* signature, size_t *signLen);
 
 #endif      //_HAL_CRYPTO_H_
 
