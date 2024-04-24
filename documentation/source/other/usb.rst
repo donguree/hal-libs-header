@@ -103,8 +103,8 @@ Overall Workflow
 =============================================== ====================================================================================================
 Relationships                                   Responsibility
 =============================================== ====================================================================================================
-Physical device manager -> dile libs            Request DILE USB Super Speed port off api to turn off super speed port operation          
-dile libs -> hal libs                           Request HAL USB Super Speed port off api to turn off super speed port operation									
+Physical device manager -> dile libs            Request DILE USB Super Speed port off api to turn off super speed port operation
+dile libs -> hal libs                           Request HAL USB Super Speed port off api to turn off super speed port operation
 hal libs -> dile libs                           Return operation result(SUCCESS/FAIL)
 dile libs -> Physical device manager            Return operation result(SUCCESS/FAIL)
 =============================================== ====================================================================================================
@@ -117,8 +117,8 @@ dile libs -> Physical device manager            Return operation result(SUCCESS/
 =============================================== ====================================================================================================
 Relationships                                   Responsibility
 =============================================== ====================================================================================================
-Physical device manager -> dile libs            Request DILE USB Super Speed port up api to turn on super speed port operation        
-dile libs -> hal libs                           Request HAL USB Super Speed port up api to turn on super speed port operation							
+Physical device manager -> dile libs            Request DILE USB Super Speed port up api to turn on super speed port operation
+dile libs -> hal libs                           Request HAL USB Super Speed port up api to turn on super speed port operation
 hal libs -> dile libs                           Return operation result(SUCCESS/FAIL)
 dile libs -> Physical device manager            Return operation result(SUCCESS/FAIL)
 =============================================== ====================================================================================================
@@ -228,7 +228,7 @@ Functions
 ---------
 
 ======================================= ==============================
-Name                                    Description
+Function                                Description
 ======================================= ==============================
 :cpp:func:`HAL_USB_SuperSpeedPortOff`   Turn off super speed port.
 :cpp:func:`HAL_USB_SuperSpeedPortUp`    Turn on super speed port.

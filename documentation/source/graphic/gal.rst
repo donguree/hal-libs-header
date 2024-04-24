@@ -32,29 +32,29 @@ Revision History
 
 Terminology
 ===========
-| The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119. 
+| The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119.
 
-| The following table lists the terms used throughout this document: 
+| The following table lists the terms used throughout this document:
 
 =============================== ===============================
 Term                            Description
-=============================== =============================== 
+=============================== ===============================
 GFX                             2D Graphic HW
 GPU                             3D Graphic HW
 fbdev                           The Linux framebuffer
 LSM(Luna Surface Manager)       The graphic compositor on the webOS platform
-=============================== =============================== 
+=============================== ===============================
 
 Technical Assistance
 ====================
 
 | For assistance or clarification on information in this guide, please create an issue in the LGE JIRA project and contact the following person:
 
-=============== ============ 
-Module          Owner         
-=============== ============ 
-GAL             `youngman.jung`_ 
-=============== ============ 
+=============== ============
+Module          Owner
+=============== ============
+GAL             `youngman.jung`_
+=============== ============
 
 
 Overview
@@ -118,7 +118,7 @@ Design Constraints
 Implementation
 **************
 
-This section provides materials that are useful for GAL implementation. 
+This section provides materials that are useful for GAL implementation.
 
 - The File Location section provides the location of the Git repository where you can get the header file in which the interface for the GAL implementation is defined.
 - The API List section provides a brief summary of GAL APIs that you must implement.
@@ -528,7 +528,7 @@ HAL_GAL_Init()
     HAL_GAL_Init — Initializes GAL module
 
     **Functional Requirements**
-        Initializes GFX driver which is 2D graphics hardware accelerator engine. 
+        Initializes GFX driver which is 2D graphics hardware accelerator engine.
 
         Call Chipset driver initialization function and create resources for GAL module such as OSD framebuffer.
 
@@ -545,13 +545,13 @@ HAL_GAL_Init()
 
     **Functions & Parameters**
         None
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
            if( HAL_GAL_Init() !=  HAL_GAL_OK) {
                // Error handling
            }
@@ -581,13 +581,13 @@ HAL_GAL_Finalize()
 
     **Functions & Parameters**
         None
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
            if( HAL_GAL_Finalize() !=  HAL_GAL_OK) {
                // Error handling
            }
@@ -618,7 +618,7 @@ HAL_GAL_GetDeviceCapability()
         .. code-block:: cpp
 
            pDeviceCapabilityInfo [IN]  2D graphic capability of device.
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -629,7 +629,7 @@ HAL_GAL_GetDeviceCapability()
 
     **Example**
         .. code-block:: cpp
- 
+
            HAL_GAL_DEVICE_CAPABILITY_INFO_T deviceCapabilityInfo = {0,};
 
            if( HAL_GAL_GetDeviceCapability(deviceCapabilityInfo) !=  HAL_GAL_OK) {
@@ -665,7 +665,7 @@ HAL_GAL_CreateSurface()
            height		[IN]  surface height in pixels
            pixelFormat	[IN]  pixel format
            pSurfaceInfo	[OUT]  Pointer to a HAL_GAL_SURFACE_INFO_T structure to information about newly allocated surface
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -676,7 +676,7 @@ HAL_GAL_CreateSurface()
 
     **Example**
         .. code-block:: cpp
- 
+
            HAL_GAL_DEVICE_CAPABILITY_INFO_T deviceCapabilityInfo = {0,};
 
            if( HAL_GAL_GetDeviceCapability(deviceCapabilityInfo) !=  HAL_GAL_OK) {
@@ -709,13 +709,13 @@ HAL_GAL_DestroySurface()
         .. code-block:: cpp
 
            pSurfaceInfo	[IN]  Pointer to a HAL_GAL_SURFACE_INFO_T structure to information
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
            UINT16 w = 1920;
            UINT16 h = 1080;
            HAL_GAL_PIXEL_FORMAT_T pixelFormat = HAL_GAL_PIXEL_FORMAT_ARGB;
@@ -761,13 +761,13 @@ HAL_GAL_Blit()
            dy			[IN]  y in destination surface
            pBlitFlags		[IN] blitFlags blitting flags which indicate various blit operations
            pBlitSettings	[IN] blitSettings settings for blit operation
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
            HAL_GAL_STATE_T retVal;
            HAL_GAL_SURFACE_INFO_T srcSurface, dstSurface;
            HAL_GAL_CreateSurface(200, 200, HAL_GAL_PIXEL_FORMAT_ARGB, &srcSurface);
@@ -822,18 +822,18 @@ HAL_GAL_StretchBlit()
            pDstRect		[IN]  destination rectangle which represent blited area in the source surface
            pBlitFlags		[IN]  blitting flags which indicate various blit operations
            pBlitSettings	[IN]  settings for blit operation
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
             HAL_GAL_STATE_T retVal;
             HAL_GAL_SURFACE_INFO_T srcSurface, dstSurface;
             HAL_GAL_CreateSurface(200, 200, HAL_GAL_PIXEL_FORMAT_ARGB, &srcSurface);
             HAL_GAL_CreateSurface(500, 500, HAL_GAL_PIXEL_FORMAT_ARGB, &dstSurface);
- 
+
             HAL_GAL_RECT_T srcRect, dstRect;
             srcRect.x = 100;
             srcRect.y = 100;
@@ -843,7 +843,7 @@ HAL_GAL_StretchBlit()
             dstRect.y = 200;
             dstRect.w = 300;
             dstRect.h = 300;
- 
+
             HAL_GAL_BLIT_FLAGS_T blitFlags = HAL_GAL_BLIT_BLEND_COLORALPHA| HAL_GAL_BLIT_BLEND_ALPHACHANNEL| HAL_GAL_BLIT_SRC_PREMULTIPLY;
             HAL_GAL_BLIT_SETTINGS_T blitSettings;
             blitSettings.srcBlend = HAL_GAL_BLEND_ONE;
@@ -851,7 +851,7 @@ HAL_GAL_StretchBlit()
             blitSettings.alpha = 0xe0; // almost opaque global alpha
             blitSettings.srcColorkey = 0x0;
             blitSettings.dstColorkey = 0x0;
- 
+
             retVal = HAL_GAL_StretchBlit(&srcSurface, &srcRect, &dstSurface, &dstRect, &blitFlags,&blitSettings);
             if(retVal != HAL_GAL_OK) {
                 // Error handling
@@ -891,13 +891,13 @@ HAL_GAL_FillRectangle()
            color		[IN]  color value for the drawing
            pDrawFlags	[IN]  drawing flags which indicate various blit operations
            pDrawSettings	[IN]  settings for draw operation
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
              HAL_GAL_STATE_T retVal;
              HAL_GAL_SURFACE_INFO_T srcSurface, dstSurface;
              HAL_GAL_CreateSurface(200, 200, HAL_GAL_PIXEL_FORMAT_ARGB, &srcSurface);
@@ -912,7 +912,7 @@ HAL_GAL_FillRectangle()
              dstRect.y = 200;
              dstRect.w = 300;
              dstRect.h = 300;
- 
+
              HAL_GAL_BLIT_FLAGS_T blitFlags = HAL_GAL_BLIT_BLEND_COLORALPHA| HAL_GAL_BLIT_BLEND_ALPHACHANNEL| HAL_GAL_BLIT_SRC_PREMULTIPLY;
              HAL_GAL_BLIT_SETTINGS_T blitSettings;
              blitSettings.srcBlend = HAL_GAL_BLEND_ONE;
@@ -954,7 +954,7 @@ HAL_GAL_DrawRectangle()
            color		[IN]  color value for the drawing
            pDrawFlags	[IN]  drawing flags which indicate various blit operations
            pDrawSettings	[IN]  settings for draw operation
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -986,7 +986,7 @@ HAL_GAL_DrawLine()
            color		[IN]  color value for the drawing
            pDrawFlags	[IN]  drawing flags which indicate various blit operations
            pDrawSettings	[IN]  settings for draw operation
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1020,19 +1020,19 @@ HAL_GAL_GetSurfacePalette()
            pSurface		[IN] surface handler
            pPalette		[OUT] palette which is array of 32bit ARGB color entries
            paletteLength	[IN] number of entries of palette
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
              HAL_GAL_STATE_T retVal;
              HAL_GAL_SURFACE_INFO_T surface;
- 
+
              UINT32 palette[256];
              SINT32 paletteLegnth = 256;
- 
+
              HAL_GAL_CreateSurface(600, 400, HAL_GAL_PIXEL_FORMAT_LUT8, &surface);
              retVal = HAL_GAL_GetSurfaceSetPalette(surface, palette, paletteLegnth);
              if(retVal != HAL_GAL_OK) {
@@ -1069,7 +1069,7 @@ HAL_GAL_SetSurfacePalette()
            pSurface		[IN] surface handler
            pPalette		[OUT] palette which is array of 32bit ARGB color entries
            paletteLength	[IN] number of entries of palette
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -1079,14 +1079,14 @@ HAL_GAL_SetSurfacePalette()
 
     **Example**
         .. code-block:: cpp
- 
+
              HAL_GAL_STATE_T retVal;
              HAL_GAL_SURFACE_INFO_T surface;
              UINT32 palette[256]= {
                  // Black, W, R, G, B, C, Y, M,
                  0xff000000, 0xffffffff, 0xffff0000, 0xff00ff00, 0xff0000ff, 0xff00ffff, 0xffffff00, 0xffff00ff,0x0 };
                  SINT32 paletteLegnth = 256;
- 
+
                  HAL_GAL_CreateSurface(600, 400, HAL_GAL_PIXEL_FORMAT_LUT8, &surface);
                  retVal = HAL_GAL_SetSurfaceSetPalette(surface, palette, paletteLegnth);
                  if(retVal != HAL_GAL_OK) {
@@ -1122,16 +1122,16 @@ HAL_GAL_SetFrameBuffer()
 
            pSurface		[IN] surface handler
            fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
     **Example**
         .. code-block:: cpp
- 
+
            HAL_GAL_STATE_T retVal;
            HAL_GAL_SURFACE_INFO_T surface;
- 
+
            HAL_GAL_CreateSurface(1920, 1080, HAL_GAL_PIXEL_FORMAT_ARGB, &surface);
            ret = HAL_GAL_SetFrameBuffer(&surface, 0);
            if(retVal != HAL_GAL_OK) {
@@ -1164,7 +1164,7 @@ HAL_GAL_SetFrameBufferProperty()
            fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
            fbPropertyFlags		[IN] flags for framebuffer property setting
            pFbPropertyInfo		[IN] information about framebuffer property
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1194,7 +1194,7 @@ HAL_GAL_SetFrameBufferWithProperty()
            fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
            fbPropertyFlags		[IN] flags for framebuffer property setting
            pFbPropertyInfo		[IN] information about framebuffer property
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1222,7 +1222,7 @@ HAL_GAL_ResetFrameBuffer()
         .. code-block:: cpp
 
            fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1254,7 +1254,7 @@ HAL_GAL_SetFBHWControllerVisibility()
 
            pChangedFbList		[IN] changed the framebuffer list
            changedFbNum		[IN] changed the number of framebuffer list
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -1263,16 +1263,16 @@ HAL_GAL_SetFBHWControllerVisibility()
 
            HAL_GAL_STATE_T retVal;
            ret = HAL_GAL_SetFrameBuffer(&surface, 0);
- 
+
            UINT32 changedFbNum = 2 ;
            HAL_GAL_FRAMEBUFFER_VISIBILITY_INFO_T changedFBList[2];
- 
+
            changedFBList[0].fbHWControllerIndex = 0;
            changedFBList[0].bVisibility = TRUE;
- 
+
            changedFBList[1].fbHWControllerIndex = 1;
            changedFBList[1].bVisibility = FALSE;
- 
+
            retVal = HAL_GAL_SetFBHWControllerVisibility(changedFBList, changedFbNum);
            if(retVal != HAL_GAL_OK) {
                 // Error handling
@@ -1305,7 +1305,7 @@ HAL_GAL_GetFBHWControllerVisibility()
 
            fbHWControllerIndex             [IN]        Framebuffer index
            pbVisibility                          [OUT]     Visibility on/off
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -1345,7 +1345,7 @@ HAL_GAL_SetFBHWControllerVsync()
 
            fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
            bVsync [IN] vsync usage state of framebuffer
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1374,7 +1374,7 @@ HAL_GAL_SetFBHWControllerPathMode()
 
            fbHWControllerIndex	[IN] identifier of framebuffer hw controller(number)
            osdPathMode			[IN] select osd path mode
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1400,7 +1400,7 @@ HAL_GAL_SyncGraphic()
 
     **Functions & Parameters**
         None
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1428,7 +1428,7 @@ HAL_GAL_SetScreenMirrorMode()
         .. code-block:: cpp
 
            mirrorModeFlags	[IN] mirror mode information
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1457,7 +1457,7 @@ HAL_GAL_Set3DMode()
 
            osd3DOnOffMode 		[IN] select osd 3D on/off mode
            osd3DType			[IN] select osd 3D type
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1487,7 +1487,7 @@ HAL_GAL_SetFBHWControllerStereoscope()
            fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
            bStereoscope			[IN] stereoscope mode on/off
            stereoscopeType		[IN] type of stereoscope (2D-to-3D, S3D)
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1516,7 +1516,7 @@ HAL_GAL_SetFrameBufferPixelFormat()
 
            fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
            pixelFormat 			[IN]  pixel format
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1545,9 +1545,9 @@ HAL_GAL_GetFrameBufferPixelFormat()
 
            fbHWControllerIndex 	[IN] Identifier of framebuffer hw controller(number)
            pixelFormat 			[IN]  pixel format
-    
+
     **Return Value**
-        HAL_GAL_NOT_CALLABLE        
+        HAL_GAL_NOT_CALLABLE
 
 
 HAL_GAL_GetFrameBufferList()
@@ -1574,7 +1574,7 @@ HAL_GAL_GetFrameBufferList()
 
            ppSurfaceInfoList             [OUT]        information of framebuffer
            pNumOfSurface               [OUT]        The number of enabled framebuffer
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1600,7 +1600,7 @@ HAL_GAL_ResetBootLogo()
 
     **Functions & Parameters**
         None
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1628,9 +1628,9 @@ HAL_GAL_SetOSDRotationMode()
         .. code-block:: cpp
 
            type 	[IN] rotation degree
-    
+
     **Return Value**
-        HAL_GAL_NOT_CALLABLE        
+        HAL_GAL_NOT_CALLABLE
 
 
 HAL_GAL_SetOSDPortraitMode()
@@ -1656,7 +1656,7 @@ HAL_GAL_SetOSDPortraitMode()
         .. code-block:: cpp
 
            type 	[IN] rotation degree
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1684,7 +1684,7 @@ HAL_GAL_SetOSDPortraitARCMode()
         .. code-block:: cpp
 
            gal_osd_portrait_arc_mode 	[IN] portrait ARC mode
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1713,7 +1713,7 @@ HAL_GAL_GetFBHWControllerSharpness()
 
            fbHWControllerIndex  [IN] Identifier of framebuffer hw controller(number)
            sharpness            [OUT] Sharpness value (0~255)
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1742,7 +1742,7 @@ HAL_GAL_SetFBHWControllerSharpness()
 
            fbHWControllerIndex  [IN] Identifier of framebuffer hw controller(number)
            sharpness            [IN] Sharpness value (0~255)
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1772,7 +1772,7 @@ HAL_GAL_DecodeImage()
            pImageInfo	[IN]  source image information
            pDestSurface	[IN]  destination surface handler
            decodeFlags	[IN]	decode image flags
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1801,7 +1801,7 @@ HAL_GAL_SetGraphicOutputResolution()
 
            width [IN] Width for graphic output resolution
            height [IN] Height for graphic output resolution
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1829,7 +1829,7 @@ HAL_GAL_GetOSDOutputResolution()
         .. code-block:: cpp
 
            pOSDOutputResolution [OUT] OSD resolution
-    
+
     **Return Value**
         HAL_GAL_NOT_CALLABLE
 
@@ -1859,7 +1859,7 @@ HAL_GAL_GetGraphicMemInfo()
         .. code-block:: cpp
 
            pGraphicMemInfo [OUT] information of GAL memory
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -1868,7 +1868,7 @@ HAL_GAL_GetGraphicMemInfo()
 
            HAL_GAL_STATE_T retVal;
            HAL_GAL_GRAPHIC_MEM_INFO_T graphicMemInfo ;
- 
+
            ret= HAL_GAL_ GetGraphicMemInfo(&graphicMemInfo );
            if(retVal != HAL_GAL_OK) {
                 // Error handling
@@ -1901,7 +1901,7 @@ HAL_GAL_MoveCursor()
 
            fbHWControllerIndex	[IN]	identifier of framebuffer hw controller(number)
            pCursorPropert		[IN]	property information of cursor
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -1922,7 +1922,7 @@ HAL_GAL_MoveCursor()
            cursorProperty.width = 128;
            cursorProperty.height = 128;
            cursorProperty.hotspot = HAL_GAL_CURSOR_HOTSPOT_LEFTTOP;
- 
+
            retVal = HAL_GAL_MoveCursor(fbHWControllerIndex , &cursorProperty);
            if(retVal != HAL_GAL_OK) {
                 // Error handling
@@ -1954,7 +1954,7 @@ HAL_GAL_SetCursorPosition()
         .. code-block:: cpp
 
            pCursorPosition	[IN]	position and property information of cursor
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -1970,11 +1970,11 @@ HAL_GAL_SetCursorPosition()
            cursorPosition.width = 128;
            cursorPosition.height = 128;
            cursorPosition.hotspot = HAL_GAL_CURSOR_HOTSPOT_LEFTTOP;
- 
+
            retVal = HAL_GAL_SetCursorPosition(&cursorPosition);
            if(retVal != HAL_GAL_OK) {
                 // Error handling
-           }          
+           }
 
 
 HAL_GAL_SetCursorResolution()
@@ -2005,7 +2005,7 @@ HAL_GAL_SetCursorResolution()
 
            cursorCoordinateResolution  [IN]    coordinate resolution
            cursorImageResolution   [IN]    original cursor image resolution
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -2016,16 +2016,16 @@ HAL_GAL_SetCursorResolution()
         .. code-block:: cpp
 
            HAL_GAL_RESOLUTION_T cursorCoordinateResolution, cursorImageResolution;
- 
+
            cursorCoordinateResolution.width = 1920;
            cursorCoordinateResolution.height = 1080;
            cursorImageResolution = 1920;
            cursorImageResolution = 1080;
- 
+
            retVal = HAL_GAL_SetCursorResolution(cursorCoordinateResolution, cursorImageResolution);
            if(retVal != HAL_GAL_OK) {
                 // Error handling
-           }    
+           }
 
 
 HAL_GAL_CaptureFrameBuffer()
@@ -2055,7 +2055,7 @@ HAL_GAL_CaptureFrameBuffer()
         .. code-block:: cpp
 
            pSurfaceInfo [IN/OUT]  The target surface to store the read framebuffer from the fbdev
-    
+
     **Return Value**
         If success HAL_GAL_OK, else an one of error in HAL_GAL_STATE_T.
 
@@ -2067,7 +2067,7 @@ HAL_GAL_CaptureFrameBuffer()
 
            HAL_GAL_STATE_T retVal;
            HAL_GAL_SURFACE_INFO_T surfaceInfo;
- 
+
            HAL_GAL_CreateSurface(1920, 1080, HAL_GAL_PIXEL_FORMAT_ARGB, &surfaceInfo);
            if(HAL_GAL_CaptureFrameBuffer(&surfaceInfo) != GM_OK)
            if(retVal != HAL_GAL_OK) {
@@ -2083,8 +2083,8 @@ To examine the status and operation of the GAL, you can use the status log file,
 Testing
 *******
 
-| To test the implementation of the GAL, webOS provides SoCTS (SoC Test Suite) tests. 
-| The SoCTS checks the basic operation of the GAL and verifies the kernel event operation for the module by using a test execution file. 
+| To test the implementation of the GAL, webOS provides SoCTS (SoC Test Suite) tests.
+| The SoCTS checks the basic operation of the GAL and verifies the kernel event operation for the module by using a test execution file.
 | For details, see :doc:`GAL Unit Test in SoCTS Unit Test Specification </part4/socts/Documentation/source/producer-manual/producer-manual_hal/producer-manual_hal-gal>`.
 
 

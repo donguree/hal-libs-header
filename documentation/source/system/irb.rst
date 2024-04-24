@@ -113,26 +113,26 @@ Extended Structures
 
   .. list-table::
     :header-rows: 1
-    
+
     * - **Structure**
       - **Member Description**
     * - uei_irb_waveform_t
       - - numToggleIndex -> It is for the Philips protocols and for configuring the toggle bit. The value (1,2 or 4) is the number of waveform
 
         - *characteristicTime -> Time value to be composed of MAKE/REPEAT/BREAK signal
-        
+
         - numCharTimes -> The number of the characteristic time
-        
+
         - numMakeTimes -> The number of the MAKE time
-        
+
         - *makeTimes -> Index of the characteristic to construct the MAKE waveform
-        
+
         - numRepeatTimes -> The number of the REPEAT time
-        
+
         - *repeatTimes -> Index of the characteristic to construct the REPEAT waveform
-        
+
         - numBreakTimes -> The number of the BREAK time
-        
+
         - *breakTimes -> Index of the characteristic to construct the BREAK waveform
 
 
@@ -144,11 +144,11 @@ Extended Controls
 
 The following table lists the LG extended IR Blaster waveform generation
 
-================================= ===================================================================================================
-Control ID                        Description
-================================= ===================================================================================================
-HAL_IRB_GenerateUEIWaveform()	  | Is a SoC Vendor Driver wrapper function(HAL Layer) for generate the IR blaster UEI waveform
-================================= ===================================================================================================
+======================================= ===================================================================================================
+Function                                Description
+======================================= ===================================================================================================
+:cpp:func:`HAL_IRB_GenerateUEIWaveform`	Is a SoC Vendor Driver wrapper function(HAL Layer) for generate the IR blaster UEI waveform
+======================================= ===================================================================================================
 
 References
 **********

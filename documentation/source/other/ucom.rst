@@ -177,7 +177,7 @@ Functions
 ---------
 
 ==================================== ======================================================
-Name                                 Description
+Function                             Description
 ==================================== ======================================================
 :cpp:func:`HAL_UCOM_Initialize`      Initialize UCOM device.
 :cpp:func:`HAL_UCOM_ReadCommand`     Read operation from Main SoC to Micom FW.

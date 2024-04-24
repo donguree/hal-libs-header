@@ -558,21 +558,21 @@ Function Calls
 ==============
 
 ================================================ ===========================================================================================================================================
-Function      		       		         Descrption
+Function      		       		                 Descrption
 ================================================ ===========================================================================================================================================
-:cpp:func:`HAL_VENC_Close`		   	 Close VENC driver.
+:cpp:func:`HAL_VENC_Close`		            	 Close VENC driver.
 :cpp:func:`HAL_VENC_CloseEx`                   	 Close VENC driver. This is for only LG SIC. For others implement it as empty.
-:cpp:func:`HAL_VENC_CopyData`		         Copy encoded ES data from VENC driver memory source to user memory destination.
-:cpp:func:`HAL_VENC_Connect`		  	 Determine which module VENC will connect with set VENC input video source.
-:cpp:func:`HAL_VENC_GetParam`		  	 Get VENC encoding parameters.
+:cpp:func:`HAL_VENC_CopyData`		             Copy encoded ES data from VENC driver memory source to user memory destination.
+:cpp:func:`HAL_VENC_Connect`		  	         Determine which module VENC will connect with set VENC input video source.
+:cpp:func:`HAL_VENC_GetParam`		  	         Get VENC encoding parameters.
 :cpp:func:`HAL_VENC_Open`                      	 Initialize and open VENC driver. Perform basic setting work to operate VENC.
-:cpp:func:`HAL_VENC_OpenEx`	   		 Initialize and open VENC driver. Perform basic setting work to operate VENC. Encoding port number can be set as parameter.
+:cpp:func:`HAL_VENC_OpenEx`	   		             Initialize and open VENC driver. Perform basic setting work to operate VENC. Encoding port number can be set as parameter.
 :cpp:func:`HAL_VENC_RegisterEncoderCallback`	 Register callback function that receives VENC callback message.
-:cpp:func:`HAL_VENC_ReleaseData`		 (In callback function) Free driver memory of encoded ES data after copy.
-:cpp:func:`HAL_VENC_ResetGOP`			 Request IDR frame data by calling HAL_VENC_ResetGOP.The IDR picture data should be passed VENC picture callback.
-:cpp:func:`HAL_VENC_SetParam`	   		 Set VENC encoding ES parameters and various parameters for encoding.
-:cpp:func:`HAL_VENC_Start`		  	 | Start VENC encoding. ES data is newly generated per every video-frame is input. New ES data is saved in ES-Buffer. A Callback is generated from driver to Upper-SW-Layer.
-:cpp:func:`HAL_VENC_Stop`	   		 Stop VENC encoding.
+:cpp:func:`HAL_VENC_ReleaseData`		         (In callback function) Free driver memory of encoded ES data after copy.
+:cpp:func:`HAL_VENC_ResetGOP`			         Request IDR frame data by calling HAL_VENC_ResetGOP.The IDR picture data should be passed VENC picture callback.
+:cpp:func:`HAL_VENC_SetParam`	   		         Set VENC encoding ES parameters and various parameters for encoding.
+:cpp:func:`HAL_VENC_Start`		  	             Start VENC encoding. ES data is newly generated per every video-frame is input. New ES data is saved in ES-Buffer. A Callback is generated from driver to Upper-SW-Layer.
+:cpp:func:`HAL_VENC_Stop`	   		             Stop VENC encoding.
 ================================================ ===========================================================================================================================================
 
 VSC API'S

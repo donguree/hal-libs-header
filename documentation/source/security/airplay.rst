@@ -37,9 +37,9 @@ Version Date       Changed by      Description
 Terminology
 ===========
 
-The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119. 
+The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119.
 
-The following table lists the terms used throughout this document: 
+The following table lists the terms used throughout this document:
 
 ================================= ======================================
 Term                              Description
@@ -55,10 +55,10 @@ For assistance or clarification on information in this guide, please create an i
 
 ============ ===============================
 Module       Owner
-============ =============================== 
-MFi          `seulki329.kim`_ 
+============ ===============================
+MFi          `seulki329.kim`_
 FairPlay     `cs.jung`_
-============ =============================== 
+============ ===============================
 
 Overview
 ********
@@ -104,7 +104,7 @@ The following diagram shows the driver architecture.
 - Application : Applications related to Apple on LG webOS TV like HomeKit/AirPlay and Apple TV/Music.
 - MFi : The mfi service is a module that manages mfi, such as downloaing and verifying the mfi key.
 - DILE : Device Interface Layer Extenstion(DILE) libraries for LG webOS TV
-- HAL : The HAL libraries, also known as hal-libs, are a type of user-level device drivers. They provide an interface between the upper layer (webOS applications, modules, and services) and the hardware devices. HAL libraries do not directly control the hardware but instead, access the hardware through kernel-level device drivers. 
+- HAL : The HAL libraries, also known as hal-libs, are a type of user-level device drivers. They provide an interface between the upper layer (webOS applications, modules, and services) and the hardware devices. HAL libraries do not directly control the hardware but instead, access the hardware through kernel-level device drivers.
 - Secure storage : Secure Storage technology is required to operate with sensitive data of user layer applications and daemons using access control, cryptographic protection and integrity checking.
 - SoC : System on a chip.
 
@@ -116,7 +116,7 @@ This chapter describes the major functionalities.
 - Key Writing
     - Save the inputs into the Secured Storage.
     - Functional Requirements : Write MFi Key into the Secure Storage.
-    - Quality and Constraints : There are no performance requirements. There must be symmetric key exchanged with Apple on the board. If there is no symmetric key, this function cannot be tested. 
+    - Quality and Constraints : There are no performance requirements. There must be symmetric key exchanged with Apple on the board. If there is no symmetric key, this function cannot be tested.
 - Key Verification
     - Check the key fields written and CRC32.
     - Functional Requirements : Check lgcrc32 by using base64 decoded mfi_obj and fairplay_secret.
@@ -149,7 +149,7 @@ This chapter describes the major functionalities.
     - Quality and Constraints : There are no performance requirements. There must be symmetric key exchanged with Apple on the board. If there is no symmetric key, this function cannot be tested.
 - MFi Provisioning Object Verification
     - Validate MFi provisioning object written.
-    - Functional Requirements : On receiving the provisioning object the secure task must extract the HMAC from the last 16 bytes of the object. Validate it by computing HMAC-SHA512 on the rest of the object using the authentication key, truncating it to first 16 bytes and comparing it with the extracted HMAC. HMAC_SHA512(key, data) - SHA512 based HMAC, output is digest. If the HMAC tag of the payload fails to validate, returns fail. If HMAC validation succeeds, the secure task should decrypt the encrypted section of the provisioning object using the encryption key and initialization vector to retrieve the MFi private key and certificate. And returns success. 
+    - Functional Requirements : On receiving the provisioning object the secure task must extract the HMAC from the last 16 bytes of the object. Validate it by computing HMAC-SHA512 on the rest of the object using the authentication key, truncating it to first 16 bytes and comparing it with the extracted HMAC. HMAC_SHA512(key, data) - SHA512 based HMAC, output is digest. If the HMAC tag of the payload fails to validate, returns fail. If HMAC validation succeeds, the secure task should decrypt the encrypted section of the provisioning object using the encryption key and initialization vector to retrieve the MFi private key and certificate. And returns success.
     - Quality and Constraints : There are no performance requirements. There must be symmetric key exchanged with Apple on the board. If there is no symmetric key, this function cannot be tested.
 - FairPlay Provisioning Object Verification
     - Validate FairPlay provisioning object written.
@@ -159,7 +159,7 @@ This chapter describes the major functionalities.
 Implementation
 **************
 
-This chapter provides materials that are useful for AirPlay implementation. 
+This chapter provides materials that are useful for AirPlay implementation.
 
 - The File Location section provides the location of the Git repository where you can get the header file in which the interface for the AirPlay implementation is defined.
 - The API List section provides a brief summary of AirPlay APIs that you must implement.
@@ -184,19 +184,19 @@ Functions
 Extended Functions
 ^^^^^^^^^^^^^^^^^^
 
-=========================================== ==================================================================================
-Function                                    Description
-=========================================== ==================================================================================
-`HAL_AIRPLAY_MFi_WriteKeySet`_              Write MFi Key into the Secure Storage
-`HAL_AIRPLAY_MFi_VerifyKeySet`_             Check lgcrc32 by using base64 decoded mfi_obj and fairplay_secret
-`HAL_AIRPLAY_MFi_DeleteKeySet`_             Delete MFi Key into the Secure Storage
-`HAL_AIRPLAY_MFi_GetKeyInfo`_               Read values from Secure Storage and set the values into the out param (deprecated)
-`HAL_AIRPLAY_MFi_GetKeyInfo2`_              Read values from Secure Storage and set the values into the out param
-`HAL_AIRPLAY_MFi_VerifyProvisioningObject`_ Validate the provisioning object
-`HAL_AIRPLAY_MFi_GetCertificate`_           Get MFi key certification
-`HAL_AIRPLAY_MFi_GetSignature`_             Get MFi Private Key (P) from provisioning object
-`HAL_AIRPLAY_FairPlay_VerifyObject`_        Verify FairPlay provisioning object
-=========================================== ==================================================================================
+==================================================== ==================================================================================
+Function                                             Description
+==================================================== ==================================================================================
+:cpp:func:`HAL_AIRPLAY_MFi_WriteKeySet`              Write MFi Key into the Secure Storage
+:cpp:func:`HAL_AIRPLAY_MFi_VerifyKeySet`             Check lgcrc32 by using base64 decoded mfi_obj and fairplay_secret
+:cpp:func:`HAL_AIRPLAY_MFi_DeleteKeySet`             Delete MFi Key into the Secure Storage
+:cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo`               Read values from Secure Storage and set the values into the out param (deprecated)
+:cpp:func:`HAL_AIRPLAY_MFi_GetKeyInfo2`              Read values from Secure Storage and set the values into the out param
+:cpp:func:`HAL_AIRPLAY_MFi_VerifyProvisioningObject` Validate the provisioning object
+:cpp:func:`HAL_AIRPLAY_MFi_GetCertificate`           Get MFi key certification
+:cpp:func:`HAL_AIRPLAY_MFi_GetSignature`             Get MFi Private Key (P) from provisioning object
+:cpp:func:`HAL_AIRPLAY_FairPlay_VerifyObject`        Verify FairPlay provisioning object
+==================================================== ==================================================================================
 
 Implementation Details
 ======================
@@ -252,7 +252,7 @@ Example
 	hal_key_argv[5] = base64_mfi_obj;
 	hal_key_argv[6] = base64_fairplay;
 	hal_key_argv[7] = lg_crc32;
-	
+
 	ret = HAL_AIRPLAY_MFi_WriteKeySet(sizeof(hal_key_argv) / sizeof(gchar *), (void **)hal_key_argv);
 
 .. _HAL_AIRPLAY_MFi_VerifyKeySet:
@@ -329,7 +329,7 @@ Example
 .. code-block:: cpp
 
 	int ret = HAL_AIRPLAY_MFi_DeleteKeySet ();
-	
+
 	if (ret == 0) { delete ok }
 	else if (ret == -1) { there is no key }
 	else if (ret == -2) { deletion fail }
@@ -383,12 +383,12 @@ Example
 
 	gchar *key_info = NULL;
 	gint ret = HAL_AIRPLAY_MFi_GetKeyInfo2(&key_info);
-	
+
 	if(ret == 0) {
 		gchar **key_info_each = g_strsplit (key_info, "\n", 0);
-	
+
 		// use org_key_file_name, index, mfi_obj_id, ppid, generation
-	
+
 		g_strfreev(key_info_each);
 		g_free(key_info);
 	}
@@ -443,7 +443,7 @@ Operation
 	- On receiving the provisioning object the secure task must extract the HMAC from the last 16 bytes of the object
 	- Validate it by computing HMAC-SHA512 on the rest of the object using the authentication key, truncating it to first 16 bytes and comparing it with the extracted HMAC.
 	- HMAC_SHA512(key, data) - SHA512 based HMAC, output is digest.
-	- If the HMAC tag of the payload fails to validate, returns fail. 
+	- If the HMAC tag of the payload fails to validate, returns fail.
 	- If HMAC validation succeeds, the secure task should decrypt the encrypted section of the provisioning object using the encryption key and initialization vector to retrieve the MFi private key and certificate. And returns success.
 
 Diagram
@@ -553,7 +553,7 @@ Example
 	size_t digest_len = sizeof(digest);
 	unsigned char *signature = NULL;
 	size_t signature_len;
-	
+
 	if (HAL_AIRPLAY_MFi_GetSignature(digest, digest_len, &signature, &signature_len) == 0) {
 		use signature
 		free(signature);

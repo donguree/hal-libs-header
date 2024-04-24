@@ -23,8 +23,8 @@ Version  Date        Changed by          Description
 
 Terminology
 ===========
-| The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119. 
-| The following table lists the terms used throughout this document: 
+| The key words "must", "must not", "required", "shall", "shall not", "should", "should not", "recommended", "may", and "optional" in this document are to be interpreted as described in RFC2119.
+| The following table lists the terms used throughout this document:
 
 ================= ==================================================
 Definition                Description
@@ -240,7 +240,7 @@ Functions
 ---------
 
 ==================================== ======================================================
-Name                                 Description
+Function                             Description
 ==================================== ======================================================
 :cpp:func:`HAL_MMC_Open`             Open MMC device.
 :cpp:func:`HAL_MMC_Close`            Close MMC device.
@@ -267,26 +267,26 @@ Implementation Details
 	490     static unsigned char ext_csd[512] = {0};
 	491     static int fgCID = 0;
 	492     unsigned char flag = 0;
-	493 
+	493
 	494     unsigned char cmd_magic[4];
 	495     unsigned int buf_size = 0;
 	496     unsigned long buf_offset = 0;
-	497 
+	497
 	498     struct mmc_ioc_cmd idata;
 	499     struct mmc_ioc_multi_cmd *multi_cmd = NULL;
 	500     unsigned char *wbuf = NULL;
-	501 
+	501
 	502     ENTRY();
-	503 
+	503
 	504     cmd_magic[0] = buff[0];
 	505     cmd_magic[1] = buff[1];
 	506     cmd_magic[2] = buff[2];
 	507     cmd_magic[3] = buff[3];
-	508 
+	508
 	509     // Get EXT CSD. Check eMMC version.
 	510     // eMMC 5.0, use EXT_CSD[267] - EXT_CSD{269]
 	511     memset(&idata, 0, sizeof(idata));
-	512 
+	512
 	513     idata.write_flag = 0;
 	514     idata.opcode = MMC_SEND_EXT_CSD;
 	515     idata.arg = 0;
@@ -294,19 +294,19 @@ Implementation Details
 	517     idata.blksz = 512;
 	518     idata.blocks = 1;
 	519     mmc_ioc_cmd_set_data(idata, (unsigned long)ext_csd);
-	520 
+	520
 	521     if(ioctl(fd, MMC_IOC_CMD, &idata))
 	522     {
 	523         nERR("Cmd send failed(cmd8(0x0))!");
 	524         RETURN(NOT_OK);
 	525     }
-	526 
+	526
 	527     if( (cmd_magic[0] == 0x45) && (cmd_magic[1] == 0x48) &&
 	528         (cmd_magic[2] == 0x52) && (cmd_magic[3] == 0x49) )
 	529     {
 	530         buf_size = buff[4] | (buff[5]<<8) | (buff[6]<<16) | buff[7]<<24;
 	531         buf_offset = buff[8] | (buff[9]<<8) | (buff[10]<<16) | (buff[11]<<24);
-	532 
+	532
 	533         if( ext_csd[192] >= 7 )
 	534         {
 	535             buff[0] = 0x45;
@@ -316,9 +316,9 @@ Implementation Details
 	539             buff[4] = ext_csd[268];
 	540             buff[5] = ext_csd[269];
 	541             buff[6] = ext_csd[267];
-	542 
+	542
 	543             *len = buf_size;
-	544 
+	544
 	545         }
 	546         else
 	547         {
@@ -336,9 +336,9 @@ Implementation Details
 	559             buff[4] = ext_csd[268];
 	560             buff[5] = ext_csd[269];
 	561             buff[6] = ext_csd[267];
-	562 
+	562
 	563             *len = buf_size;
-	564 
+	564
 	565             RETURN(OK);
 	566         }
 	567         else
@@ -347,7 +347,7 @@ Implementation Details
 	570             buf_offset = 0;
 	571         }
 	572     }
-	573 
+	573
 	574     /*
 	575      * MID can be the unique code for different manufacturers
 	576      * Hynix - 90h
@@ -357,7 +357,7 @@ Implementation Details
 	580      * Samsung - 15h
 	581      * Micron - FE
 	582      */
-	583 
+	583
 	584     if(fgCID == 0)
 	585     {
 	586         if(HAL_MMC_Get_CID(cid))
@@ -365,13 +365,13 @@ Implementation Details
 	588             nERR("Get CID error!");
 	589             RETURN(NOT_OK);
 	590         }
-	591 
+	591
 	592         fgCID = 1;
 	593     }
-	594 
+	594
 	595     nDBG("==>Enter HAL_MMC_Get_SMART_Report!");
-	596 
-	597 
+	596
+	597
 	598     if(cid[3] == 0x15)
 	599     {
 
@@ -402,10 +402,10 @@ Implementation Details
 	860         nERR("Unknown eMMC");
 	861         RETURN(NOT_OK);
 	862     }
-	863 
+	863
 	864     if (multi_cmd)
 	865         free(multi_cmd);
-	866 
+	866
 	867     RETURN(OK);
 	868 }
 
