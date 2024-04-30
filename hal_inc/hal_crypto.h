@@ -1631,7 +1631,8 @@ DTV_STATUS_T HAL_CRYPTO_DecryptDbgData (UINT8 *pInData, int nInL, UINT8 *pOutDat
  * Functional Requirements
  *      Get the tzfw version from input data and compare the version in RPMB.
  *      If input tzfw's version is higher or same with the version in RPMB, return 0.
- *      If not, return not zero.
+ *      If not, return not zero. Now, this API is only used for LG Chip vendor.
+ *      Please always return zero if Chip vendor is not LG
  *
  * Responses to abnormal situations, including
  *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
