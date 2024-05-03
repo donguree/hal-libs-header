@@ -161,7 +161,6 @@ Function                                    Description
 :cpp:func:`HAL_IPC_Write`                   Used only for RTK. For webOS and Internal Micom communicatoin. except from socts, right assignment is required
 :cpp:func:`HAL_IPC_Read`                    Used only for RTK. For webOS and Internal Micom communicatoin. except from socts, right assignment is required
 :cpp:func:`HAL_SYS_CheckRPMBPartition`      Check RPMB Partition.(This is for security team.) except from socts, tright assignment is required
-:cpp:func:`HAL_SYS_CheckModelIdStatus`      Check model id is stored in RPMB (This is for security team)         
 :cpp:func:`HAL_SYS_StartDFTMemTest`         DDR memory test in DFT proces.
 :cpp:func:`HAL_SYS_GetDFTMemTestResult`     Get DDR memory test results in DFT process
 :cpp:func:`HAL_SYS_GetPWMCapability`        Get PWM Capability for Fan controller
