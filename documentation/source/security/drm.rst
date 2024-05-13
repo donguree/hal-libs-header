@@ -11,6 +11,7 @@ Revision History
 ======= ========== ============== ===============================
 Version Date       Changed by     Comment
 ======= ========== ============== ===============================
+2.0.1   24.05.13   cs.jung        Add HAL_DRM_InitDrv
 2.0.0   23.11.21   cs.jung        Change format & Update contents
 1.0.0   22.05.25   cs.jung
 ======= ========== ============== ===============================
@@ -117,6 +118,7 @@ Functions
 =============================================== ====================================================================================================================
 Function                                        Description
 =============================================== ====================================================================================================================
+:cpp:func:`HAL_DRM_InitDrv`                     Initialize device drivers for other HAL functions to perform their functions successfully
 :cpp:func:`HAL_DRM_GetSecureData`               Gets data from the secure storage where cannot be accessed with general file I/O
 :cpp:func:`HAL_DRM_SetSecureData`               Sets data to the secure storage where cannot be accessed with general file I/O
 :cpp:func:`HAL_DRM_DeleteSecureData`            Delete data in a secure storage area where cannot be access with general file I/O
@@ -125,7 +127,7 @@ Function                                        Description
 :cpp:func:`HAL_DRM_GetSecureClock`              Get Secured Clock(GMT TIME) from RTC(Real Time clock)
 :cpp:func:`HAL_DRM_SetSecureClock`              Set Secured Clock(GMT TIME) to [in]secure_clock. If secure_clock is 0, this function has to get time from NTP server
 :cpp:func:`HAL_DRM_AESHWInit`                   Initialize AES hardware block and allocate resources for AES operation
-:cpp:func:`HAL_DRM_AESHWUpdate`                 Execute AES hardware block. This function performs the essential role for AES data processing.
+:cpp:func:`HAL_DRM_AESHWUpdate`                 Execute AES hardware block. This function performs the essential role for AES data processing
 :cpp:func:`HAL_DRM_AESHWFinish`                 Process residual data and finish AES hardware block
 :cpp:func:`HAL_DRM_WriteWidevineKeyBox`         Store widevine keybox data to secure storage
 :cpp:func:`HAL_DRM_GetWidevineDeviceID`         Read device ID of widevine keybox

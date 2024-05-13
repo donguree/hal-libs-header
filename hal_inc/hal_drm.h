@@ -1,7 +1,7 @@
 
 /******************************************************************************
  *   TV LABORATORY, LG ELECTRONICS INC., SEOUL, KOREA
- *   Copyright(c) 2013-2022 by LG Electronics Inc.
+ *   Copyright(c) 2013-2024 by LG Electronics Inc.
  *
  *   All rights reserved. No part of this work may be reproduced, stored in a
  *   retrieval system, or transmitted by any means without prior written
@@ -97,6 +97,7 @@
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_GetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 *pLength);
+
 /**
  * @brief Sets data to the secure storage where cannot be accessed with general file I/O.
  *
@@ -145,6 +146,7 @@ DTV_STATUS_T HAL_DRM_GetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 *pLen
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_SetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 length);
+
 /**
  * @brief Delete data in a secure storage area where cannot be access with general file I/O.
  *
@@ -182,6 +184,7 @@ DTV_STATUS_T HAL_DRM_SetSecureData (SINT8 *pDataPath, UINT8 *pData, UINT32 lengt
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_DeleteSecureData (SINT8 *pDataPath);
+
 /**
  * @brief Get random data which is generated from a physical process(i.e. a hardware) to get true random number.
  *
@@ -219,6 +222,7 @@ DTV_STATUS_T HAL_DRM_DeleteSecureData (SINT8 *pDataPath);
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_GetHWRandomData (UINT8 *pData, UINT32 digit);
+
 /**
  * @brief Get Secured Clock(GMT TIME) from RTC(Real Time clock).
  *
@@ -255,6 +259,7 @@ DTV_STATUS_T HAL_DRM_GetHWRandomData (UINT8 *pData, UINT32 digit);
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_GetSecureClock (UINT64 *pSecureClock);
+
 /**
  * @brief Set Secured Clock(GMT TIME) to [in]secure_clock. If secure_clock is 0, this function has to get time from NTP server.
  *
@@ -298,7 +303,7 @@ DTV_STATUS_T HAL_DRM_GetSecureClock (UINT64 *pSecureClock);
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_SetSecureClock (UINT64 secureClock);
-DTV_STATUS_T HAL_DRM_GetClearDataLength (SINT8 *pDataPath, UINT32 *pLength);
+
 /**
  * @brief  Initialize AES hardware block and allocate resources for AES operation
  *
@@ -340,6 +345,7 @@ DTV_STATUS_T HAL_DRM_GetClearDataLength (SINT8 *pDataPath, UINT32 *pLength);
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_AESHWInit (SINT32 mode, UINT8 *pKey, UINT8 *pIV, SINT32 operation, SINT32 isPadding);
+
 /**
  * @brief  Execute AES hardware block. This function performs the essential role for AES data processing. For big data, this function can be called repeatedly. To process residual data, the HAL_DRM_AESHWFinish() function should be called instead of this function.
  *
@@ -392,6 +398,7 @@ DTV_STATUS_T HAL_DRM_AESHWInit (SINT32 mode, UINT8 *pKey, UINT8 *pIV, SINT32 ope
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_AESHWUpdate (UINT8 *pOutData, UINT32 *pOutDataSize, UINT8 *pInData, UINT32 nInDataSize);
+
 /**
  * @brief  Process residual data and finish AES hardware block
  *
@@ -447,7 +454,7 @@ DTV_STATUS_T HAL_DRM_AESHWUpdate (UINT8 *pOutData, UINT32 *pOutDataSize, UINT8 *
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_AESHWFinish (UINT8 *pOutData, UINT32 *pOutDataSize);
-DTV_STATUS_T HAL_DRM_GetHWID(UINT8 *pOutData, UINT32 *pOutDataSize);
+
 /**
  * @brief Check whether secure data exists or not
  *
@@ -485,6 +492,7 @@ DTV_STATUS_T HAL_DRM_GetHWID(UINT8 *pOutData, UINT32 *pOutDataSize);
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_IsSecureDataExist(SINT8 *pDataPath);
+
 /**
  * @brief Initialize device drivers for other HAL functions to perform their functions successfully.
  *
@@ -520,7 +528,7 @@ DTV_STATUS_T HAL_DRM_IsSecureDataExist(SINT8 *pDataPath);
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_InitDrv(void);
-DTV_STATUS_T HAL_DRM_GetSecureDataProtected(SINT8 *pID, UINT8 *pData, UINT32 *pLength);
+
 /**
  * @brief  Store widevine keybox data to secure storage.
  *
@@ -562,6 +570,7 @@ DTV_STATUS_T HAL_DRM_GetSecureDataProtected(SINT8 *pID, UINT8 *pData, UINT32 *pL
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_WriteWidevineKeyBox(UINT8 *pData, SINT32 dataLength);
+
 /**
  * @brief  Read device ID of widevine keybox.
  *
@@ -644,6 +653,7 @@ DTV_STATUS_T HAL_DRM_GetWidevineDeviceID(UINT8 *pDeviceID,  SINT32 *pIdLength);
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_UHDCP_SetCW(UINT8 *KID, UINT8 *CW);
+
 /**
  * @brief  Descramble an scrambled ATSC 3.0 terrestrial UHDTV broadcast stream.
  *
@@ -695,6 +705,7 @@ DTV_STATUS_T HAL_DRM_UHDCP_SetCW(UINT8 *KID, UINT8 *CW);
  */
 DTV_STATUS_T HAL_DRM_UHDCP_Decrypt(UINT8 *pData, UINT32 data_size,
                                    UINT8 *pIV, UINT8 *pKID, ULONG block_offset, UINT16 byte_offset);
+
 /**
  * @brief Store HDCP2.2 key to a secure storage.
  *
@@ -743,6 +754,7 @@ DTV_STATUS_T HAL_DRM_UHDCP_Decrypt(UINT8 *pData, UINT32 data_size,
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_HDMI_SetSecureDataforHDCP22(SINT8 *KeyID, UINT8 *pData, UINT32 DataLength);
+
 /**
  * @brief Gets HDCP2.2 key from the secure storage where cannot be accessed with general file I/O.
  *
@@ -791,6 +803,7 @@ DTV_STATUS_T HAL_DRM_HDMI_SetSecureDataforHDCP22(SINT8 *KeyID, UINT8 *pData, UIN
  * @endrst
  */
 DTV_STATUS_T HAL_DRM_HDMI_GetSecureDataforHDCP22(SINT8 *KeyID, UINT8 *pData);
+
 /**
  * @brief Check validity of encrypted HDCP2.2 key which is stored in secure storage area.
  *
