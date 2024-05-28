@@ -22,6 +22,7 @@ Revision History
 ======= ========== ===================== =============
 Version  Date        Changed by          Description
 ======= ========== ===================== =============
+2.0.2   2024.05.28   `abhishek.p`_       Added Suspend & resume API
 2.0.0   2023.11      `khkh.lee`_         Change format & Update contents
 1.0.0   2022.6.14    `denis.hong`_       First release
 ======= ========== ===================== =============
@@ -167,6 +168,8 @@ Function                                    Description
 :cpp:func:`HAL_SYS_SetPWM`                  Set PWM for Fan controller
 :cpp:func:`HAL_SYS_GetPWMData`              Get PWM Data for Fan controller
 :cpp:func:`HAL_SYS_CheckModelIdStatus`      except from socts, check that modeil id key is exit in RPMB
+:cpp:func:`HAL_SYS_Suspend`                 notify driver to enter into suspend mode
+:cpp:func:`HAL_SYS_Resume`                  notify driver to resume it's functionality
 =========================================== ===========================================================
 
 

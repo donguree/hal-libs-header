@@ -118,8 +118,78 @@ DTV_STATUS_T HAL_SYS_GetWolStatus(BOOLEAN *Status);
 /* SUSPEND/RESUME, SIC chip only used
  * requester: juno.choi(request for instant boot)
  */
-DTV_STATUS_T HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
-DTV_STATUS_T HAL_SYS_Resume (void);
+ /**
+ * @brief responsible for putting the system into a low-power state.
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1 ie NOT_OK.
+ *
+ * Performance Requirements
+ *   The response time of this function should be within 50ms.
+ *
+ * Constraints
+ *   There is no constraits
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
+ *
+ * Return Value
+ *   Success:  0
+ *   Fail   : -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T ret;
+ *     ret = HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
+ *
+ * @endrst
+ */
+ DTV_STATUS_T HAL_SYS_Suspend(SUSPEND_MODE_T syspendMode);
+
+/* notify driver to enter into suspend mode
+ * requester: juno.choi
+ */
+ /**
+ * @brief responsible for reinitialize and restore the system to its operational state.
+ *
+ * @rst
+ * Functional Requirements
+ *   There are no functional requirements
+ *
+ * Responses to abnormal situations, including
+ *   In abnormal case, the BSP should return -1 ie NOT_OK.
+ *
+ * Performance Requirements
+ *   The response time of this function should be within 50ms.
+ *
+ * Constraints
+ *   There is no constraits
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T HAL_SYS_Resume (void);
+ *
+ * Return Value
+ *   Success:  0
+ *   Fail   : -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T ret;
+ *     ret = HAL_SYS_Resume(void);
+ *
+ * @endrst
+ */
+ DTV_STATUS_T HAL_SYS_Resume (void);
 
 /* WAKE Up Internal Micom, RTK chip only used
  * requester: kwangseok.kim
