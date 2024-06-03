@@ -1928,5 +1928,159 @@ DTV_STATUS_T HAL_CRYPTO_GHP_GetDeviceAttestationCertChainPem( char* client_certi
  */
 DTV_STATUS_T HAL_CRYPTO_GHP_SignCsrWithDeviceAttestation(char* hash, size_t hashLen, char* signature, size_t *signLen);
 
+
+ /**
+ * @brief Set serial number to secure storage for nagra online provisioning
+ *
+ * @rst
+ * Functional Requirements
+ *      Serail number coming from the REE
+ *      The device_id MUST be securely derived within the TEE using this data
+ *      Other parameter is described on LGE TKL In-Field Provisioning - Specification.pdf
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      Following Nagra In-Field Provisinong spec
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_NAGRA_SetSerialNumber(pSerialNumber, nSerialNameSize)
+ *
+ *      * pSerialNumber   [IN] buffer for seiral number data to be set
+ *      * nSerialNameSize [IN] size of serial number data
+ *
+ * Return Value
+ *     Zero(0) if setting serial number is successful, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *        DTV_STATUS_T ret = FALSE;
+ *        UINT8 pSerialNumber[MAX_SERIAL_NUMBER_LEN] = {0,};
+ *        UINT32 nSerialNameSize = strlen(pSerialNumber);
+ *
+ *        if (TRUE == getSerialNumber(pSerialNumber)) {
+ *            ret = HAL_CRYPTO_NAGRA_SetSerialNumber(pSerialNumber, nSerialNameSize);
+ *            if (ret != OK) {
+ *                // Fail to setSerialNumber
+ *            }
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_NAGRA_SetSerialNumber (UINT8 *pSerialNumber, UINT32 nSerialNameSize);
+
+
+ /**
+ * @brief Get SoC challenge & Device Id to request online nagra provisioning
+ *
+ * @rst
+ * Functional Requirements
+ *      If password is matched with fixed value in TEE.
+ *
+ *      Serail number coming from the REE
+ *      The device_id MUST be securely derived within the TEE using this data
+ *      Other parameter is described on LGE TKL In-Field Provisioning - Specification.pdf
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      Following Nagra In-Field Provisinong spec
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_NAGRA_GetSoCChallenge(UINT8* pPassword, UINT8 *pChallenge, UINT32 *pChallengeSize, UINT8* pDeviceId)
+ *
+ *      * pPassword       [IN] password for checking whether this call is from Provisiong SW or not
+ *      * pChallenge      [OUT] SoC challenge data got via nppGetChallenge
+ *      * pChallengeSize  [OUT] size of SoC challenge data
+ *      * pDeviceId       [OUT] Device Id be read from trusted storage
+ *
+ * Return Value
+ *     Zero(0) if getting SoC challenge & Device Id is successful, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *        UINT8 pChallenge[MAX_CHALLENGE_DATA_LEN] = {0,};
+ *        UINT32 nChallengeSize = 0;
+ *        UINT8 pDeviceId[MAX_DEVICE_ID_LEN] = {0,};
+ *        UINT8 pPassword[MAX_PASSWORD_LEN] = "598f363ccc49b2248a703fb077bdc817b39697a289b5700f6382a13700a5facd";
+ *
+ *        ret = HAL_CRYPTO_NAGRA_GetSoCChallenge(pPassword, pChallenge, &nChallengeSize, pDeviceId);
+ *        if (ret != OK) {
+ *            // Fail to getSoCChallenge
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_NAGRA_GetSoCChallenge(UINT8* pPassword, UINT8 *pChallenge, UINT32 *pChallengeSize, UINT8 *pDeviceId);
+
+
+ /**
+ * @brief Set protected TKL Crendentials to secure storage
+ *
+ * @rst
+ * Functional Requirements
+ *      Protected TKL Credential is set to secure storage
+ *      TEE will decrypt protection using NPP, And then clear TKL Credential will be set.
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      Following Nagra In-Field Provisinong spec
+ *
+ * Functions & Parameters
+ *      * HAL_CRYPTO_NAGRA_SetTKLCredential(UINT8 *pCredential, UINT32 nCredentialSize)
+ *      * pCredential      [IN] protected TKL Credential with NPP
+ *      * nCredentialSize  [IN] size of protected credential data
+ *
+ * Return Value
+ *     Zero(0) if setting TKL credential is successful, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *        UINT8 pProtCredentials[];
+ *        UINT32 nCredentialSize = 0;
+ *        getProtTKLSecret(pProtCredential, &nCredentialSize);
+ *
+ *        ret = HAL_CRYPTO_NAGRA_SetTKLCredentia(pProtCredential, nCredentialSize);
+ *        if (ret != OK) {
+ *            // Fail to setTKLCredential
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_NAGRA_SetTKLCredential(UINT8 *pCredential, UINT32 nCredentialSize);
+
+
+ /**
+ * @brief Return whether TKL Credential exist or not.
+ *        To decide whether device needs setting TKL credentials or not when device was initialized by user reset on user layer.
+ *
+ * @rst
+ * Functional Requirements
+ *      Return Credential was already writen with valid value,
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      Following Nagra In-Field Provisinong spec
+ *
+ * Functions & Parameters
+ *      * DTV_STATUS_T HAL_CRYPTO_NAGRA_GetTKLCredentialState(void)
+ *
+ * Return Value
+ *     Zero(0) if TKL credential exist, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        ret = HAL_CRYPTO_NAGRA_GetTKLCredentialState();
+ *        if (ret != OK) {
+ *            // TKL Credential not exist
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_NAGRA_GetTKLCredentialState(void);
+
 #endif      //_HAL_CRYPTO_H_
 
