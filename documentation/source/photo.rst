@@ -1,5 +1,5 @@
 Photo
-=====
+======
 
 .. toctree::
   :maxdepth: 1
