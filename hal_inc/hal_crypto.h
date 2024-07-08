@@ -2082,5 +2082,63 @@ DTV_STATUS_T HAL_CRYPTO_NAGRA_SetTKLCredential(UINT8 *pCredential, UINT32 nCrede
  */
 DTV_STATUS_T HAL_CRYPTO_NAGRA_GetTKLCredentialState(void);
 
+ /**
+ * @brief Init Nagra Context & Open TEE Session
+ *
+ * @rst
+ * Functional Requirements
+ *      Return Context is initilized & Session is opeend normaly,
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      None
+ *
+ * Functions & Parameters
+ *      * DTV_STATUS_T HAL_CRYPTO_NAGRA_Init(void)
+ *
+ * Return Value
+ *     Zero(0) if Context is initialized & Session is openned normally, non-Zero otherwise
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        ret = HAL_CRYPTO_NAGRA_Init();
+ *        if (ret != OK) {
+ *            // fail initialization
+ *        }
+ * @endrst
+ */
+DTV_STATUS_T HAL_CRYPTO_NAGRA_Init(void);
+
+ /**
+ * @brief Finalize Nagra Context & Close TEE Session
+ *
+ * @rst
+ * Functional Requirements
+ *      Close context & session,
+ *
+ * Responses to abnormal situations, including
+ *      There is no clear requirement for response time, but a response must be received within at least 100 ms.
+ *
+ * Constraints
+ *      None
+ *
+ * Functions & Parameters
+ *      * void HAL_CRYPTO_NAGRA_Finalized(void)
+ *
+ * Return Value
+ *      None
+ *
+ * Example
+ *      .. code-block:: cpp
+ *
+ *        HAL_CRYPTO_NAGRA_Finalized();
+ *
+ * @endrst
+ */
+void HAL_CRYPTO_NAGRA_Finalized(void);
+
 #endif      //_HAL_CRYPTO_H_
 
