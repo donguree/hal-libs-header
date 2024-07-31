@@ -455,4 +455,51 @@ DTV_STATUS_T HAL_SYS_SetPWM(unsigned int pwm_id, unsigned int period_ns, unsigne
  */
 DTV_STATUS_T HAL_SYS_GetPWMData(unsigned int pwm_id, void *pData);
 
+/**
+ * @brief erase the DDR training data in the pmsfw Partition
+ *
+ * @rst
+ * Functional Requirements
+ *   params
+ *   offset_partition : none zero,
+ *   length_partition : none zero,
+ *   delete_data_type : 0 or 1 (now)
+ *
+ * Responses to abnormal situations
+ *   return
+ *   read() error : NOT_OK
+ *   write() error : NOT_OK
+ *   fsync() error : NOT_OK
+ *   calloc() error : NOT_OK
+ *   open() error : errno, strerror(errno)
+ *   print logm-log for each case
+ *
+ * Performance Requirements
+ *   The response time of this function should be within 100ms.
+ *
+ * Constraints
+ *   There are no constraints
+ *
+ * Functions & Parameters
+ *   .. code-block:: cpp
+ *
+ *    DTV_STATUS  HAL_SYS_ManageDDRdata(uint64_t offset_partition, uint64_t length_partition, int delete_data_type);
+ *
+ * Return Value
+ *   Success: 0
+ *   Fail: -1
+ *
+ * Example
+ *   .. code-block:: cpp
+ *
+ *     DTV_STATUS_T retVal = OK;
+ *     uint64_t offset_partition
+ *     uint64_t length_partition
+ *     int delete_data_type
+ *     retVal = HAL_SYS_ManageDDRdata(uint64_t offset_partition, uint64_t length_partition, int delete_data_type);
+ *
+ * @endrst
+ */
+DTV_STATUS_T HAL_SYS_ManageDDRdata(uint64_t offset_partition, uint64_t length_partition, int delete_data_type);
+
 #endif  /* _HAL_SYS_H_ */
