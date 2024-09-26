@@ -59,6 +59,7 @@ typedef enum {
     HAL_VO_PANEL_TYPE_HD1024X768,   /**< HD panel (1024x768) */
     HAL_VO_PANEL_TYPE_HD1280X720,   /**< HD panel (1280x720) */
     HAL_VO_PANEL_TYPE_HD1366X768,   /**< HD panel (1366x768) */
+    HAL_VO_PANEL_TYPE_QHD,   /**< QHD panel (2560x1440) */
     HAL_VO_PANEL_TYPE_MAX,  /**< maximum number of HAL_VO_PANEL_TYPE */
 } HAL_VO_PANEL_TYPE;
 
@@ -111,6 +112,7 @@ typedef enum {
     HAL_VO_SUPPORT_PANEL_TYPE_HD1366X768 = 0x00000004,  /**< HD panel (1366x768) */
     HAL_VO_SUPPORT_PANEL_TYPE_FHD = 0x00000008,         /**< full HD panel (1920x1080) */
     HAL_VO_SUPPORT_PANEL_TYPE_UHD = 0x00000010,         /**< ultra HD panel (3840x2160) */
+    HAL_VO_SUPPORT_PANEL_TYPE_QHD = 0x00000020,         /**< quad HD panel (2560x1440) */
 } HAL_VO_SUPPORT_PANEL_TYPE_T;
 
 /**
