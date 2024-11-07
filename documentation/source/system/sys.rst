@@ -10,6 +10,7 @@ SYS
 .. _jongyeon.yoon : jongyeon.yoon@lge.com
 .. _hedaesik.kim : hedaesik.kim@lge.com
 .. _pavani.ganachari : pavani.ganachari@lge.com
+.. _kyunghwan.yoon : kyunghwan.yoon@lge.com
 
 Introduction
 ************
@@ -23,6 +24,7 @@ Revision History
 ======= ========== ===================== =============
 Version  Date        Changed by          Description
 ======= ========== ===================== =============
+2.0.3   2024.11.07   `kyunghwan.yoon`_   Except APIs from socts(HAL_SYS_Suspend, HAL_SYS_Resume)
 2.0.3   2024.07.31   `pavani.ganachari`_ Added API to Manage DDR data
 2.0.2   2024.05.28   `abhishek.p`_       Added Suspend & resume API
 2.0.0   2023.11      `khkh.lee`_         Change format & Update contents
@@ -170,8 +172,8 @@ Function                                    Description
 :cpp:func:`HAL_SYS_SetPWM`                  Set PWM for Fan controller
 :cpp:func:`HAL_SYS_GetPWMData`              Get PWM Data for Fan controller
 :cpp:func:`HAL_SYS_CheckModelIdStatus`      except from socts, check that modeil id key is exit in RPMB
-:cpp:func:`HAL_SYS_Suspend`                 notify driver to enter into suspend mode
-:cpp:func:`HAL_SYS_Resume`                  notify driver to resume it's functionality
+:cpp:func:`HAL_SYS_Suspend`                 notify driver to enter into suspend mode. except from socts, deprecated API
+:cpp:func:`HAL_SYS_Resume`                  notify driver to resume it's functionality. except from socts, deprecated API
 :cpp:func:`HAL_SYS_ManageDDRdata`           erase the DDR training data in the pmsfw Partition
 =========================================== ===========================================================
 
