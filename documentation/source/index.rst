@@ -39,11 +39,10 @@ Contents
 .. toctree::
   :maxdepth: 2
   :numbered:
-  
+
   graphic
   photo
   pvr
-  security
   system
   other
   api/index
