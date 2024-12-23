@@ -30,7 +30,10 @@ fmt = """.. _{0}:
 """
 
 tags = output.split("\n")
-for i in range(len(tags) - 1):
-    print(fmt.format(tags[i], "-" * len(tags[i]), "%s..%s" % (tags[i+1], tags[i])))
-else:
-    print(fmt.format(tags[i+1], "-" * len(tags[i+1]), "%s" % (tags[i+1])))
+if tags:
+    if len(tags) == 1:
+        print(fmt.format(tags[0], "-" * len(tags[0]), "%s" % (tags[0])))
+    else:
+        for i in range(len(tags) - 1):
+            print(fmt.format(tags[i], "-" * len(tags[i]), "%s..%s" % (tags[i+1], tags[i])))
+        print(fmt.format(tags[-1], "-" * len(tags[-1]), "%s" % (tags[-1])))
