@@ -221,13 +221,13 @@ typedef struct {
  *
  * Constraints
  *  It has to link hal_photo.so library.
- * 
+ *
  * Functions & Parameters
  *   .. code-block:: cpp
  *
  *      ch  [in]    channel port number to connect with display engine
  *      def [in]    video panel type
- * 
+ *
  * Return Value
  *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
  *
@@ -258,13 +258,13 @@ DTV_STATUS_T HAL_VO_Open(unsigned int ch, HAL_VO_PANEL_TYPE def);
  *
  * Constraints
  *  It has to link hal_photo.so library.
- * 
+ *
  * Functions & Parameters
  *   .. code-block:: cpp
  *
  *      ch  [in]    channel port number to connect with display engine
  *      cfg [in]    configuration to set video output
- * 
+ *
  * Return Value
  *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
  *
@@ -299,13 +299,13 @@ DTV_STATUS_T HAL_VO_Config(unsigned int ch, HAL_VO_CFG_T *cfg);
  *
  * Constraints
  *  It has to link hal_photo.so library.
- * 
+ *
  * Functions & Parameters
  *   .. code-block:: cpp
  *
  *      ch    [in]    channel port number to connect with display engine
  *      image [in]    image to display at video
- * 
+ *
  * Return Value
  *  If success HAL_VO_STATE_OK, else an one of error in HAL_VO_STATE_T.
  *
@@ -482,7 +482,7 @@ DTV_STATUS_T HAL_VO_RedrawPicture(unsigned int ch);
  *
  *     DTV_STATUS_T HAL_VO_FB_Initialize(unsigned int ch) {
  *       Init a video resource
- *     
+ *
  *       If any eror THEN
  *         RETURN value a one of error in DTV_STATUS_T
  *       ELSE
@@ -516,7 +516,7 @@ DTV_STATUS_T HAL_VO_FB_Initialize(unsigned int ch);
  *
  *     DTV_STATUS_T HAL_VO_FB_Finalize(unsigned int ch) {
  *       Final a video resource
- *     
+ *
  *       If any eror THEN
  *         RETURN value a one of error in DTV_STATUS_T
  *       ELSE
@@ -552,7 +552,7 @@ DTV_STATUS_T HAL_VO_FB_Finalize(unsigned int ch);
  *     DTV_STATUS_T HAL_VO_FB_GetTargetFrameBuffer(const unsigned int ch, HAL_VO_FB_FRAMEBUFFER_T* framebuffer) {
  *       FLIP current frame index
  *       SET target framebuffer to able to draw some image
- *     
+ *
  *       If any eror THEN
  *         RETURN value a one of error in DTV_STATUS_T
  *       ELSE
@@ -567,9 +567,9 @@ DTV_STATUS_T HAL_VO_FB_Finalize(unsigned int ch);
  *     DTV_STATUS_T ret = HAL_VO_FB_GetTargetFrameBuffer(0, &framebuffer);
  *     if (ret != API_OK)
  *     printf("fail to get target framebuffer");
- *     
+ *
  *     drawImage(&framebuffer);
- *     
+ *
  *     ret = HAL_VO_FB_UpdateFrameBuffer(0, &framebuffer);
  *     if (ret != API_OK)
  *       printf("fail to update framebuffer");
@@ -594,7 +594,7 @@ DTV_STATUS_T HAL_VO_FB_GetTargetFrameBuffer(const unsigned int ch, HAL_VO_FB_FRA
  *
  *     DTV_STATUS_T HAL_VO_FB_UpdateFrameBuffer(const unsigned int ch, const HAL_VO_FB_FRAMEBUFFER_T* framebuffer) {
  *       MAP input framebuffer to the port
- *     
+ *
  *       If any eror THEN
  *         RETURN value a one of error in DTV_STATUS_T
  *       ELSE
@@ -609,9 +609,9 @@ DTV_STATUS_T HAL_VO_FB_GetTargetFrameBuffer(const unsigned int ch, HAL_VO_FB_FRA
  *     DTV_STATUS_T ret = HAL_VO_FB_GetTargetFrameBuffer(0, &framebuffer);
  *     if (ret != API_OK)
  *       printf("fail to get target framebuffer");
- *     
+ *
  *     drawImage( &framebuffer );
- *     
+ *
  *     ret = HAL_VO_FB_UpdateFrameBuffer(0, &framebuffer);
  *     if (ret != API_OK)
  *       printf("fail to update framebuffer");
@@ -639,7 +639,7 @@ DTV_STATUS_T HAL_VO_FB_UpdateFrameBuffer(const unsigned int ch, const HAL_VO_FB_
  *       UPDATE the input / output rect of the port
  *       UPDATE the alpha variable of the port
  *       UPDATE the color space
- *     
+ *
  *       If any eror THEN
  *         RETURN value a one of error in DTV_STATUS_T
  *       ELSE
@@ -654,7 +654,7 @@ DTV_STATUS_T HAL_VO_FB_UpdateFrameBuffer(const unsigned int ch, const HAL_VO_FB_
  *     DTV_STATUS_T ret = HAL_VO_FB_GetTargetFrameBuffer(0, &framebuffer);
  *     if (ret != API_OK)
  *       printf("fail to get target framebuffer");
- *     
+ *
  *     HAL_VO_FB_FRAMEBUFFER_PROPERTY_T property;
  *     ret = HAL_VO_FB_UpdateFrameBufferProperty(0, &framebuffer, &property);
  *     if (ret != API_OK)

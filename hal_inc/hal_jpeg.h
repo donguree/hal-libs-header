@@ -112,13 +112,13 @@ typedef struct {
  *
  * Constraints
  *  It has to link hal_jpeg.so library.
- * 
+ *
  * Functions & Parameters
  *   .. code-block:: cpp
  *
  *      ch  [in]    channel port number to connect with display engine
  *      def [in]    video panel type
- * 
+ *
  * Return Value
  *  If success HAL_JPEG_STATE_OK, else an one of error in HAL_JPEG_STATE_T.
  *
@@ -184,14 +184,14 @@ DTV_STATUS_T HAL_JPEG_Close(void);
  *
  * Constraints
  *  It has to link hal_jpeg.so, libjpeg.so library.
- * 
+ *
  * Functions & Parameters
  *   .. code-block:: cpp
  *
  *      src [in]    source image to be decompressing by HW decoder
  *      dst [in]    decoded destination image
  *      option [in]    decoding option
- * 
+ *
  * Return Value
  *  If success HAL_JPEG_STATE_OK, else an one of error in HAL_JPEG_STATE_T.
  *
